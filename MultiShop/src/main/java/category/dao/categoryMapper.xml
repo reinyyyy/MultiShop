@@ -2,22 +2,27 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="categorySQL">
-   <!-- clothes 리스트 -->
-   <select id = "getProductList" resultType = "clothesDTO">   <!-- cateNum 나중에 해줘야함 -->
-      <!-- select * from ()select rownum rn, tt * from (select * from PRODUCT where code = #{cateNum})tt) where rn between #{startNum} and #{endNum} -->
-      select * from clothes
-   </select>
-   
-   <!-- clothes 하나 불러오기 -->
-   <select id = "getProduct" parameterType = "String"   resultType = "clothesDTO">
-      select * from clothes where p_code = #{p_code}
-   </select>
+	<!-- clothes 리스트 -->
+	<select id = "getProductList" resultType = "productDTO">	<!-- cateNum 나중에 해줘야함 -->
+		<!-- select * from ()select rownum rn, tt * from (select * from PRODUCT where code = #{cateNum})tt) where rn between #{startNum} and #{endNum} -->
+		select * from PRODUCT
+	</select>
+	
+	<!-- clothes 하나 불러오기 -->
+	<select id = "getProduct" parameterType = "String"	resultType = "productDTO">
+		select * from PRODUCT where p_code = #{p_code}
+	</select>
+	
+	<!-- 제품 글 목록 불러오기 -->
+	<select id = "getProduct_Board_list" parameterType = "int" resultType = "product_boardDTO">
+		select * from PRODUCT_BOARD where p_cateNum = #{cateNum}
+	</select>
+	
+	<!-- 패션 옵션 가져오기 -->
+	<select id = "getGroup" parameterType = "String" resultType = "productDTO">
+		select * from PRODUCT where p_group = #{p_group}
+	</select>
 </mapper>  
-
-
-
-
-
 
 
 
