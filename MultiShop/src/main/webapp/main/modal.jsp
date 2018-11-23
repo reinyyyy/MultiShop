@@ -60,7 +60,7 @@
 				</button>
 				<div>
 					<span data-toggle="tooltip" data-placement="Bottom"
-						title="비밀번호가 기억 안 나시면 오른쪽 버튼을 눌러 비밀번호를 찾아주세요!">
+						title="비밀번호가 기억 안 나시면 오른쪽 버튼을 눌러 비밀번호를 찾아주세요!!">
 						<font size="1em"><strong>비밀번호 찾기</strong></font>
 				</div>
 				
