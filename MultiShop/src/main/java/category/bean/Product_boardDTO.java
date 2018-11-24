@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Product_boardDTO {
 	private int p_cateNum;
-	private String p_code;
+	private int p_code;
 	private String p_name;
 	private String p_contents;
 	private int p_cost;

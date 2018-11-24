@@ -76,6 +76,9 @@
 </head>
 <body style="width: 100%">
 <!-- 팝업 -->
+<input type = hidden id = "cateNum" value = "${cateNum}"/>
+<input type = hidden id = "pg" value = "${pg}"/>
+
 
 
 	<!-- The Modal -->
@@ -105,17 +108,7 @@
 
 
 	<div id="jb-container">
-		<!-- 상단 히스토리 바 -->
-		<div id="jb-header">
-			<nav aria-label="breadcrumb" role="navigation">
-				<ol class="breadcrumb">
-					<!-- 사용자 클릭히스토리로 동적 처리필요 -->
-					<li class="breadcrumb-item"><a href="../main/index.do">HOME</a></li>
-					<li class="breadcrumb-item"><a onclick="goPage('${cateNum}')" href = "javascript:void(0)">${pageName }</a></li>
-					<li class="breadcrumb-item active" aria-current="page">데이터</li>
-				</ol>
-			</nav>
-		</div>
+		
 		<!-- 좌측 사이드 메뉴바 -->
 		<div id="jb-sidebar">
 			<div id="accordion" role="tablist">
@@ -186,6 +179,16 @@
 		</div>
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content">
+		<!-- 상단 히스토리 바 -->
+			<nav aria-label="breadcrumb" role="navigation">
+				<ol class="breadcrumb">
+					<!-- 사용자 클릭히스토리로 동적 처리필요 -->
+					<li class="breadcrumb-item"><a href="../main/index.do">HOME</a></li>
+					<li class="breadcrumb-item"><a onclick="goPage('${cateNum}')" href = "javascript:void(0)">${pageName }</a></li>
+					<li class="breadcrumb-item active" aria-current="page">데이터</li>
+				</ol>
+			</nav>
+		
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
 					<ul>
@@ -193,6 +196,7 @@
 						<li><a href="#link" onclick="fn_sort('1');">신상품순</a></li>
 						<li><a href="#link" onclick="javascript:fn_sort('3');">낮은가격순</a></li>
 						<li><a href="#link" onclick="javascript:fn_sort('4');">높은가격순</a></li>
+						<li><a href="../detail_page/detailPage.do" onclick="">상세정보</a></li>
 					</ul>
 				</div>
 				<!--  몇개씩 보여줄 것인지 -->
@@ -213,11 +217,11 @@
 			
 			<!-- 페이징 처리 영역 -->
 			<div id="jb-footer">
-				<div align="center">
-					<button type="button" class="btn btn-secondary" onclick="alert();">1</button>
+				<div align="center" id = "categoryPaging">
+					<!-- <button type="button" class="btn btn-secondary" onclick="alert();">1</button>
 					<button type="button" class="btn btn-secondary">2</button>
 					<button type="button" class="btn btn-secondary">3</button>
-					<button type="button" class="btn btn-secondary">다음</button>
+					<button type="button" class="btn btn-secondary">다음</button> -->
 				</div>
 
 				<!-- <div class="input-group">	여기에서 검색만들꺼면 이거쓰면됨
@@ -248,19 +252,18 @@
 
 			//모달 클릭이벤트 QUICK VIEW 클릭 이벤트
 			$("#myBtn").click(function() {
-				
 				$("#myModal").modal();
 			});
 			
 			//QUICK VIEW 모달 로딩완료 이벤트
 			$('#myModal').on('shown.bs.modal', function(){
-				
 				$.ajax({
 					type : "POST",
 					url : "quickView.do",
-					data : {'p_code' : p_code, 'cateNum' : '${cateNum}'},												//DB만들면 data에 상품 대표하는 값 집어넣어줘야함 $('#p_code').val()
+					data : {'p_code' : p_code, 'cateNum' : $("#cateNum").val()},												//DB만들면 data에 상품 대표하는 값 집어넣어줘야함 $('#p_code').val()
 					dataType : 'html',
 					success : function(data){
+						
 						$('.quickViewBody').html(data);						
 					},
 					error : function(){
@@ -298,15 +301,18 @@
 				type : 'POST',
 				url : '../category/getList.do',
 				data : {
-					'cateNum' : '${cateNum}'
+					'cateNum' :  $("#cateNum").val(),
+					'pg' : $("#pg").val()
 				}, //따옴표치면 문자열, 안치면 숫자 
 				dataType : 'json',
 				success : function(data) { //data에는 리스트들
+					alert(JSON.stringify(data));
 					var card_contents = '';
 					$.each(data.list, function(index, items) {
 						card_contents += card(items);
 					});
 					$('#card_contents').html(card_contents);
+					$('#categoryPaging').html(data.categoryPaging.pagingHTML);
 
 				}
 			});
