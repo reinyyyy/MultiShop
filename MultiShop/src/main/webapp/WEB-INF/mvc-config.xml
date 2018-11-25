@@ -17,7 +17,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<bean id="indexController" class="main.controller.IndexController"></bean>
-	<bean id="noticeController" class="notice.controller.NoticeController"></bean>  
+	<bean id="noticeController" class="notice.controller.NoticeController"></bean>
+	<bean id="manageController" class="manage.controller.ManageController"></bean>
 	
 	<context:component-scan base-package="member.dao"/>
 	<context:component-scan base-package="notice.dao"/>
@@ -27,6 +28,8 @@
 	<context:component-scan base-package="detail.dao"/>
    <context:component-scan base-package="detail.bean"/>
    <context:component-scan base-package="detail.controller"/>
+   <context:component-scan base-package="manage.dao"/>
+   <context:component-scan base-package="manage.bean"/>
 
     <mvc:annotation-driven />
 

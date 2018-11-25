@@ -89,9 +89,9 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
         </div><!-- // .hd .ani -->
         <ul id="snb">
         	<li class="product">
-                <a href="#" menu_id="2">상품관리</a>
-	            <ul style="display:block;">
-		            <li class=" ">
+                <a href="#"  id="productManageBtn" menu_id="2">상품관리</a>
+	            <ul id="productManageUl">
+		            <li class="" value="0">
 		                <a href="../manage/productAdd.do">상품 등록</a>
 		            </li>
 		            <li class="now ">
@@ -100,9 +100,9 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
 	            </ul>
             </li>
             <li class="order ">
-                <a href="#" menu_id="3">주문관리</a>
-                <ul style="display:block;">
-                	<li class=" ">
+                <a href="#" id="orderManageBtn" menu_id="3">주문관리</a>
+                <ul id="orderManageUl">
+                	<li class=" " value="0">
                         <a href="../manage/orderManageTotal.do">주문내역</a>
                     </li>
                     <li class=" ">
@@ -129,13 +129,43 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
 		</div>
     </div><!-- .menu-wrapper -->
 </div>
-
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#productManageBtn').click(function(){
+		$('#snb li').addClass('now');
+		$('#snb li.now ul').css('display','block');
+		/* 
+		if($('#productManageUl li').val() == 0){
+			$('#productManageUl').css('display','block');
+			$('#productManageUl > li').val('1');
+		}else {
+			$('#productManageUl').css('display','none');
+			$('#productManageUl > li').val('0');
+		} */
+	});
+	
+	/* 
+	$('#orderManageBtn').click(function(){
+		if($('#orderManageUl li').val() == 0){
+			$('#orderManageUl').css('display','block');
+			$('#orderManageUl > li').val('1');
+		}else {
+			$('#orderManageUl').css('display','none');
+			$('#orderManageUl > li').val('0');
+		}
+	}); */
+});
+</script>
 <script>
 // 선택된 하위메뉴 상위메뉴가 안열렸을경우 실행
-if ($m('#snb li ul .now').length != 0 && $m('#snb li ul .now').parent().parent('.now').length == 0) {
-    $m('#snb li ul .now').parent().parent().addClass('now');
-    $m('#snb li ul .now').parent().show();
+$(document).ready(function(){
+if ($('#snb li ul .now').length != 0 && $('#snb li ul .now').parent().parent('.now').length == 0) {
+	$('#snb li ul .now').parent().parent().removeClass('now');
+    $('#snb li ul .now').parent().parent().addClass('now');
+    $('#snb li ul .now').parent().show();
 }
+});
 </script>
 
 

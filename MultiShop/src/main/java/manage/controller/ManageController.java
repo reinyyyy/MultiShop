@@ -13,7 +13,7 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/main.jsp");
-		mav.setViewName("/section/adminIndex");
+		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
 	
@@ -22,7 +22,7 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/productAdd.jsp");
-		mav.setViewName("/section/adminIndex");
+		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
 	
@@ -31,7 +31,7 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/productLists.jsp");
-		mav.setViewName("/section/adminIndex");
+		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
 	
@@ -40,7 +40,7 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/orderManageTotal.jsp");
-		mav.setViewName("/section/adminIndex");
+		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
 	
@@ -49,7 +49,7 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/orderSimpleTotal.jsp");
-		mav.setViewName("/section/adminIndex");
+		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
 	
@@ -58,7 +58,7 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/memberTotal.jsp");
-		mav.setViewName("/section/adminIndex");
+		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
 	
