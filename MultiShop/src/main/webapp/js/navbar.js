@@ -270,7 +270,7 @@ $(document).ready(function(){
       if(pwd.val()==''){
          $('#member_modify_statusDiv').text('비밀번호를 입력해주세요').css('color','red');
       }else{
-         $.post('/MultiShop/member/membermodifyconfirm.do',
+         $.post('/MultiShop/mypage/membermodifyconfirm.do',
                $('#member_modify_confirm_form').serialize(),
                function(data){
                   if(data=='true'){

@@ -1,5 +1,6 @@
-package mypage.contoller;
+package mypage.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
+import mypage.bean.OrderDTO;
+import mypage.dao.OrderDAO;
 
 @Controller
 public class MypageController {
@@ -23,6 +26,10 @@ public class MypageController {
 	private MemberDTO memberDTO;
 	@Autowired
 	private MemberDAO memberDAO;
+	@Autowired
+	private OrderDTO orderDTO;
+	@Autowired
+	private OrderDAO orderDAO;
 	
 	 @RequestMapping(value="/mypage/mypage.do", method=RequestMethod.GET)
 	   public ModelAndView mypage(@ModelAttribute ModelAndView mav) {
@@ -36,7 +43,7 @@ public class MypageController {
 		   mav.setViewName("/main/main");
 		   return mav;
 	   }
-	   @RequestMapping(value = "/member/membermodifyconfirm.do",method=RequestMethod.POST)
+	   @RequestMapping(value = "/mypage/membermodifyconfirm.do",method=RequestMethod.POST)
 	   public @ResponseBody String membermodifyconfirm(@RequestParam Map<String,String> map,HttpSession session) {
 	      memberDTO = memberDAO.member_view(map.get("m_email"), map.get("m_pwd"));
 	      if(memberDTO!=null) {
@@ -62,9 +69,10 @@ public class MypageController {
 	      }
 	   }
 	   @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.GET)
-	   public ModelAndView delivery(@ModelAttribute ModelAndView mav) {
-		  
-		  
+	   public ModelAndView delivery(@ModelAttribute ModelAndView mav,HttpSession session) {
+		  String email = (String) session.getAttribute("session_email");
+		  List<OrderDTO> list = orderDAO.orderList(email);
+		  mav.addObject("orderList",list);
 	      mav.addObject("section","/mypage/deliveryPage.jsp");
 	      mav.setViewName("/main/main");
 	      return mav;

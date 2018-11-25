@@ -19,14 +19,13 @@
     </tr>
   </thead>
   <tbody>
-  	 <c:forEach items="${deleveryList }" var="">
+  	  <c:forEach items="${orderList }" var="list">
 	    <tr>
-	      <th scope="row">1</th>
-	      <td>Mark</td>
-	      <td>Otto</td>
-	      <td>@mdo</td>
+	      <th scope="row">${list.o_num }</th>
+	      <td>${list.p_code }</td>
+	      <td>${list.p_code }</td>
 	    </tr>
-  	 </c:forEach>
+  	 </c:forEach> 
   </tbody>
 </table>
 
