@@ -1,16 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href = "../css/manage/style.css" rel = "stylesheet">
-<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script srt = "../js/manage/product.js"></script>
-</head>
-<body>
 <div id="prdRegist" class="page-body rw">
     <form id="product_form" method="post" enctype="multipart/form-data" action="/adm/product/manage/save">
     <!-- PARAMETER -->
@@ -386,9 +375,9 @@
     <div class="sect-hd">
 		<h3>재고</h3>
 		<span class="txt-select">(선택)</span>
-		<a href="#" class="btn-arrow">닫기</a>
+		<a href="#" class="btn-arrow up">닫기</a>
 	</div><!-- .sect-hd -->
-	<div class="sect-cont" style="display: block;">
+	<div class="sect-cont" style="display: none;">
 		<ul id="stock-non" class="mobile-stock stock" style="">
 			<li>
 				<label><input type="radio" name="prd_stock_type" value="limit"><span>수량</span></label>
@@ -404,7 +393,7 @@
         <h3>옵션</h3>
         <a href="#prdGuide2" class="lnk-qmark open-layer">도움말</a>
         <span class="txt-select">(선택)</span>
-        <a href="#" class="btn-arrow">닫기</a>
+        <a href="#" class="btn-arrow up">닫기</a>
     </div><!-- .sect-hd -->
     <!--div class="sect-hd" style="">
         <h3>옵션</h3>
@@ -412,7 +401,7 @@
         <span class="txt-select">(선택)</span>
         <a href="#" class="btn-arrow">닫기</a>
     </div--><!-- .sect-hd -->
-    <div class="sect-cont pd-none" style="display: block;">
+    <div class="sect-cont pd-none" style="display: none;">
         <div class="">
             <div class="tbl-setting">
                 <table>
@@ -654,9 +643,9 @@
         <h3>배송</h3>
         <a href="#prdGuide4" class="lnk-qmark open-layer">도움말</a>
         <span class="txt-select">(선택)</span>
-        <a href="#" class="btn-arrow">닫기</a>
+        <a href="#" class="btn-arrow up">닫기</a>
     </div><!-- .sect-hd -->
-    <div class="sect-cont pd-none" style="display: block;">
+    <div class="sect-cont pd-none" style="display: none;">
         <div class="tbl-setting">
             <table>
                 <caption></caption>
@@ -713,9 +702,9 @@
         <h3 id="detail-top">상세설명
         </h3>
         <span class="txt-select">(선택)</span>
-        <a href="#" class="btn-arrow">닫기</a>
+        <a href="#" class="btn-arrow up">닫기</a>
     </div><!-- .sect-hd -->
-    <div class="sect-cont" style="display: block;">
+    <div class="sect-cont" style="display: none;">
         <!-- 18.11.16 s -->
         <div class="mb-10">
             <label class="mr-40">
@@ -858,445 +847,3 @@
     </div>
     </form>
 </div>
-
-
-<script>
-
-
-var menuHash = '#left-menu';
-var requestUrl = "/adm/product/manage/add";
-
-	
-$(document).ready(function(){
-	/* $(document).click(function(){
-		console.log($(this).prop('tagName'));
-	}); */
-	
-        $(function(e) {
-        //ajax loading start//
-        $(document).ajaxStart(function(e){
-            mysoho.global.loadingOn();
-        });
-
-        $(document).ajaxStop(function(e){
-            mysoho.global.loadingOff();
-            setTimeout(function(){
-                if (mysoho.global.isElement('#js-mysohoLoading') > 0){
-                    mysoho.global.loadingOff();
-                }
-            },10000);
-        });
-        //ajax loading end//
-
-        // 레이어 팝업 열기
-        $('.open-layer').on('click', function(e) {
-        	
-            e.preventDefault();
-            open_layer_popup(this.hash);
-        });
-
-        $('.open-layer2').on('click', function(e) {
-            e.preventDefault();
-            open_layer_popup(this.hash, 'type2');
-        });
-
-        // 레이어 팝업 닫기 
-        $('.close-layer').on('click', function(e) {
-            e.preventDefault();
-            close_layer_popup(this.hash);
-        });
-        // 왼쪽 메뉴 열기
-        $('#header .btn-bar').on('click', function(e) {
-            e.preventDefault();
-            var hashData = {};
-            if (isMobile) {
-                hashData = { menuId : 'none' };
-                history.pushState(hashData, 'leftMenu', menuHash);
-                //openLeftMenu(hashData); 
-                // 메뉴 페이지로 변경.
-                window.location.href = admDir+"/main/menu";
-            }
-        });
-        // 왼쪽 메뉴 닫기
-        $('#aside .btn-close').on('click', function(e) {
-            e.preventDefault();
-            //closeLeftMenu(); 
-            // 메뉴 페이지로 변경
-            if (location.hash && location.hash.substr(0, 10) == '#left-menu') { 
-                location.href = admDir  + '/main/dashboard';
-            } else {
-                window.history.back();
-            }
-        });
-        // 왼쪽 메뉴 슬라이드
-        $('#snb > li:not(.direct) > a').on('click', function(e) {
-            e.preventDefault();
-
-            if (isMobile) {
-                var hashData = {}
-                //var hash = menuHash + '-' + menuId;
-                // todo 비교문을 바꿔야 한다. slide가 다시 접힌다 ;;
-                // now 면 none을 넣어준다.
-                if ($(this).parent('li').hasClass('now')) { 
-                    hashData = { menuId : 'none' };
-                } else {
-                    var menuId = $(this).attr('menu_id');
-                    hashData = { menuId : menuId };
-                }
-                if (history.state === null || menuId != history.state.menuId) {
-                    history.pushState(hashData, 'leftMenu', menuHash);
-                }
-            }
-            slideLeftMenu(this);
-        });
-        // 오른쪽 메뉴 열기
-        $('#header .btn-sns').on('click', function(e) {
-            e.preventDefault();
-            $('.overlay').show();
-            $('#sidebar').animate({'right': 0}, 500);
-            $('html, body').css({'overflow': 'hidden', 'height': '100%'});
-        });
-        // 오른쪽 메뉴 닫기
-        $('#sidebar .btn-close').on('click', function(e) {
-            e.preventDefault();
-            $('.overlay').hide();
-            $('#sidebar').animate({'right': '-240px'}, 500);
-            $('html, body').css({'overflow': '', 'height': ''});
-        });
-        // 팝업 열기
-        $('.btn-layer-open').on('click', function(e) {
-            e.preventDefault();
-            $('.overlay').show();
-            $(this.hash).show();
-        });
-        // 팝업 닫기
-        $('.btn-layer-close').on('click', function(e) {
-            e.preventDefault();
-            $('.overlay').hide();
-            $(this.hash).hide();
-        });
-        // 컨텐츠 토글
-        $('.btn-arrow').on('click', function(e) {
-        	alert($(this).prop('class'));
-            e.preventDefault();
-            if ($(this).hasClass('up')) {
-                $(this).removeClass('up');
-                $(this).parent().find('.txt-blur-span').hide();
-                $(this).parent('.sect-hd').next('.sect-cont').show();
-            } else {
-                $(this).addClass('up');
-                $(this).parent().find('.txt-blur-span').show();
-                $(this).parent('.sect-hd').next('.sect-cont').hide();
-            }
-        });
-        // 옵션 토글
-        $('.btn-toggle').on('click', function(e) {
-            e.preventDefault();
-            $(this).addClass('now').parent('li').siblings('li').find('.btn-toggle').removeClass('now');
-            $(this).addClass('now').siblings('.btn-toggle').removeClass('now');
-        });
-
-        $('.MSH-toggle').on('click', function() {
-            var name = $(this).data('name'),
-                value = $(this).data('value');
-
-            $('input[name="'+name+'"]').val(value);
-        });
-
-        $('.MSH-toggle').each(function () {
-            var name = $(this).data('name'),
-                value = $(this).data('value'),
-                hidden_value = $('input[name="'+name+'"]').val();
-            if (value == hidden_value) {
-                $(this).trigger('click');
-            }
-        });
-
-        //.page-hd lnk 클릭 시
-        $('.page-hd .side dt').on('click', function() {
-            if( $(this).siblings('dd').css('display') == 'none' ) {
-                $(this).siblings('dd').show();
-            }else {
-                $(this).siblings('dd').hide();
-            }
-        });
-        $(document).ready(function() { 
-            $(document).mouseup(function (e) {
-                var container = $('.dd-box');
-                if (container.has(e.target).length === 0) {
-                    container.hide();
-                }
-            });
-        });
-        $('.dd-box li a').on('click', function() {
-            $(this).parents('.dd-box').hide();
-        })
-        // 컨텐츠 토글. up클래스 외엔 접어두기
-        $('.btn-arrow').each(function(e) {
-            if ($(this).hasClass('up')) {
-                $(this).removeClass('up');
-                $(this).parent('.sect-hd').next('.sect-cont').show();
-            } else {
-                $(this).addClass('up');
-                $(this).parent('.sect-hd').next('.sect-cont').hide();
-            }
-        });
-        //이전페이지 돌아가기 17.11.07
-        $('.btn-back').on('click', function(e) {
-            e.preventDefault();
-            if (window.opener) {
-                self.close();
-            } else {
-                if (document.referrer && document.referrer.indexOf(admDir + '/auth/') != -1) {
-                    location.href = admDir  + '/main/dashboard';
-                } else {
-                    if (isMobile) {
-                        // 모바일에서  마이페이지 , 무통장 입금 관리 , 플러그인 페이지 뒤로가기 시 무조건 메인으로 가도록 처리
-                        // URL 에서 앞에 대문자로 표기 된 부분이 있어서 경로를 전체 소문자로 작성 함 ( 비교도 소문자로 함 )
-                        var exceptUrl = [
-                                '/adm/mypage/admin',                //마이페이지
-                                '/adm/mypage/mysns/mysns',
-                                '/adm/order/beebank',               //무통장 입금 관리
-                                '/adm/order/beebank/match',       
-                                '/adm/order/beebank/accountlist',
-                                '/adm/plugin/manage',               //플러그인
-                                '/adm/plugin/manage/myplugin'
-                        ];
-           
-                        if ($.inArray(requestUrl.toLowerCase() , exceptUrl) != -1 ) {
-                            var beebankExceptUrl = [
-                                '/adm/order/beebank',               //무통장 입금 관리
-                                '/adm/order/beebank/match',       
-                                '/adm/order/beebank/accountlist'
-                            ];
-                            var menuUrl = '/main/menu';
-                            if ($.inArray(requestUrl.toLowerCase() , beebankExceptUrl) != -1 && typeof(Storage) !== 'undefined') { 
-                                sessionStorage.setItem('menuId' , 3);
-                                menuUrl += '#left-menu';
-                            }
-                            location.href = admDir + menuUrl;
-                            
-                        } else {
-                            window.history.back();
-                        }
-                    } else {
-                        window.history.back();
-                    }
-                }
-            }
-        });
-        //스크롤 시 top 버튼
-        $(window).on('scroll', function() {
-            var scrollTop = $(window).scrollTop();
-            if ( scrollTop > 0 ) {
-                $('.btn-top').fadeIn();
-            } else {
-                $('.btn-top').fadeOut();
-            }
-        });
-        // 위로 up up
-        $('.btn-top').on('click', function(e) {
-            e.preventDefault();
-            $('html, body, .subWrap').stop().animate({scrollTop: 0}, 500);
-        });
-        //메뉴 스크롤 시 17.11.10
-        /* 18.04.05 애니메이션 제거
-        var throttle = function(func, wait, options) {
-            var _ = {
-                now: Date.now || function() {
-                    return new Date().getTime();
-                }
-            };
-            var context, args, result;
-            var timeout = null;
-            var previous = 0;
-            if (!options) {
-                options = {};
-            }
-            var later = function() {
-                previous = options.leading === false ? 0 : _.now();
-                timeout = null;
-                result = func.apply(context, args);
-                if (!timeout) {
-                    context = args = null;
-                }
-            };
-            return function() {
-                var now = _.now();
-                if (!previous && options.leading === false) {
-                    previous = now;
-                }
-                var remaining = wait - (now - previous);
-                context = this;
-                args = arguments;
-                if (remaining <= 0 || remaining > wait) {
-                    if (timeout) {
-                        clearTimeout(timeout);
-                        timeout = null;
-                    }
-                    previous = now;
-                    result = func.apply(context, args);
-                    if (!timeout) {
-                        context = args = null;
-                    }
-                } else if (!timeout && options.trailing !== false) {
-                    timeout = setTimeout(later, remaining);
-                }
-                return result;
-            };
-        };
-        */
-        /*
-           2017.11.13 하단 스크립트 수정
-         */
-
-        var lastScrollTop = -1,
-            currentScrollTop = 0,
-            is_down = false,
-            animating = false,
-            $sideMenu = $('#aside');
-
-        $.fn.hasScrollBar = function() {
-            return this.get(0).scrollHeight > this.height();
-        };
-
-        $(window).on('load resize', function(e) {
-            if ($sideMenu.length > 0 && $sideMenu.hasScrollBar()) {
-                $('.mobile-switch.bt', $sideMenu).css('padding-bottom', 228 - parseInt($sideMenu.get(0).scrollHeight - $sideMenu.height(), 10));
-            } else {
-                $('.mobile-switch.bt', $sideMenu).css('padding-bottom', parseInt(window.innerHeight - $('.menu-wrapper', $sideMenu).height(), 10) + 228);
-            }
-        });
-        /* 18.04.05 애니메이션 제거
-        $('#aside').on('scroll', throttle(function(e) {
-            var $self = $(this);
-            currentScrollTop = $(this).scrollTop();
-
-            if (currentScrollTop >= lastScrollTop) {
-                if (!is_down && !animating) {
-                    animating = true;
-                    $self.css('overflow-y', 'hidden').stop(true, true).animate({ scrollTop: 228 }, 250, function() {
-                        $self.css('overflow-y', 'scroll');
-                        is_down = true;
-                        animating = false;
-                    });
-                }
-            } else {
-                if (currentScrollTop < 228 && !animating) {
-                    animating = true;
-                    $self.css('overflow-y', 'hidden').stop(true, true).animate({ scrollTop: 0 }, 250, function() {
-                        $self.css('overflow-y', 'scroll');
-                        is_down = false;
-                        animating = false;
-                    });                
-                }
-            }
-
-            lastScrollTop = currentScrollTop;
-        }, 10));
-        */
-
-    });
-
-    //18.06.12 상품리스트 추가
-    $(document).on('click', '.prd_manage', function() {
-        var date = new Date();                                                              
-        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
-        document.cookie = 'prd_manage_option' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
-    });
-    //18.08.24 상품등록 추가
-    $(document).on('click', '.prd_form', function() {
-        var date = new Date();                                                              
-        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
-        document.cookie = 'prdExcelUpload' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
-    });
-    //18.09.05 주문내역 리뉴얼
-    $(document).on('click', '.order-list', function() {
-        var date = new Date();                                                              
-        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
-        document.cookie = 'renewOrderList' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
-    });
-    //18.10.04 간편결제관리 추가
-    $(document).on('click', '.card-simple-menu', function() {
-        var date = new Date();                                                              
-        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
-        document.cookie = 'cardSimpleMenu' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
-    });
-    //18.10.18 개인결제내역 추가
-    $(document).on('click', '.sms-direct-send', function() {
-        var date = new Date();                                                              
-        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
-        document.cookie = 'smsDirectSend' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
-    });
-
-
-})
-
-
-function openLeftMenu(data) {
-
-    /* 메뉴 페이지로 변경 2018.02.06
-    (function ($) {
-        $('#aside').animate({'left': 0}, 500);
-        $('html, body').css({'overflow': 'hidden', 'height': '100%'});
-    })($m);
-    */
-
-    // left-menu인건 이미 검사함
-    if (data !== null) {
-        var menuId = '';
-        if (history.state === null && sessionStorage.getItem('menuId') !== null) {
-            menuId = sessionStorage.getItem('menuId');    
-            sessionStorage.removeItem('menuId');
-            history.pushState({'menuId':menuId}, 'leftMenu', menuHash);
-        } else {
-            if (history.state === null) {
-                menuId = data.menuId;
-            } else {
-                menuId = data.menuId || history.state.menuId;
-            }
-        }
-        if (menuId != 'none') {
-            slideLeftMenu($m('#snb > li:not(.direct) > a[menu_id="'+menuId+'"]'));
-        }
-    }
-}
-
-// 메뉴 열어도 되는지
-function isMenuOpened() {
-    // 특정 메뉴 hash태그로 검사
-    if (location.hash.substr(0, 10) != '#left-menu') { 
-        return false; 
-    }
-    return true;
-}
-
-function closeLeftMenu() {
-    (function ($) {
-        location.hash = '';
-        $('#aside').animate({'left': '-2000px'}, 500);
-        $('html, body').css({'overflow': '', 'height': ''});
-    })($m);
-}
-
-function slideLeftMenu(el) {
-    (function ($) {
-        if ($(el).parent('li').hasClass('now')) {
-            $(el).parent('li').removeClass('now');
-            $(el).siblings('ul').slideUp();
-        } else {
-            $('#snb > li').removeClass('now');
-            $('#snb > li ul').slideUp();
-            $(el).parent('li').addClass('now');
-            $(el).siblings('ul').slideDown();
-        }
-    })($m);
-}
-
-window.onpopstate = function (e) {
-    //openLeftMenu(e.state);
-    mysoho.global.historyBack(e);
-}
-</script>
-</body>
-</html>
