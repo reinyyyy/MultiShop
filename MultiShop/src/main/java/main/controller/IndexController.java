@@ -209,36 +209,7 @@ public class IndexController {
 	   }
 	   
 	   /*마이페이지*/
-	   @RequestMapping(value="/mypage/mypage.do", method=RequestMethod.GET)
-	   public ModelAndView mypage(@ModelAttribute ModelAndView mav) {
-	      mav.addObject("section","/section/memberModify.jsp");
-	      mav.setViewName("/main/main");
-	      return mav;
-	   }
-	   @RequestMapping(value = "/member/membermodifyconfirm.do",method=RequestMethod.POST)
-	   public @ResponseBody String membermodifyconfirm(@RequestParam Map<String,String> map,HttpSession session) {
-	      memberDTO = memberDAO.member_view(map.get("m_email"), map.get("m_pwd"));
-	      if(memberDTO!=null) {
-	         session.setAttribute("memberDTO", memberDTO);
-	         return "true";
-	      }else {
-	         return "false";
-	      }
-	   }
-	   @RequestMapping(value="/mypage/memberModifyForm.do",method=RequestMethod.GET)
-	   public ModelAndView memberModifyForm(@ModelAttribute ModelAndView mav) {
-	      mav.addObject("section","/mypage/mypage.jsp");
-	      mav.setViewName("/main/main");
-	      return mav;
-	   }
-	   @RequestMapping(value="/mypage/memberModify.do",method=RequestMethod.POST)
-	   public @ResponseBody String memberModify(@RequestParam Map<String,String> map) {
-	      int su = memberDAO.membermodify(map);
-	      if(su==1) {
-	         return "true";
-	      }else {
-	         return "false";
-	      }
-	   }
+	  
+	   
 	 
 }

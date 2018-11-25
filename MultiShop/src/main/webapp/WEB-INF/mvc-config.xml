@@ -27,6 +27,8 @@
 	<context:component-scan base-package="detail.dao"/>
    <context:component-scan base-package="detail.bean"/>
    <context:component-scan base-package="detail.controller"/>
+   <context:component-scan base-package="mypage.controller"/>
+   <context:component-scan base-package="mypage.bean"/>
 
     <mvc:annotation-driven />
 

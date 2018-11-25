@@ -25,6 +25,7 @@
     <context:component-scan base-package="category.dao"/>
     <context:component-scan base-package="detail.bean"/>
     <context:component-scan base-package="detail.dao"/>
+    <context:component-scan base-package="mypage.dao"/>
     
     <!-- mail -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
