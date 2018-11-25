@@ -375,3 +375,8 @@ legend {visibility: hidden;font-size: 0;width: 0;height: 0;overflow: hidden;}
 }
 /* 폰트 색 */
 .color_red {color:#f24949 !important;}
+
+/* a태그 커서 */
+a.cursor{
+	cursor: pointer;
+}
