@@ -544,10 +544,14 @@
                     <a href="javascript:void(0);" class="btn-h52-blue w230 mr-10 js-createPagekin">상품상세 만들기</a>
                     <a href="javascript:void(0);" class="btn-h52-black w230 js-pagekinList">상품상세 추가하기</a>
                 </p> -->
-                
+                <p id="status">이미지 선택안됨</p>
             </div>
             <div>
+            <br>
             	<input type = "button" value = "확인" id = "check">
+            </div>
+            <div id = "holder">
+            
             </div>
             <script>
             	$(document).ready(function(){
@@ -555,7 +559,41 @@
     	        		var data = $('#default_iframe').contents().find('#contents_div').html();
     	        		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
     	        		alert (result);
+    	        		
+    	        		//var upload = document.getElementsByTagName('input')[0],
+    	        		var upload = $('input[name="img[]"]');
+    	        		var holder = $('#holder'); 
+    	        	    //holder = document.getElementById('holder'),
+    	        	    state = document.getElementById('status');
+    	        	    
+    	        	    
+    	        	    
+    	        	    $.each(upload, function(index, items){
+    	        	    	var file = items.files;
+    	        	    	var reader = new FileReader();
+    	        	    	reader.onload = function(event){
+    	        	    		var img = new Image();
+    	        	    		img.src = event.target.result;
+    	        	    		if(img.width > 560){
+    	        	    			img.width = 560;	
+    	        	    		}
+    	        	    		holder.html(img);
+    	        	    	}
+    	        	    	
+    	        	    	alert(items.files);
+    	        	    	if (typeof window.FileReader === 'undefined') {
+    	      	        	  state.className = 'fail';
+    	      	        	} else {
+    	      	        	  state.className = 'success';
+    	      	        	  state.innerHTML = '이미지 선택됨';
+    	      	        	}
+    	        	    });
             		});
+    	        	   
+            		$('input[name="img[]"]').change(function(){
+            			
+  	        			'<img src = '++'/>';
+  	        	    });
             	});
             </script>
             <!-- 페이지킨 적용 영역
@@ -1068,5 +1106,6 @@ function slideLeftMenu(el) {
         }
     })($m);
 }
+
 
 </script>
