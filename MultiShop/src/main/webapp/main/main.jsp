@@ -220,9 +220,8 @@
       <div><span>
          <img src='//cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif'>
       </span></div>
-    </div>
-    
-   <!-- Footer -->
+      
+      <!-- Footer -->
    <footer class="py-5 bg-dark">
   	   <div class="dropdown">
           <p class="m-0 text-center text-white">(주)COZY 사업자 정보 보기
@@ -263,22 +262,13 @@
 </script>
 
 <script type="text/javascript" src="../js/scrollTop.js"></script>
+<script type="text/javascript" src="../js/eventPopUp.js"></script>
 <script>
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 </script>
-<script type="text/javascript">
-$( document).ready(function() {
-	/* var result = getCookie('popup0520');
-	if (result == 'end') {
-	   return false;
-	}
-	else { */
-	  window.open("../main/eventPopup.html", "Open Event!", "width=400, height=540, toolbar=no, menubar=no, scrollbars=no, resizable=no" );  
-	  
-});
-</script>
+
 <script type="text/javascript">
 $(document)
 .ajaxStart(function () {
