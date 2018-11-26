@@ -3,7 +3,7 @@
 <body>
 <div class="modal fade" id="detail_hoogiModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" style="z-index : 1050;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">상품후기</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
@@ -125,17 +125,16 @@
           <div class="form-group detail_QnAView_Form-group">
             <label for="recipient-name" class="form-control-label">제목:</label>
             <input type="text" class="form-control" id="detail_QnASubjectView" readonly><br>
-            <div id="detail_QnASubjectViewDiv"></div>
           </div>
           <div class="form-group detail_QnAView_Form-group">
             <label for="message-text" class="form-control-label">내용:</label>
             <textarea class="form-control" id="detail_QnAContentView" readonly></textarea><br>
-            <div id="detail_QnAContentViewDiv"></div>
           </div>
           <div>
              <label for="message-text" class="form-control-label">답글:</label>
              <input type= "text" class="form-control" id="detail_QnAReplyView">
           </div>
+          <input type="hidden" id="detail_QnAReplySeq">
         </form>
       </div>
       <div class="modal-footer">

@@ -87,8 +87,9 @@ $(document).ready(function(){
       else{
          var detail_hoogiStar =  $('input[name="detail_hoogiStar"]:checked').val();
          var detail_hoogiModalContent = $('#detail_hoogiModalContent').val();
-         var id = "id";
-         var seq= 5;
+         /*var id = $('#session_email').val();*/
+         var id ='id';
+         var seq= 8;
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_hoogi.do',
@@ -98,7 +99,6 @@ $(document).ready(function(){
                   ,'seq':seq},
             success : function(){
                location.reload();
-               $('#detail_hoogiOkModal').modal('show');
             }
          });
       }
@@ -114,8 +114,7 @@ $(document).ready(function(){
    
    //Q&A
    $('#detail_Btn_QnA').on('click',function(){
-      console.log("@@@@@@@");
-      $('#detail_QnAModal').modal('show');
+      $('#detail_QnAModal').modal();
    });
    
    
@@ -129,11 +128,14 @@ $(document).ready(function(){
          $('#detail_QnAContentDiv').text('내용을 입력하세요.').css('color','red').css('font-size','9pt');
       }
       else{
-         var id = "id";
-         var seq = 10;
+         /*var id = $('#session_email').val();*/
+    	  var id ='id';
+         var seq = 11;
          var condition = $('input[name="detail_QnACondition"]:checked').val();
          var detail_QnASubject = $('#detail_QnASubject').val();
          var detail_QnAContent = $('#detail_QnAContent').val();
+         var replyContent = '';
+         var reply = 'ready';
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_QnA.do',
@@ -141,7 +143,9 @@ $(document).ready(function(){
                   'id':id,
                   'condition':condition,
                   'detail_QnASubject':detail_QnASubject,
-                  'detail_QnAContent':detail_QnAContent},
+                  'detail_QnAContent':detail_QnAContent,
+                  'replyContent':replyContent,
+                  'reply':reply},
             success : function(){
                location.reload();
             }
@@ -153,8 +157,9 @@ $(document).ready(function(){
    //상품 Q&A view seq
    var seq = '';
    //상품문의 제목
-   $('.detail_QnA_ContactUs').on('click',function(){
-      seq = $(this).parent().prev().prev().text();
+   $('.detail_hoogi_alramSpan').on('click',function(){
+      seq = $(this).parent().prev().prev().prev().text();
+      $('#detail_QnAReplySeq').val(seq);
       $('#detail_QnAModalView').modal();
    });
    
@@ -162,7 +167,7 @@ $(document).ready(function(){
    $('#detail_QnAModalView').on('show.bs.modal',function(){
       $.ajax({
          type : 'POST',
-         url : '/MultiShop/detail_page/detail_ContactUs.do',
+         url : '/MultiShop/detail_page/detail_QnAView.do',
          data : {'seq':seq},
          dataType : 'json',
          success : function(data){
@@ -174,9 +179,60 @@ $(document).ready(function(){
       });
    });
    
-   //
+   //QnA 답변 완료
    $('#detail_QnASendViewBtn').on('click',function(){
+      var seq = $('#detail_QnAReplySeq').val();
+      /*var id = $('#session_email').val();*/
+      var detail_QnAReplyView = $('#detail_QnAReplyView').val();
+      var reply = 'complet';
       
+      $.ajax({
+    	  type : 'POST',
+    	  url : '/MultiShop/detail_page/detail_QnA_Answer.do',
+    	  data : {'seq':seq,
+    		  	  'replyContent':detail_QnAReplyView,
+    		  	  'reply':reply},
+    	  success : function(){
+    		  location.reload();
+    	  }
+      });
    });
-   
+   //Q&A 보기
+   $('.detail_QnA_ContactUs').on('click',function(){
+	   var seq =$(this).parent().prev().prev().text();
+	   var appendTr = $(this).parent().parent();
+	   $.ajax({
+		   type : 'POST',
+		   url : '/MultiShop/detail_page/detail_QnA_List.do',
+		   data :{'seq':seq},
+		   dataType : 'json',
+		   success : function(data){
+			   $.each(data.detail_QnA_List , function(index,items){
+				   
+				   var result;
+				   if(items.replyContent == null){
+					   result = '등록된 답변이 없습니다.';
+				   }else{
+					   result = items.replyContent;
+				   }
+					   
+				   $('<tr/>').append($('<td/>',{
+					   colspan : '2',
+					   height : '50',
+					   html :'<img src="../image/QnA_Q.png" style="width : 20px; height : 20px;">'
+				   })).append($('<td/>',{
+					   colspan : '4',
+					   text : items.detail_QnAContent
+				   })).append($('<tr/>')).append($('<td/>',{
+					   colspan : '2',
+					   height : '50',
+					   html : '<img src ="../image/QnA_A.png" style="width : 20px; height : 20px;">'
+				   })).append($('<td/>',{
+					   colspan : '4',
+					   text : result,
+				   })).appendTo(appendTr);
+			   });
+		   }
+	   });
+   });
 });

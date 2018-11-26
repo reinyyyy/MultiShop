@@ -24,7 +24,7 @@
    </select>
 
    <insert parameterType="detail_QnADTO" id="detail_userQnA">
-      insert into detail_QnA values(#{seq},#{id},#{condition},#{detail_QnASubject},#{detail_QnAContent},sysdate) 
+      insert into detail_QnA values(#{seq},#{id},#{condition},#{detail_QnASubject},#{detail_QnAContent},sysdate,#{replyContent},#{reply}) 
    </insert>
    
    <select id="detail_GetQnAList" parameterType="java.util.Map" resultType="detail_QnADTO">
@@ -36,6 +36,11 @@
    <select parameterType="int" id="detail_GetQnAViewList" resultType="detail_QnADTO">
       select * from detail_QnA where seq = #{seq} 
    </select>
-   
+   <update id="detail_QnA_Answer" parameterType="java.util.Map">
+   	 update detail_QnA set replyContent = #{replyContent} ,reply = #{reply} where seq= #{seq}
+   </update>
+   <select id="detail_QnA_List" parameterType="int" resultType="detail_QnADTO">
+   	 select * from detail_QnA where seq = #{seq}
+   </select>
    
 </mapper>

@@ -1,6 +1,8 @@
 package detail.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -132,7 +134,6 @@ public class DetailController {
    
    @RequestMapping(value="detail_QnA", method=RequestMethod.POST)
    public ModelAndView detail_QnA(DetailQnADTO detailQnADTO) {
-      System.out.println(detailQnADTO.getSeq());
       ModelAndView modelAndView = new ModelAndView();
       detailDAO.detail_userQnA(detailQnADTO);
       
@@ -140,8 +141,8 @@ public class DetailController {
       return modelAndView;
    }
    
-   @RequestMapping(value="detail_ContactUs", method=RequestMethod.POST)
-   public ModelAndView detail_ContactUs (@RequestParam int seq) {
+   @RequestMapping(value="detail_QnAView", method=RequestMethod.POST)
+   public ModelAndView detail_QnAView (@RequestParam int seq) {
       ModelAndView modelAndView = new ModelAndView();
       DetailQnADTO detailQnADTO = detailDAO.detail_GetQnAViewList(seq);
       
@@ -150,6 +151,30 @@ public class DetailController {
       
       return modelAndView;
    }
-   
+   @RequestMapping(value="detail_QnA_Answer", method=RequestMethod.POST)
+   public ModelAndView detail_QnA_Answer (@RequestParam String seq,
+		   								  @RequestParam String replyContent,
+		   								  @RequestParam String reply) {
+	   ModelAndView modelAndView = new ModelAndView();
+	   Map<String,String> map = new HashMap<String,String>();
+	   map.put("seq", seq);
+	   map.put("replyContent", replyContent);
+	   map.put("reply", reply);
+	   detailDAO.detail_QnA_Answer(map);
+	   
+	   modelAndView.addObject("section", "/detail_page/detailPage.jsp");
+	   modelAndView.setViewName("/main/main");
+	   return modelAndView;
+   }
+   @RequestMapping(value="detail_QnA_List", method=RequestMethod.POST)
+   public ModelAndView detail_QnA_List (@RequestParam int seq) {
+	   ModelAndView modelAndView = new ModelAndView();
+	   List<DetailQnADTO> detail_QnA_List = detailDAO.detail_QnA_List(seq);
+	   
+	   modelAndView.addObject("detail_QnA_List", detail_QnA_List);
+	   modelAndView.addObject("section", "/detail_page/detailPage.jsp");
+	   modelAndView.setViewName("jsonView");
+	   return modelAndView;
+   }
    
 }

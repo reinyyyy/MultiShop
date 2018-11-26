@@ -73,6 +73,14 @@ public class DetailDAOMybatis implements DetailDAO {
 	public int detail_GetTotalQnA() {
 		return 0;
 	}
-   
 
+	public void detail_QnA_Answer(Map<String, String> map) {
+		sqlSession.update("detailSQL.detail_QnA_Answer",map);
+	}
+
+	public List<DetailQnADTO> detail_QnA_List(int seq) {
+		
+		return sqlSession.selectList("detailSQL.detail_QnA_List",seq);
+	}
+   
 }

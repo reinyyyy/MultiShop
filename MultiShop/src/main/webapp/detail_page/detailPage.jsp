@@ -13,9 +13,15 @@
    href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
    crossorigin="anonymous">
+<style type="text/css">
+#section_location{
+	position: unset;
+}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
+	<input type = "hidden" id="session_email" value="${session_email }">
    <header>
       <div class="container">
          <div id="productView">
@@ -264,6 +270,9 @@
               <div id="detail_hoogi_Table">
               	<jsp:include page="../detail_Table/detail_hoogiTable.jsp"/>
               </div>
+              <div>
+              	<jsp:include page="../detail_Paging/detail_hoogiPaging.jsp"/>
+              </div>
               <br>
             <div class="container" align="right">
                <input type="button" value="사용후기작성" class="btn_hoogi" id="btn_hoogi" data-toggle="modal" data-taget="#detail_hoogiModal">
@@ -293,7 +302,10 @@
             <br>
             <div id="detail_QnA_Table">
                  <jsp:include page="../detail_Table/detail_QnATable.jsp"/>
-              </div>
+            </div>
+            <div>
+              	<jsp:include page="../detail_Paging/detail_QnAPaging.jsp"/>
+            </div>
               <br>
               <div class="container" align="right">
                <input type="button" value="상품문의작성" class="detail_Btn_QnA mb-4" id="detail_Btn_QnA">

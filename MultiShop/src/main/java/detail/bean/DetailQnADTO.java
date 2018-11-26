@@ -14,5 +14,7 @@ public class DetailQnADTO {
    private String condition;
    private String detail_QnASubject;
    private String detail_QnAContent;
+   private String replyContent;
+   private String reply;
    private Date logtime;
 }

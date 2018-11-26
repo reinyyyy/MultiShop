@@ -268,12 +268,14 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 </script>
-<script type="text/javascript">
+
+<!-- <script type="text/javascript">
 $( document).ready(function() {
 	  window.open("../main/eventPopup.html", "Open Event!", "width=400, height=510, toolbar=no, menubar=no, scrollbars=no, resizable=no" );  
 	  
 });
-</script>
+</script> -->
+
 <script type="text/javascript">
 $(document)
 .ajaxStart(function () {

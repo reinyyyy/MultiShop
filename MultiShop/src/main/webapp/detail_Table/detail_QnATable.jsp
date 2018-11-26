@@ -29,9 +29,16 @@
 				<td class="detail_QnA" width="650">
 				<span class="detail_QnA_ContactUs">${detail_QnADTO.detail_QnASubject}</span>
 				</td>
-				<td align="center" class="detail_QnA" width="50">
-  					<span class="badge badge-success" id="detail_hoogi_alramSpan">답변대기</span>
-				</td>
+				<c:if test="${detail_QnADTO.reply == 'ready'}">
+					<td align="center" class="detail_QnA" width="50">
+	  					<span class="badge badge-danger detail_hoogi_alramSpan">답변대기</span>
+					</td>
+				</c:if>
+				<c:if test="${detail_QnADTO.reply == 'complet'}">
+					<td align="center" class="detail_QnA" width="50">
+	  					<span class="badge badge-success detail_hoogi_alramSpan">답변완료</span>
+					</td>
+				</c:if>
 				<td class="detail_QnA" width="100">${detail_QnADTO.id }</td>
 				<td class="detail_QnA" width="150">${detail_QnADTO.logtime}</td>
 			</tr>

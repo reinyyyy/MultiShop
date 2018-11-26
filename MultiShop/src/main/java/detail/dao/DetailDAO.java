@@ -1,6 +1,7 @@
 package detail.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import detail.bean.DetailDTO;
 import detail.bean.DetailQnADTO;
@@ -26,5 +27,9 @@ public interface DetailDAO {
    public int detail_GetTotalReView();
 	
    public int detail_GetTotalQnA();
-	   
+
+   public void detail_QnA_Answer(Map<String, String> map);
+
+   public List<DetailQnADTO> detail_QnA_List(int seq);
+	   	
 }
