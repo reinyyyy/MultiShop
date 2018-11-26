@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
- 
+<!DOCTYPE html>
 <html class="no-js" lang="ko"><!--<![endif]--><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no">
@@ -16,44 +14,24 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../css/admin.css">
-        <link rel="stylesheet" href="/assets/admin/css/default/pc.css?v=1.0.2">
-        <link rel="stylesheet" href="/assets/admin/css/default/important.css?1542888459">
-    <link rel="stylesheet" href="/assets/admin/css/default/jquery-ui.css">
-    <link rel="stylesheet" href="/assets/admin/css/jquery-ui-sortable.css">
-    <link rel="stylesheet" href="/assets/admin/css/extend.css?5"> <!-- /default 폴더 내 css 확장 : 최종 수정 시 time 뺄 것-->
-	<link rel="stylesheet" type="text/css" href="/assets/admin/css/default/idangerous.swiper.css">
-	
+    	
     <!--jQuery-->
-    <script type="text/javascript" src="/assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/vendor/jquery-migrate-1.4.1.min.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/vendor/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!--common-->
     <script src = "../js/manage/product.js"></script>
-<!--     <script type="text/javascript" src="/assets/common/js/vendor/jquery.popupoverlay.js"></script>
-    <script type="text/javascript" src="/assets/common/js/vendor/clipboard.min.js"></script>
-    <script type="text/javascript" src="/assets/common/js/mysoho.js?ver=1.0.0"></script>
-    <script type="text/javascript" src="/assets/common/js/utility.js?ver=1.0.0"></script>
-    <script type="text/javascript" src="/assets/common/js/global.js?ver=1.0.0"></script>
-    <script type="text/javascript" src="/assets/common/js/layer.js?ver=1.0.0"></script>
-    <script type="text/javascript" src="/assets/common/js/clipboard.action.js?ver=1.0.0"></script>
-    <script type="text/javascript" src="/assets/admin/js/jquery-ui.dialog.custom.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/vendor/jquery-ui-sortable.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/vendor/jquery-ui.touch.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/vendor/idangerous.swiper.min.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/vendor/jquery.sticky.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/js.cookie.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/plugins.js?1542888459"></script>
-    <script type="text/javascript" src="/assets/admin/js/kakao.min.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/jquery.slides.min.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/jquery.tablednd.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/jquery.nicescroll.min.js"></script>
-    <script type="text/javascript" src="/assets/admin/js/jquery.fixedheadertable.js"></script> -->
-    <!--[if lt IE 9]>
-        <script type="text/javascript" src="/assets/admin/js/vendor/html5shiv.js"></script>
-    <![endif]-->
-    <!--[if (gte IE 6)&(lte IE 8)]>
-        <script type="text/javascript" src="/assets/admin/js/vendor/selectivizr-min.js"></script>
-    <![endif]-->
+    <script src="../js/manage/member.js"></script>
+    <script>
+	$(document).ready(function(){
+		
+		$('#snb').on('click','li',function(){
+			$('#snb li').removeClass('now');
+			$('#snb li ul').css('display','none');
+			$(this).addClass('now');
+			$('#snb .now ul').css('display','block');
+		});
+
+	});
+	</script>
 </head>
 <style type="text/css">
 #snb:hover {
@@ -91,7 +69,7 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
         <ul id="snb">
         	<li class="product">
                 <a href="#"  id="productManageBtn" menu_id="2">상품관리</a>
-	            <ul id="productManageUl">
+	            <ul id="productManageUl" style="display:none">
 		            <li class="" value="0">
 		                <a href="../manage/productAdd.do">상품 등록</a>
 		            </li>
@@ -102,7 +80,7 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
             </li>
             <li class="order ">
                 <a href="#" id="orderManageBtn" menu_id="3">주문관리</a>
-                <ul id="orderManageUl">
+                <ul id="orderManageUl" style="display:none">
                 	<li class=" " value="0">
                         <a href="../manage/orderManageTotal.do">주문내역</a>
                     </li>
@@ -130,31 +108,6 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
 		</div>
     </div><!-- .menu-wrapper -->
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#productManageBtn').click(function(){
-		if($('#productManageUl li').val() == 0){
-			$('#productManageUl').css('display','block');
-			$('#productManageUl > li').val('1');
-		}else {
-			$('#productManageUl').css('display','none');
-			$('#productManageUl > li').val('0');
-		}
-	});
-	
-
-	$('#orderManageBtn').click(function(){
-		if($('#orderManageUl li').val() == 0){
-			$('#orderManageUl').css('display','block');
-			$('#orderManageUl > li').val('1');
-		}else {
-			$('#orderManageUl').css('display','none');
-			$('#orderManageUl > li').val('0');
-		}
-	});
-});
-</script>
 
 <div id="container" class="">
     <div class="page-hd">
@@ -198,17 +151,8 @@ $(document).ready(function(){
 .hide {display:none;}
 .tbl-list.tbl-extend table {min-width:1400px;}
 </style>
-<script>
-	// 17.12.15 주문 현황/검색 sms 배너 랜덤노출 추가
-	var banner = new Array();
-	banner[0] = '<a href="/adm/service/sms"><img src="' + imgPath + '/assets/admin/images/event/sms_banner1.jpg" alt="주문 고객에게 자동으로 sms 발송"></a>';
-	banner[1] = '<a href="/adm/service/sms"><img src="' + imgPath + '/assets/admin/images/event/sms_banner2.jpg" alt="주문 고객에게 자동으로 sms 발송"></a>';
-
-	var random_banner = Math.floor(Math.random()*(banner.length));
-</script>
 <input type="hidden" name="autoSms[delinum]" value="">
 <input type="hidden" name="autoSms[prod_deli]" value="">
 	<jsp:include page="${display }"/>
-
 </body>
 </html>

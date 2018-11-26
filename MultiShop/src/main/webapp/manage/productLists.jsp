@@ -35,9 +35,6 @@
                                         <option value="S">품절</option>
                                     </select>
                                 </li>
-                                <li>
-                                    <label><input type="checkbox" name="search_only_pdi" value="Y"><span>상단고정</span></label>
-                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -185,3 +182,7 @@
         </div><!-- .sect-cont -->
     </div><!-- .pc-switch -->
 </div>
+<div id="datepicker"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../js/manage/product.js"></script>
+
