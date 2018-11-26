@@ -54,6 +54,7 @@ public class IndexController {
 	}
 	@RequestMapping(value="/member/signup.do",method=RequestMethod.POST)
 	public @ResponseBody String signup(@ModelAttribute MemberDTO memberDTO,ModelAndView mav) {
+		System.out.println("컨트롤러 들림");
 		int su = memberDAO.member_signup(memberDTO);
 		if(su==1) {
 			return "true";
@@ -208,7 +209,5 @@ public class IndexController {
 	   }
 	   
 	   /*마이페이지*/
-	  
-	   
-	 
+
 }

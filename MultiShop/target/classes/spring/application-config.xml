@@ -25,6 +25,8 @@
     <context:component-scan base-package="category.dao"/>
     <context:component-scan base-package="detail.bean"/>
     <context:component-scan base-package="detail.dao"/>
+    <context:component-scan base-package="manage.bean"/>
+    <context:component-scan base-package="manage.dao"/>
     <context:component-scan base-package="mypage.dao"/>
     
     <!-- mail -->
