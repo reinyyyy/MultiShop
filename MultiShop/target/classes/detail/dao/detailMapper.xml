@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -38,4 +39,42 @@
    </select>
    
    
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="detailSQL">
+<!-- 
+   <select id="getClothes" parameterType="detail" resultType="detail">
+      select * from Clothes
+   </select>
+   
+   <update id="deleteOneClothes" parameterType="detail">
+      update Clothes set p_amount=p_amount-#{p_amount} where p_color=#{p_color} and p_size=#{p_size}
+   </update>
+    -->
+    
+    <!-- 양현규 -->
+   <insert parameterType="detail_hoogiDTO" id="detail_userReview">
+       insert into detail_hoogi values(#{seq},#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 
+   </insert>
+
+   <select id="detail_GetReViewList" resultType="detail_hoogiDTO">
+      select * from detail_hoogi order by seq desc 
+   </select>
+
+   <insert parameterType="detail_QnADTO" id="detail_userQnA">
+      insert into detail_QnA values(#{seq},#{id},#{condition},#{detail_QnASubject},#{detail_QnAContent},sysdate) 
+   </insert>
+   
+   <select id="detail_GetQnAList" resultType="detail_QnADTO">
+      select * from detail_QnA order by seq desc 
+   </select>
+   
+   <select parameterType="int" id="detail_GetQnAViewList" resultType="detail_QnADTO">
+      select * from detail_QnA where seq = #{seq} 
+   </select>
+   
+   
+>>>>>>> refs/remotes/origin/minu
 </mapper>

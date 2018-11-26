@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
@@ -9,4 +10,11 @@
 	<select id="noticeView" parameterType="int" resultType="noticeDTO">
 		select * from notice where n_number=#{n_number}
 	</select>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="noticeSQL"><!--매퍼의 이름  -->
+   
+>>>>>>> refs/remotes/origin/minu
 </mapper>
