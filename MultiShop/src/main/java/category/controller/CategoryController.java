@@ -99,6 +99,13 @@ public class CategoryController {
 		ProductDTO productDTO = categoryDAO.getProduct(Integer.parseInt(map.get("p_code")));			//기본 정보 가지고옴
 		//색정보와 사이즈정보를 한번에 같이 가져옴
 		
+		String[] image_arr = productDTO.getP_image().split("/");
+		for(String data : image_arr) {
+			System.out.println(data);
+		}
+		
+		
+		
 		System.out.println(productDTO);
 		int p_group = productDTO.getP_code();										//퀵뷰 클릭한 하나의 제품 p_code 기준으로 묶인 p_group 목록들 데리고옴
 		List<ProductDTO> group_list = categoryDAO.getGroup(p_group);				
