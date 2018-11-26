@@ -17,16 +17,20 @@
        insert into detail_hoogi values(#{seq},#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 
    </insert>
 
-   <select id="detail_GetReViewList" resultType="detail_hoogiDTO">
-      select * from detail_hoogi order by seq desc 
+   <select id="detail_GetReViewList" parameterType="java.util.Map" resultType="detail_hoogiDTO">
+      <![CDATA[ select * from(select rownum rn,tt.*from
+	 (select*from DETAIL_HOOGI order by seq desc)
+	 tt)where rn>=#{detail_hoogi_startNum} and rn <= #{detail_hoogi_endNum}]]>
    </select>
 
    <insert parameterType="detail_QnADTO" id="detail_userQnA">
       insert into detail_QnA values(#{seq},#{id},#{condition},#{detail_QnASubject},#{detail_QnAContent},sysdate) 
    </insert>
    
-   <select id="detail_GetQnAList" resultType="detail_QnADTO">
-      select * from detail_QnA order by seq desc 
+   <select id="detail_GetQnAList" parameterType="java.util.Map" resultType="detail_QnADTO">
+       <![CDATA[ select * from(select rownum rn,tt.*from
+	 (select*from DETAIL_QNA order by seq desc)
+	 tt)where rn>=#{detail_QnA_startNum} and rn <= #{detail_QnA_endNum}]]>
    </select>
    
    <select parameterType="int" id="detail_GetQnAViewList" resultType="detail_QnADTO">

@@ -262,7 +262,7 @@
               <!--사용 후기 테이블 위치  -->
               <br>
               <div id="detail_hoogi_Table">
-                 <jsp:include page="../detail_TablePaging/detail_hoogiPaging.jsp"/>
+              	<jsp:include page="../detail_Table/detail_hoogiTable.jsp"/>
               </div>
               <br>
             <div class="container" align="right">
@@ -292,7 +292,7 @@
             <!-- QnA 테이블 위치 -->
             <br>
             <div id="detail_QnA_Table">
-                 <jsp:include page="../detail_TablePaging/detail_QnAPaging.jsp"/>
+                 <jsp:include page="../detail_Table/detail_QnATable.jsp"/>
               </div>
               <br>
               <div class="container" align="right">
