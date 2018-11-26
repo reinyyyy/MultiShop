@@ -29,11 +29,7 @@
    bottom: 10px;
    left: 5px;
 }
-.productCheckBox{
-   position: absolute;
-   top: 2px;
-   right: 2px;
-}
+
 </style>
 </head>
 <body class="bg-light">
@@ -43,56 +39,57 @@
          <h2>결재</h2>
          <p class="lead">깰껌</p>
       </div>
-      <form id="orderPageForm" name="orderPageForm" class="needs-validation" method="post" action="order.do">      <!-- novalidate은 유효성검사를 하지않겠다는 것 -->
+      <form id="orderPageForm" name="orderPageForm" class="needs-validation" method="post" action="orderOk.do">      <!-- novalidate은 유효성검사를 하지않겠다는 것 -->
       <div class="row mb30">
          <div class="col-md-4 order-md-2 mb-4" id="basketDiv">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-               <span class="text-muted">My cart</span>
+               <span class="text-muted">My order</span>
                <span class="badge badge-secondary badge-pill">3</span>
             </h4>
-            <input type="button" id="deleteProduct" class="btn btn-primary btn-lg btn-block" value="선택삭제">
+
             <!-- <form id="checkBoxForm" method="post" action="checkDelete.do"> -->
             <ul class="list-group mb-3">
                <li class="list-group-item d-flex justify-content-between lh-condensed">
                      <div>
                          <h6 class="my-0">상품코드 / 제품명</h6>
-                         <small class="text-muted" id="productCodeAndName" name="productCodeAndName1"></small>
-                         <input type="hidden" id="firstProductCodeHiddenVal" value="">
-                         <input type="hidden" id="firstProductAmountHiddenVal" value="">
-                         <input type="hidden" id="firstProductColorHiddenVal" value="">
-                         <input type="hidden" id="firstProductSizeHiddenVal" value="">
-                         <input type="checkbox" class="productCheckBox" name="productCheckBox" id="first_productCheckBox" value="">
+                         <small class="text-muted" id="productCodeAndName" ></small>
+                         <input type="hidden" id="firstProductCodeHiddenVal" name="p_code" value="">
+                         <input type="hidden" id="firstProductNameHiddenVal" name="p_name" value="">
                      </div>
                      <span class="text-muted" id="firstProductPrice"></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                      <div>
-                         <h6 class="my-0">두번 째 상품</h6>
-                         <small class="text-muted">선택한 상품 없음</small>
-                         <input type="hidden" id="secondProductCodeHiddenVal" value="">
-                         <input type="checkbox" class="productCheckBox" name="productCheckBox" id="second_productCheckBox">
+                         <h6 class="my-0">색상  / 사이즈 / 수량</h6>
+                         <small class="text-muted" id="colorAndSizeAndAmount"></small>
+                         <input type="hidden" id="firstProductColorHiddenVal" name="p_color" value="">
+                         <input type="hidden" id="firstProductSizeHiddenVal" name="p_size" value="">
+                         <input type="hidden" id="firstProductAmountHiddenVal" name="p_amount" value="">
                        </div>
-                       <span class="text-muted" id="secondProductPrice">99000</span>
+                       <span class="text-muted"></span>
                   </li>
+                  
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
-                       <div>
-                         <h6 class="my-0">세번 째 상품</h6>
-                         <small class="text-muted">선택한 상품 없음</small>
-                         <input type="hidden" id="thirdProductCodeHiddenVal" value="">
-                         <input type="checkbox" class="productCheckBox" name="productCheckBox" id="third_productCheckBox">
+                     <div>
+                         <h6 class="my-0">제품가격</h6>
+                         <small class="text-muted" id="pdtCost"></small>
+                         <input type="hidden" id="" value="">
                        </div>
-                       <span class="text-muted" id="thirdProductPrice">0</span>
+                       <span class="text-muted" id="secondProductPrice"></span>
                   </li>
+                  
                   <li class="list-group-item d-flex justify-content-between bg-light">
                        <div class="text-success">
                          <h6 class="my-0">마일리지 적립</h6>
                          <small>예상 적립 금액</small>
                        </div>
                        <span class="text-success" id="mileage"></span>
+                       <input type="hidden" id="guessMileage" value="">
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
                        <span>최종 결재 금액</span>
                        <strong id="order_totalPrice"></strong>
+                       <input type="hidden" id="lastTotalPrice" value="">
                   </li>
             </ul>
             <!-- </form> -->
@@ -226,7 +223,7 @@
                 </div>
                 
                 <hr class="mb-4">
-                <input type="button" id="orderPayBtn" class="btn btn-primary btn-lg btn-block" value="결재하기">
+                <input type=submit id="orderPayBtn" class="btn btn-primary btn-lg btn-block" value="결재하기">
                
                
 	         </div>
@@ -250,38 +247,47 @@ $(document).ready(function(){
       dataType : 'json',
       success : function(data){
          //alert(JSON.stringify(data));
-         $('#productCodeAndName').append(data.detailDTO.p_code + " / " + data.detailDTO.p_name +"&emsp;"+ " X " + data.detailDTO.p_amount);
-         $('#firstProductPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount));
          
+         //히든값 넣기
          
          $('#firstProductCodeHiddenVal').val(data.detailDTO.p_code);
          $('#firstProductColorHiddenVal').val(data.detailDTO.p_color);
          $('#firstProductAmountHiddenVal').val(data.detailDTO.p_amount);
          $('#firstProductSizeHiddenVal').val(data.detailDTO.p_size);
+         $('#firstProductCostHiddenVal').val(data.detailDTO.p_cost);
          
+         //상품 코드,이름
+         $('#productCodeAndName').append(data.detailDTO.p_code + " / " + data.detailDTO.p_name);
+         //상품 가격
+         $('#pdtCost').append(data.detailDTO.p_cost);
+         //상품색상,사이즈,수량
+         $('#colorAndSizeAndAmount').append(data.detailDTO.p_color + "  /  " + data.detailDTO.p_size + "  /  " + data.detailDTO.p_amount);
+         //최종가격
+         $('#order_totalPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount)+"원");
+         
+         //최종가격 ~마일리지
+         var totalPrice = (data.detailDTO.p_cost*data.detailDTO.p_amount);
+         totalPrice = parseFloat(totalPrice);
+         var mileage = $('#mileage').text((totalPrice*0.03));
+         
+         
+         //$('#firstProductPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount));
          alert($('#firstProductCodeHiddenVal').val());
          alert($('#firstProductColorHiddenVal').val());
          alert($('#firstProductAmountHiddenVal').val());
          alert($('#firstProductSizeHiddenVal').val());
          
-         //나중에 DB를 위해 체크박스에 상품번호 val값 넣어준것
-         $('#first_productCheckBox').val(data.detailDTO.p_code);
-         //alert($('#first_productCheckBox').val());
-         
-         var firstProductPrice = $('#firstProductPrice').text();
+        /*  var firstProductPrice = $('#firstProductPrice').text();
          var secondProductPrice = $('#secondProductPrice').text();
-         var thirdProductPrice = $('#thirdProductPrice').text();
+         var thirdProductPrice = $('#thirdProductPrice').text(); */
          
          
-         firstProductPrice = parseFloat(firstProductPrice);
-         secondProductPrice = parseFloat(secondProductPrice);
-         thirdProductPrice = parseFloat(thirdProductPrice);
-         var totalPrice = (firstProductPrice+secondProductPrice+thirdProductPrice);
+         //firstProductPrice = parseFloat(firstProductPrice);
+        // secondProductPrice = parseFloat(secondProductPrice);
+        // thirdProductPrice = parseFloat(thirdProductPrice);
          
-         totalPrice = parseFloat(totalPrice);
-         var mileage = $('#mileage').text((totalPrice*0.03));
          
-         $('#order_totalPrice').text(totalPrice+"원");
+         //$('#order_totalPrice').text(totalPrice+"원");
       },error : function(data){
          alert("실패");
       }

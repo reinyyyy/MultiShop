@@ -1,6 +1,7 @@
 package detail.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import detail.bean.DetailDTO;
 import detail.bean.DetailQnADTO;
@@ -8,7 +9,7 @@ import detail.bean.DetailhoogiDTO;
 
 public interface DetailDAO {
    
-   //public List<DetailDTO> getClothes(DetailDTO detailDTO);
+   public int getClothes(Map<String, String> map);
    
    //public void deleteOneClothes(DetailDTO detailDTO);
    

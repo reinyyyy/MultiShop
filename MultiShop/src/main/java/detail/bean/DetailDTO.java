@@ -14,9 +14,13 @@ public class DetailDTO {
    private int p_code;
    private int p_group;
    private String p_name;
-   private String p_color;
-   private String p_size;
+   private String p_option1;
+   private String p_option2;
    private int p_amount;
    private int p_cost;
-   
+   private String p_status;
+   private String p_maker;
+   private String p_origin;
+   private String p_image;
+   private String p_date;
 }
