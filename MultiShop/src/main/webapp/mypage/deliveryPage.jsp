@@ -32,6 +32,11 @@
   	 </c:forEach> 
   </tbody>
 </table>
+<div id="delivery_paging">
+	<ul class="pagination">
+		${orderPaging }
+	</ul>
+</div>
 
 </body>
 </html>

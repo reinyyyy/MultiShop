@@ -1,5 +1,6 @@
 package mypage.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
+import mypage.bean.DeliveryPaging;
 import mypage.bean.OrderDTO;
 import mypage.dao.OrderDAO;
 
@@ -69,11 +71,29 @@ public class MypageController {
 	      }
 	   }
 	   @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.GET)
-	   public ModelAndView delivery(@ModelAttribute ModelAndView mav,HttpSession session) {
+	   public ModelAndView delivery(@ModelAttribute ModelAndView mav,HttpSession session,@RequestParam int pg) {
 		  String email = (String) session.getAttribute("session_email");
-		  System.out.println(email);
-		  List<OrderDTO> list = orderDAO.orderList(email);
+		 
+		  int endNum = pg*3;
+		  int startNum = endNum-2;
+		  Map<String,String> map = new HashMap<String,String>();
+		  map.put("email", email);
+		  map.put("startNum", startNum+"");
+		  map.put("endNum", endNum+"");
+		  List<OrderDTO> list = orderDAO.orderList(map);
+		  int totalA = orderDAO.totalA();
+		  
+		  DeliveryPaging deliveryPaging = new DeliveryPaging();
+		  deliveryPaging.setCurrentPage(pg);
+		  deliveryPaging.setPageBlock(3);
+		  deliveryPaging.setPageSize(3);
+		  deliveryPaging.setTotalA(totalA);
+		  deliveryPaging.makePagingHTML();
+		  
+		  
 		  mav.addObject("orderList",list);
+		  mav.addObject("orderPaging",deliveryPaging.getPagingHTML());
+		  mav.addObject("pg",pg);
 	      mav.addObject("section","/mypage/deliveryPage.jsp");
 	      mav.setViewName("/main/main");
 	      return mav;
