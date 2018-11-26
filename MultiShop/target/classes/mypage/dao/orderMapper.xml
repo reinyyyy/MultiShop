@@ -3,7 +3,7 @@
 
 <mapper namespace="orderSQL">
 	<select id="orderList" parameterType="String" resultType="orderDTO">
-		select * from order_table where m_email = #{email}
+		select * from order_table where m_email = #{email} order by 4
 	</select>
 
 </mapper>

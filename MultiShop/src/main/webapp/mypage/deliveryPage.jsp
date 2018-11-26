@@ -14,6 +14,7 @@
       <th scope="col">주문번호</th>
       <th scope="col">상품명</th>
       <th scope="col">금액(수량)</th>
+      <th scope="col">총금액</th>
       <th scope="col">주문상태</th>
       <th scope="col">기타</th>
     </tr>
@@ -23,7 +24,10 @@
 	    <tr>
 	      <th scope="row">${list.o_num }</th>
 	      <td>${list.p_code }</td>
-	      <td>${list.p_code }</td>
+	      <td>${list.p_cost} (${list.p_amount }개)</td>
+	      <td>${list.p_cost*list.p_amount }</td>
+	      <td>${list.o_status }</td>
+	      <td>기타</td>
 	    </tr>
   	 </c:forEach> 
   </tbody>

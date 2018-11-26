@@ -17,6 +17,9 @@ public class OrderDTO {
 	public String o_tel;
 	public String o_divCode;
 	public String o_pay;
-	public String o_etc;
+	public String o_status;
 	public String p_code;
+	public int p_cost;
+	public int p_amount;
+	
 }

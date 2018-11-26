@@ -71,6 +71,7 @@ public class MypageController {
 	   @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.GET)
 	   public ModelAndView delivery(@ModelAttribute ModelAndView mav,HttpSession session) {
 		  String email = (String) session.getAttribute("session_email");
+		  System.out.println(email);
 		  List<OrderDTO> list = orderDAO.orderList(email);
 		  mav.addObject("orderList",list);
 	      mav.addObject("section","/mypage/deliveryPage.jsp");
