@@ -15,7 +15,7 @@
    crossorigin="anonymous">
 <title>Insert title here</title>
 </head>
-<body>asdadadssd
+<body>
    <header>
       <div class="container">
          <div id="productView">
