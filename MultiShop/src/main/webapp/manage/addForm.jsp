@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href = "../css/manage/style.css" rel = "stylesheet">
+<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script srt = "../js/manage/product.js"></script>
 </head>
 <body>
 <div id="prdRegist" class="page-body rw">

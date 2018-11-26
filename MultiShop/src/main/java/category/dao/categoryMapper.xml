@@ -2,40 +2,22 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="categorySQL">
-	
-	<!-- 제품 테이블 전체 가져오기 이제 안쓸듯 -->
-	<select id = "getProductList" resultType = "productDTO">
-		select * from PRODUCT
-	</select>
-	
-	<!-- QUICK VIEW 모달에서 사용할 제품 하나 가져오기 -->
-	<select id = "getProduct" parameterType = "int"	resultType = "productDTO">
-		select * from PRODUCT where p_code = #{p_code}
-	</select>
-	
-	<!-- 신상품순 제품 글 목록 불러오기 -->
-	<select id = "getProduct_Board_list" parameterType = "java.util.Map" resultType = "product_boardDTO">
-		select * from
-		(select rownum rn, tt.* from
-		(select * from PRODUCT_BOARD where P_CATENUM = #{cateNum} order by P_CODE desc)tt
-		)where rn between #{startNum} and #{endNum}
-		
-<!-- 		select * from						P_CODE 앞에 문자열있을경우
-		(select rownum rn, tt.* from
-		(select PRODUCT_BOARD.*, to_number(replace(P_CODE, translate(P_CODE, 'X0123456789.','X'),'')) as P_CODE_NUM from PRODUCT_BOARD where P_CATENUM = #{cateNum} order by P_CODE_NUM desc)tt
-		)where rn between #{startNum} and #{endNum} -->
-	</select>
-	
-	<!-- 대표그룹 기준잡고 해당하는 모든 옵션 그룹들 가져오기 -->
-	<select id = "getGroup" parameterType = "int" resultType = "productDTO">
-		select * from PRODUCT where p_group = #{p_group}
-	</select>
-	
-	<!-- 각 카테고리별 총 글 수 가져오기 -->
-	<select id = "getProduct_BoardTotalA" parameterType = "int" resultType = "int">
-		select count(*) from PRODUCT_BOARD where p_cateNum = #{cateNum}
-	</select>
+   <!-- clothes 리스트 -->
+   <select id = "getProductList" resultType = "clothesDTO">   <!-- cateNum 나중에 해줘야함 -->
+      <!-- select * from ()select rownum rn, tt * from (select * from PRODUCT where code = #{cateNum})tt) where rn between #{startNum} and #{endNum} -->
+      select * from clothes
+   </select>
+   
+   <!-- clothes 하나 불러오기 -->
+   <select id = "getProduct" parameterType = "String"   resultType = "clothesDTO">
+      select * from clothes where p_code = #{p_code}
+   </select>
 </mapper>  
+
+
+
+
+
 
 
 
