@@ -8,6 +8,10 @@
 <link href = "../css/categoryItemList.css" rel = "stylesheet" />
 <link href = "../css/common.css" rel = "stylesheet" />
 <link href = "../css/bootstrap.css" rel = "stylesheet" />
+<style>
+table th {background-color: #dddddd;}
+table td.content_box {min-height: 150px; border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd;}
+</style>
 </head>
 <body>
 <div class="container" style="margin: 20px auto;">
@@ -15,27 +19,31 @@
 		<table class="table" id="notice_table">
 			<colgroup>
 				<col width="20%;" />
-				<col width="*;" />
+				<col width="30%;" />
 				<col width="20%;" />
-				<col width="*;" />
+				<col width="30%;" />
 			</colgroup>
 			<tbody>
 				<tr>
 					<th class="text-center">제목</th>
-					<td colspan="3">제에모옥</td>
+					<td colspan="3">
+						${noticeDTO.n_subject }
+					</td>
 				</tr>
 				<tr>
 					<th class="text-center">글번호</th>
-					<td>3</td>
+					<td>${noticeDTO.n_number }</td>
 					<th class="text-center">작성일</th>
-					<td>나알짜아</td>
+					<td>${noticeDate}</td>
 				</tr>
 				<tr>
-					<td colspan="4">내용이 들어가욤!</td>
+					<td class="content_box" colspan="4">${noticeDTO.n_content }</td>
 				</tr>
 			</tbody>
 		</table>
-		<input type="hidden" name="n_number" id="n_number" value="${n_number}">
+		<div>
+			<button type="button" class="btn btn-success">목록</button>
+		</div>
 	</div>
 </div>
 </body>

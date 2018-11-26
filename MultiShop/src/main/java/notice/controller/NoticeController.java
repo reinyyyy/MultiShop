@@ -1,5 +1,6 @@
 package notice.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,8 +45,9 @@ public class NoticeController {
 			HttpServletRequest request, 
 			HttpSession session){
 		int n_number = Integer.parseInt(request.getParameter("n_number"));
-		System.out.println(n_number);
 		NoticeDTO noticeDTO = noticeDAO.noticeView(n_number);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		mav.addObject("noticeDate", sdf.format(noticeDTO.getN_date()));
 		mav.addObject("noticeDTO",noticeDTO);
 		mav.addObject("section", "/notice/noticeView.jsp");
 		mav.setViewName("/main/main");
