@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import category.bean.ProductDTO;
+import category.bean.Product_boardDTO;
 import manage.dao.ManageDAO;
 
 @Controller
@@ -136,7 +138,20 @@ public class ManageController {
     */
 	@RequestMapping(value = "add", method=RequestMethod.POST)
 	public ModelAndView add(@RequestParam("img[]") List<MultipartFile> list,
-							@ModelAttribute ProductDTO productDTO) {						//jsp의 name 속성이름과 Product_DTO , Product_boardDTO 의 이름이 동일해야함..
+							@RequestParam("img_detail[]") List<MultipartFile> detail_list,
+							//@ModelAttribute ProductDTO productDTO,
+							@RequestParam Map<String, String> map,
+							@RequestParam(value="p_option1[]") String[] p_option1_list,
+							@RequestParam(value="p_option2[]") String[] p_option2_list,
+							@RequestParam(value="p_amount[]") String[] p_amount_list){						//jsp의 name 속성이름과 Product_DTO , Product_boardDTO 의 이름이 동일해야함..
+		
+		System.out.println(p_option1_list.length);
+		
+		for(int i = 0; i < p_option1_list.length; i++) {
+			System.out.println(p_option1_list[i]);
+			System.out.println(p_option2_list[i]);
+			System.out.println(p_amount_list[i]);
+		}
 		
 		String p_image = "";
 		for(MultipartFile img : list) {
@@ -144,28 +159,64 @@ public class ManageController {
 			String fileName = img.getOriginalFilename();
 			p_image += "/"+fileName;
 			
-			System.out.println("파일 이름 : " + fileName);
+			System.out.println("대표 이미지 파일 이름 : " + fileName);
 			File file = new File(UPLOAD_PATH, fileName);
 			try {
 				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			//imageboardDTO.setImage1(fileName);
-			//DB
-			//imageboardDAO.imageboardWrite(imageboardDTO);
 		}
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setP_cateNum(map.get("p_cateNum"));
+		productDTO.setP_midCate(map.get("p_midCate"));
+		productDTO.setP_smallCate(map.get("p_smallCate"));
+		productDTO.setP_name(map.get("p_name"));
+		productDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
+		productDTO.setP_status(map.get("p_status"));
+		productDTO.setP_maker(map.get("p_maker"));
+		productDTO.setP_origin(map.get("p_origin"));
+		
 		System.out.println(p_image);
 		productDTO.setP_image(p_image);
 		productDTO.setP_group(productDTO.getP_code());
-		manageDAO.productInsert(productDTO);
+		//manageDAO.productInsert(productDTO);
 		System.out.println("들렸다감");
 		System.out.println("ProductDTO : " + productDTO);
+		
+		//PRODUCT 에 저장완료
+		
+		
+		//PRODUCT_BOARD 저장시작
+		
+		p_image = "";
+		for(MultipartFile img : detail_list) {
+			System.out.println(img.getName());
+			String fileName = img.getOriginalFilename();
+			p_image += "/"+fileName;
+			
+			System.out.println("상세 이미지 파일 이름 : " + fileName);
+			File file = new File(UPLOAD_PATH, fileName);
+			try {
+				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Product_boardDTO product_boardDTO = new Product_boardDTO();
+		product_boardDTO.setP_cateNum(Integer.parseInt(map.get("p_cateNum")));
+		product_boardDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
+		product_boardDTO.setP_name(map.get("p_name"));
+		product_boardDTO.setP_image(p_image);
+		
+		System.out.println();
+		System.out.println("Product_boardDTO : " + product_boardDTO);
+		//
+		
+		
+		
 		ModelAndView mav = new ModelAndView();
-		
-		
-		
-		
 		/*@RequestMapping(value="imageboardWrite", method=RequestMethod.POST)
 		public String imageboardWrite(@ModelAttribute ImageboardDTO imageboardDTO,
 									  @RequestParam("img[]") List<MultipartFile> list,

@@ -170,7 +170,7 @@
     <!-- ======================= 해시태그 종료 ======================= -->
     <!-- ======================= 상품 이미지 시작 ======================= -->
     <div class="sect-hd">
-        <h3>상품 이미지</h3>
+        <h3>상품 대표이미지</h3>
         <a href="#prdGuide1" class="lnk-qmark open-layer">도움말</a>
         <span class="txt-select">(선택)</span>
         <a href="#" class="btn-arrow">닫기</a>
@@ -186,13 +186,37 @@
                 <tbody>
                     <tr class="bg-yellow thumb-box" style="">
                         <th class="th-align">
-                            <span id="upload_img_txt">이미지</span><br>
+                            <span id="upload_img_txt">대표이미지</span><br>
                             <span class="fc-gray fs-15">(<span class="MSH-txt-img-cnt">0</span>/10)</span>
                         </th>
                         <td>
 								<div id="imgUpload" style="margin-top: 5px;">
 									<div class="swiper-container thumbs">
 										<ul class="swiper-wrapper">
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img[]">
+													</span>
+												</p>
+											</li>
 											<li class="add swiper-slide prd-img-resizing">
 												<p>
 													<span class="btn-prd-upload">
@@ -231,12 +255,12 @@
     </div><!-- .sect-cont -->
     <!-- ======================= 상품 이미지 종료 ======================= -->
     <!-- ======================= 재고 시작 ======================= -->
-    <div class="sect-hd">
+    <!-- <div class="sect-hd">
 		<h3>재고</h3>
 		<span class="txt-select">(선택)</span>
 		<a href="#" class="btn-arrow up">닫기</a>
 	</div><!-- .sect-hd -->
-	<div class="sect-cont" style="display: none;">
+	<!-- <div class="sect-cont" style="display: none;">
 		<ul id="stock-non" class="mobile-stock stock" style="">
 			<li>
 				<label><span>수량</span></label>
@@ -244,7 +268,7 @@
 			</li>
 		</ul>
 		<p id="stock-use" class="fc-blue stock" style="display:none">선택형 옵션 사용 시, 옵션 재고로 대체됩니다.</p>
-	</div><!-- .sect-cont -->
+	</div> -->
 	<!-- ======================= 재고 종료 ======================= -->
 	<!-- ======================= 옵션 시작 ======================= -->
 	<div class="sect-hd" style="">
@@ -298,7 +322,7 @@
                                             <tr>
                                                 <th>옵션명</th>
                                                 <th>옵션값</th>
-                                                <!-- <th>재고</th> -->
+                                                <th>재고</th>
                                                 <th style = "width : 10%"><a href="javascript:void(0)" class="btn-add-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_plus.png" alt="추가" style="width:30px"></a></th>
                                             </tr>
                                         </thead>
@@ -307,8 +331,8 @@
                                                 <td>
                                                     <input type="text" name="p_option1[]" placeholder="옵션명을 입력하세요. (예시: 색상)" value="">	<!-- 옵션1 , 를 기준으로 나눌거임 -->
                                                 </td>
-                                                <td><input type="text" name="p_option2[]" placeholder="옵션값을 입력하세요. 옵션값이 2개 이상일 경우 콤마(,)로 구분해주세요.(예시: 빨강, 노랑)" value=""></td>
-                                                <!-- <td><input type = "text" name = "p_amount_group" placeholder = "재고 " value = ""></td> -->
+                                                <td><input type="text" name="p_option2[]" placeholder="옵션값을 입력하세요. (예시: red)" value=""></td>
+                                                <td><input type = "text" name = "p_amount[]" placeholder = "재고 " value = ""></td>
                                                 <td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>
                                             </tr>
                                         </tbody>
@@ -320,7 +344,8 @@
                                     			var appendTo_option = 
                                     			'<tr>' +
                                     			'<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상)"></td>' +
-                                    			'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. 옵션값이 2개 이상일 경우 콤마(,)로 구분해주세요.(예시: 빨강, 노랑)"></td>' +
+                                    			'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red)"></td>' +
+                                    			'<td><input type = "text" name = "p_amount[]" placeholder = "재고 " value = ""></td>' + 
                                     			'<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
                                     			'</tr>'
                                     			;
@@ -336,7 +361,7 @@
                                 </div><!-- .tbl-list -->
                             </td>
                         </tr>
-                                                <tr class="opt-select opt-list bg-yellow is-pc-row" style="display: table-row;">
+                                            <!--     <tr class="opt-select opt-list bg-yellow is-pc-row" style="display: table-row;">
                             <td colspan="2" id="mix_option_result">
                                 옵션 목록
                                 <span>(
@@ -369,7 +394,7 @@
                                                                                             </tr>
                                         </thead>
                                     </table>
-                                </div><!-- .tbl-list -->
+                                </div>.tbl-list
                                 <div class="tbl-list tbl-body" style="max-height:300px">
 									<table class="MSH-opt-body">
 										<caption></caption>
@@ -385,7 +410,7 @@
 										<tbody>
 											                                        </tbody>
                                     </table>
-                                </div><!-- .tbl-list -->
+                                </div>.tbl-list
                                 <div class="tbl-side mt-20 is-pc">
                                     <label class="mr-10 pb-10"><strong>선택한 옵션 정보를 아래와 같이 수정합니다.(옵션 금액과 재고는 입력한 경우에만 적용합니다.)</strong></label><br>
                                     <label class="mr-10"><p class="fc-blue" style="display:inline-block;">옵션 가격 :</p> &nbsp; 
@@ -413,9 +438,9 @@
                                         </select>
                                     </label>
                                     <a href="#" class="btn-black" id="btn_all_sto_set">일괄수정</a>
-                                    <!--18.07.26 일괄삭제 버튼 제거 -->
-                                    <!--span class="pd-10 fc-blur">|</span><a href="#" class="btn-black" id="btn_del_sto">일괄삭제</a>-->
-                                </div><!-- .tbl-side -->
+                                    18.07.26 일괄삭제 버튼 제거
+                                    span class="pd-10 fc-blur">|</span><a href="#" class="btn-black" id="btn_del_sto">일괄삭제</a>
+                                </div>.tbl-side
                                 <ul class="m-align mt-10 is-mobile">
                                     <li class="m30per">
                                         <select id="set_sto_type">
@@ -437,7 +462,7 @@
                                     </li>
                                 </ul>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
 	</table>
 </div>
@@ -504,6 +529,88 @@
         </div><!-- .tbl-setting -->
     </div><!-- .sect-cont -->
     <!-- ======================= 배송 종료 ======================= -->
+    <!-- 						 상세 이미지 시작                       -->
+    <div class="sect-hd">
+        <h3>상품 상세이미지</h3>
+        <a href="#prdGuide1" class="lnk-qmark open-layer">도움말</a>
+        <span class="txt-select">(선택)</span>
+        <a href="#" class="btn-arrow">닫기</a>
+    </div><!-- .sect-hd -->
+    <div class="sect-cont pd-none">
+        <div class="tbl-setting">
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col class="w140">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr class="bg-yellow thumb-box" style="">
+                        <th class="th-align">
+                            <span id="upload_img_txt">상세이미지</span><br>
+                            <span class="fc-gray fs-15">(<span class="MSH-txt-img-cnt">0</span>/10)</span>
+                        </th>
+                        <td>
+								<div id="imgUpload" style="margin-top: 5px;">
+									<div class="swiper-container thumbs">
+										<ul class="swiper-wrapper">
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<div id="imgPath" class="mt-15" style="display:none;">
+                                <div class="pc-switch mobile-switch">
+                                    <textarea class="w60per" name="prd_img_url"></textarea>
+                                    <p class="pc-desc mt-15 fc-gray fs-15 img-path-txt">최대 10개 이미지 경로 입력 가능 2개 이상 시, 엔터로 구분하세요.</p>
+                                    <p class="mobile-desc mt-10 fc-blue fs-15 img-path-txt">최대 10개 이미지 경로 입력 가능 2개 이상 시, 엔터로 구분하세요.</p>
+                                </div><!-- .mobile-switch -->
+                            </div><!-- #imgPath -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div><!-- .tbl-setting -->
+    </div><!-- .sect-cont -->
     <!-- ======================= 상세설명 시작 ======================= -->
     <div class="sect-hd">
         <h3 id="detail-top">상세설명

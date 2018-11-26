@@ -430,21 +430,20 @@
                             </td>
                         </tr>
                         <!-- 2017.08.18 추가 -->
-                                                <tr class="opt-select js-optResetFalse is-pc-row" is-opt="true" style="display:none;">
-                            <th>옵션명</th>
-                            <td>
-                                <ul class="mobile-option">
-                                    <li>
-                                        <select id="add_option_id" prd-id="0">
-                                                                                    </select>
-                                    </li>
-                                    <li>
-                                                                                <span>옵션값</span> <input type="text" name="add_option_value"> <a href="#" class="btn-black" id="btn_add_opt">추가</a>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                                                <tr class="opt-select js-optResetTrue is-pc-row" is-opt="false" style="display:none;">
+								<tr class="opt-select js-optResetFalse is-pc-row" is-opt="true"
+									style="display: none;">
+									<th>옵션명</th>
+									<td>
+										<ul class="mobile-option">
+										<li><select id="add_option_id" prd-id="0">
+												</select></li>
+											<li><span>옵션값</span> <input type="text"
+												name="add_option_value"> <a href="#"
+												class="btn-black" id="btn_add_opt">추가</a></li>
+										</ul>
+									</td>
+								</tr>
+								<tr class="opt-select js-optResetTrue is-pc-row" is-opt="false" style="display:none;">
                             <th>불러오기</th>
                             <td>
                                 <select style="width:200px" id="select_rep_list">
@@ -467,12 +466,14 @@
                                         <thead>
                                             <tr>
                                                 <th>옵션명</th>
+                                                <th>???</th>
                                                 <th>옵션값</th>
+                                                <th>재고</th>
                                                 <th><a href="#" class="btn-add-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_plus.png" alt="추가" style="width:30px"></a></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                                                        <tr>
+                                        	<tr>
                                                 <td>
                                                     <input type="text" name="opt_name[]" placeholder="옵션명을 입력하세요. (예시: 색상)" value="">
                                                     <input type="hidden" name="opt_id[]" value="">
@@ -480,10 +481,17 @@
                                                     <input type="hidden" name="opt_guide[]" value="">
                                                     <input type="hidden" name="opt_mandatory[]" value="">
                                                 </td>
-                                                <td><input type="text" name="opt_value[]" placeholder="옵션값을 입력하세요. 옵션값이 2개 이상일 경우 콤마(,)로 구분해주세요.(예시: 빨강, 노랑)" value=""></td>
-                                                <td><a href="#" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>
+                                                <td>
+                                                	<input type="text" name="opt_value[]" placeholder="옵션값" value="">
+                                                </td>
+                                                <td>
+                                                	<input type="text" name="opt_value[]" placeholder="재고" value="">
+                                                </td>
+                                                <td>
+                                                	<a href="#" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a>
+                                                </td>
                                             </tr>
-                                                                                    </tbody>
+                                        </tbody>
                                     </table>
                                 </div><!-- .tbl-list -->
                                 <div class="tbl-side mt-20">
