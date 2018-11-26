@@ -19,6 +19,7 @@
 	<bean id="indexController" class="main.controller.IndexController"></bean>
 	<bean id="noticeController" class="notice.controller.NoticeController"></bean>  
 	<bean id="mypageController" class="mypage.controller.MypageController"></bean>  
+	<bean id="manageController" class="manage.controller.ManageController"></bean>
 	
 	<context:component-scan base-package="member.dao"/>
 	<context:component-scan base-package="notice.dao"/>
@@ -30,6 +31,8 @@
    <context:component-scan base-package="detail.controller"/>
    <context:component-scan base-package="mypage.controller"/>
    <context:component-scan base-package="mypage.bean"/>
+   <context:component-scan base-package="manage.dao"/>
+   <context:component-scan base-package="manage.bean"/>
 
     <mvc:annotation-driven />
 
