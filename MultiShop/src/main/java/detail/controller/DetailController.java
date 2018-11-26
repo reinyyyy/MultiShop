@@ -39,6 +39,7 @@ public class DetailController {
       
       model.addAttribute("detail_hoogiList", detail_hoogiList);
       model.addAttribute("detail_QnAList", detail_QnAList);
+      
       model.addAttribute("section", "/detail_page/detailPage.jsp");
       return "/main/main";
    }
@@ -51,6 +52,7 @@ public class DetailController {
                                @RequestParam String productCode, 
                                @RequestParam String productName) {
       
+	   
       model.addAttribute("color", color);
       model.addAttribute("size", size);
       model.addAttribute("amount", amount);
@@ -90,6 +92,9 @@ public class DetailController {
       return mav;
    }
    
+   
+   
+   
    //양현규--------------------
    
    @RequestMapping(value="detail_hoogi", method=RequestMethod.POST)
@@ -122,6 +127,7 @@ public class DetailController {
       
       return modelAndView;
    }
+   
    
    
 }
