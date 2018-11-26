@@ -55,8 +55,10 @@
         <script type="text/javascript" src="/assets/admin/js/vendor/selectivizr-min.js"></script>
     <![endif]-->
 </head>
-<style>
-	
+<style type="text/css">
+#snb:hover {
+	color : #00affe;
+}
 </style>
 <body style="">
 <script type="text/javascript">
@@ -94,7 +96,7 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
 		            <li class="" value="0">
 		                <a href="../manage/productAdd.do">상품 등록</a>
 		            </li>
-		            <li class="now ">
+		            <li class="productList ">
 		                <a href="../manage/productLists.do">상품 리스트</a>
 		            </li>
 	            </ul>
@@ -116,7 +118,7 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
         </ul>
 		<!-- 18.02.23 hsh 추가 s -->
 		<div class="customer-wrap">
-			<p class="title">마이소호 고객센터</p>
+			<p class="title">고객센터</p>
 			<p class="number">02.1234.1234</p>
 			<ul>
 				<li><a href="https://www.naver.com" class="kakao" target="_blank"><span>실시간 상담</span></a></li><!-- 18.02.23 hsh -->
@@ -133,19 +135,16 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#productManageBtn').click(function(){
-		$('#snb li').addClass('now');
-		$('#snb li.now ul').css('display','block');
-		/* 
 		if($('#productManageUl li').val() == 0){
 			$('#productManageUl').css('display','block');
 			$('#productManageUl > li').val('1');
 		}else {
 			$('#productManageUl').css('display','none');
 			$('#productManageUl > li').val('0');
-		} */
+		}
 	});
 	
-	/* 
+
 	$('#orderManageBtn').click(function(){
 		if($('#orderManageUl li').val() == 0){
 			$('#orderManageUl').css('display','block');
@@ -154,35 +153,16 @@ $(document).ready(function(){
 			$('#orderManageUl').css('display','none');
 			$('#orderManageUl > li').val('0');
 		}
-	}); */
-});
-</script>
-<script>
-// 선택된 하위메뉴 상위메뉴가 안열렸을경우 실행
-$(document).ready(function(){
-if ($('#snb li ul .now').length != 0 && $('#snb li ul .now').parent().parent('.now').length == 0) {
-	$('#snb li ul .now').parent().parent().removeClass('now');
-    $('#snb li ul .now').parent().parent().addClass('now');
-    $('#snb li ul .now').parent().show();
-}
+	});
 });
 </script>
 
 
 
-<div id="header">
-    <h2>주문내역</h2>
-        <a href="/adm/" class="btn-home"><span>홈</span></a>
-            <a href="#" class="btn-back"><span>뒤로가기</span></a>
-    </div>
 
 <div id="container" class="">
     <div class="page-hd">
-        <h1>
-            <a href="/adm/main">
-            <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/common/logo_h30.gif" alt="mysoho" style="margin-right:10px;">
-            판매자 센터</a>
-        </h1>
+        <h1><a href="/adm/main">판매자 센터</a></h1>
         <div class="side">
 			<dl class="copy">
                 <dt>주소복사</dt>

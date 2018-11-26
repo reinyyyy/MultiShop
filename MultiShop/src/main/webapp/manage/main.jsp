@@ -2,36 +2,7 @@
     pageEncoding="UTF-8"%>
 <div class="page-body">
     <h2 class="blind">메인</h2>
-    <div class="mobile-notice">
-        <div class="swiper-container" style="height: 0px;">
-            <ul class="swiper-wrapper" style="transition-duration: 0.3s;"><li xmlns="http://www.w3.org/1999/xhtml" class="swiper-slide swiper-slide-duplicate">
-                    <a href="https://www.mysoho.com/customer_service.html?page_type=notice&amp;nid=52" target="_blank">[공지] 마이소호 10월 서비스 교육 안내 (10/30)</a>
-                    <span class="date">[10/15]</span>
-                </li>
-                                <li class="swiper-slide">
-                    <a href="https://www.mysoho.com/customer_service.html?page_type=notice&amp;nid=56" target="_blank">[업그레이드] 상품 상세 페이지킨 에디터 추가</a>
-                    <span class="date">[11/15]</span>
-                </li>                <li class="swiper-slide">
-                    <a href="https://www.mysoho.com/customer_service.html?page_type=notice&amp;nid=55" target="_blank">[공지] 마이소호 11월 서비스 교육 안내 (11/22)</a>
-                    <span class="date">[11/14]</span>
-                </li>                <li class="swiper-slide">
-                    <a href="https://www.mysoho.com/customer_service.html?page_type=notice&amp;nid=54" target="_blank">[이벤트] 창업 스토리 이벤트 &lt;홍보지원금 30만원 + 무료 홍보영상 제작(200만원 상당)&gt;</a>
-                    <span class="date">[10/24]</span>
-                </li>                <li class="swiper-slide">
-                    <a href="https://www.mysoho.com/customer_service.html?page_type=notice&amp;nid=53" target="_blank">[업그레이드] 개인결제 주문서 등록 시 SMS 발송 옵션 추가(PC)</a>
-                    <span class="date">[10/17]</span>
-                </li>                <li class="swiper-slide">
-                    <a href="https://www.mysoho.com/customer_service.html?page_type=notice&amp;nid=52" target="_blank">[공지] 마이소호 10월 서비스 교육 안내 (10/30)</a>
-                    <span class="date">[10/15]</span>
-                </li>            <li xmlns="http://www.w3.org/1999/xhtml" class="swiper-slide swiper-slide-duplicate">
-                    <a href="https://www.mysoho.com/customer_service.html?page_type=notice&amp;nid=56" target="_blank">[업그레이드] 상품 상세 페이지킨 에디터 추가</a>
-                    <span class="date">[11/15]</span>
-                </li></ul>
-        </div>
-        <!-- 18.02.07 수정 s -->
-        
-        <!-- 18.02.07 수정 e -->
-    </div><!-- .mobile-notice -->
+    <!-- notice -->
     <div class="sect-both">
         <div class="f-l">
             <div class="sect-hd mt-none">
