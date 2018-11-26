@@ -133,7 +133,7 @@
                     <a href="#" class="btn-h36-black js-btn-fixed-top-product">상단고정/해지</a>
                 </p>
             </div><!-- .tbl-side -->
-            <div class="tbl-list mt-20" style="height: 175px;">
+            <div class="tbl-list mt-20" style="height: 175px; overflow:scroll;">
                 <table id="ftb" style="width:1465px">
                     <caption></caption>
                     <thead>
