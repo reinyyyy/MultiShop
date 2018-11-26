@@ -42,9 +42,11 @@ table td.content_box {min-height: 150px; border-top: 1px solid #dddddd; border-b
 			</tbody>
 		</table>
 		<div>
-			<button type="button" class="btn btn-success">목록</button>
+			<button type="button" class="btn btn-success" id="noticeListBtn">목록</button>
 		</div>
 	</div>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../js/notice.js"></script>
 </body>
 </html>
