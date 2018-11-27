@@ -59,6 +59,7 @@
                          <small class="text-muted" id="productCodeAndName" ></small>
                          <input type="hidden" id="firstProductCodeHiddenVal" name="p_code" value="">
                          <input type="hidden" id="firstProductNameHiddenVal" name="p_name" value="">
+                         <input type="hidden" id="firstProductCostHiddenVal" name="p_cost" value="">
                      </div>
                      <span class="text-muted" id="firstProductPrice"></span>
                   </li>
@@ -88,7 +89,7 @@
                          <small>예상 적립 금액</small>
                        </div>
                        <span class="text-success" id="mileage"></span>
-                       <input type="hidden" id="guessMileage" value="">
+                       <input type="hidden" id="m_point" name="m_point" value="">
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
                        <span>최종 결재 금액</span>
@@ -155,7 +156,7 @@
                 
                 <div class="input-group" style="margin-bottom: 10px">
 					<span class="input-group-addon"><i class="fas fa-map-marked-alt -o fa-fw"></i></span>
-					<input type="text" class="form-control" id="join_modal_postcode" name="m_zipcode" placeholder="우편번호" required="required">
+					<input type="text" class="form-control" id="join_modal_postcode" name="m_zipcode" placeholder="우편번호" required="required" readonly>
 					<input type="button" class="btn btn-dark" id="join_modal_postcodeBtn" value="우편번호찾기" onclick="execDaumPostcode()">
 				</div>
 				<div>
@@ -176,13 +177,8 @@
 
                 <div class="d-block my-3">
                      <div class="custom-control custom-radio">
-                       <input id="credit" name="paymentMethod" type="radio" class="order_radio" checked required>
-                       <label class="custom-control-label" for="credit">신용 카드</label>
-                     </div>
-                     
-                     <div class="custom-control custom-radio">
-                       <input id="debit" name="paymentMethod" type="radio" class="order_radio" required>
-                       <label class="custom-control-label" for="debit">체크 카드</label>
+                       <input id="credit" type="radio" class="order_radio" checked required>
+                       <label class="custom-control-label" for="credit">신용 카드 & 체크카드</label>
                      </div>
                      
                      <div class="custom-control custom-radio">
@@ -251,29 +247,36 @@ $(document).ready(function(){
       success : function(data){
          //alert(JSON.stringify(data));
          
-         //히든값 넣기
-         $('#firstProductCodeHiddenVal').val(data.detailDTO.p_code);
-         $('#firstProductNameHiddenVal').val(data.detailDTO.p_name);
-         $('#firstProductColorHiddenVal').val(data.detailDTO.p_option1);
-         $('#firstProductSizeHiddenVal').val(data.detailDTO.p_option2);
-         $('#firstProductAmountHiddenVal').val(data.detailDTO.p_amount);
-         $('#firstProductCostHiddenVal').val(data.detailDTO.p_cost);
+         
+         //회원의 주소 기본으로 불러오기
+         $('#join_modal_postcode').val(data.memberDTO.m_zipcode);
+         $('#join_modal_roadAddress').val(data.memberDTO.m_roadAddress);
+         $('#join_modal_jibunAddress').val(data.memberDTO.m_jibunAddress);
          
          //상품 코드,이름
          $('#productCodeAndName').append(data.detailDTO.p_code + " / " + data.detailDTO.p_name);
          //상품 가격
          $('#pdtCost').append(data.detailDTO.p_cost);
          //상품색상,사이즈,수량
-         $('#colorAndSizeAndAmount').append(data.detailDTO.p_color + "  /  " + data.detailDTO.p_size + "  /  " + data.detailDTO.p_amount);
+         $('#colorAndSizeAndAmount').append(data.detailDTO.p_option1 + "  /  " + data.detailDTO.p_option2 + "  /  " + data.detailDTO.p_amount);
          //최종가격
          $('#order_totalPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount)+"원");
          
          //최종가격 ~마일리지
          var totalPrice = (data.detailDTO.p_cost*data.detailDTO.p_amount);
          totalPrice = parseFloat(totalPrice);
-         var mileage = $('#mileage').text((totalPrice*0.03));
+         var mileage = totalPrice*0.03;
+		 $('#mileage').text((totalPrice*0.03));
+         $('#m_point').val(mileage);
          
-         
+       	//히든값 넣기
+        $('#firstProductCodeHiddenVal').val(data.detailDTO.p_code);
+        $('#firstProductNameHiddenVal').val(data.detailDTO.p_name);
+        $('#firstProductColorHiddenVal').val(data.detailDTO.p_option1);
+        $('#firstProductSizeHiddenVal').val(data.detailDTO.p_option2);
+        $('#firstProductAmountHiddenVal').val(data.detailDTO.p_amount);
+        $('#firstProductCostHiddenVal').val(totalPrice);
+        
          //$('#firstProductPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount));
          //alert($('#firstProductCodeHiddenVal').val());
          //alert($('#firstProductColorHiddenVal').val());

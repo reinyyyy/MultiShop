@@ -49,6 +49,7 @@ $(document).ready(function(){
          	 type :'POST',
          	 url : '/MultiShop/detail_page/orderOk.do',
          	 data : $('#orderPageForm').serialize(),
+         	 dataType : 'text',
          	 success : function(data){
          		 if(data=="exist"){
          			$('#order_modal').modal({backdrop: 'static', keyboard: false});

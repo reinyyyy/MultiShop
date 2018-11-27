@@ -85,7 +85,10 @@
                         <dl>
                            <dt>상품코드</dt>
                            <dt>0001</dt>
-                           <input type="hidden" name="productCode" id="productCode" value="0001">
+                           <input type="hidden" name="productCode" id="productCode" value="0003">
+                           <!-- <input type="hidden" name="p_midCate" id="p_midCate" value="">
+                           <input type="hidden" name="p_smallCate" id="p_smallCate" value=""> -->
+                           
                         </dl>
                      </li>
                      <li>

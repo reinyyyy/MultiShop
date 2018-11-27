@@ -23,4 +23,8 @@ public class OrderDAOMybatis implements OrderDAO{
 	public int totalA() {
 		return sqlSession.selectOne("orderSQL.totalA");
 	}
+
+	public void insertOrder(Map<String, String> map) {
+		sqlSession.insert("orderSQL.insertOrder",map);
+	}
 }

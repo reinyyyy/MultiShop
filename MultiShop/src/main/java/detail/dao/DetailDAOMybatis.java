@@ -30,8 +30,6 @@ public class DetailDAOMybatis implements DetailDAO {
    
    
    
-   
-   
    // 양현규
    public void detail_userReview(DetailhoogiDTO detailhoogiDTO) {
       sqlSession.insert("detailSQL.detail_userReview",detailhoogiDTO);
