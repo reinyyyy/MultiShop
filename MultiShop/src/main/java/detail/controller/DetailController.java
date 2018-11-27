@@ -3,6 +3,8 @@ package detail.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import detail.bean.DetailDTO;
 import detail.bean.DetailQnADTO;
 import detail.bean.DetailhoogiDTO;
 import detail.dao.DetailDAO;
+import member.bean.MemberDTO;
 
 @RequestMapping(value="/detail_page")
 @Controller
@@ -31,6 +34,8 @@ public class DetailController {
    private DetailQnADTO detailQnADTO;
    @Autowired
    private DetailDAO detailDAO;
+   @Autowired
+   private MemberDTO memberDTO;
    
    //상세페이지
    @RequestMapping(value="detailPage", method=RequestMethod.GET)
@@ -53,8 +58,10 @@ public class DetailController {
                                @RequestParam(value="detail_sizeSelect") String size, 
                                @RequestParam(value="detail_amountSelect") String amount, 
                                @RequestParam int productCode, 
-                               @RequestParam String productName) {
-      
+                               @RequestParam String productName, HttpSession session) {
+      String email = (String) session.getAttribute("session_email");
+      System.out.println(email+"@@@@@@@@@@@@");
+	  //System.out.println(memberDTO);
 	  
       model.addAttribute("color", color);
       model.addAttribute("size", size);
@@ -103,8 +110,12 @@ public class DetailController {
 		   System.out.println("성공크!");
 		   //재고 update
 		   detailDAO.updateOneClothes(map);
-		   return "exist";
+		   
 		   //회원 update
+		   
+		   
+		   
+		   return "exist";
 	   }else {
 		   System.out.println("실패애애@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		   return "non_exist";
