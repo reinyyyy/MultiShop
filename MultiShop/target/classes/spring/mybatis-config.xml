@@ -8,7 +8,7 @@
 	    <typeAlias type="detail.bean.DetailhoogiDTO" alias="detail_hoogiDTO"/>
 	    <typeAlias type="detail.bean.DetailQnADTO" alias="detail_QnADTO"/>
 		<typeAlias type="category.bean.ProductDTO" alias="productDTO"/>
-		<typeAlias type="category.bean.Product_boardDTO" alias = "Product_boardDTO"/>
+		<typeAlias type="category.bean.Product_boardDTO" alias = "product_boardDTO"/>
 	</typeAliases>
 	 
 </configuration>

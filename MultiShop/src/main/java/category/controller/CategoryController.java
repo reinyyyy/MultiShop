@@ -2,6 +2,7 @@ package category.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,11 @@ public class CategoryController {
 		map.put("cateNum", cateNum);
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
-		List<Product_boardDTO> list = categoryDAO.getProduct_Board_list(map);
+		//List<Product_boardDTO> list = categoryDAO.getProduct_Board_list(map);
+		
+		List<Map<String, String>> list_map = categoryDAO.getProduct_Board_map(map);
+		
+		
 		
 		int totalA = categoryDAO.getProduct_BoardTotalA(cateNum);
 		
@@ -84,7 +89,7 @@ public class CategoryController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("categoryPaging", categoryPaging);	//div 속에 넣어줘야함
-		mav.addObject("list", list);
+		mav.addObject("list", list_map);
 		mav.setViewName("jsonView");
 		return mav;
 	}
@@ -93,16 +98,41 @@ public class CategoryController {
 	@RequestMapping(value="quickView", method=RequestMethod.POST)
 	public String quickView(@RequestParam Map<String, String> map,
 							Model model) {
+/*
+
+		대표이미지 최대 5개 가지고있음
 		
+		5개의 대표이미지를 구분자 / 기준으로 나눠줘야함
+		
+		
+		p_option1 에 구분자 / 기준으로 나눠야함			ex) 색상/사이즈 		
+		p_option2 에 구준자 / 기준으로 나눠야함			ex) red/m
+		
+		1번 상품
+		중량 : 1kg
+		형태 : 현미
+		
+		2번 상품
+		중량 : 2kg
+		형태 : 현미
+		
+		
+		
+		
+*/		
 		int cateNum = Integer.parseInt(map.get("cateNum"));
-		
+		System.out.println(map.get("p_code"));
 		ProductDTO productDTO = categoryDAO.getProduct(Integer.parseInt(map.get("p_code")));			//기본 정보 가지고옴
 		//색정보와 사이즈정보를 한번에 같이 가져옴
+		System.out.println(productDTO);
 		
+		//대표이미지 최대 5개 나누기
 		String[] image_arr = productDTO.getP_image().split("/");
 		for(String data : image_arr) {
 			System.out.println(data);
 		}
+		
+		
 		
 		
 		
@@ -111,11 +141,47 @@ public class CategoryController {
 		List<ProductDTO> group_list = categoryDAO.getGroup(p_group);				
 		
 		
+		//String[] option1_arr = new String[group_list.size()];
+		
+		String[] option1_arr = group_list.get(0).getP_option1().split("/");		//0 : 중량, 1 : 형태
+		for(String str : option1_arr) {
+			System.out.println(str);
+		}
+		
+		ArrayList<String> option1_list = new ArrayList<String>();		//option1 = 중량
+		option1_list.add(option1_arr[0]);
+		
+		int option_level = 0;
+		for(int i = 0; i < group_list.size(); i++) {
+			option1_list.add(group_list.get(i).getP_option2().split("/")[option_level]);
+		}	
+		option_level += 1;
+		for(String str : option1_list) {			//1kg, 2kg, 3kg, 4kg
+			System.out.println(str);
+		}
+		
+		ArrayList<String> option2_list = new ArrayList<String>();
+		option2_list.add(option1_arr[1]);
+		for(int i = 0; i < group_list.size(); i++) {
+			option2_list.add(group_list.get(i).getP_option2().split("/")[option_level]);
+		}
+		
+		for(String str : option2_list) {			//현미 현미 현미
+			System.out.println(str);
+		}
+		
+		
+		
+		
+		
 		
 		System.out.println(productDTO);
 		System.out.println("그룹리스트 시작");
 		System.out.println(group_list);
 		System.out.println("그룹리스트 끝");
+		
+		
+
 		model.addAttribute("productDTO", productDTO);
 		model.addAttribute("group_list", group_list);
 		

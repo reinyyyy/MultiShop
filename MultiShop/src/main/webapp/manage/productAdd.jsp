@@ -329,22 +329,29 @@
                                         <tbody id = "p_option_tbody">
                                             <tr>
                                                 <td>
-                                                    <input type="text" name="p_option1[]" placeholder="옵션명을 입력하세요. (예시: 색상)" value="">	<!-- 옵션1 , 를 기준으로 나눌거임 -->
+                                                    <input type="text" name="p_option1[]" placeholder="옵션명을 입력하세요. (예시: 색상/사이즈)" value="">	<!-- 옵션1 , 를 기준으로 나눌거임 -->
                                                 </td>
-                                                <td><input type="text" name="p_option2[]" placeholder="옵션값을 입력하세요. (예시: red)" value=""></td>
-                                                <td><input type = "text" name = "p_amount[]" placeholder = "재고 " value = ""></td>
-                                                <td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>
+                                                <td>
+                                                	<input type="text" name="p_option2[]" placeholder="옵션값을 입력하세요. (예시: red/m)" value="">
+                                               	</td>
+                                                <td>
+                                                	<input type = "text" name = "p_amount[]" placeholder = "재고 " value = "">
+                                               	</td>
+                                                <td style = "width : 10%">
+                                                	<a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a>
+                                               	</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <input type = "button" value = "확인" id = "check_btn">
                                     <script  src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>
                                     <script>
                                     	$(document).ready(function(){
                                      		$('#add_mix_option').on('click', '.btn-add-opt', function(){
                                     			var appendTo_option = 
                                     			'<tr>' +
-                                    			'<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상)"></td>' +
-                                    			'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red)"></td>' +
+                                    			'<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상/사이즈)"></td>' +
+                                    			'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red/m)"></td>' +
                                     			'<td><input type = "text" name = "p_amount[]" placeholder = "재고 " value = ""></td>' + 
                                     			'<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
                                     			'</tr>'
@@ -353,6 +360,9 @@
                                     			$('#p_option_tbody').html(appendTo_html);
                                     		})//기존 정보 사라짐
                                     		
+                                    		$('#check_btn').click(function(){
+                                     			alert("");
+                                     		});
                                     		$('#add_mix_option').on('click', '.btn-del-opt', function(){
                                     			$(this).parent().parent().remove();
                                     		});
@@ -631,10 +641,6 @@
         </div>
         
         가운데정렬 테스트할때 사용하면됨
-        <script src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>
-       <!--  <script src = "../js/manage/product.js"></script>
-                            <script src = "../js/manage/image_compress.js"></script>
-        <script src = "../js/manage/test.js"></script> -->
         
         <div id="pagekinArea" class="prdDtail-pagekin prd-write">
         
@@ -643,7 +649,7 @@
            <div id="pagekinCreateArea" style="width: 100%; height: 400px;">
            			<!-- 상세내용 미리보기 느낌임 -->
 					<iframe src="editor/default.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
-						
+					
 					 </iframe>
 					<!--   <p class="txt1">사진, 버튼, 동영상, 지도, 옵션 등을 <br><span class="fc-blue">간단 에디터를 이용하여 손쉽게</span> 만들 수 있습니다</p>
                 
@@ -656,12 +662,24 @@
             <div>
             <br>
             	<input type = "button" value = "확인" id = "check">
+            	<input type = "button" value = "태그거르기 확인" id = "check_img">
+            	<input type = "hidden" value = "" name = "p_contents" id = "p_contents">
             </div>
             <div id = "holder">
             
             </div>
             <script>
             	$(document).ready(function(){
+            		//p_contents 에서는 img 위치 알아하고 DB에 저장되어있던 상세이미지 풀어서 뿌려줘야함
+            		
+            		
+            		$('#check_img').click(function(){
+            			var data = 	$('#default_iframe').contents().find('#contents_div').html();
+            			var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
+            			var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '<img>');
+            			alert(result2);
+            		});
+            		
             		$('#check').click(function(){
     	        		var data = $('#default_iframe').contents().find('#contents_div').html();
     	        		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
@@ -699,7 +717,7 @@
     	        	   
             		$('input[name="img[]"]').change(function(){
             			
-  	        			'<img src = '++'/>';
+  	        			//'<img src = '++'/>';
   	        	    });
             	});
             </script>
@@ -826,15 +844,42 @@
     </div>
     </form>
 </div>
-
+<form id="form">
+    <!-- <input type='file' id="imgInput" /> -->
+    <img id="image_section" src="#" alt="your image" />
+</form>
 <script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 
+$('input[name="img_detail[]"]').change(function(){
+	readURL(this);
+});
 
+function readURL(input) {
+	 
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function (e) {
+            //$('#image_section').attr('src', e.target.result);
+            //$('#default_iframe').contents().find('#contents_div').html().append($('#image_section'));
+            var img = "<img src = \""+e.target.result+"\" /><br>";
+            $('#default_iframe').contents().find('#contents_div').append(img);
+        }
+ 
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+ 
+$("#imgInput").change(function(){
+    readURL(this);
+});
 
 var menuHash = '#left-menu';
 var requestUrl = "/adm/product/manage/add";
+
+
 
 function make_smallCate(cateNum){
 	if(cateNum == 1){
@@ -1147,6 +1192,17 @@ $(document).ready(function(){
     });
     
     $('#btn_save').click(function(){
+    	
+    	//컨텐츠 hidden값에 넣어줘야함
+    	var data = 	$('#default_iframe').contents().find('#contents_div').html();
+		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n').replace(/<br>/gi, '\n');
+		var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '<img>');
+		alert(result2); //이미지태그 개수 및 위치 표시가능
+		
+		$('#p_contents').val(result2);
+		
+		alert($('#p_contents').val());
+		//여기서 유효성검사 해줘야함
     	$('#product_form').submit();
     });
 

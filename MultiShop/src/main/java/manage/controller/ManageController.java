@@ -24,7 +24,7 @@ import manage.dao.ManageDAO;
 @RequestMapping("/manage")
 public class ManageController {
 	
-	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\Desktop\\1111MultiShop\\MultiShop\\src\\upload";
+	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	
 	@Autowired
 	private ManageDAO manageDAO;
@@ -143,111 +143,134 @@ public class ManageController {
 							@RequestParam Map<String, String> map,
 							@RequestParam(value="p_option1[]") String[] p_option1_list,
 							@RequestParam(value="p_option2[]") String[] p_option2_list,
-							@RequestParam(value="p_amount[]") String[] p_amount_list){						//jsp의 name 속성이름과 Product_DTO , Product_boardDTO 의 이름이 동일해야함..
+							@RequestParam(value="p_amount[]") String[] p_amount_list,
+							@RequestParam(value="p_contents") String p_contents){						//jsp의 name 속성이름과 Product_DTO , Product_boardDTO 의 이름이 동일해야함..
 		
 		System.out.println(p_option1_list.length);
 		
 		for(int i = 0; i < p_option1_list.length; i++) {
+			
+			
 			System.out.println(p_option1_list[i]);
 			System.out.println(p_option2_list[i]);
 			System.out.println(p_amount_list[i]);
 		}
 		
+		System.out.println(list.size());
 		String p_image = "";
 		for(MultipartFile img : list) {
+			System.out.println("img : " + img.isEmpty());
 			System.out.println(img.getName());
-			String fileName = img.getOriginalFilename();
-			p_image += "/"+fileName;
-			
-			System.out.println("대표 이미지 파일 이름 : " + fileName);
-			File file = new File(UPLOAD_PATH, fileName);
-			try {
-				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
-			} catch (IOException e) {
-				e.printStackTrace();
+			if(!img.isEmpty()) {
+				String fileName = img.getOriginalFilename();
+				p_image += "/"+fileName;
+				
+				System.out.println("대표 이미지 파일 이름 : " + fileName);
+				File file = new File(UPLOAD_PATH, fileName);
+				try {
+					FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		ProductDTO productDTO = new ProductDTO();
-		productDTO.setP_cateNum(map.get("p_cateNum"));
-		productDTO.setP_midCate(map.get("p_midCate"));
-		productDTO.setP_smallCate(map.get("p_smallCate"));
-		productDTO.setP_name(map.get("p_name"));
-		productDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
-		productDTO.setP_status(map.get("p_status"));
-		productDTO.setP_maker(map.get("p_maker"));
-		productDTO.setP_origin(map.get("p_origin"));
-		
-		System.out.println(p_image);
-		productDTO.setP_image(p_image);
-		productDTO.setP_group(productDTO.getP_code());
-		//manageDAO.productInsert(productDTO);
-		System.out.println("들렸다감");
-		System.out.println("ProductDTO : " + productDTO);
-		
+		int cnt = 0;
+		int i = 0 ;
+		int seq = 0;
+		do {
+			ProductDTO productDTO = new ProductDTO();
+			productDTO.setP_cateNum(map.get("p_cateNum"));
+			productDTO.setP_midCate(map.get("p_midCate"));
+			productDTO.setP_smallCate(map.get("p_smallCate"));
+			productDTO.setP_name(map.get("p_name"));
+			
+			if(p_option1_list.length == 0) {			//option 선택안한경우	
+				productDTO.setP_option1("");
+				productDTO.setP_option2("");
+			}else {										//option 선택한경우
+				productDTO.setP_option1(p_option1_list[i]);
+				productDTO.setP_option2(p_option2_list[i]);
+				productDTO.setP_amount(Integer.parseInt(p_amount_list[i]));
+			}
+			
+			productDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
+			productDTO.setP_status(map.get("p_status"));
+			productDTO.setP_maker(map.get("p_maker"));
+			productDTO.setP_origin(map.get("p_origin"));
+			
+			System.out.println(p_image);
+			productDTO.setP_image(p_image);
+			if(cnt == 0) {
+				productDTO.setP_group(0);
+			}else {
+				productDTO.setP_group(seq);
+			}
+			
+			manageDAO.productInsert(productDTO); //dao묶음 풀기
+			
+			if(cnt == 0) {	//첫행때 p_code 가지고옴
+				seq = manageDAO.getSeq(); 
+				cnt++;
+			}
+			
+			System.out.println("들렸다감");
+			System.out.println("ProductDTO : " + productDTO);
+			i++;
+		}while(p_option1_list.length > i);
+			
 		//PRODUCT 에 저장완료
 		
+		//방금넣은거 꺼내오기
+		//List<Integer> p_group_list = manageDAO.getProduct(map.get("p_name"));		//p_name을 기준으로 셀렉트는 여러개가잇을것임 가져오는것은 p_gruop
+
+		//int p_code = p_group_list.get(0); //dao묶음 풀기
 		
 		//PRODUCT_BOARD 저장시작
 		
 		p_image = "";
 		for(MultipartFile img : detail_list) {
 			System.out.println(img.getName());
-			String fileName = img.getOriginalFilename();
-			p_image += "/"+fileName;
-			
-			System.out.println("상세 이미지 파일 이름 : " + fileName);
-			File file = new File(UPLOAD_PATH, fileName);
-			try {
-				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		Product_boardDTO product_boardDTO = new Product_boardDTO();
-		product_boardDTO.setP_cateNum(Integer.parseInt(map.get("p_cateNum")));
-		product_boardDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
-		product_boardDTO.setP_name(map.get("p_name"));
-		product_boardDTO.setP_image(p_image);
-		
-		System.out.println();
-		System.out.println("Product_boardDTO : " + product_boardDTO);
-		//
-		
-		
-		
-		ModelAndView mav = new ModelAndView();
-		/*@RequestMapping(value="imageboardWrite", method=RequestMethod.POST)
-		public String imageboardWrite(@ModelAttribute ImageboardDTO imageboardDTO,
-									  @RequestParam("img[]") List<MultipartFile> list,
-									  Model model) {
-			
-			String filePath = "D:\\Spring\\workspace\\SpringProject\\src\\main\\webapp\\storage";  
-			
-			for(MultipartFile img : list) {
+			if(!img.isEmpty()) {
 				String fileName = img.getOriginalFilename();
-				File file = new File(filePath, fileName);
+				p_image += "/"+fileName;
 				
+				System.out.println("상세 이미지 파일 이름 : " + fileName);
+				File file = new File(UPLOAD_PATH, fileName);
 				try {
 					FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-				imageboardDTO.setImage1(fileName);
-				
-				//DB
-				imageboardDAO.imageboardWrite(imageboardDTO);
-			
-			}//for
-			
-			model.addAttribute("display","/imageboard/imageboardList.jsp");
-			return "/main/index";
-		}*/
+			}
+		}
 		
+		Product_boardDTO product_boardDTO = new Product_boardDTO();
+		product_boardDTO.setP_cateNum(Integer.parseInt(map.get("p_cateNum")));
+		product_boardDTO.setP_code(seq); //dao묶음 풀기
+		product_boardDTO.setP_contents(p_contents);
+		product_boardDTO.setP_name(map.get("p_name"));
+		product_boardDTO.setP_COST(Integer.parseInt(map.get("p_cost")));
+		product_boardDTO.setP_image(p_image);
+		//sysdate
 		
+		System.out.println();
+		System.out.println("Product_boardDTO : " + product_boardDTO);
 		
+		System.out.println("--------");
+		System.out.println("p_contents : " + p_contents);
+		System.out.println("--------");
 		
+		//DB 접근
+		manageDAO.product_boardInsert(product_boardDTO);
+		
+		//PRODUCT_BOARD 저장완료
+		String[] detail_image = p_image.split("/");
+		
+		//MAV 시작
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("detail_image", detail_image);
+		mav.addObject("display", "/manage/test.jsp");
+		mav.setViewName("/section/adminIndex");
 		return mav;
 	}
 	

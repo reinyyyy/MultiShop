@@ -324,16 +324,18 @@
 		
 		//제품 내용물 생성
 		function card(items) { //DB컬럼명을 가져다 써야함 banana.jpg			//받아오는거 DTO 에서 boardLIST 로 변경해야댐
-			var src = '../image/' + items.p_image;
+			var result = items.p_main_img.replace('/', '');
+			var src = '../upload/' + result;
+			console.log(result);
 			var name = items.p_name;
 			var content = items.p_contents;
-			var price = items.p_cost;		//제품테이블에서 받아와함.
+			var price = items.p_COST;		//제품테이블에서 받아와함.
 			var p_code = items.p_code;
 			
 			var card_html = 
 					'<div class="card" align="center">'
 					+ '<div style="position : relative;">'
-					+ '<img class="card-img-top" src=' + src + ' alt="Card image cap">'
+					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap">'
 					+ '<div class="quick_menu" style="background : rgba(0,0,0,0.8)">'
 					+ '<a href="/product/view.asp?productNo=42046" class="btnl link" target="_blank" float="left"/>'
 					+ '<input type = "hidden" name = "p_code" value = ' + p_code + '>'

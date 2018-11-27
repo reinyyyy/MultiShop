@@ -27,11 +27,6 @@ public class CategoryDAOMybatis implements CategoryDAO{
 		return sqlSession.selectOne("categorySQL.getProduct", p_code);
 	}
 
-	//글 리스트 목록 불러오기
-	public List<Product_boardDTO> getProduct_Board_list(Map<String, Integer> map) {
-		return sqlSession.selectList("categorySQL.getProduct_Board_list", map);
-	}
-
 	//패션, 같은 그룹의 컬러, 사이즈 목록 가져오기
 	public List<ProductDTO> getGroup(int p_group) {
 		return sqlSession.selectList("categorySQL.getGroup", p_group);
@@ -40,5 +35,10 @@ public class CategoryDAOMybatis implements CategoryDAO{
 	//카테고리 넘버로 글 카운팅하기
 	public int getProduct_BoardTotalA(int cateNum) {
 		return sqlSession.selectOne("categorySQL.getProduct_BoardTotalA", cateNum);
+	}
+	
+	//글 리스트 목록 맵으로 받아오기
+	public List<Map<String, String>> getProduct_Board_map(Map<String, Integer> map) {
+		return sqlSession.selectList("categorySQL.getProduct_Board_map", map);
 	}
 }
