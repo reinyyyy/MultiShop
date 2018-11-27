@@ -259,7 +259,6 @@ $(document).ready(function(){
          $('#firstProductAmountHiddenVal').val(data.detailDTO.p_amount);
          $('#firstProductCostHiddenVal').val(data.detailDTO.p_cost);
          
-         
          //상품 코드,이름
          $('#productCodeAndName').append(data.detailDTO.p_code + " / " + data.detailDTO.p_name);
          //상품 가격
@@ -276,10 +275,10 @@ $(document).ready(function(){
          
          
          //$('#firstProductPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount));
-         alert($('#firstProductCodeHiddenVal').val());
-         alert($('#firstProductColorHiddenVal').val());
-         alert($('#firstProductAmountHiddenVal').val());
-         alert($('#firstProductSizeHiddenVal').val());
+         //alert($('#firstProductCodeHiddenVal').val());
+         //alert($('#firstProductColorHiddenVal').val());
+         //alert($('#firstProductAmountHiddenVal').val());
+         //alert($('#firstProductSizeHiddenVal').val());
          
         /*  var firstProductPrice = $('#firstProductPrice').text();
          var secondProductPrice = $('#secondProductPrice').text();

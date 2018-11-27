@@ -4,13 +4,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title" style=" margin: 0 auto;"><img src="../image/orderOk_img.gif"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>결재가 완료되었습니다.</p><br>
+        <p>결재가 완료되었습니다.</p>
         <p>마이페이지로 이동 하시겠습니까?</p>
       </div>
       <div class="modal-footer">
