@@ -94,5 +94,7 @@ table th{
 }
 .detail_hoogi_alramSpan{
 	cursor : pointer;
-	
+}	
+.detail_QnAView_List{
+	border-bottom: 1px solid #d5d3d3;
 }

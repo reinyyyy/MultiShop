@@ -27,7 +27,7 @@
 				<td class="detail_QnA" width="40" height="30" id="detail_QnASeq">${detail_QnADTO.seq}</td>
 				<td class="detail_QnA" width="150"><img class="detail_QnACondition" src="../image/${detail_QnADTO.condition}.png"></td>
 				<td class="detail_QnA" width="650">
-				<span class="detail_QnA_ContactUs">${detail_QnADTO.detail_QnASubject}</span>
+					<span class="detail_QnA_ContactUs">${detail_QnADTO.detail_QnASubject}</span>
 				</td>
 				<c:if test="${detail_QnADTO.reply == 'ready'}">
 					<td align="center" class="detail_QnA" width="50">

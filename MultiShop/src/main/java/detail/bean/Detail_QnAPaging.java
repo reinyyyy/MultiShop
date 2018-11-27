@@ -22,18 +22,18 @@ public class Detail_QnAPaging {
 			endPage = totalP;
 		}
 		if(startPage > pageBlock) {
-			pagingHTML.append("<li class='page-item disabled'><a class='page-link' href='#?pg="+(startPage-1)+"' tabindex='-1'>Pervious</a></li>");
-		}
+			pagingHTML.append("<li class='page-item disabled'><a class='page-link' href='/MultiShop/detail_page/detailPage.do?detail_QnA_Pg="+(startPage-1)+"' tabindex='-1'>Pervious</a></li>");
+		}																														
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage) {
-				pagingHTML.append("<li class='page-item'><a class='page-link' href='#'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/detail_page/detailPage.do?detail_QnA_Pg="+i+"'>"+i+"</a></li>");
 			}
 			else {
-				pagingHTML.append("<li class='page-item'><a class='page-link' href='#'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/detail_page/detailPage.do?detail_QnA_Pg="+i+"'>"+i+"</a></li>");
 			}
 		}
 		if(endPage < totalP) {
-			pagingHTML.append("<li class='page-item disabled'><a class='page-link' href='#?pg="+(endPage+1)+"' tabindex='-1'>Next</a></li>");
+			pagingHTML.append("<li class='page-item disabled'><a class='page-link' href='/MultiShop/detail_page/detailPage.do?detail_QnA_Pg=?"+(endPage+1)+"' tabindex='-1'>Next</a></li>");
 		}
 	}
 	

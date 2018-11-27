@@ -39,34 +39,38 @@ public class DetailController {
    
    //상세페이지
    @RequestMapping(value="detailPage", method=RequestMethod.GET)
-   public String detailPageView(Model model) {
+   public String detailPageView(@RequestParam(required=false, defaultValue="1") int detail_QnA_Pg
+		   					   ,@RequestParam(required=false, defaultValue="1") int detail_hoogi_Pg
+		   					   ,Model model) {
       
       //페이징처리
-      int detail_QnA_Pg = 1;
-		int detail_hoogi_Pg = 1;
-		int detail_QnA_endNum = detail_QnA_Pg*3;
-		int detail_hoogi_endNum = detail_hoogi_Pg*3;
-		int detail_QnA_startNum = detail_QnA_endNum-2;
-		int detail_hoogi_startNum = detail_hoogi_endNum-2;
+      int detail_QnA_endNum = detail_QnA_Pg*3;
+      int detail_hoogi_endNum = detail_hoogi_Pg*3;
+      int detail_QnA_startNum = detail_QnA_endNum-2;
+      int detail_hoogi_startNum = detail_hoogi_endNum-2;
 		
 		//양현규
-		List<DetailhoogiDTO> detail_hoogiList = detailDAO.detail_GetReViewList(detail_hoogi_startNum,detail_hoogi_endNum);
-		List<DetailQnADTO> detail_QnAList = detailDAO.detail_GETQnAList(detail_QnA_startNum,detail_QnA_endNum);
+      List<DetailhoogiDTO> detail_hoogiList = detailDAO.detail_GetReViewList(detail_hoogi_startNum,detail_hoogi_endNum);
+      List<DetailQnADTO> detail_QnAList = detailDAO.detail_GETQnAList(detail_QnA_startNum,detail_QnA_endNum);
+
+      int totalReView = detailDAO.detail_GetTotalReView();
+      detail_hoogiPaging.setCurrentPage(detail_hoogi_Pg);
+      detail_hoogiPaging.setPageBlock(3);
+      detail_hoogiPaging.setPageSize(3);
+      detail_hoogiPaging.setTotalA(totalReView);
+      detail_hoogiPaging.detail_hoogi_makePagingHTML();
 		
-		int totalReView = detailDAO.detail_GetTotalReView();
-		detail_hoogiPaging.setCurrentPage(detail_hoogi_Pg);
-		detail_hoogiPaging.setPageBlock(3);
-		detail_hoogiPaging.setPageSize(3);
-		detail_hoogiPaging.setTotalA(totalReView);
-		detail_hoogiPaging.detail_hoogi_makePagingHTML();
-		
-		int tatalQnA = detailDAO.detail_GetTotalQnA();
-		detail_QnAPaging.setCurrentPage(detail_hoogi_Pg);
-		detail_QnAPaging.setPageBlock(3);
-		detail_QnAPaging.setPageSize(3);
-		detail_QnAPaging.setTotalA(tatalQnA);
-		detail_QnAPaging.detail_QnA_makePagingHTML();
+      int tatalQnA = detailDAO.detail_GetTotalQnA();
+      detail_QnAPaging.setCurrentPage(detail_QnA_Pg);
+      detail_QnAPaging.setPageBlock(3);
+      detail_QnAPaging.setPageSize(3);
+      detail_QnAPaging.setTotalA(tatalQnA);
+      detail_QnAPaging.detail_QnA_makePagingHTML();
       
+      model.addAttribute("detail_QnA_Pg", detail_QnA_Pg);
+      model.addAttribute("detail_hoogi_Pg", detail_hoogi_Pg);
+	  model.addAttribute("detail_hoogiPaging", detail_hoogiPaging);
+	  model.addAttribute("detail_QnAPaging", detail_QnAPaging);
       model.addAttribute("detail_hoogiList", detail_hoogiList);
       model.addAttribute("detail_QnAList", detail_QnAList);
       model.addAttribute("section", "/detail_page/detailPage.jsp");

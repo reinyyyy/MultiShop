@@ -22,6 +22,8 @@
 </head>
 <body>
 	<input type = "hidden" id="session_email" value="${session_email }">
+	<input type = "hidden" id="detail_hoogi_Pg" value="${detail_QnA_Pg }">
+	<input type = "hidden" id="detail_QnA_Pg" value="${detail_hoogi_Pg }">
    <header>
       <div class="container">
          <div id="productView">
@@ -270,13 +272,14 @@
               <div id="detail_hoogi_Table">
               	<jsp:include page="../detail_Table/detail_hoogiTable.jsp"/>
               </div>
+               <br>
               <div>
               	<jsp:include page="../detail_Paging/detail_hoogiPaging.jsp"/>
               </div>
               <br>
             <div class="container" align="right">
-               <input type="button" value="사용후기작성" class="btn_hoogi" id="btn_hoogi" data-toggle="modal" data-taget="#detail_hoogiModal">
-              </div>
+            	<input type="button" value="사용후기작성" class="btn_hoogi" id="btn_hoogi" data-toggle="modal" data-taget="#detail_hoogiModal">
+            </div>
          </div>
        </section>
        
@@ -303,6 +306,7 @@
             <div id="detail_QnA_Table">
                  <jsp:include page="../detail_Table/detail_QnATable.jsp"/>
             </div>
+            <br>
             <div>
               	<jsp:include page="../detail_Paging/detail_QnAPaging.jsp"/>
             </div>

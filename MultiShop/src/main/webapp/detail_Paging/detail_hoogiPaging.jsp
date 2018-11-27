@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <nav aria-label="Page navigation example">
 	<ul class="pagination justify-content-center">
-		<li class="page-item disabled">
-			${Detail_hoogiPaging.getPagingHTML()}
-		</li>
+		${detail_hoogiPaging.getPagingHTML()}
 	</ul>
 </nav>

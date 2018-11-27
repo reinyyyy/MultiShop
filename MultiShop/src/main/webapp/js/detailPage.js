@@ -2,8 +2,6 @@ $(document).ready(function(){
    //총합계 가격
    var totalPrice = parseFloat($('#totalPrice').text());
    $('#totalPrice').text(totalPrice.toLocaleString());
-
-   
    
    //수량이 변경 할 때
    $(document).on('change',"#detail_amountSelect",function(){
@@ -38,9 +36,6 @@ $(document).ready(function(){
       var select_color = $('#detail_colorSelect').val();
       var select_size = $('#detail_sizeSelect').val();
       var select_amount = $('#detail_amountSelect').val();
-      
-      
-      
    });
    
    //장바구니 버튼(a태그)
@@ -89,7 +84,7 @@ $(document).ready(function(){
          var detail_hoogiModalContent = $('#detail_hoogiModalContent').val();
          /*var id = $('#session_email').val();*/
          var id ='id';
-         var seq= 8;
+         var seq= 25;
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_hoogi.do',
@@ -98,7 +93,7 @@ $(document).ready(function(){
                   ,'id':id
                   ,'seq':seq},
             success : function(){
-               location.reload();
+            	$('#detail_hoogi_Table').load($('detail_page/detailPage.jsp'));
             }
          });
       }
@@ -130,7 +125,7 @@ $(document).ready(function(){
       else{
          /*var id = $('#session_email').val();*/
     	  var id ='id';
-         var seq = 11;
+         var seq = 12;
          var condition = $('input[name="detail_QnACondition"]:checked').val();
          var detail_QnASubject = $('#detail_QnASubject').val();
          var detail_QnAContent = $('#detail_QnAContent').val();
@@ -197,42 +192,60 @@ $(document).ready(function(){
     	  }
       });
    });
+   //테이블 보기/숨기기 스위치
+   var click=0;
    //Q&A 보기
    $('.detail_QnA_ContactUs').on('click',function(){
 	   var seq =$(this).parent().prev().prev().text();
 	   var appendTr = $(this).parent().parent();
-	   $.ajax({
-		   type : 'POST',
-		   url : '/MultiShop/detail_page/detail_QnA_List.do',
-		   data :{'seq':seq},
-		   dataType : 'json',
-		   success : function(data){
-			   $.each(data.detail_QnA_List , function(index,items){
-				   
-				   var result;
-				   if(items.replyContent == null){
-					   result = '등록된 답변이 없습니다.';
-				   }else{
-					   result = items.replyContent;
-				   }
+	   if(click == 1){
+		   click=0;
+		   $('.detail_QnAView_remove').parent().remove();
+	   }
+	   else{
+		   click = 1;
+		   $.ajax({
+			   type : 'POST',
+			   url : '/MultiShop/detail_page/detail_QnA_List.do',
+			   data :{'seq':seq},
+			   dataType : 'json',
+			   success : function(data){
+				   $.each(data.detail_QnA_List , function(index,items){
 					   
-				   $('<tr/>').append($('<td/>',{
-					   colspan : '2',
-					   height : '50',
-					   html :'<img src="../image/QnA_Q.png" style="width : 20px; height : 20px;">'
-				   })).append($('<td/>',{
-					   colspan : '4',
-					   text : items.detail_QnAContent
-				   })).append($('<tr/>')).append($('<td/>',{
-					   colspan : '2',
-					   height : '50',
-					   html : '<img src ="../image/QnA_A.png" style="width : 20px; height : 20px;">'
-				   })).append($('<td/>',{
-					   colspan : '4',
-					   text : result,
-				   })).appendTo(appendTr);
-			   });
-		   }
-	   });
+					   var result;
+					   if(items.replyContent == null){
+						   result = '등록된 답변이 없습니다.';
+					   }else{
+						   result = items.replyContent;
+					   }
+						   
+					   $('<tr/>').append($('<td/>',{
+						   class : 'detail_QnAView_List detail_QnAView_remove',
+						   align : 'center',
+						   colspan : '2',
+						   height : '100',
+						   html : '<img src ="../image/QnA_A.png" style="width : 20px; height : 20px;">'
+					   })).append($('<td/>',{
+						   class : 'detail_QnAView_List',
+						   align : 'center',
+						   colspan : '4',
+						   text : result,
+					   })).insertAfter(appendTr);
+					   $('<tr/>').append($('<td/>',{
+						   class : 'detail_QnAView_List detail_QnAView_remove',
+						   align : 'center',
+						   colspan : '2',
+						   height : '100',
+						   html :'<img src="../image/QnA_Q.png" style="width : 20px; height : 20px;">'
+					   })).append($('<td/>',{
+						   class : 'detail_QnAView_List',
+						   align : 'center',
+						   colspan : '4',
+						   text : items.detail_QnAContent
+					   })).insertAfter(appendTr);
+				   });
+			   }
+		   });
+   		}
    });
 });

@@ -42,5 +42,11 @@
    <select id="detail_QnA_List" parameterType="int" resultType="detail_QnADTO">
    	 select * from detail_QnA where seq = #{seq}
    </select>
+   <select id="detail_GetTotalReView" resultType="int">
+   		select count(*) from detail_hoogi
+   </select>
+   <select id="detail_detail_GetTotalQnA" resultType="int">
+   		select count(*) from detail_QnA
+   </select>
    
 </mapper>
