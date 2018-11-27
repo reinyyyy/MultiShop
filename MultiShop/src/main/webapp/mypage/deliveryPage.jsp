@@ -37,30 +37,19 @@
 	<input type="hidden" id="pg" value=${pg }>
 	<div id="delivery_paging">
 		<ul class="pagination">
-			${orderPaging}
+			${orderPaging }
 		</ul>
 	</div>
 </div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-$(window).on('load',function(){
-	$('#delivery_div').load('/MultiShop/mypage/deliveryList.do',
-			{"pg":$('#pg').val()},
-			function(data){
-				if(data=='true'){
-					alert(data);
-				}
-			});
-});
-
-
 $(document).ready(function(){
-	
 	$('#paging').on('click',function(){
 		event.preventDefault();
         event.stopPropagation();
         var pg = $(this).prop('name');
+       	location.href='/MultiShop/mypage/delivery.do?pg='+pg;
 	});
 	
 	
