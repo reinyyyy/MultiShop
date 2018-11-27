@@ -220,17 +220,132 @@
       <div><span>
          <img src='//cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif'>
       </span></div>
-      
-      <!-- Footer -->
-   <footer class="py-5 bg-dark">
-  	   <div class="dropdown">
-          <p class="m-0 text-center text-white">(주)COZY 사업자 정보 보기
-       </div>
-      <div class="container">
-         <p class="m-0 text-center text-white">Copyright &copy; KGITBANK</p>     
       </div>
-      <!-- /.container -->
-   </footer>
+
+<!-- footer -->
+<footer class="page-footer font-small unique-color-dark">
+    <div style="background-color: #BE81F7;">
+      <div class="container">
+        <!-- Grid row-->
+        <div class="row py-4 d-flex align-items-center">
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+            <h6 class="mb-0"><i class="fas fa-globe-asia"></i><strong>2019</strong> facebook, instagram, twitter, google+ Coming Soon!</h6>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-7 text-center text-md-right">
+            <!-- Facebook -->
+            <a class="fb-ic">
+              <i class="fab fa-facebook fa-2x white-text"></i>
+            </a>
+            <!-- Twitter -->
+            <a class="tw-ic">
+              <i class="fab fa-twitter fa-2x white-text"> </i>
+            </a>
+            <!-- Google +-->
+            <a class="gplus-ic">
+              <i class="fab fa-google-plus fa-2x white-text"> </i>
+            </a>
+            <!--Instagram-->
+            <a class="ins-ic">
+              <i class="fab fa-instagram fa-2x white-text"> </i>
+            </a>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row-->
+      </div>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase font-weight-bold">사업자 정보</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p style="font-size:9pt; "> 상호명: (주)just COZY<br>
+          	     대표: 제갈준혁<br>
+          	   사업장소재지: 서울특별시 종로구 묘동 56 4층<br>
+          	  사업자등록번호:203-44-25960<br>
+          	  통신판매업신고:2018-서울종로-1953    	     
+          </p>
+          <p style="font-size:17pt;">
+          <i class="fas fa-phone"></i>
+          1644-9301<br>
+          </p>
+          <p style="font-size:10pt;">
+          AM 10:00 ~ PM 06:00 Off-time <br>PM 12:30 ~ PM 02:00 DAY OFF <br>(SATURDAY. SUNDAY, HOLIDAY)<br></p>
+		 <button type="button" class="btn btn-dark">FAQ ></button>
+          
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <button id="privatePolciyBtn" data-backdrop="static" data-toggle="modal" data-target="#privatePolicy_modal" class="btn btn-light">개인정보취급방침</button>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <a href="#!">Your Account</a>
+          </p>
+          <p>
+            <a href="#!">Become an Affiliate</a>
+          </p>
+          <p>
+            <a href="#!">Shipping Rates</a>
+          </p>
+          <p>
+            <a href="#!">Help</a>
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">Contact</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p style="font-size:10pt; ">
+            <i class="fa fa-home mr-3"></i>서울시 종로구 묘동 56 단성사 4층 </p>
+          <p style="font-size:10pt; ">
+            <i class="fa fa-envelope mr-3"></i> 이종훈(leejonghoon91@naver.com) </p>
+          <p style="font-size:10pt; ">
+            <i class="fa fa-phone mr-3"></i> 010-7255-0746</p>
+          <p style="font-size:10pt; ">
+            <i class="fa fa-print mr-3"></i> 02-1445-9304</p>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3" style="background-color: #000000;"><span style="color:white;">© 2018 Copyright:</span>
+      <a href="https://localhost:8080/MultiShop/main/index.do"> just COZY</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
 </body>
 <script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script
