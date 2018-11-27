@@ -1,14 +1,17 @@
 package detail.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import detail.bean.DetailDTO;
@@ -39,6 +42,7 @@ public class DetailController {
       
       model.addAttribute("detail_hoogiList", detail_hoogiList);
       model.addAttribute("detail_QnAList", detail_QnAList);
+      
       model.addAttribute("section", "/detail_page/detailPage.jsp");
       return "/main/main";
    }
@@ -48,9 +52,10 @@ public class DetailController {
    public String orderPage(Model model, @RequestParam(value="detail_colorSelect") String color, 
                                @RequestParam(value="detail_sizeSelect") String size, 
                                @RequestParam(value="detail_amountSelect") String amount, 
-                               @RequestParam String productCode, 
+                               @RequestParam int productCode, 
                                @RequestParam String productName) {
       
+	  
       model.addAttribute("color", color);
       model.addAttribute("size", size);
       model.addAttribute("amount", amount);
@@ -70,10 +75,9 @@ public class DetailController {
       
       System.out.println("@@"+color+size+amount+productCode+productName+"@@");
       
-      //DB갔다오고
       
-      detailDTO.setP_color(color);
-      detailDTO.setP_size(size);
+      detailDTO.setP_option1(color);
+      detailDTO.setP_option2(size);
       detailDTO.setP_amount(Integer.parseInt(amount));
       detailDTO.setP_code(Integer.parseInt(productCode));
       detailDTO.setP_name(productName);
@@ -88,6 +92,24 @@ public class DetailController {
       mav.setViewName("jsonView");
       
       return mav;
+   }
+   
+   //전재우 결재완료
+   @RequestMapping(value="orderOk", method=RequestMethod.POST)
+   public @ResponseBody String orderOk(@RequestParam Map<String,String> map) {
+	   System.out.println("@@"+map+"@@");
+	   //재고확인 dao
+	   if(detailDAO.getClothes(map)==1) {
+		   System.out.println("성공크!");
+		   //재고 update
+		   detailDAO.updateOneClothes(map);
+		   return "exist";
+		   //회원 update
+	   }else {
+		   System.out.println("실패애애@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		   return "non_exist";
+	   }
+	   
    }
    
    //양현규--------------------
@@ -122,6 +144,7 @@ public class DetailController {
       
       return modelAndView;
    }
+   
    
    
 }

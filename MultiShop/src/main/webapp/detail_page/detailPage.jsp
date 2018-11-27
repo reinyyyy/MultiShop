@@ -13,6 +13,11 @@
    href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
    crossorigin="anonymous">
+<style type="text/css">
+#section_location{
+	position : unset;
+}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -86,7 +91,7 @@
                      <li>
                         <dl>
                            <dt>제조국가</dt>
-                           <dd>대한민국</dd>
+                           <dd>이탈리아</dd>
                         </dl>
                      </li>
                      <li>

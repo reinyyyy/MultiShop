@@ -1,6 +1,7 @@
 package detail.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +17,22 @@ import detail.bean.DetailhoogiDTO;
 public class DetailDAOMybatis implements DetailDAO {
    @Autowired
    private SqlSession sqlSession;
-   
-   /*
-   public List<DetailDTO> getClothes(DetailDTO detailDTO) {
-      return sqlSession.selectList("detailSQL.getClothes",detailDTO);
+   //재우
+   //옷 수량확인
+   public int getClothes(Map<String, String> map) {
+		return sqlSession.selectOne("detailSQL.getClothes",map);
+	}
+   //구매 시 옷 수량 수정
+   public void updateOneClothes(Map<String, String> map) {
+      sqlSession.update("detailSQL.updateOneClothes",map);
    }
-
-   public void deleteOneClothes(DetailDTO detailDTO) {
-      sqlSession.update("detailSQL.deleteOneClothes",detailDTO);
-   }*/
+   
+   
+   
+   
    
    
    // 양현규
-   
    public void detail_userReview(DetailhoogiDTO detailhoogiDTO) {
       sqlSession.insert("detailSQL.detail_userReview",detailhoogiDTO);
    }
@@ -48,6 +52,8 @@ public class DetailDAOMybatis implements DetailDAO {
    public DetailQnADTO detail_GetQnAViewList(int seq) {
       return sqlSession.selectOne("detailSQL.detail_GetQnAViewList",seq);
    }
+
+
    
 
 }

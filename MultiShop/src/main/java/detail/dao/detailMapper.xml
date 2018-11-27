@@ -2,15 +2,15 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="detailSQL">
-<!-- 
-   <select id="getClothes" parameterType="detail" resultType="detail">
-      select * from Clothes
+ 
+   <select id="getClothes" parameterType="Map" resultType="int">
+      select count(*) from product where p_option1=#{p_color} and p_option2=#{p_size}  
    </select>
-   
-   <update id="deleteOneClothes" parameterType="detail">
-      update Clothes set p_amount=p_amount-#{p_amount} where p_color=#{p_color} and p_size=#{p_size}
+    
+   <update id="updateOneClothes" parameterType="Map">
+      update product set p_amount=p_amount-#{p_amount} where p_option1=#{p_color} and p_option2=#{p_size}
    </update>
-    -->
+   
     
     <!-- 양현규 -->
    <insert parameterType="detail_hoogiDTO" id="detail_userReview">
