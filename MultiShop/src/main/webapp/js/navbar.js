@@ -430,7 +430,7 @@ $(document).ready(function(){
          $(this).find('form')[0].reset();
       }
       $(this).find('input').css({'border':''});
-      $('html, body').css({'overflow': 'initial', 'height': '100%'}); //scroll hidden 해제 
+      /*$('html, body').css({'overflow': 'initial', 'height': '100%'});*/ //scroll hidden 해제 
       $('#element').off('scroll touchmove mousewheel'); // 터치무브 및 마우스휠 스크롤 가능
       $('#join_modal_statusDiv').empty();
       $('#login_modal_statusDiv').empty();
@@ -447,7 +447,7 @@ $(document).ready(function(){
    
    /*modal-show*/
    $('.modal').on('show.bs.modal', function () {
-      $('html, body').css({'overflow': 'hidden', 'height': '100%'}); // 모달팝업 중 html,body의 scroll을 hidden시킴
+      /*$('html, body').css({'overflow': 'hidden', 'height': '100%'});*/ // 모달팝업 중 html,body의 scroll을 hidden시킴
       $('#element').on('scroll touchmove mousewheel', function(event) { // 터치무브와 마우스휠 스크롤 방지
           event.preventDefault();
           event.stopPropagation();
@@ -456,7 +456,7 @@ $(document).ready(function(){
    });
    
    $('#noticeBtn').on('click',function(){
-	      location.href="/MultiShop/notice/notice.do"
+	      location.href="/MultiShop/notice/notice.do?pg=1"
 	   });
    
 });

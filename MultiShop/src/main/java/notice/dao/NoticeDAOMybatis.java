@@ -27,8 +27,8 @@ public class NoticeDAOMybatis implements NoticeDAO {
 		return sqlSession.selectList("noticeSQL.noticeList", map);
 	}
 	
-	public int getNotice_TotalA(int boardNum) {
-		return sqlSession.selectOne("noticeSQL.getNotice_TotalA", boardNum);
+	public int getNotice_TotalA() {
+		return sqlSession.selectOne("noticeSQL.getNotice_TotalA");
 	}
 	
 	public NoticeDTO noticeView(int n_number) {

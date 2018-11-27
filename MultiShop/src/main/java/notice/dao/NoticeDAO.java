@@ -16,7 +16,7 @@ public interface NoticeDAO {
 
 	public List<NoticeDTO> noticeList(Map<String, Integer> map);
 
-	public int getNotice_TotalA(int boardNum);
+	public int getNotice_TotalA();
 
 	public NoticeDTO noticeView(int n_number);
 

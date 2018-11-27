@@ -30,8 +30,9 @@ public class NoticeController {
 	private NoticePaging noticePaging;
 	
 	@RequestMapping(value="/notice/notice.do", method=RequestMethod.GET)
-	public ModelAndView notice() {
+	public ModelAndView notice(@RequestParam(name="pg",defaultValue="1") String pg) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("pg",pg);
 		mav.addObject("section","/notice/notice.jsp");
 		mav.setViewName("/main/main");
 		return mav;
@@ -46,22 +47,20 @@ public class NoticeController {
 	*/
 	//각 카테고리 전체 리스트 하나로 됨, 구분자 cateNum
 	@RequestMapping(value="/notice/noticeList.do", method=RequestMethod.POST)
-	public ModelAndView noticeList(@RequestParam int boardNum, @RequestParam(defaultValue="1") int pg) {
-	
+	public ModelAndView noticeList(@RequestParam(name="pg") String pg) {
 		// list_num 에 따라서 12개씩~ 현재는 5개씩보여주는 상태임
-		int endNum = pg*5;
+		int endNum = Integer.parseInt(pg)*5;
 		int startNum = endNum-4;
 		
 		System.out.println("리스트 생성 pg : " + pg + " endNum = " + endNum + " startNum = " + startNum);
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("boardNum", boardNum);
+		
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		List<NoticeDTO> list = noticeDAO.noticeList(map);
-		
-		int totalA = noticeDAO.getNotice_TotalA(boardNum);
-		
-		noticePaging.setCurrentPage(pg);
+		System.out.println(list);
+		int totalA = noticeDAO.getNotice_TotalA();
+		noticePaging.setCurrentPage(Integer.parseInt(pg));
 		noticePaging.setPageBlock(3);
 		noticePaging.setPageSize(5);
 		noticePaging.setTotalA(totalA);
@@ -69,6 +68,7 @@ public class NoticeController {
 		
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("pg",pg);
 		mav.addObject("noticePaging", noticePaging);	//div 속에 넣어줘야함
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
@@ -79,10 +79,12 @@ public class NoticeController {
 	public ModelAndView noticeView(
 			@ModelAttribute ModelAndView mav, 
 			HttpServletRequest request, 
-			HttpSession session){
+			HttpSession session,
+			@RequestParam(name="pg") String pg){
 		int n_number = Integer.parseInt(request.getParameter("n_number"));
 		NoticeDTO noticeDTO = noticeDAO.noticeView(n_number);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		mav.addObject("pg",pg);
 		mav.addObject("noticeDate", sdf.format(noticeDTO.getN_date()));
 		mav.addObject("noticeDTO",noticeDTO);
 		mav.addObject("section", "/notice/noticeView.jsp");

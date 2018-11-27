@@ -7,6 +7,29 @@
 <title>Insert title here</title>
 <link href = "../css/categoryItemList.css" rel = "stylesheet" />
 <link href = "../css/common.css" rel = "stylesheet" />
+<style>
+div.pagingClass {
+
+}
+div.pagingClass a {
+	display: inline-blick;
+	padding: 8px 15px;
+	height : 38px;
+    color: #fff;
+    background-color: #868e96;
+    border-color: #868e96;
+    border-radius: 5px;
+}
+div.pagingClass a:hover {
+	text-decoration: none;
+	background-color: #218838;
+    border-color: #1e7e34;
+}
+div.pagingClass a + a {
+	margin-left: 5px;
+}
+
+</style>
 </head>
 <body>
 	<div id="jb-container">
@@ -40,14 +63,12 @@
 					</tbody>
 				</table>
 			</div>
-			<div align="center">
-				<button type="button" class="btn btn-secondary" onclick="alert();">1</button>
-				<button type="button" class="btn btn-secondary">2</button>
-				<button type="button" class="btn btn-secondary">3</button>
-				<button type="button" class="btn btn-secondary">다음</button>
+			<div id="boardPagingDiv" class="pagingClass" align="center">
+			
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="pg" name="pg" value="${pg }">
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
@@ -55,6 +76,7 @@
 		$.ajax({
 			type:'POST',
 			url:'/MultiShop/notice/noticeList.do',
+			data : {'pg':$('#pg').val()},
 			dataType:"json",
 			success: function(data){
 				/* alert(JSON.stringify(data)); */
@@ -72,11 +94,14 @@
 						text : new Date(items.n_date).toLocaleDateString()
 					})).appendTo($('#notice_table'));
 				});
+				$('#boardPagingDiv').html(data.noticePaging.pagingHTML);
+				$('#pg').val(data.pg);
 			}
 		});
 		$('#notice_table').on('click','.subjectA',function(){
+			var pg = $('#pg').val();
 			var n_number = $(this).parent().prev().text();
-			location.href="./noticeView.do?n_number="+n_number;
+			location.href="./noticeView.do?n_number="+n_number+"&pg="+pg;
 		});
 	});
 </script>
