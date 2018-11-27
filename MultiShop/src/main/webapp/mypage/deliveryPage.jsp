@@ -15,3 +15,22 @@
 	    </thead>
 	</table>
 </div>
+
+<script type="text/javascript">
+$(document).ready( function () {
+	$('#myTable').dataTable({
+    	ajax: {
+            'url':'/MultiShop/mypage/delivery.do',
+            'type': 'POST'
+         },
+         columns: [
+             {"data": "o_num"},
+             {"data": "p_code"},
+             {"data": "p_cost"}, 
+             {"data": "p_amount"}, 
+             {"data": "o_status"},
+             {"data": "o_tel"}
+         ]
+    }); 
+});
+</script>
