@@ -96,19 +96,18 @@ public class DetailController {
    
    //전재우 결재완료
    @RequestMapping(value="orderOk", method=RequestMethod.POST)
-   public @ResponseBody void orderOk(@RequestParam Map<String,String> map) {
-	   System.out.println(map);
+   public @ResponseBody String orderOk(@RequestParam Map<String,String> map) {
+	   System.out.println("@@"+map+"@@");
 	   //재고확인 dao
 	   if(detailDAO.getClothes(map)==1) {
 		   System.out.println("성공크!");
 		   //재고 update
-		   
-		   
-		   
-		   
-		   //회원 updatea
+		   detailDAO.updateOneClothes(map);
+		   return "exist";
+		   //회원 update
 	   }else {
 		   System.out.println("실패애애@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		   return "non_exist";
 	   }
 	   
    }

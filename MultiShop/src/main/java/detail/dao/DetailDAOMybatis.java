@@ -17,19 +17,22 @@ import detail.bean.DetailhoogiDTO;
 public class DetailDAOMybatis implements DetailDAO {
    @Autowired
    private SqlSession sqlSession;
-   
+   //재우
+   //옷 수량확인
    public int getClothes(Map<String, String> map) {
 		return sqlSession.selectOne("detailSQL.getClothes",map);
 	}
-   /*
+   //구매 시 옷 수량 수정
+   public void updateOneClothes(Map<String, String> map) {
+      sqlSession.update("detailSQL.updateOneClothes",map);
+   }
    
-   public void deleteOneClothes(DetailDTO detailDTO) {
-      sqlSession.update("detailSQL.deleteOneClothes",detailDTO);
-   }*/
+   
+   
+   
    
    
    // 양현규
-   
    public void detail_userReview(DetailhoogiDTO detailhoogiDTO) {
       sqlSession.insert("detailSQL.detail_userReview",detailhoogiDTO);
    }

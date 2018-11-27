@@ -50,8 +50,23 @@ $(document).ready(function(){
          	 url : '/MultiShop/detail_page/orderOk.do',
          	 data : $('#orderPageForm').serialize(),
          	 success : function(data){
-         		 alert(JSON.stringify(data));
-         		 //모달 띠워서 
+         		 if(data=="exist"){
+         			$('#order_modal').modal({backdrop: 'static', keyboard: false});
+         			
+         			//	  마이페이지로 이동하시겠습니까    에      예 Btn
+         			$('#orderModalYesBtn').click(function(){
+         				location.href="../mypage/mypage.do";
+         			});
+         			
+         			//   아니오 Btn
+         			$('#orderModalNoBtn').click(function(){
+         				location.href="../main/index.do";
+         			});
+         			
+         		 }else if(data=="non_exist"){
+         			 alert("실패!!!!!!!!!!");
+         		 }
+         		 
          	 },error : function(data){
          		 alert("에러발생!!!!");
          	 }

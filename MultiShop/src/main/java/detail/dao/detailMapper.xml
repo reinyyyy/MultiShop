@@ -4,13 +4,13 @@
 <mapper namespace="detailSQL">
  
    <select id="getClothes" parameterType="Map" resultType="int">
-      select count(*) product where p_code=#{p_code} and p_option1=#{p_option1} and p_option2=#{p_option2}  
+      select count(*) from product where p_option1=#{p_color} and p_option2=#{p_size}  
    </select>
- <!--   
-   <update id="deleteOneClothes" parameterType="detail">
-      update Clothes set p_amount=p_amount-#{p_amount} where p_color=#{p_color} and p_size=#{p_size}
+    
+   <update id="updateOneClothes" parameterType="Map">
+      update product set p_amount=p_amount-#{p_amount} where p_option1=#{p_color} and p_option2=#{p_size}
    </update>
-    -->
+   
     
     <!-- 양현규 -->
    <insert parameterType="detail_hoogiDTO" id="detail_userReview">

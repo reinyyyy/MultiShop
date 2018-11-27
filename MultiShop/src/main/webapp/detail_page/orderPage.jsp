@@ -30,6 +30,10 @@
    left: 5px;
 }
 
+#section_location{
+	position : unset;
+}
+
 </style>
 </head>
 <body class="bg-light">
@@ -97,7 +101,7 @@
             <!-- <form class="card p-2" id="useCouponForm" method="post" action="useCoupon.do"> -->
                   <div class="input-group">
                        <!-- <input type="text" class="form-control" placeholder="Promo code"> -->
-                       <select class="form-control" name="PromoCode" id="PromoCode">
+                       <select class="form-control" id="PromoCode">
 	                     <option value="   쿠폰1" selected="selected">쿠폰1</option>
 	                     <option value="쿠폰2">쿠폰2</option>
 	                     <option value="쿠폰3">쿠폰3</option>
@@ -225,12 +229,11 @@
                 <hr class="mb-4">
                 <input type=submit id="orderPayBtn" class="btn btn-primary btn-lg btn-block" value="결재하기">
                
-               
 	         </div>
 	      </div>
       </form>
    </div>
-
+	<jsp:include page="orderPage_modal.jsp"/>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../js/order.js"></script>
@@ -249,12 +252,13 @@ $(document).ready(function(){
          //alert(JSON.stringify(data));
          
          //히든값 넣기
-         
          $('#firstProductCodeHiddenVal').val(data.detailDTO.p_code);
-         $('#firstProductColorHiddenVal').val(data.detailDTO.p_color);
+         $('#firstProductNameHiddenVal').val(data.detailDTO.p_name);
+         $('#firstProductColorHiddenVal').val(data.detailDTO.p_option1);
+         $('#firstProductSizeHiddenVal').val(data.detailDTO.p_option2);
          $('#firstProductAmountHiddenVal').val(data.detailDTO.p_amount);
-         $('#firstProductSizeHiddenVal').val(data.detailDTO.p_size);
          $('#firstProductCostHiddenVal').val(data.detailDTO.p_cost);
+         
          
          //상품 코드,이름
          $('#productCodeAndName').append(data.detailDTO.p_code + " / " + data.detailDTO.p_name);

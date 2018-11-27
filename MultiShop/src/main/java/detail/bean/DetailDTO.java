@@ -7,7 +7,6 @@ import lombok.Data;
 @Component
 @Data
 public class DetailDTO {
-   
    private int p_cateNum;
    private String p_midCate;
    private String p_smallCate;
