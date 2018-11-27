@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -70,10 +72,20 @@ public class MypageController {
 	         return "false";
 	      }
 	   }
-	   @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.GET)
-	   public ModelAndView delivery(@ModelAttribute ModelAndView mav,HttpSession session,@RequestParam int pg) {
+	   @RequestMapping(value="/mypage/deliveryPage.do",method=RequestMethod.GET)
+	   public ModelAndView deliveryPage(@ModelAttribute ModelAndView mav,@RequestParam(value="pg", defaultValue="1") int pg) {
+		   mav.addObject("section","/mypage/deliveryPage.jsp");
+		   mav.setViewName("/main/main");
+		   return mav;
+	   }
+	   
+	   @RequestMapping(value="/mypage/deliveryList.do",method=RequestMethod.POST)
+	   public @ResponseBody String deliveryList(@ModelAttribute Model model,
+			   HttpSession session,
+			   HttpServletRequest request,
+			   @RequestParam(value="pg", defaultValue="1") int pg) {
 		  String email = (String) session.getAttribute("session_email");
-		 
+		  
 		  int endNum = pg*3;
 		  int startNum = endNum-2;
 		  Map<String,String> map = new HashMap<String,String>();
@@ -90,13 +102,11 @@ public class MypageController {
 		  deliveryPaging.setTotalA(totalA);
 		  deliveryPaging.makePagingHTML();
 		  
-		  
-		  mav.addObject("orderList",list);
-		  mav.addObject("orderPaging",deliveryPaging.getPagingHTML());
-		  mav.addObject("pg",pg);
-	      mav.addObject("section","/mypage/deliveryPage.jsp");
-	      mav.setViewName("/main/main");
-	      return mav;
+		  model.addAttribute("orderList",list);
+		  model.addAttribute("orderPaging",deliveryPaging.getPagingHTML());
+		  model.addAttribute("pg",pg);
+		  model.addAttribute("section","/mypage/deliveryPage.jsp");
+		  return "ture";
 	   }
 
 }

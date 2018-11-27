@@ -369,7 +369,7 @@ $(document).ready(function(){
    
    /*delivery page*/
    $('#mypage_deleveryBtn').on('click',function(){
-	   location.href='/MultiShop/mypage/delivery.do?pg=1';
+	   location.href='/MultiShop/mypage/deliveryPage.do';
    });
    
    
