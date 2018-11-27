@@ -15,6 +15,7 @@
 	crossorigin="anonymous">
 <link rel ="stylesheet" href="../css/animate.css">
 <link rel="stylesheet" href="../css/my-spinner.css">
+<link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css"/>
 
 <title>Welcome to COZY!!</title>
 <style>
@@ -281,6 +282,25 @@ $(document)
 })
 .ajaxStop(function () {
    $('#my-spinner').hide();
+});
+</script>
+<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready( function () {
+	$('#myTable').dataTable({
+    	ajax: {
+            'url':'/MultiShop/mypage/delivery.do',
+            'type': 'POST'
+         },
+         columns: [
+             {"data": "o_num"},
+             {"data": "p_code"},
+             {"data": "p_cost"}, 
+             {"data": "p_amount"}, 
+             {"data": "o_status"},
+             {"data": "o_tel"}
+         ]
+    }); 
 });
 </script>
 </html>

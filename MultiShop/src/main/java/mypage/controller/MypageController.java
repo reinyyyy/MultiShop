@@ -9,9 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,60 +72,23 @@ public class MypageController {
 	      }
 	   }
 	   
-	   @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.GET)
-	   public ModelAndView delivery(@ModelAttribute ModelAndView mav,
-			   HttpSession session,
-			   HttpServletRequest request,
-			   @RequestParam(value="pg", defaultValue="1") int pg) {
-		  String email = (String) session.getAttribute("session_email");
-		  int endNum = pg*3;
-		  int startNum = endNum-2;
-		  Map<String,String> map = new HashMap<String,String>();
-		  map.put("email", email);
-		  map.put("startNum", startNum+"");
-		  map.put("endNum", endNum+"");
-		  List<OrderDTO> list = orderDAO.orderList(map);
-		  int totalA = orderDAO.totalA();
-		  
-		  DeliveryPaging deliveryPaging = new DeliveryPaging();
-		  deliveryPaging.setCurrentPage(pg);
-		  deliveryPaging.setPageBlock(3);
-		  deliveryPaging.setPageSize(3);
-		  deliveryPaging.setTotalA(totalA);
-		  deliveryPaging.makePagingHTML();
-		  
-		  mav.addObject("orderList",list);
-		  mav.addObject("orderPaging",deliveryPaging.getPagingHTML());
-		  mav.addObject("pg",pg);
-		  mav.addObject("section","/mypage/deliveryPage.jsp");
-		  mav.setViewName("/main/main");
-		 return mav;
-	   }
-	   @RequestMapping(value="/mypage/deliveryPage.do",method=RequestMethod.POST)
+	   
+	   @RequestMapping(value="/mypage/deliveryPage.do",method=RequestMethod.GET)
 	   public ModelAndView deliveryPage(@ModelAttribute ModelAndView mav,HttpSession session,
 								   HttpServletRequest request,
-								   @RequestParam(value="pg") int pg) {
-		  String email = (String) session.getAttribute("session_email");
-		  int endNum = pg*3;
-		  int startNum = endNum-2;
-		  Map<String,String> map = new HashMap<String,String>();
-		  map.put("email", email);
-		  map.put("startNum", startNum+"");
-		  map.put("endNum", endNum+"");
-		  List<OrderDTO> list = orderDAO.orderList(map);
-		  int totalA = orderDAO.totalA();
-		  DeliveryPaging deliveryPaging = new DeliveryPaging();
-		  deliveryPaging.setCurrentPage(pg);
-		  deliveryPaging.setPageBlock(3);
-		  deliveryPaging.setPageSize(3);
-		  deliveryPaging.setTotalA(totalA);
-		  deliveryPaging.makePagingHTML();
-		  
-		  mav.addObject("orderList",list);
-		  mav.addObject("orderPaging",deliveryPaging.getPagingHTML());
-		  mav.addObject("pg",pg);
-		  mav.setViewName("jsonView");
-		  return mav;
+								   @RequestParam(value="pg",defaultValue="1") int pg) {
+		   mav.addObject("section","../mypage/deliveryPage.jsp");
+		   mav.setViewName("/main/main");
+		   return mav;
 	   }
-
+	   
+	   @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.POST)
+	   public ModelAndView delivery(HttpSession session) {
+		String email = (String) session.getAttribute("session_email");
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("email", email);
+		List<OrderDTO> list = orderDAO.orderAllList(map);
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	   }
 }

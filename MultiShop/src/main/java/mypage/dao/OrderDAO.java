@@ -15,4 +15,6 @@ public interface OrderDAO {
 	public List<OrderDTO> orderList(Map<String,String> map);
 	
 	public int totalA();
+
+	public List<OrderDTO> orderAllList(Map<String,String> map);
 }

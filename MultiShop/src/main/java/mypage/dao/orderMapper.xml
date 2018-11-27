@@ -11,5 +11,9 @@
 	<select id="totalA" resultType="Int">
 		select count(*)	from order_table
 	</select>
+	
+	<select id="orderAllList" parameterType="Map" resultType="orderDTO">
+		select * from order_table where m_email = #{email}
+	</select>
 
 </mapper>
