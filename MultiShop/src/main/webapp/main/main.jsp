@@ -224,13 +224,13 @@
 
 <!-- footer -->
 <footer class="page-footer font-small unique-color-dark">
-    <div style="background-color: #BE81F7;">
+    <div style="background-color: #D8D8D8;">
       <div class="container">
         <!-- Grid row-->
         <div class="row py-4 d-flex align-items-center">
           <!-- Grid column -->
           <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-            <h6 class="mb-0"><i class="fas fa-globe-asia"></i><strong>2019</strong> facebook, instagram, twitter, google+ Coming Soon!</h6>
+            <h6 class="mb-0"><i class="fas fa-globe-asia"></i><strong>2019</strong> facebook, instagram, twitter, google+ <strong>Coming Soon!</strong></h6>
           </div>
           <!-- Grid column -->
 
@@ -268,7 +268,7 @@
           <!-- Content -->
           <h6 class="text-uppercase font-weight-bold">사업자 정보</h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-          <p style="font-size:9pt; "> 상호명: (주)just COZY<br>
+          <p style="font-size:9pt; "> 상호명: (주)JJ Company<br>
           	     대표: 제갈준혁<br>
           	   사업장소재지: 서울특별시 종로구 묘동 56 4층<br>
           	  사업자등록번호:203-44-25960<br>
@@ -279,7 +279,7 @@
           1644-9301<br>
           </p>
           <p style="font-size:10pt;">
-          AM 10:00 ~ PM 06:00 Off-time <br>PM 12:30 ~ PM 02:00 DAY OFF <br>(SATURDAY. SUNDAY, HOLIDAY)<br></p>
+          AM 10:00 ~ PM 06:00 <br>Off-time PM 12:30 ~ PM 02:00 <br>DAY OFF(SATURDAY. SUNDAY, HOLIDAY)<br></p>
 		 <button type="button" class="btn btn-dark">FAQ ></button>
           
         </div>
@@ -287,9 +287,26 @@
         <!-- Grid column -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
-          <button id="privatePolciyBtn" data-backdrop="static" data-toggle="modal" data-target="#privatePolicy_modal" class="btn btn-light">개인정보취급방침</button>
-          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-
+          <div class="container">
+          <i class="fas fa-mobile-alt fa-5x"></i>
+          <br><br>
+          </div>
+          <div>
+          <button id="privatePolicyBtn" data-backdrop="static" data-toggle="modal" data-target="#privatePolicy_modal" class="btn btn-light">개인정보취급방침</button>
+          <br>
+          </div>
+          <div>
+          <button id="termsAndConditionBtn" data-backdrop="static" data-toggle="modal" data-target="#termsAndConditions_modal" class="btn btn-light">이용약관</button>
+          <br><br>
+          </div>
+		 <div>
+		 	<i class="fab fa-cc-paypal fa-4x"></i> 	
+		 	<i class="fab fa-cc-visa fa-4x"></i>
+		 </div>
+		 <div>
+		 	<i class="fab fa-cc-discover fa-4x"></i>
+		 	<i class="fab fa-cc-mastercard fa-4x"></i>
+		 </div>
         </div>
         <!-- Grid column -->
 
@@ -297,21 +314,31 @@
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
           <!-- Links -->
-          <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+          <h6 class="text-uppercase font-weight-bold">제휴 Site</h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-          <p>
-            <a href="#!">Your Account</a>
+          <p style="font-size:10pt;">
+          	신제품 소식을 just COZY와 협업 되어 있는 사이트에서 확인하세요!
           </p>
           <p>
-            <a href="#!">Become an Affiliate</a>
+          	<i class="fab fa-apple"></i>
+            <a href="https://www.apple.com/kr/"> Apple</a>
           </p>
           <p>
-            <a href="#!">Shipping Rates</a>
+          	<i class="fas fa-gamepad"></i>
+            <a href="https://www.nintendo.co.kr/main.php">Nintendo</a>
           </p>
           <p>
-            <a href="#!">Help</a>
+          	<i class="fas fa-tshirt"></i>
+            <a href="http://www.apc-korea.com/main.do?referer=https://www.google.co.kr/&null">A.P.C</a>
           </p>
-
+          <p>
+         	 <i class="fas fa-shoe-prints"></i>
+            <a href="http://shop.adidas.co.kr/adiMain.action">Adidas</a>
+          </p>
+		  <p>
+		  <i class="far fa-lemon"></i>
+		  <a href="https://www.naturesway.com/Brands/Alive">Alive</a>
+		  </p>
         </div>
         <!-- Grid column -->
 
@@ -324,7 +351,7 @@
           <p style="font-size:10pt; ">
             <i class="fa fa-home mr-3"></i>서울시 종로구 묘동 56 단성사 4층 </p>
           <p style="font-size:10pt; ">
-            <i class="fa fa-envelope mr-3"></i> 이종훈(leejonghoon91@naver.com) </p>
+            <i class="fa fa-envelope mr-3"></i> 이종훈(y70ead@naver.com) </p>
           <p style="font-size:10pt; ">
             <i class="fa fa-phone mr-3"></i> 010-7255-0746</p>
           <p style="font-size:10pt; ">

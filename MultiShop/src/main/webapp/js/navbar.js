@@ -447,8 +447,8 @@ $(document).ready(function(){
    
    /*modal-show*/
    $('.modal').on('show.bs.modal', function () {
-      $('html, body').css({'overflow': 'hidden', 'height': '100%'}); // 모달팝업 중 html,body의 scroll을 hidden시킴
-      $('#element').on('scroll touchmove mousewheel', function(event) { // 터치무브와 마우스휠 스크롤 방지
+      /*$('html, body').css({'overflow': 'hidden', 'height': '100%'}); // 모달팝업 중 html,body의 scroll을 hidden시킴
+*/      $('#element').on('scroll touchmove mousewheel', function(event) { // 터치무브와 마우스휠 스크롤 방지
           event.preventDefault();
           event.stopPropagation();
           return false;
