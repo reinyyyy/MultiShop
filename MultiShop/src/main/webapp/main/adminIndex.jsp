@@ -2,24 +2,24 @@
 <!DOCTYPE html>
 <html class="no-js" lang="ko"><!--<![endif]--><head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="format-detection" content="telephone=no">
 	<title>판매자센터</title>
 	<link rel="stylesheet" href="../css/admin.css">
-    <link rel="shortcut icon" href="/mysoho_icon.png" type="image/x-icon">
-    <link rel="icon" href="/mysoho_icon.png" type="image/x-icon">
-    <meta name="description" content="">
-    <meta name="apple-mobile-web-app-capable" content="no">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="format-detection" content="telephone=no">
+    <!-- <link rel="shortcut icon" href="/mysoho_icon.png" type="image/x-icon"> -->
+    <link rel="stylesheet" href="../css/calendar.css">
+    <!-- <link rel="icon" href="/mysoho_icon.png" type="image/x-icon"> -->
     <link rel="stylesheet" href="../css/admin.css">
+    <!-- 달력 -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
     	
     <!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!-- 달력 -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
     <!--common-->
     <script src = "../js/manage/product.js"></script>
     <script src="../js/manage/member.js"></script>
+    <script src="../js/manage/calendar.js"></script>
     <script>
 	$(document).ready(function(){
 		
@@ -39,11 +39,13 @@
 }
 </style>
 <body style="">
+
 <script type="text/javascript">
 var isMobile    = false;
 var admDir      = "/adm";
 var imgPath     = "//image.makeshop.co.kr/mysoho";
 </script>
+<input type="text" id="datepicker3">
 <div id="aside" tabindex="1" style="overflow: hidden; outline: none;">
     <div class="menu-wrapper">
         <div class="hd ani">

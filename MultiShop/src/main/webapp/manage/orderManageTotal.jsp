@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <div id="ordSearch" class="page-body">
     <h2>주문내역</h2>
         <div class="sect-top">
@@ -90,16 +91,16 @@
                             <td>
                                 <ul class="arr-align">
                                     <li class="w40per period-4x">
-                                        <a href="#" class="btn-toggle btn-dateterm" sdate="2018-11-23" edate="2018-11-23">오늘</a>
-                                        <a href="#" class="btn-toggle btn-dateterm now" sdate="2018-11-16" edate="2018-11-23">1주일</a>
-                                        <a href="#" class="btn-toggle btn-dateterm" sdate="2018-10-23" edate="2018-11-23">1개월</a>
-                                        <a href="#" class="btn-toggle btn-dateterm" sdate="2018-08-23" edate="2018-11-23">3개월</a>
-                                        <a href="#" class="btn-toggle btn-dateterm" sdate="2018-05-23" edate="2018-11-23">6개월</a>
+                                        <a href="#" class="btn-toggle btn-dateterm today">오늘</a>
+                                        <a href="#" class="btn-toggle btn-dateterm week">1주일</a>
+                                        <a href="#" class="btn-toggle btn-dateterm month">1개월</a>
+                                        <a href="#" class="btn-toggle btn-dateterm trimester">3개월</a>
+                                        <a href="#" class="btn-toggle btn-dateterm halfYear">6개월</a>
                                     </li>
                                     <li class="w30per calendar">
-                                        <label><input type="text" name="search_start_date" value="2018-11-16" id="dp1542955200532" class="hasDatepicker"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
+                                        <label><input type="text" id="datepicker1" value="" id="dp1542955200532"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
                                         <span>~</span>
-                                        <label><input type="text" name="search_end_date" value="2018-11-23" id="dp1542955200533" class="hasDatepicker"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
+                                        <label><input type="text" id="datepicker2" value="" id="dp1542955200533"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
                                     </li>
                                 </ul>
                             </td>
@@ -295,3 +296,4 @@
         </form>
     </div><!-- .sect-cont -->
 </div>
+

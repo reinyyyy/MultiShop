@@ -1,13 +1,24 @@
 package manage.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import category.bean.ProductDTO;
+import manage.dao.ManageDAO;
 
 @Controller
 @RequestMapping("/manage")
 public class ManageController {
+	@Autowired
+	private ManageDAO manageDAO;
+	
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
@@ -62,4 +73,16 @@ public class ManageController {
 		return mav;
 	}
 	
+	@RequestMapping(value="productListsJson", method=RequestMethod.POST)
+	public ModelAndView productListsJson(@RequestParam Map<String, String> map) {
+		
+		List<ProductDTO> list = manageDAO.getProductListsJson(map);
+		System.out.println(list);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <title>Insert title here</title>
-</head>
+
 <body>
 	<div id="prdSearch" class="page-body">
     <div class="main-hd">
@@ -24,18 +24,18 @@
                         <td>
                             <ul class="arr-align">
                                 <li class="w40per period-5x">
-                                    <a class="btn-toggle btn-dateterm" id="today" style="cursor:pointer">오늘</a>
-                                    <a class="btn-toggle btn-dateterm" id="week" style="cursor:pointer">1주일</a>
-                                    <a class="btn-toggle btn-dateterm" id="1m" style="cursor:pointer">1개월</a>
-                                    <a class="btn-toggle btn-dateterm" id="3m" style="cursor:pointer">3개월</a>
-                                    <a class="btn-toggle btn-dateterm" id="6m" style="cursor:pointer">6개월</a>
+                                    <a class="btn-toggle btn-dateterm today" style="cursor:pointer">오늘</a>
+                                    <a class="btn-toggle btn-dateterm week" style="cursor:pointer">1주일</a>
+                                    <a class="btn-toggle btn-dateterm month" style="cursor:pointer">1개월</a>
+                                    <a class="btn-toggle btn-dateterm trimester" style="cursor:pointer">3개월</a>
+                                    <a class="btn-toggle btn-dateterm halfYear" style="cursor:pointer">6개월</a>
                                 </li>
                             </ul>
                             <ul class="arr-align mt-15">
                                 <li class="w60per calendar">
-                                    <label><input type="text" name="search_start_date" value="2018-11-14" id="dp1542785050780" class="hasDatepicker"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
+                                    <label><input type="text" id="datepicker1" value="" id="dp1542785050780"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
                                     <span>~</span>
-                                    <label><input type="text" name="search_end_date" value="2018-11-21" id="dp1542785050781" class="hasDatepicker"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
+                                    <label><input type="text" id="datepicker2" value="" id="dp1542785050781"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
                                 </li>
                                 <li class="w30per">
                                     <p class="refer-txt">검색기간은 최대 1년까지 검색 가능</p>
