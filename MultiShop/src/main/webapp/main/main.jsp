@@ -30,6 +30,17 @@
 	z-index: 1
 }
 
+#floatMenu {
+	position: absolute;
+	width: 300px;
+	height: 55px;
+	left: 50px;
+	top: 250px;
+	background-color: #E6E6E6;
+	color: #fff; 
+	z-index:1300;
+}
+
 .float_left {
 	float: left;
 }
@@ -214,6 +225,10 @@
    </section>
 	
    <jsp:include page="modal.jsp"/>
+	
+	<div id="floatMenu">
+		<audio src="../music/Arms.mp3"  autoplay controls style="z-index: 1300"></audio>
+	</div>
 	
 	<div id='my-spinner' style="z-index: 1200">
       <div><span>
