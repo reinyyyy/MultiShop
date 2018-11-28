@@ -22,8 +22,7 @@
 </head>
 <body>
 	<input type = "hidden" id="session_email" value="${session_email }">
-	<input type = "hidden" id="detail_hoogi_Pg" value="${detail_QnA_Pg }">
-	<input type = "hidden" id="detail_QnA_Pg" value="${detail_hoogi_Pg }">
+	<input type = "hidden" id="p_code" value="${p_code }">
    <header>
       <div class="container">
          <div id="productView">
@@ -272,10 +271,10 @@
               <div id="detail_hoogi_Table">
               	<jsp:include page="../detail_Table/detail_hoogiTable.jsp"/>
               </div>
-               <br>
+               <%-- <br>
               <div>
               	<jsp:include page="../detail_Paging/detail_hoogiPaging.jsp"/>
-              </div>
+              </div> --%>
               <br>
             <div class="container" align="right">
             	<input type="button" value="사용후기작성" class="btn_hoogi" id="btn_hoogi" data-toggle="modal" data-taget="#detail_hoogiModal">
@@ -306,10 +305,10 @@
             <div id="detail_QnA_Table">
                  <jsp:include page="../detail_Table/detail_QnATable.jsp"/>
             </div>
-            <br>
+            <%-- <br>
             <div>
               	<jsp:include page="../detail_Paging/detail_QnAPaging.jsp"/>
-            </div>
+            </div> --%>
               <br>
               <div class="container" align="right">
                <input type="button" value="상품문의작성" class="detail_Btn_QnA mb-4" id="detail_Btn_QnA">
@@ -324,6 +323,7 @@
 <script type="text/javascript" src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/detailPage.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 
 //이미지 변경

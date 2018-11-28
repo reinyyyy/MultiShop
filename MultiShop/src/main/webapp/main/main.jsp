@@ -15,6 +15,7 @@
 	crossorigin="anonymous">
 <link rel ="stylesheet" href="../css/animate.css">
 <link rel="stylesheet" href="../css/my-spinner.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
 <title>Welcome to COZY!!</title>
 <style>
@@ -248,6 +249,8 @@
 <script type="text/javascript" src="../js/rng.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.js"></script>
 <script type="text/javascript" src="../js/messages_ko.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
 <script>
    $('.dropdown').hover(function() {
       $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();
@@ -285,4 +288,5 @@ $(document)
    $('#my-spinner').hide();
 });
 </script>
+
 </html>

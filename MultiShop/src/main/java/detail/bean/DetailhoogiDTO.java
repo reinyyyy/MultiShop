@@ -9,9 +9,10 @@ import lombok.Data;
 @Component
 @Data
 public class DetailhoogiDTO {
-   private int seq;
-   private String id;
-   private String detail_hoogiStar;
-   private String detail_hoogiModalContent;
-   private Date logtime;
+	private int p_code;
+	private int seq;
+	private String id;
+	private String detail_hoogiStar;
+	private String detail_hoogiModalContent;
+	private Date logtime;
 }
