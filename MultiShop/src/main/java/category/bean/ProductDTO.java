@@ -7,7 +7,7 @@ import lombok.Data;
 @Component
 @Data
 public class ProductDTO {
-    private String p_cateNum;   
+    private int p_cateNum;   
     private String p_midCate;   
     private String p_smallCate; 
     private int p_code;      
@@ -21,4 +21,6 @@ public class ProductDTO {
     private String p_maker;     
     private String p_origin;
     private String p_image;
+    private String p_date;
+    private String p_sales;
 }

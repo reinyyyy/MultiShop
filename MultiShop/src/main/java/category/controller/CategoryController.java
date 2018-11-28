@@ -120,78 +120,58 @@ public class CategoryController {
 		
 		
 */		
-		int cateNum = Integer.parseInt(map.get("cateNum"));
-		System.out.println(map.get("p_code"));
-		ProductDTO productDTO = categoryDAO.getProduct(Integer.parseInt(map.get("p_code")));			//기본 정보 가지고옴
-		//색정보와 사이즈정보를 한번에 같이 가져옴
-		System.out.println(productDTO);
+		int cateNum = Integer.parseInt(map.get("cateNum"));		// 지울예정1
+		System.out.println("받아온 p_code : " + map.get("p_code"));
 		
-		//대표이미지 최대 5개 나누기
+		ProductDTO productDTO = categoryDAO.getProduct(Integer.parseInt(map.get("p_code")));			//대표가 되는 DTO 빼내어왔음
+		
+		System.out.println("대표 상품 DTO : " + productDTO);
+		
+		
+		//대표상품 대표 이미지 최대 5개 나누기
 		String[] image_arr = productDTO.getP_image().split("/");
 		for(String data : image_arr) {
-			System.out.println(data);
+			System.out.println("대표이미지 배열 리스트 : " + data);
 		}
+		//대표이미지 나누기 끝
 		
 		
+		int p_group = productDTO.getP_code();										//대표 DTO p_code로 p_group 값 사용할 예정
 		
-		
-		
-		System.out.println(productDTO);
-		int p_group = productDTO.getP_code();										//퀵뷰 클릭한 하나의 제품 p_code 기준으로 묶인 p_group 목록들 데리고옴
-		List<ProductDTO> group_list = categoryDAO.getGroup(p_group);				
-		
+		List<ProductDTO> group_list = categoryDAO.getGroup(p_group);				//대표 DTO p_code 에 얽힌 모든 p_group 들 불러다 리스트에 담음
 		
 		//String[] option1_arr = new String[group_list.size()];
 		
-		String[] option1_arr = group_list.get(0).getP_option1().split("/");		//0 : 중량, 1 : 형태
-		for(String str : option1_arr) {
-			System.out.println(str);
-		}
 		
-		ArrayList<String> option1_list = new ArrayList<String>();		//option1 = 중량
-		option1_list.add(option1_arr[0]);
-		
-		int option1_length = option1_arr.length;
-		
-		ArrayList<String> option2_list = new ArrayList<String>();
-		option2_list.add(option1_arr[1]);
-		
+		/*
+			같은 그룹의 옵션 이름은 모두 같기때문에 대표상품의 option의 길이만큼 for 돌게만들자
 			
-		int option_level = 0;
-		for(int i = 0; i < group_list.size(); i++) {
-			option1_list.add(group_list.get(i).getP_option2().split("/")[option_level]);
-		}
+			첫 for문은 구분자 '/' 를 split 해주는 역할
+		*/
+		int option_length = productDTO.getP_option1().split("/").length;			// 구분자로 나눈 옵션1 의 길이 구함
+		System.out.println("option_length 의 길이 : " + option_length);
 		
-		option_level = 1;
-		for(int i = 0; i < group_list.size(); i++) {
-			option2_list.add(group_list.get(i).getP_option2().split("/")[option_level]);
-		}
+		ArrayList<ArrayList<String>> option_result_list = new ArrayList<ArrayList<String>>(); 
+		
+		String[] option_name = group_list.get(0).getP_option1().split("/");			// 대표로 하나만 받아와서 배열에 저장 [{중량}, {형태}]
+		String[] option_val = null;
+		for(int i = 0; i < option_length; i++) {			//
+			ArrayList<String> option_list = new ArrayList<String>();
+			option_list.add(option_name[i]);
 			
-		
-		for(String str : option1_list) {			//1kg, 2kg, 3kg, 4kg
-			System.out.print(str);
-			System.out.println();
+			for(int j = 0; j < group_list.size(); j++) {
+				option_val = group_list.get(j).getP_option2().split("/");	//j == 1각 그룹마다 하나씩의 [{1kg}, {백미}]
+				option_list.add(option_val[i]);
+			}
+			
+			for(String data : option_list) {
+				System.out.println("option_list"+i+" : " + data);
+			}
+			//List 를 배열로
+			option_result_list.add(option_list);
 		}
 		
-		
-		for(String str : option2_list) {			//현미 현미 현미
-			System.out.print(str);
-			System.out.println();
-		}
-		
-		//option을 두개만 준다고 생각한상태임
-		
-		
-		
-		
-		System.out.println(productDTO);
-		System.out.println("그룹리스트 시작");	
-		System.out.println(group_list);
-		System.out.println("그룹리스트 끝");
-		
-		
-		model.addAttribute("option1_list", option1_list);
-		model.addAttribute("option2_list", option2_list);
+		model.addAttribute("option_result_list", option_result_list);
 		model.addAttribute("productDTO", productDTO);
 		model.addAttribute("group_list", group_list);
 		

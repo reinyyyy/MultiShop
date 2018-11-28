@@ -13,7 +13,7 @@
 							<div class="popupSlide">
 								<div class="mask">
 									<div style="" class="zoomWrapper">
-										<img class="zoom_goods" src="../image/${productDTO.p_image}"
+										<img class="zoom_goods" src="../upload${productDTO.p_image}"
 											data-zoom-image="" alt="" style="position: absolute;">
 									</div>
 								</div>
@@ -83,7 +83,6 @@
 										<dd>12월 25일 이내</dd>			<!-- 모르겠음 ㅜㅜ -->
 									</dl>
 								</li>
-						<li>
 							<!-- cateNum 에 따라서 동적으로 다르게 생성해줘야함 --> 
 							
 							
@@ -98,49 +97,6 @@
 								3. 품절된 상황 ${p_amount == 0} 일 때 선택은 가능하되?? 선택도 불가능하게?? 구매 버튼에서 막아야함
 								
 							 -->
-								 
-								 
-								<dl id = "option_1">
-									<!-- 옵션 1 -->
-								</dl>
-						</li>
-						<li>
-							<dl id = "option_2">
-								<dt>사이즈</dt>
-								<dd>
-									<div class="">
-										<select name="detail_sizeSelect" id="detail_sizeSelect">
-											<option value="S" selected="selected">S</option>
-											<option value="M">M</option>
-											<option value="L">L</option>
-											<option value="XL">XL</option>
-										</select>
-									</div>
-								</dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt>수량</dt>
-								<dd>
-									<div class="amount">
-										<select name="detail_amountSelect" id="detail_amountSelect">
-											<option value="1" selected="selected">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
-										</select>
-									</div>
-								</dd>
-							</dl> 
-							<!-- 동적 생성 끝나는 부분 -->
-						</li>
 					</ul>
 						</div>
 						<div class="productCon02"></div>
@@ -187,74 +143,49 @@
 			</div>
 		</div>
 	</div>
+		
+	
 	<!-- Jquery src 금지 -->
 	<script>
 		$(document).ready(function(){
-			alert("${option1_list}");
-			var list = '${option1_list}';
-			
-			//alert(typeof(list));
-			
-			var result = list.replace(/,/g, '');
-			
-			console.log(result);
-			//alert("result : " + result);
-			var result2 = list.replace('[', '').replace(']', '').split(/[\s,]+/);
-			//alert("result2 : " + result2 + "type : " + typeof(result2));
-			
-			var option1_name;
-			var option_tag_1 = "";
-			$.each(result2, function(index, items){
-				if(index == 0){
-					option1_name = '<dt>'+items+'</dt>';
-				}else {
-					option_tag_1 += '<option value = "'+items+'" >'+items+'</option>';
-				}
-			});
-			
-			var option1_result = 
-			option1_name +
-			'<dd>' +
-				'<div>' +
-					'<select name="detail_colorSelect" id="detail_colorSelect">'+
-						option_tag_1 +
-					'</select>'+
-				'</div>'+
-			'</dd>'
-			alert(option1_result);
-			$('#option_1').html(option1_result);
-			
-			alert("option1_name : " + option1_name);
-			alert("option_tag_1 : " + option_tag_1);
-			
-		/* 	
-			<dl id = "option_1">
-				<dt>색상</dt>
-				<dd>
-					<div class="">
-						<select name="detail_colorSelect" id="detail_colorSelect">
-							<option value="black" selected="selected">black</option>
-							<option value="green">green</option>
-							<option value="begie">begie</option>
-							<option value="white">white</option>
-						</select>
-					</div>
-				</dd>
-			</dl>
-		 */
-			/* 
-			var option = 
-			<dt>색상</dt>
-			<dd>
-				<div class="">
-					<select name="detail_colorSelect" id="detail_colorSelect">
-						<option value="black" selected="selected">black</option>
-						<option value="green">green</option>
-						<option value="begie">begie</option>
-						<option value="white">white</option>
-					</select>
-				</div>
-			</dd> */
+			/*
+						EL로 받아오면 모두 string 타입으로 데려오기때문에 [ 지워줘야함 ]
+			*/			
+			var option_name = '';
+			var option_tag = '';
+			var class_index = '';
+			var option_result = '';
+			<c:forEach items="${option_result_list}" var="item1">
+				var option_list = "${item1}";
+				var split_result = option_list.replace('[', '').replace(']', '').split(/[\s,]+/);
+				
+				$.each(split_result, function(index, item){
+					if(index == 0){
+						option_name = '<dt>'+item+'</dt>';
+					}else {
+						option_tag += '<option value = "'+item+'" >'+item+'</option>';
+					}
+					class_index = index;
+				});
+				
+				option_result +=
+				'<li>'+
+					'<dl id = "option_'+class_index+'">'+
+						option_name +
+						'<dd>' +
+							'<div>' +
+								'<select name="detail_colorSelect" id="detail_colorSelect">'+
+									option_tag +
+								'</select>'+
+							'</div>'+
+						'</dd>'+
+					'</dl>'+
+				'</li>';
+				option_tag = '';
+				
+			</c:forEach>
+			var temp = $('.aboutListBottom').html() + option_result;
+			$('.aboutListBottom').html(temp);
 		});
 	</script>
 	

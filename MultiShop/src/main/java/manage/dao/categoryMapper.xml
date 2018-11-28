@@ -24,7 +24,8 @@
 			#{p_maker},
 			#{p_origin},
 			#{p_image},
-			sysdate
+			sysdate,
+			0
 		)
 	</insert>
 	

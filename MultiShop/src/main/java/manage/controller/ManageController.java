@@ -179,7 +179,7 @@ public class ManageController {
 		int seq = 0;
 		do {
 			ProductDTO productDTO = new ProductDTO();
-			productDTO.setP_cateNum(map.get("p_cateNum"));
+			productDTO.setP_cateNum(Integer.parseInt(map.get("p_cateNum")));
 			productDTO.setP_midCate(map.get("p_midCate"));
 			productDTO.setP_smallCate(map.get("p_smallCate"));
 			productDTO.setP_name(map.get("p_name"));
