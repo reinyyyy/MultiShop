@@ -123,12 +123,9 @@ public class DetailController {
 	   map.put("m_email", email);
 	   
 	   //임의로 추가 한 것
-	   map.put("d_code", "임의배송번호");
-	   map.put("o_status", "임의상태");
-	   
-	   
-	   
-	   
+	   map.put("d_code", "임의배송번호");//나중에 seq로 바꿔서 하자!!
+	   map.put("o_status", "배송준비중");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 배송준비중으로 한 것
+	   System.out.println(map);
 	   //재고확인 dao
 	   if(detailDAO.getClothes(map)==1) {
 		   System.out.println("성공크!");
@@ -137,10 +134,9 @@ public class DetailController {
 		   //orderDAO 에 추가
 		   orderDAO.insertOrder(map);
 		   
-		   
 		   return "exist";
 	   }else {
-		   System.out.println("실패애애@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		   System.out.println("실패애애@");
 		   return "non_exist";
 	   }
 	   

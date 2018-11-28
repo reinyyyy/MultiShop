@@ -177,12 +177,12 @@
 
                 <div class="d-block my-3">
                      <div class="custom-control custom-radio">
-                       <input id="credit" type="radio" class="order_radio" checked required>
-                       <label class="custom-control-label" for="credit">신용 카드 & 체크카드</label>
+                       <input id="credit" name="order_radioBtn" type="radio" class="order_radio" value="credit" checked required>
+                       <label class="custom-control-label" for="credit">신용 or 체크카드</label>
                      </div>
                      
                      <div class="custom-control custom-radio">
-                       <input id="paypal" name="paymentMethod" type="radio" class="order_radio" required>
+                       <input id="paypal" name="order_radioBtn" type="radio" class="order_radio" value="paypal" required>
                        <label class="custom-control-label" for="paypal">PayPal</label>
                    </div>
                 </div>
@@ -247,7 +247,6 @@ $(document).ready(function(){
       success : function(data){
          //alert(JSON.stringify(data));
          
-         
          //회원의 주소 기본으로 불러오기
          $('#join_modal_postcode').val(data.memberDTO.m_zipcode);
          $('#join_modal_roadAddress').val(data.memberDTO.m_roadAddress);
@@ -277,7 +276,10 @@ $(document).ready(function(){
         $('#firstProductAmountHiddenVal').val(data.detailDTO.p_amount);
         $('#firstProductCostHiddenVal').val(totalPrice);
         
-         //$('#firstProductPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount));
+        alert($('#paypal').val());
+        
+        
+        //$('#firstProductPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount));
          //alert($('#firstProductCodeHiddenVal').val());
          //alert($('#firstProductColorHiddenVal').val());
          //alert($('#firstProductAmountHiddenVal').val());

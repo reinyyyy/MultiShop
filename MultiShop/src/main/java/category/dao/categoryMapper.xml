@@ -5,12 +5,12 @@
    <!-- clothes 리스트 -->
    <select id = "getProductList" resultType = "clothesDTO">   <!-- cateNum 나중에 해줘야함 -->
       <!-- select * from ()select rownum rn, tt * from (select * from PRODUCT where code = #{cateNum})tt) where rn between #{startNum} and #{endNum} -->
-      select * from clothes
+      select * from product
    </select>
    
    <!-- clothes 하나 불러오기 -->
    <select id = "getProduct" parameterType = "String"   resultType = "clothesDTO">
-      select * from clothes where p_code = #{p_code}
+      select * from product where p_code = #{p_code}
    </select>
 </mapper>  
 

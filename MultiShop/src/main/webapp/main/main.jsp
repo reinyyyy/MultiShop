@@ -15,7 +15,6 @@
 	crossorigin="anonymous">
 <link rel ="stylesheet" href="../css/animate.css">
 <link rel="stylesheet" href="../css/my-spinner.css">
-
 <title>Welcome to COZY!!</title>
 <style>
 #nav_location {
