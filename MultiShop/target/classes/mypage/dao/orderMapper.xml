@@ -15,7 +15,7 @@
 	
 	<!-- 재우 -->
 	<insert id="insertOrder" parameterType="Map">
-		insert into order_table values(#{m_email},#{d_code},#{o_num},sysdate,#{m_roadAddress||m_jibunAddress},
+		insert into order_table values(#{m_email},#{d_code},order_seq.nextval,sysdate,#{m_roadAddress}||#{m_jibunAddress},
 		#{o_status},#{p_code},#{p_cost},#{p_amount}) 
 	</insert>
 

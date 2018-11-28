@@ -121,21 +121,19 @@ public class DetailController {
 	      
 	   System.out.println(email+"@@@@@@@@@@@@");
 	   map.put("m_email", email);
+	   
 	   //임의로 추가 한 것
 	   map.put("d_code", "임의배송번호");
 	   map.put("o_status", "임의상태");
 	   
 	   
-	   System.out.println("map===="+map+"@@");
-	   System.out.println();
-	   System.out.println();
+	   
 	   
 	   //재고확인 dao
 	   if(detailDAO.getClothes(map)==1) {
 		   System.out.println("성공크!");
 		   //재고 update
 		   detailDAO.updateOneClothes(map);
-		   
 		   //orderDAO 에 추가
 		   orderDAO.insertOrder(map);
 		   
