@@ -35,7 +35,7 @@
          m_zipcode = #{m_zipcode},
          m_roadAddress = #{m_roadAddress},
          m_jibunAddress = #{m_jibunAddress}
-      where m_email = #{m_email}
+      	 where m_email = #{m_email}
    </insert>
    
    <!-- 재우추가 -->
