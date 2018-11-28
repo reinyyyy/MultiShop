@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div id="prdRegist" class="page-body rw">
-    <form id="product_form" method="post" enctype="multipart/form-data" action="/adm/product/manage/save">
+    <form id="product_form" method="post" enctype="multipart/form-data" action="add.do">
     <!-- PARAMETER -->
     <input type="hidden" name="prd_id" value="0">
     <input type="hidden" name="prd_delivery_use" value="Y">
@@ -25,7 +25,7 @@
         <!-- 18.06.14 수정 및 추가 s -->
         <div class="box-r">
             <span class="txt-necessary">*필수</span>
-            <a href="#" class="js-open-excel-upload-layer btn-h36-black abs-r">상품 일괄 업로드</a>
+           <!--  <a href="#" class="js-open-excel-upload-layer btn-h36-black abs-r">상품 일괄 업로드</a> -->
         </div>
         <!-- 18.06.14 수정 및 추가 e -->
     </div>
@@ -37,8 +37,8 @@
     </div><!-- .sect-hd -->
 
     <div class="sect-cont mobile-block" style="display: none;">
-        <label class="mr-80"><input type="radio" name="prd_display" value="Y" checked=""><span>판매</span></label>
-        <label class="mr-80"><input type="radio" name="prd_display" value="N"><span>판매 중지</span></label>
+        <label class="mr-80"><input type="radio" name="p_status" value="Y" checked=""><span>판매</span></label>
+        <label class="mr-80"><input type="radio" name="p_status" value="N"><span>판매 중지</span></label>
     </div><!-- .sect-cont -->
     <!-- ======================= 판매 상태 종료 ======================= -->
     <!-- ======================= 판매 아이템 시작 ======================= -->
@@ -61,15 +61,23 @@
                         <th><strong>판매 아이템</strong></th>
                         <td>
                             <div class="base pr-20">
-                                <ul class="arr-align">
+                                <ul class="arr-align p_cate_ul">
                                     <li>
-                                        <select name="prd_cate1" data-origin="0" value="0" style="width:285px">
+                                        <select name="p_cateNum" data-origin="0" value="0" id = "p_cateNum" style="width:285px">
                                             <option value="0">-- 1차 선택 --</option>
-                                        <option value="1">패션의류</option><option value="2">패션잡화</option><option value="3">화장품/미용</option><option value="4">디지털/가전</option><option value="5">출산/육아</option><option value="6">생활/주방</option><option value="7">식품</option></select>
+	                                        <option value="1">건강/식품</option>
+	                                        <option value="2">디지털/가전</option>
+	                                        <option value="3">패션/의류</option>
+                                        </select>
                                     </li>
                                     <li>
-                                        <select name="prd_cate2" data-origin="0" value="0" style="width:285px">
-                                            <option value="0">-- 2차 선택 --</option>
+                                        <select name="p_midCate" data-origin="0" value="0" id = "p_midCate" style="width:285px">
+                                            <option value="0">-- 2차 선택 --</option>	<!-- 동적 처리 -->
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <select name="p_smallCate" data-origin="0" value="0" id = "p_smallCate" style="width:285px">
+                                            <option value="0">-- 3차 선택 --</option>	<!-- 동적 처리 -->
                                         </select>
                                     </li>
                                 </ul>
@@ -98,15 +106,22 @@
                 <tr>
                     <th><strong>상품명 <span class="fc-red">*</span></strong></th>
                     <td>
-                        <input type="text" name="prd_name" value="" class="w70per">
+                        <input type="text" name="p_name" value="" class="w70per">
                         <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/250)</span>
                     </td>
                 </tr>
-                <tr style="">
-                    <th>추가상품명</th>
+                <tr>
+                    <th><strong>제조사 <span class="fc-red">*</span></strong></th>
                     <td>
-                        <input type="text" name="prd_name_add" value="" class="w70per">
-                        <span class="mt-5 fc-gray fs-15">(<span id="prd_add_byte">0</span>/250)</span>
+                        <input type="text" name="p_maker" value="" class="w70per">
+                        <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/250)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><strong>원산지 <span cl`ass="fc-red">*</span></strong></th>
+                    <td>
+                        <input type="text" name="p_origin" value="" class="w70per">
+                        <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/250)</span>
                     </td>
                 </tr>
                 </tbody>
@@ -130,11 +145,7 @@
                 <tbody>
                     <tr>
                         <th><strong>판매가격 <span class="fc-red">*</span></strong></th>
-                        <td><div class="base pr-20"><span class="fc-red">\</span> <input type="text" name="prd_price" style="width:300px;" value="0" class="w20per"></div></td>
-                    </tr>
-                    <tr>
-                        <th>매입가</th>
-                        <td><div class="base pr-20"><span>\</span> <input type="text" name="prd_buy_price" class="w20per" value="0"></div></td>
+                        <td><div class="base pr-20"><span class="fc-red">\</span> <input type="text" name="p_cost" style="width:300px;" value="0" class="w20per"></div></td>
                     </tr>
                 </tbody>
             </table>
@@ -142,23 +153,24 @@
     </div><!-- .sect-cont -->
     <!-- ======================= 가격 종료 ======================= -->
     <!-- ======================= 해시태그 시작 ======================= -->
-    <div class="sect-hd">
+    <!-- <div class="sect-hd">
         <h3>해시태그#</h3>
         <span class="txt-select">(선택)</span>
         <span class="sect-hd-side txt-gray mobile-switch">등록안함</span>
         <a href="#" class="btn-arrow up">닫기</a>
-    </div><!-- .sect-hd -->
+    </div>.sect-hd
     <div class="sect-cont" style="display: none;">
         <div class="hashtag-setting">
             <div class="base"><span>#</span> <input type="text" class="MSH-input-hashtag" placeholder="태그는 띄어쓰기나 엔터로 구분할 수 있습니다." style="width:80%" maxlength="30"></div>
             <ul class="MSH-hashtag-area">
                             </ul>
         </div>
-    </div><!-- .sect-cont -->
+    </div> -->
+    <!-- .sect-cont -->
     <!-- ======================= 해시태그 종료 ======================= -->
     <!-- ======================= 상품 이미지 시작 ======================= -->
     <div class="sect-hd">
-        <h3>상품 이미지</h3>
+        <h3>상품 대표이미지</h3>
         <a href="#prdGuide1" class="lnk-qmark open-layer">도움말</a>
         <span class="txt-select">(선택)</span>
         <a href="#" class="btn-arrow">닫기</a>
@@ -172,193 +184,64 @@
                     <col>
                 </colgroup>
                 <tbody>
-                                        <tr>
-                        <th>등록</th>
-                        <td>
-                            <ul class="btn-wrap img-method">
-                                <li><a href="#imgUpload" class="btn-toggle btn-upload-type now" use="upload">업로드</a></li>
-                                <li><a href="#imgPath" class="btn-toggle btn-upload-type " use="url">경로 입력</a></li>
-                            </ul>
-                        </td>
-                    </tr>
                     <tr class="bg-yellow thumb-box" style="">
                         <th class="th-align">
-                            <span id="upload_img_txt">이미지</span><br>
+                            <span id="upload_img_txt">대표이미지</span><br>
                             <span class="fc-gray fs-15">(<span class="MSH-txt-img-cnt">0</span>/10)</span>
                         </th>
                         <td>
-                            <div id="imgUpload" style="margin-top:5px; ">
+								<div id="imgUpload" style="margin-top: 5px;">
+									<div class="swiper-container thumbs">
+										<ul class="swiper-wrapper">
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img[]">
+													</span>
+												</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<div id="imgPath" class="mt-15" style="display:none;">
                                 <div class="pc-switch mobile-switch">
-                                    <div class="swiper-container thumbs">
-                                    <ul class="swiper-wrapper">
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="0" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="0" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="1" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="1" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="2" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="2" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="3" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="3" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="4" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="4" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="5" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="5" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="6" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="6" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="7" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="7" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="8" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="8" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                                <!--/* 18.03.05 수정 */-->
-                                        <li class="add swiper-slide prd-img-resizing">
-                                            <p>
-                                                <span class="btn-prd-upload">
-                                                    <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image">
-                                                    <input type="file" name="prd_upload[]" data-index="9" data-change="false" multiple="" accept="image/*">
-                                                </span>
-                                            </p>
-                                            <!--a href="#" class="btn-prd-upload" >
-                                                <input type="file" name="prd_upload[]" data-index="9" data-change="false" multiple accept="image/*" />
-                                            </a-->
-                                        <!--/* 18.03.05 수정 */-->
-                                            <input type="hidden" name="prd_tmp_img[]" value="">
-                                            <input type="hidden" name="prd_saved_img[]" value="">
-                                            <div class="change-cover"></div>
-                                        </li>
-                                                                            </ul>
-                                    <p class="mobile-desc mt-10 fc-blue fs-15">크기: 640 * 640, 용량: 10M/1개, jpg, gif, png</p>
-                                    </div><!-- .thumbs -->
-                                    <p class="pc-desc img-desc fc-gray fs-15">크기 : 640 * 640, 용량: 10M/1개, jpg, gif, png</p>
-                                </div>
-                            </div><!-- #imgUpload -->
-                            <div id="imgPath" class="mt-15" style="display:none;">
-                                <div class="pc-switch mobile-switch">
+								
+						
+									
                                     <textarea class="w60per" name="prd_img_url"></textarea>
                                     <p class="pc-desc mt-15 fc-gray fs-15 img-path-txt">최대 10개 이미지 경로 입력 가능 2개 이상 시, 엔터로 구분하세요.</p>
                                     <p class="mobile-desc mt-10 fc-blue fs-15 img-path-txt">최대 10개 이미지 경로 입력 가능 2개 이상 시, 엔터로 구분하세요.</p>
@@ -372,21 +255,20 @@
     </div><!-- .sect-cont -->
     <!-- ======================= 상품 이미지 종료 ======================= -->
     <!-- ======================= 재고 시작 ======================= -->
-    <div class="sect-hd">
+    <!-- <div class="sect-hd">
 		<h3>재고</h3>
 		<span class="txt-select">(선택)</span>
 		<a href="#" class="btn-arrow up">닫기</a>
 	</div><!-- .sect-hd -->
-	<div class="sect-cont" style="display: none;">
+	<!-- <div class="sect-cont" style="display: none;">
 		<ul id="stock-non" class="mobile-stock stock" style="">
 			<li>
-				<label><input type="radio" name="prd_stock_type" value="limit"><span>수량</span></label>
-				<div class="base pr-20"><input type="text" name="prd_stock" value="0" disabled=""> <span>개</span></div>
+				<label><span>수량</span></label>
+				<div class="base pr-20"><input type="text" name="p_amount" value="0"> <span>개</span></div>
 			</li>
-			<li><label><input type="radio" name="prd_stock_type" value="unlimit" checked=""><span>무제한</span></label></li>
 		</ul>
 		<p id="stock-use" class="fc-blue stock" style="display:none">선택형 옵션 사용 시, 옵션 재고로 대체됩니다.</p>
-	</div><!-- .sect-cont -->
+	</div> -->
 	<!-- ======================= 재고 종료 ======================= -->
 	<!-- ======================= 옵션 시작 ======================= -->
 	<div class="sect-hd" style="">
@@ -404,23 +286,13 @@
     <div class="sect-cont pd-none" style="display: none;">
         <div class="">
             <div class="tbl-setting">
-                <table>
-                    <caption></caption>
-                    <colgroup>
-                        <col class="w140">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th>선택형 옵션</th>
-                            <td>
-                                                            <ul class="btn-wrap opt-select is-pc">
-                                    <li><a href="#" class="btn-toggle btn-sel-opt " use="Y">사용함</a></li>
-                                    <li><a href="#" class="btn-toggle btn-sel-opt now" use="N">사용 안함</a></li>
-                                </ul>
-                                <p class="fc-blue is-mobile">옵션은 PC에서 등록 가능합니다.</p>
-                            </td>
-                        </tr>
+	<table>
+	<caption></caption>
+	<colgroup>
+	<col class="w140">
+	<col>
+	</colgroup>
+	<tbody>
                         <!-- 2017.08.18 추가 -->
                                                 <tr class="opt-select js-optResetFalse is-pc-row" is-opt="true" style="display:none;">
                             <th>옵션명</th>
@@ -436,17 +308,7 @@
                                 </ul>
                             </td>
                         </tr>
-                                                <tr class="opt-select js-optResetTrue is-pc-row" is-opt="false" style="display:none;">
-                            <th>불러오기</th>
-                            <td>
-                                <select style="width:200px" id="select_rep_list">
-                                    <option value="0">-- 선택하세요 --</option>
-                                </select>
-                                <span class="pd-10 fc-blur">|</span>
-                                <a href="#" class="btn-black pd-10" id="btn_opt_manage">저장 옵션 관리</a>
-                            </td>
-                        </tr>
-                                                <tr class="opt-select js-optResetTrue bg-yellow is-pc-row" is-opt="false" style="display:none;">
+                                                <tr class="opt-select js-optResetTrue bg-yellow is-pc-row" is-opt="false" style="display: table-row;">
                             <td colspan="2">
                                 <div class="tbl-list" id="mix_option">
                                     <table id="add_mix_option">
@@ -460,31 +322,56 @@
                                             <tr>
                                                 <th>옵션명</th>
                                                 <th>옵션값</th>
-                                                <th><a href="#" class="btn-add-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_plus.png" alt="추가" style="width:30px"></a></th>
+                                                <th>재고</th>
+                                                <th style = "width : 10%"><a href="javascript:void(0)" class="btn-add-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_plus.png" alt="추가" style="width:30px"></a></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                                                                        <tr>
+                                        <tbody id = "p_option_tbody">
+                                            <tr>
                                                 <td>
-                                                    <input type="text" name="opt_name[]" placeholder="옵션명을 입력하세요. (예시: 색상)" value="">
-                                                    <input type="hidden" name="opt_id[]" value="">
-                                                    <input type="hidden" name="opt_type[]" value="SE">
-                                                    <input type="hidden" name="opt_guide[]" value="">
-                                                    <input type="hidden" name="opt_mandatory[]" value="">
+                                                    <input type="text" name="p_option1[]" placeholder="옵션명을 입력하세요. (예시: 색상/사이즈)" value="">	<!-- 옵션1 , 를 기준으로 나눌거임 -->
                                                 </td>
-                                                <td><input type="text" name="opt_value[]" placeholder="옵션값을 입력하세요. 옵션값이 2개 이상일 경우 콤마(,)로 구분해주세요.(예시: 빨강, 노랑)" value=""></td>
-                                                <td><a href="#" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>
+                                                <td>
+                                                	<input type="text" name="p_option2[]" placeholder="옵션값을 입력하세요. (예시: red/m)" value="">
+                                               	</td>
+                                                <td>
+                                                	<input type = "text" name = "p_amount[]" placeholder = "재고 " value = "">
+                                               	</td>
+                                                <td style = "width : 10%">
+                                                	<a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a>
+                                               	</td>
                                             </tr>
-                                                                                    </tbody>
+                                        </tbody>
                                     </table>
+                                    <input type = "button" value = "확인" id = "check_btn">
+                                    <script  src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                                    <script>
+                                    	$(document).ready(function(){
+                                     		$('#add_mix_option').on('click', '.btn-add-opt', function(){
+                                    			var appendTo_option = 
+                                    			'<tr>' +
+                                    			'<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상/사이즈)"></td>' +
+                                    			'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red/m)"></td>' +
+                                    			'<td><input type = "text" name = "p_amount[]" placeholder = "재고 " value = ""></td>' + 
+                                    			'<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
+                                    			'</tr>'
+                                    			;
+                                    			var appendTo_html = $('#p_option_tbody').html() + appendTo_option;
+                                    			$('#p_option_tbody').html(appendTo_html);
+                                    		})//기존 정보 사라짐
+                                    		
+                                    		$('#check_btn').click(function(){
+                                     			alert("");
+                                     		});
+                                    		$('#add_mix_option').on('click', '.btn-del-opt', function(){
+                                    			$(this).parent().parent().remove();
+                                    		});
+                                    	});
+                                    </script>
                                 </div><!-- .tbl-list -->
-                                <div class="tbl-side mt-20">
-                                    <a id="btn_mix" href="#" class="btn-black">옵션목록 생성</a> &nbsp;
-                                    <label><input type="checkbox" name="chk_opt_save" value="Y"> <span>위 옵션 정보를 <input type="text" name="rep_name" style="width:130px"> 으로 저장합니다.</span><label>
-                                </label></label></div><!-- .tbl-side -->
                             </td>
                         </tr>
-                                                <tr class="opt-select opt-list bg-yellow is-pc-row" style="display:none;">
+                                            <!--     <tr class="opt-select opt-list bg-yellow is-pc-row" style="display: table-row;">
                             <td colspan="2" id="mix_option_result">
                                 옵션 목록
                                 <span>(
@@ -517,7 +404,7 @@
                                                                                             </tr>
                                         </thead>
                                     </table>
-                                </div><!-- .tbl-list -->
+                                </div>.tbl-list
                                 <div class="tbl-list tbl-body" style="max-height:300px">
 									<table class="MSH-opt-body">
 										<caption></caption>
@@ -533,7 +420,7 @@
 										<tbody>
 											                                        </tbody>
                                     </table>
-                                </div><!-- .tbl-list -->
+                                </div>.tbl-list
                                 <div class="tbl-side mt-20 is-pc">
                                     <label class="mr-10 pb-10"><strong>선택한 옵션 정보를 아래와 같이 수정합니다.(옵션 금액과 재고는 입력한 경우에만 적용합니다.)</strong></label><br>
                                     <label class="mr-10"><p class="fc-blue" style="display:inline-block;">옵션 가격 :</p> &nbsp; 
@@ -561,9 +448,9 @@
                                         </select>
                                     </label>
                                     <a href="#" class="btn-black" id="btn_all_sto_set">일괄수정</a>
-                                    <!--18.07.26 일괄삭제 버튼 제거 -->
-                                    <!--span class="pd-10 fc-blur">|</span><a href="#" class="btn-black" id="btn_del_sto">일괄삭제</a>-->
-                                </div><!-- .tbl-side -->
+                                    18.07.26 일괄삭제 버튼 제거
+                                    span class="pd-10 fc-blur">|</span><a href="#" class="btn-black" id="btn_del_sto">일괄삭제</a>
+                                </div>.tbl-side
                                 <ul class="m-align mt-10 is-mobile">
                                     <li class="m30per">
                                         <select id="set_sto_type">
@@ -585,56 +472,11 @@
                                     </li>
                                 </ul>
                             </td>
-                        </tr>
-                        <tr>
-                            <th>작성형 옵션</th>
-                            <td>
-                                <ul class="btn-wrap opt-fill is-pc-row">
-                                    <li><a href="#" class="btn-toggle btn-custom-opt " use="Y">사용함</a></li>
-                                    <li><a href="#" class="btn-toggle btn-custom-opt now" use="N">사용 안함</a></li>
-                                </ul>
-                                <div class="is-mobile"><p class="fc-blue">옵션은 PC에서 등록 가능합니다.</p></div>
-                            </td>
-                        </tr>
-                        <tr class="opt-fill bg-yellow is-pc-row" style="display:none;">
-                            <td colspan="2">
-                                <div class="tbl-list">
-                                    <table id="custom_option_tbl">
-                                        <caption></caption>
-                                        <colgroup>
-                                            <col class="w140">
-                                            <col>
-                                            <col class="w140">
-                                        </colgroup>
-                                        <thead>
-                                            <tr>
-                                                <th>필수</th>
-                                                <th>옵션값</th>
-                                                <th><a href="#" class="btn-opt-plus btn-add-custom-opt">추가</a></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                                                        <tr>
-                                                <td>
-                                                    <input type="hidden" name="opt_id[]" value="">
-                                                    <input type="hidden" name="opt_name[]" value="">
-                                                    <input type="hidden" name="opt_value[]" value="">
-                                                    <input type="hidden" name="opt_matrix[]" value="">
-                                                    <input type="hidden" name="opt_type[]" value="CT">
-                                                    <input type="hidden" name="opt_mandatory[]" value="N">
-                                                    <label class="single"><input type="checkbox" name="chk_opt_mandatory[]" value="Y"><span></span></label>
-                                                </td>
-                                                <td><input type="text" name="opt_guide[]" value="" placeholder="구매자에게 작성 요청할 정보를 입력하세요. (예시: 선물 메세지)"></td>
-                                                <td><a href="#" class="btn btn-danger btn-sm btn-del-custom-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>
-                                            </tr>
-                                                                                    </tbody>
-                                    </table>
-                                </div><!-- .tbl-list -->
-                            </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
-                </table>
-            </div><!-- .tbl-setting -->
+	</table>
+</div>
+<!-- .tbl-setting -->
         </div><!-- .pc-switch -->
     </div><!-- .sect-cont -->
     <!-- ======================= 옵션 종료 ======================= -->
@@ -697,6 +539,88 @@
         </div><!-- .tbl-setting -->
     </div><!-- .sect-cont -->
     <!-- ======================= 배송 종료 ======================= -->
+    <!-- 						 상세 이미지 시작                       -->
+    <div class="sect-hd">
+        <h3>상품 상세이미지</h3>
+        <a href="#prdGuide1" class="lnk-qmark open-layer">도움말</a>
+        <span class="txt-select">(선택)</span>
+        <a href="#" class="btn-arrow">닫기</a>
+    </div><!-- .sect-hd -->
+    <div class="sect-cont pd-none">
+        <div class="tbl-setting">
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col class="w140">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr class="bg-yellow thumb-box" style="">
+                        <th class="th-align">
+                            <span id="upload_img_txt">상세이미지</span><br>
+                            <span class="fc-gray fs-15">(<span class="MSH-txt-img-cnt">0</span>/10)</span>
+                        </th>
+                        <td>
+								<div id="imgUpload" style="margin-top: 5px;">
+									<div class="swiper-container thumbs">
+										<ul class="swiper-wrapper">
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+											<li class="add swiper-slide prd-img-resizing">
+												<p>
+													<span class="btn-prd-upload">
+														<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+														<input type="file" name="img_detail[]">
+													</span>
+												</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<div id="imgPath" class="mt-15" style="display:none;">
+                                <div class="pc-switch mobile-switch">
+                                    <textarea class="w60per" name="prd_img_url"></textarea>
+                                    <p class="pc-desc mt-15 fc-gray fs-15 img-path-txt">최대 10개 이미지 경로 입력 가능 2개 이상 시, 엔터로 구분하세요.</p>
+                                    <p class="mobile-desc mt-10 fc-blue fs-15 img-path-txt">최대 10개 이미지 경로 입력 가능 2개 이상 시, 엔터로 구분하세요.</p>
+                                </div><!-- .mobile-switch -->
+                            </div><!-- #imgPath -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div><!-- .tbl-setting -->
+    </div><!-- .sect-cont -->
     <!-- ======================= 상세설명 시작 ======================= -->
     <div class="sect-hd">
         <h3 id="detail-top">상세설명
@@ -707,25 +631,97 @@
     <div class="sect-cont" style="display: none;">
         <!-- 18.11.16 s -->
         <div class="mb-10">
-            <label class="mr-40">
+           <!--  <label class="mr-40">
                 <input type="radio" name="pdt_detail_type" data-area="pagekinArea" value="P" checked=""><span>간단 에디터(페이지킨)로 작성</span>
             </label>
             <label class="mr-10">
                 <input type="radio" name="pdt_detail_type" data-area="defaultArea" value="D"><span>일반 상품상세 작성</span>
-            </label>
+            </label> -->
+           <img src="https://cafe.pstatic.net/editor/btn_n_aligncenter.gif" alt="중간 정렬" width="21" height="21" title="중간 정렬" nhn:command="justifycenter" nhn:argument="undefined" nhn:state="normal" style="cursor: pointer;">
         </div>
+        
+        가운데정렬 테스트할때 사용하면됨
+        
         <div id="pagekinArea" class="prdDtail-pagekin prd-write">
-            <!-- 페이지킨 최초 등록 영역 -->
-            <div id="pagekinCreateArea" class="non" style="">
-                <p class="txt1">사진, 버튼, 동영상, 지도, 옵션 등을 <br><span class="fc-blue">간단 에디터를 이용하여 손쉽게</span> 만들 수 있습니다</p>
+        
+           <!--  페이지킨 최초 등록 영역-->
+           <!-- <div id="pagekinCreateArea" style="width: 100%; height: 400px;"> -->
+           <div id="pagekinCreateArea" style="width: 100%; height: 400px;">
+           			<!-- 상세내용 미리보기 느낌임 -->
+					<iframe src="editor/default.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
+					
+					 </iframe>
+					<!--   <p class="txt1">사진, 버튼, 동영상, 지도, 옵션 등을 <br><span class="fc-blue">간단 에디터를 이용하여 손쉽게</span> 만들 수 있습니다</p>
                 
                 <p class="btnWrap">
                     <a href="javascript:void(0);" class="btn-h52-blue w230 mr-10 js-createPagekin">상품상세 만들기</a>
                     <a href="javascript:void(0);" class="btn-h52-black w230 js-pagekinList">상품상세 추가하기</a>
-                </p>
-                
+                </p> -->
+                <p id="status">이미지 선택안됨</p>
             </div>
-            <!-- 페이지킨 적용 영역 -->
+            <div>
+            <br>
+            	<input type = "button" value = "확인" id = "check">
+            	<input type = "button" value = "태그거르기 확인" id = "check_img">
+            	<input type = "hidden" value = "" name = "p_contents" id = "p_contents">
+            </div>
+            <div id = "holder">
+            
+            </div>
+            <script>
+            	$(document).ready(function(){
+            		//p_contents 에서는 img 위치 알아하고 DB에 저장되어있던 상세이미지 풀어서 뿌려줘야함
+            		
+            		
+            		$('#check_img').click(function(){
+            			var data = 	$('#default_iframe').contents().find('#contents_div').html();
+            			var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
+            			var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '<img>');
+            			alert(result2);
+            		});
+            		
+            		$('#check').click(function(){
+    	        		var data = $('#default_iframe').contents().find('#contents_div').html();
+    	        		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
+    	        		alert (result);
+    	        		
+    	        		//var upload = document.getElementsByTagName('input')[0],
+    	        		var upload = $('input[name="img[]"]');
+    	        		var holder = $('#holder'); 
+    	        	    //holder = document.getElementById('holder'),
+    	        	    state = document.getElementById('status');
+    	        	    
+    	        	    
+    	        	    
+    	        	    $.each(upload, function(index, items){
+    	        	    	var file = items.files;
+    	        	    	var reader = new FileReader();
+    	        	    	reader.onload = function(event){
+    	        	    		var img = new Image();
+    	        	    		img.src = event.target.result;
+    	        	    		if(img.width > 560){
+    	        	    			img.width = 560;	
+    	        	    		}
+    	        	    		holder.html(img);
+    	        	    	}
+    	        	    	
+    	        	    	alert(items.files);
+    	        	    	if (typeof window.FileReader === 'undefined') {
+    	      	        	  state.className = 'fail';
+    	      	        	} else {
+    	      	        	  state.className = 'success';
+    	      	        	  state.innerHTML = '이미지 선택됨';
+    	      	        	}
+    	        	    });
+            		});
+    	        	   
+            		$('input[name="img[]"]').change(function(){
+            			
+  	        			//'<img src = '++'/>';
+  	        	    });
+            	});
+            </script>
+            <!-- 페이지킨 적용 영역
             <dl id="pagekinListArea" style="display:none;">
                 <dt>
                     <span>적용된 상품상세</span>
@@ -735,6 +731,7 @@
                     <div id="pagekinInputArea" class="is" style="display:none;"></div>
                 </dd>
             </dl>
+             -->
         </div>
         <div id="defaultArea" class="mt-15 prd-write" style="display: none;">
             <textarea name="pdt_detail" placeholder="상품에 대한 소개를 입력하세요. (페이지킨 경로나 HTML 태그도 사용 가능합니다.)" style="height:480px"></textarea>
@@ -743,13 +740,13 @@
     </div><!-- .sect-cont -->
     <!-- ======================= 상세설명 종료 ======================= -->
     <!-- ======================= 사용 결제수단 시작 ======================= -->
-    <div class="sect-hd">
+    <!-- <div class="sect-hd">
         <h3>사용 결제수단</h3>
                 <a href="/adm/bank/manage" class="btn-h32-black-o">계좌 등록</a>
                         <a href="/adm/card/manage" class="btn-h32-black-o">카드 결제 신청</a>
                 <span class="txt-select">(선택)</span>
         <a href="#" class="btn-arrow up">닫기</a>
-    </div><!-- .sect-hd -->
+    </div>.sect-hd
     <div class="sect-cont pd-none" style="display: none;">
         <div class="tbl-setting">
             <table>
@@ -767,8 +764,8 @@
                     </tr>
                 </tbody>
             </table>
-        </div><!-- .tbl-setting -->
-    </div><!-- .sect-cont -->
+        </div>.tbl-setting
+    </div>.sect-cont -->
     <!-- ======================= 사용 결제수단 종료 ======================= -->
     <!-- ======================= 기타 시작 ======================= -->
     <div class="sect-hd">
@@ -847,3 +844,441 @@
     </div>
     </form>
 </div>
+<form id="form">
+    <!-- <input type='file' id="imgInput" /> -->
+    <img id="image_section" src="#" alt="your image" />
+</form>
+<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+$('input[name="img_detail[]"]').change(function(){
+	readURL(this);
+});
+
+function readURL(input) {
+	 
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function (e) {
+            //$('#image_section').attr('src', e.target.result);
+            //$('#default_iframe').contents().find('#contents_div').html().append($('#image_section'));
+            var img = "<img src = \""+e.target.result+"\" /><br>";
+            $('#default_iframe').contents().find('#contents_div').append(img);
+        }
+ 
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+ 
+$("#imgInput").change(function(){
+    readURL(this);
+});
+
+var menuHash = '#left-menu';
+var requestUrl = "/adm/product/manage/add";
+
+
+
+function make_smallCate(cateNum){
+	if(cateNum == 1){
+		small_json_1 = {
+				'key1' : '쌀',
+				'key2' : '면',
+				'key3' : '제과'
+		};
+		return small_json_1;
+	}else if(cateNum == 2){
+		
+	}else if(cateNum == 3){
+		
+	}
+}
+	
+$(document).ready(function(){
+	/* $(document).click(function(){
+		console.log($(this).prop('tagName'));
+	}); */
+		//대분류 카테고리 변경 이벤트
+		$('#p_cateNum').on('change', function(){
+			var select = "<option value='0'>-- 2차 선택 --</option>";
+			if($(this).val() == 1){
+				select += "<option>Carbohydrate</option>"
+						 +"<option>Protein</option>"
+						 +"<option>Fat</option>"
+						 +"<option>Vitamin</option>"
+						 +"<option>Spice</option>";
+				$('#p_midCate').html(select);
+			}else if($(this).val() == 2){
+				select += "<option>Audio/Video</option>"
+						 +"<option>Game</option>"
+						 +"<option>Smart Watch</option>"
+						 +"<option>Drone</option>"
+						 +"<option>TV</option>"
+						 +"<option>Laptop/Computer HardWare</option>";
+				 $('#p_midCate').html(select);
+			}else if($(this).val() == 3){
+				select += "<option>Outer</option>"
+						 +"<option>TOP</option>"
+						 +"<option>Bottom</option>"
+						 +"<option>Shoes</option>"
+						 +"<option>Innerwear</option>";
+				 $('#p_midCate').html(select);
+			}
+		});
+	
+		//중분류 카테고리 변경 이벤트
+		$('.p_cate_ul').on('change', '#p_midCate', function(){
+			var select = "<option value = '0'>-- 3차 선택 --</option>";
+			if($(this).val() == '탄수화물'){
+				select += "<option>쌀</option>"
+						  +"<option>면</option>"
+						  +"<option>제과</option>";
+				$('#p_smallCate').html(select);
+			}else if ($(this).val() == 2){
+				
+			}else if ($(this).val() == 3){
+				
+			}
+		});
+	
+        $(function(e) {
+        //ajax loading start//
+        $(document).ajaxStart(function(e){
+            mysoho.global.loadingOn();
+        });
+
+        $(document).ajaxStop(function(e){
+            mysoho.global.loadingOff();
+            setTimeout(function(){
+                if (mysoho.global.isElement('#js-mysohoLoading') > 0){
+                    mysoho.global.loadingOff();
+                }
+            },10000);
+        });
+        //ajax loading end//
+
+        // 레이어 팝업 열기
+        $('.open-layer').on('click', function(e) {
+        	
+            e.preventDefault();
+            open_layer_popup(this.hash);
+        });
+
+        $('.open-layer2').on('click', function(e) {
+            e.preventDefault();
+            open_layer_popup(this.hash, 'type2');
+        });
+
+        // 레이어 팝업 닫기 
+        $('.close-layer').on('click', function(e) {
+            e.preventDefault();
+            close_layer_popup(this.hash);
+        });
+        // 왼쪽 메뉴 열기
+        $('#header .btn-bar').on('click', function(e) {
+            e.preventDefault();
+            var hashData = {};
+            if (isMobile) {
+                hashData = { menuId : 'none' };
+                history.pushState(hashData, 'leftMenu', menuHash);
+                //openLeftMenu(hashData); 
+                // 메뉴 페이지로 변경.
+                window.location.href = admDir+"/main/menu";
+            }
+        });
+        // 왼쪽 메뉴 닫기
+        $('#aside .btn-close').on('click', function(e) {
+            e.preventDefault();
+            //closeLeftMenu(); 
+            // 메뉴 페이지로 변경
+            if (location.hash && location.hash.substr(0, 10) == '#left-menu') { 
+                location.href = admDir  + '/main/dashboard';
+            } else {
+                window.history.back();
+            }
+        });
+        // 오른쪽 메뉴 열기
+        $('#header .btn-sns').on('click', function(e) {
+            e.preventDefault();
+            $('.overlay').show();
+            $('#sidebar').animate({'right': 0}, 500);
+            $('html, body').css({'overflow': 'hidden', 'height': '100%'});
+        });
+        // 오른쪽 메뉴 닫기
+        $('#sidebar .btn-close').on('click', function(e) {
+            e.preventDefault();
+            $('.overlay').hide();
+            $('#sidebar').animate({'right': '-240px'}, 500);
+            $('html, body').css({'overflow': '', 'height': ''});
+        });
+        // 팝업 열기
+        $('.btn-layer-open').on('click', function(e) {
+            e.preventDefault();
+            $('.overlay').show();
+            $(this.hash).show();
+        });
+        // 팝업 닫기
+        $('.btn-layer-close').on('click', function(e) {
+            e.preventDefault();
+            $('.overlay').hide();
+            $(this.hash).hide();
+        });
+        // 컨텐츠 토글
+        $('.btn-arrow').on('click', function(e) {
+        	/* alert($(this).prop('class')); */
+            e.preventDefault();
+            if ($(this).hasClass('up')) {
+                $(this).removeClass('up');
+                $(this).parent().find('.txt-blur-span').hide();
+                $(this).parent('.sect-hd').next('.sect-cont').show();
+            } else {
+                $(this).addClass('up');
+                $(this).parent().find('.txt-blur-span').show();
+                $(this).parent('.sect-hd').next('.sect-cont').hide();
+            }
+        });
+        // 옵션 토글
+        $('.btn-toggle').on('click', function(e) {
+            e.preventDefault();
+            $(this).addClass('now').parent('li').siblings('li').find('.btn-toggle').removeClass('now');
+            $(this).addClass('now').siblings('.btn-toggle').removeClass('now');
+        });
+
+        $('.MSH-toggle').on('click', function() {
+            var name = $(this).data('name'),
+                value = $(this).data('value');
+
+            $('input[name="'+name+'"]').val(value);
+        });
+
+        $('.MSH-toggle').each(function () {
+            var name = $(this).data('name'),
+                value = $(this).data('value'),
+                hidden_value = $('input[name="'+name+'"]').val();
+            if (value == hidden_value) {
+                $(this).trigger('click');
+            }
+        });
+
+        //.page-hd lnk 클릭 시
+        $('.page-hd .side dt').on('click', function() {
+            if( $(this).siblings('dd').css('display') == 'none' ) {
+                $(this).siblings('dd').show();
+            }else {
+                $(this).siblings('dd').hide();
+            }
+        });
+        $(document).ready(function() { 
+            $(document).mouseup(function (e) {
+                var container = $('.dd-box');
+                if (container.has(e.target).length === 0) {
+                    container.hide();
+                }
+            });
+        });
+        $('.dd-box li a').on('click', function() {
+            $(this).parents('.dd-box').hide();
+        })
+        // 컨텐츠 토글. up클래스 외엔 접어두기
+        $('.btn-arrow').each(function(e) {
+            if ($(this).hasClass('up')) {
+                $(this).removeClass('up');
+                $(this).parent('.sect-hd').next('.sect-cont').show();
+            } else {
+                $(this).addClass('up');
+                $(this).parent('.sect-hd').next('.sect-cont').hide();
+            }
+        });
+        //이전페이지 돌아가기 17.11.07
+        $('.btn-back').on('click', function(e) {
+            e.preventDefault();
+            if (window.opener) {
+                self.close();
+            } else {
+                if (document.referrer && document.referrer.indexOf(admDir + '/auth/') != -1) {
+                    location.href = admDir  + '/main/dashboard';
+                } else {
+                    if (isMobile) {
+                        // 모바일에서  마이페이지 , 무통장 입금 관리 , 플러그인 페이지 뒤로가기 시 무조건 메인으로 가도록 처리
+                        // URL 에서 앞에 대문자로 표기 된 부분이 있어서 경로를 전체 소문자로 작성 함 ( 비교도 소문자로 함 )
+                        var exceptUrl = [
+                                '/adm/mypage/admin',                //마이페이지
+                                '/adm/mypage/mysns/mysns',
+                                '/adm/order/beebank',               //무통장 입금 관리
+                                '/adm/order/beebank/match',       
+                                '/adm/order/beebank/accountlist',
+                                '/adm/plugin/manage',               //플러그인
+                                '/adm/plugin/manage/myplugin'
+                        ];
+           
+                        if ($.inArray(requestUrl.toLowerCase() , exceptUrl) != -1 ) {
+                            var beebankExceptUrl = [
+                                '/adm/order/beebank',               //무통장 입금 관리
+                                '/adm/order/beebank/match',       
+                                '/adm/order/beebank/accountlist'
+                            ];
+                            var menuUrl = '/main/menu';
+                            if ($.inArray(requestUrl.toLowerCase() , beebankExceptUrl) != -1 && typeof(Storage) !== 'undefined') { 
+                                sessionStorage.setItem('menuId' , 3);
+                                menuUrl += '#left-menu';
+                            }
+                            location.href = admDir + menuUrl;
+                            
+                        } else {
+                            window.history.back();
+                        }
+                    } else {
+                        window.history.back();
+                    }
+                }
+            }
+        });
+        //스크롤 시 top 버튼
+        $(window).on('scroll', function() {
+            var scrollTop = $(window).scrollTop();
+            if ( scrollTop > 0 ) {
+                $('.btn-top').fadeIn();
+            } else {
+                $('.btn-top').fadeOut();
+            }
+        });
+        // 위로 up up
+        $('.btn-top').on('click', function(e) {
+            e.preventDefault();
+            $('html, body, .subWrap').stop().animate({scrollTop: 0}, 500);
+        });
+
+        var lastScrollTop = -1,
+            currentScrollTop = 0,
+            is_down = false,
+            animating = false,
+            $sideMenu = $('#aside');
+
+        $.fn.hasScrollBar = function() {
+            return this.get(0).scrollHeight > this.height();
+        };
+
+        $(window).on('load resize', function(e) {
+            if ($sideMenu.length > 0 && $sideMenu.hasScrollBar()) {
+                $('.mobile-switch.bt', $sideMenu).css('padding-bottom', 228 - parseInt($sideMenu.get(0).scrollHeight - $sideMenu.height(), 10));
+            } else {
+                $('.mobile-switch.bt', $sideMenu).css('padding-bottom', parseInt(window.innerHeight - $('.menu-wrapper', $sideMenu).height(), 10) + 228);
+            }
+        });
+
+    });
+
+    //18.06.12 상품리스트 추가
+    $(document).on('click', '.prd_manage', function() {
+        var date = new Date();                                                              
+        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
+        document.cookie = 'prd_manage_option' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
+    });
+    //18.08.24 상품등록 추가
+    $(document).on('click', '.prd_form', function() {
+        var date = new Date();                                                              
+        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
+        document.cookie = 'prdExcelUpload' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
+    });
+    //18.09.05 주문내역 리뉴얼
+    $(document).on('click', '.order-list', function() {
+        var date = new Date();                                                              
+        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
+        document.cookie = 'renewOrderList' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
+    });
+    //18.10.04 간편결제관리 추가
+    $(document).on('click', '.card-simple-menu', function() {
+        var date = new Date();                                                              
+        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
+        document.cookie = 'cardSimpleMenu' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
+    });
+    //18.10.18 개인결제내역 추가
+    $(document).on('click', '.sms-direct-send', function() {
+        var date = new Date();                                                              
+        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);                           
+        document.cookie = 'smsDirectSend' + '=' + 'on' + ';expires=' + date.toUTCString() + ';path=/';
+    });
+    
+    $('#btn_save').click(function(){
+    	
+    	//컨텐츠 hidden값에 넣어줘야함
+    	var data = 	$('#default_iframe').contents().find('#contents_div').html();
+		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n').replace(/<br>/gi, '\n');
+		var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '<img>');
+		alert(result2); //이미지태그 개수 및 위치 표시가능
+		
+		$('#p_contents').val(result2);
+		
+		alert($('#p_contents').val());
+		//여기서 유효성검사 해줘야함
+    	$('#product_form').submit();
+    });
+
+
+})
+
+
+function openLeftMenu(data) {
+
+    /* 메뉴 페이지로 변경 2018.02.06
+    (function ($) {
+        $('#aside').animate({'left': 0}, 500);
+        $('html, body').css({'overflow': 'hidden', 'height': '100%'});
+    })($m);
+    */
+
+    // left-menu인건 이미 검사함
+    if (data !== null) {
+        var menuId = '';
+        if (history.state === null && sessionStorage.getItem('menuId') !== null) {
+            menuId = sessionStorage.getItem('menuId');    
+            sessionStorage.removeItem('menuId');
+            history.pushState({'menuId':menuId}, 'leftMenu', menuHash);
+        } else {
+            if (history.state === null) {
+                menuId = data.menuId;
+            } else {
+                menuId = data.menuId || history.state.menuId;
+            }
+        }
+        if (menuId != 'none') {
+            slideLeftMenu($m('#snb > li:not(.direct) > a[menu_id="'+menuId+'"]'));
+        }
+    }
+}
+
+// 메뉴 열어도 되는지
+function isMenuOpened() {
+    // 특정 메뉴 hash태그로 검사
+    if (location.hash.substr(0, 10) != '#left-menu') { 
+        return false; 
+    }
+    return true;
+}
+
+function closeLeftMenu() {
+    (function ($) {
+        location.hash = '';
+        $('#aside').animate({'left': '-2000px'}, 500);
+        $('html, body').css({'overflow': '', 'height': ''});
+    })($m);
+}
+
+function slideLeftMenu(el) {
+    (function ($) {
+        if ($(el).parent('li').hasClass('now')) {
+            $(el).parent('li').removeClass('now');
+            $(el).siblings('ul').slideUp();
+        } else {
+            $('#snb > li').removeClass('now');
+            $('#snb > li ul').slideUp();
+            $(el).parent('li').addClass('now');
+            $(el).siblings('ul').slideDown();
+        }
+    })($m);
+}
+
+
+</script>

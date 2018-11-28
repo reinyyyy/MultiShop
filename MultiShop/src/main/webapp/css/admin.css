@@ -1483,11 +1483,13 @@ label span.fc-green { padding-left:0; }
 .prdDtail-pagekin dl dt { padding:25px 30px 23px; border-bottom:1px solid #d8d8d8; }
 .prdDtail-pagekin dl dt span { padding-left:14px; background:url(/assets/admin/images/common/bul_h4_sqr.gif) no-repeat left center; font-size:25px; font-weight:bold; color:#333; } 
 .prdDtail-pagekin dl dt a.btn-h36-black { float:right; } 
+/* 상품상세내용 div 크기 지정 */
 .prdDtail-pagekin div.non { padding-top:273px; background:url(/assets/admin/images/common/bul_pagekin.png) no-repeat center 53px; }
 .prdDtail-pagekin div.non p { text-align:center; }
 .prdDtail-pagekin div.non p.txt1 { margin-bottom:37px; font-size:22px; font-weight:bold; color:#333; line-height:36px; }
 .prdDtail-pagekin div.non p.btnWrap { overflow:hidden; width:470px; margin:0 auto; padding-bottom:55px; }
 .prdDtail-pagekin div.non p.btnWrap a { float:left; }
+
 .prdDtail-pagekin dl dd { min-height:393px; }
 .prdDtail-pagekin dl dd div.is { overflow:hidden; padding:0 0 49px; }
 .prdDtail-pagekin dl dd div.is .item { overflow:hidden; position:relative; width:430px; margin:45px auto; }
