@@ -15,6 +15,7 @@
 	crossorigin="anonymous">
 <link rel ="stylesheet" href="../css/animate.css">
 <link rel="stylesheet" href="../css/my-spinner.css">
+<link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css"/>
 
 <title>Welcome to COZY!!</title>
 <style>
@@ -395,6 +396,7 @@
    crossorigin="anonymous"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/navbar.js"></script>
+<script type="text/javascript" src="../js/mypage.js"></script>
 <script type="text/javascript" src="../js/post.js"></script>
 <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="../js/rsa.js"></script>
@@ -403,6 +405,7 @@
 <script type="text/javascript" src="../js/rng.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.js"></script>
 <script type="text/javascript" src="../js/messages_ko.js"></script>
+<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
 <script>
    $('.dropdown').hover(function() {
       $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();
