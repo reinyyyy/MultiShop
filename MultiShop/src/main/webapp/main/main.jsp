@@ -35,7 +35,7 @@
 	width: 300px;
 	height: 55px;
 	left: 50px;
-	top: 250px;
+	top: 20px;
 	background-color: #E6E6E6;
 	color: #fff; 
 	z-index:1300;
