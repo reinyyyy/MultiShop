@@ -6,8 +6,10 @@
 		<typeAlias type="category.bean.ClothesDTO" alias="clothesDTO"/>
 		<typeAlias type="notice.bean.NoticeDTO" alias="noticeDTO"/>
 		<typeAlias type="detail.bean.DetailDTO" alias="detailDTO"/>
-      	<typeAlias type="detail.bean.DetailhoogiDTO" alias="detail_hoogiDTO"/>
-      	<typeAlias type="detail.bean.DetailQnADTO" alias="detail_QnADTO"/>
+      <typeAlias type="detail.bean.DetailhoogiDTO" alias="detail_hoogiDTO"/>
+      <typeAlias type="detail.bean.DetailQnADTO" alias="detail_QnADTO"/>
+      <typeAlias type="mypage.bean.OrderDTO" alias="orderDTO"/>
+
 	</typeAliases>
 	 
 </configuration>
