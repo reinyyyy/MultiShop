@@ -5,10 +5,9 @@
 		<typeAlias type ="member.bean.MemberDTO" alias="memberDTO"/>
 		<typeAlias type="notice.bean.NoticeDTO" alias="noticeDTO"/>
 		<typeAlias type="detail.bean.DetailDTO" alias="detailDTO"/>
-	    <typeAlias type="detail.bean.DetailhoogiDTO" alias="detail_hoogiDTO"/>
-	    <typeAlias type="detail.bean.DetailQnADTO" alias="detail_QnADTO"/>
-		<typeAlias type="category.bean.ProductDTO" alias="productDTO"/>
-		<typeAlias type="category.bean.Product_boardDTO" alias = "product_boardDTO"/>
+      	<typeAlias type="detail.bean.DetailhoogiDTO" alias="detail_hoogiDTO"/>
+      	<typeAlias type="detail.bean.DetailQnADTO" alias="detail_QnADTO"/>
+      	<typeAlias type="category.bean.ProductDTO" alias="productDTO"/>
 	</typeAliases>
 	 
 </configuration>

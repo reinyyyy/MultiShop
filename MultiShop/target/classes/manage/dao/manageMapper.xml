@@ -2,7 +2,44 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="manageSQL">
+	<select id = "getProductListsJson" parameterType = "Map" resultType = "productDTO">
+		select * from PRODUCT 
+		
+		<if test = "(p_status eq 'A'.toString())">
+			where (p_status = 'Y' or p_status = 'N')
+		</if>
+		<if test = "(p_status neq 'A'.toString())">
+			where p_status = #{p_status} 
+		</if>
+		
+		<if test = "p_name == ''">
+      	</if>
+     	<if test = "p_name != ''">
+			and p_name like '%'||#{p_name}||'%'
+		</if>
+		
+			and p_date between #{p_startDate} and (to_date(#{p_lastDate},'yy-mm-dd')+1)
+		<!-- <if test = "(search_sort eq 'sell_desc'.toString())">
+			order by #{p_sales} desc
+		</if>
+		<if test = "(search_sort eq 'sell_asc'.toString())">
+			order by #{p_sales} asc
+		</if>
+		<if test = "(search_sort eq 'stock_desc'.toString())">
+			order by #{p_amount} desc
+		</if>
+		<if test = "(search_sort eq 'stock_asc'.toString())">
+			order by #{p_amount} asc
+		</if> -->
+	</select>
 	
+	
+	<!-- 
+		p_status : A
+		p_name : 철원오대쌀
+		p_startDate : 2018/11/27
+		p_lastDate : 2018/11/28
+	 -->
 </mapper>  
 
 

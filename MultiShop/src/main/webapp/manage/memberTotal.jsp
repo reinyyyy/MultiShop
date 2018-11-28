@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <title>Insert title here</title>
-</head>
+
 <body>
 	<div id="prdSearch" class="page-body">
     <div class="main-hd">
@@ -24,18 +24,18 @@
                         <td>
                             <ul class="arr-align">
                                 <li class="w40per period-5x">
-                                    <a class="btn-toggle btn-dateterm" style="cursor:pointer">오늘</a>
-                                    <a class="btn-toggle btn-dateterm" style="cursor:pointer">1주일</a>
-                                    <a class="btn-toggle btn-dateterm" style="cursor:pointer">1개월</a>
-                                    <a class="btn-toggle btn-dateterm" style="cursor:pointer">3개월</a>
-                                    <a class="btn-toggle btn-dateterm" style="cursor:pointer">6개월</a>
+                                    <a class="btn-toggle btn-dateterm today" style="cursor:pointer">오늘</a>
+                                    <a class="btn-toggle btn-dateterm week" style="cursor:pointer">1주일</a>
+                                    <a class="btn-toggle btn-dateterm month" style="cursor:pointer">1개월</a>
+                                    <a class="btn-toggle btn-dateterm trimester" style="cursor:pointer">3개월</a>
+                                    <a class="btn-toggle btn-dateterm halfYear" style="cursor:pointer">6개월</a>
                                 </li>
                             </ul>
                             <ul class="arr-align mt-15">
                                 <li class="w60per calendar">
-                                    <label><input type="text" name="search_start_date" value="2018-11-14" id="dp1542785050780" class="hasDatepicker"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
+                                    <label><input type="text" id="datepicker1" value="" id="dp1542785050780"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
                                     <span>~</span>
-                                    <label><input type="text" name="search_end_date" value="2018-11-21" id="dp1542785050781" class="hasDatepicker"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
+                                    <label><input type="text" id="datepicker2" value="" id="dp1542785050781"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
                                 </li>
                                 <li class="w30per">
                                     <p class="refer-txt">검색기간은 최대 1년까지 검색 가능</p>
@@ -48,14 +48,14 @@
                         <td>
                             <ul class="arr-align">
                                 <li class="w20per">
-                                    <select name="search_keyword_type">
-                                        <option value="">-- 키워드 --</option>
+                                    <select name="search_keyword_type" id="search_keyword_type">
+                                        <option value="" selected="selected">-- 키워드 --</option>
                                         <option value="phone">휴대폰번호</option>
                                         <option value="sender">주문자명</option>
                                     </select>
                                 </li>
                                 <li class="w60per">
-                                    <input type="text" name="search_keyword" value="">
+                                    <input type="text" id="search_keyword" value="">
                                 </li>
                             </ul>
                         </td>
@@ -192,14 +192,5 @@
         </div><!-- .sect-cont -->
     </div><!-- .pc-switch -->
 </div>
-</script>
 <div id="ascrail2000" class="nicescroll-rails nicescroll-rails-vr" style="width: 6px; z-index: 10; cursor: default; position: fixed; top: 0px; left: 214px; height: 942px; display: none; opacity: 0;"><div class="nicescroll-cursors" style="position: relative; top: 0px; float: right; width: 6px; height: 0px; background-color: rgb(153, 153, 153); border: none; background-clip: padding-box; border-radius: 5px;"></div></div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-$(document).ready(function(){
-	$('.btn-toggle').on(click, function(){
-		$(this).css('background-color','#00ddff');
-	});
-});
-</script>
 

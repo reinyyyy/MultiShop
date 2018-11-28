@@ -1,12 +1,15 @@
 package manage.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 
 public interface ManageDAO {
 
+	List<ProductDTO> getProductListsJson(Map<String, String> map);
+	
 	//상품 등록
 	public void productInsert(ProductDTO productDTO);
 

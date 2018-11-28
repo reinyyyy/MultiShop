@@ -79,7 +79,20 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/memberTotal.jsp");
-		mav.setViewName("/section/adminIndex");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	
+	@RequestMapping(value="productListsJson", method=RequestMethod.POST)
+	public ModelAndView productListsJson(@RequestParam Map<String, String> map) {
+		
+		List<ProductDTO> list = manageDAO.getProductListsJson(map);
+		System.out.println(list);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		
 		return mav;
 	}
 	
@@ -273,5 +286,4 @@ public class ManageController {
 		mav.setViewName("/section/adminIndex");
 		return mav;
 	}
-	
 }

@@ -28,32 +28,22 @@
                         <td>
                             <ul class="arr-align">
                                 <li class="w20per">
-                                    <select name="search_prd_display">
-                                        <option value="">전체</option>
+                                    <select class="search_prd_display">
+                                        <option value="A">전체</option>
                                         <option value="Y">판매중</option>
                                         <option value="N">판매중지</option>
                                         <option value="S">품절</option>
                                     </select>
                                 </li>
-                                <li>
-                                    <label><input type="checkbox" name="search_only_pdi" value="Y"><span>상단고정</span></label>
-                                </li>
                             </ul>
                         </td>
                     </tr>
                     <tr>
-                        <th class="txt-l">키워드</th>
+                        <th class="txt-l">상품명</th>
                         <td>
                             <ul class="arr-align">
-                                <li class="w20per">
-                                    <select name="search_keyword_type">
-                                        <option value="prd_name">상품명</option>
-                                        <option value="prd_add_name">추가 상품명</option>
-                                    </select> 
-                                    
-                                </li>
                                 <li class="w40per">
-                                    <input type="text" name="search_keyword">
+                                    <input type="text" class="search_keyword">
                                 </li>
                             </ul>
                         </td>
@@ -63,14 +53,15 @@
                         <td>
                             <ul class="arr-align">
                                 <li class="w20per period-3x">
-                                    <a href="#" class="btn-toggle btn-dateterm" sdate="2018-11-23" edate="2018-11-23">오늘</a>
-                                    <a href="#" class="btn-toggle btn-dateterm" sdate="2018-11-16" edate="2018-11-23">1주일</a>
-                                    <a href="#" class="btn-toggle btn-dateterm" sdate="2018-10-23" edate="2018-11-23">1개월</a>
+                                    <a href="#" class="btn-toggle btn-dateterm today">오늘</a>
+                                    <a href="#" class="btn-toggle btn-dateterm week">1주일</a>
+                                    <a href="#" class="btn-toggle btn-dateterm month">1개월</a>
                                 </li>
                                 <li class="w40per calendar">
-                                    <label><input type="text" name="search_start_date" value="" id="dp1542955095037" class="hasDatepicker"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
+                                    <label><input type="text" id="datepicker1" value="">
+                                    	<img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
                                     <span>~</span>
-                                    <label><input type="text" name="search_end_date" value="" id="dp1542955095038" class="hasDatepicker"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
+                                    <label><input type="text" id="datepicker2" value=""><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
                                 </li>
                             </ul>
                         </td>
@@ -79,7 +70,7 @@
             </table>
         </div><!-- .tbl-setting -->
         <div class="btn-c">
-            <a href="#" class="btn-h52-blue" id="btn_search">검색</a>
+            <a href = "#" class="btn-h52-blue" id="btn_search">검색</a>
         </div>
         </form>
     </div><!-- .sect-top -->
@@ -91,19 +82,14 @@
 
             <p class="abs-r">
                 <select name="search-sort" class="mr-5" style="width:130px">
-                    <option value="up-dt-desc">최근 수정순</option>
-                    <option value="in-dt-desc">최근 등록순</option>
-                    <option value="in-dt-asc">나중 등록순</option>
-                    <option value="sell-desc">판매 높은순</option>
-                    <option value="sell-asc">판매 낮은순</option>
-                    <option value="stock-desc">재고 많은순</option>
-                    <option value="stock-asc">재고 적은순</option>
+                    <option value="sell_desc">판매 높은순</option>
+                    <option value="sell_asc">판매 낮은순</option>
+                    <option value="stock_desc">재고 많은순</option>
+                    <option value="stock_asc">재고 적은순</option>
                 </select>
                 <select class="mr-5 search-limit" style="width:140px">
                     <option value="10">10개씩 보기</option>
                     <option value="30">30개씩 보기</option>
-                    <option value="50">50개씩 보기</option>
-                    <option value="100">100개씩 보기</option>
                 </select>
             </p>
         </div><!-- .sect-hd -->
@@ -116,22 +102,7 @@
                     <option value="N">판매중지</option>
                     <option value="S">품절</option>
                     <option value="D">삭제</option>
-                </select>&nbsp;
-                <a href="#" class="btn-black btn-set-sell" style="width:70px;" pc-type="pc">적용</a>
-                &nbsp;|&nbsp;
-                <select name="qrcode_size" class="mr-5" style="width:100px">
-                    <option value="357">9.2cm</option>
-                    <option value="306">8cm</option>
-                    <option value="204">5.3cm</option>
-                    <option value="153">4cm</option>
-                    <option value="77">2cm</option>
                 </select>
-                <a href="#" class="btn-h36-black js-btn-print-qrcode">코드인쇄</a>
-                &nbsp;|&nbsp;
-                <a href="#" class="btn-h36-black MSH-btn-cart-share" data-cart-share-id="" data-cart-share-state="">바로구매/보내기</a>
-                <p class="abs-r">
-                    <a href="#" class="btn-h36-black js-btn-fixed-top-product">상단고정/해지</a>
-                </p>
             </div><!-- .tbl-side -->
             <div class="tbl-list mt-20" style="height: 175px;">
                 <table id="ftb" style="width:1465px">
@@ -139,23 +110,20 @@
                     <thead>
                         <tr>
                             <th style="width:55px"><label class="single"><input type="checkbox" class="chk-all-prd" pc-type="pc"><span></span></label></th>
-                            <th style="width:95px">이미지</th>
                             <th style="width:95px">상품번호</th>
-                            <th style="width:200px">상품명</th>
-                            <th style="width:100px">판매가</th>
+                            <th style="width:300px">상품명</th>
+                            <th style="width:200px">판매가</th>
                             <th style="width:100px">판매상태</th>
                             <th style="width:100px">재고</th>
                             <th style="width:100px">판매수</th> 
-                            <th style="width:120px">등록일(수정일)</th>
-                            <th style="width:185px">주소 복사</th>
-                                                        <th style="width:185px">보내기</th>
-                            <th style="width:100px">주문하기</th>
-                                                    </tr>
+                            <th style="width:220px">등록일(수정일)</th>
+                        </tr>
                     </thead>
-                    <tbody id="pc_prd_row"><tr>
-    <td colspan="12" class="text-center">데이터가 존재하지 않습니다.</td>
-</tr>
-</tbody>
+                    <tbody id="pc_prd_row">
+                    	<tr>
+    						<td colspan="8" class="text-center non-data">데이터가 존재하지 않습니다.</td>
+						</tr>
+					</tbody>
                 </table>
             </div><!-- .tbl-list -->
             <div class="tbl-side exec-bar mt-10">
@@ -165,23 +133,9 @@
                     <option value="N">판매중지</option>
                     <option value="S">품절</option>
                     <option value="D">삭제</option>
-                </select>&nbsp;
-                <a href="#" class="btn-black btn-set-sell" style="width:70px;" pc-type="pc">적용</a>
-                &nbsp;|&nbsp;
-                <select name="qrcode_size" class="mr-5" style="width:100px">
-                    <option value="357">9.2cm</option>
-                    <option value="306">8cm</option>
-                    <option value="204">5.3cm</option>
-                    <option value="153">4cm</option>
-                    <option value="77">2cm</option>
                 </select>
-                <a href="#" class="btn-h36-black js-btn-print-qrcode">코드인쇄</a>
-                &nbsp;|&nbsp;
-                <a href="#" class="btn-h36-black MSH-btn-cart-share" data-cart-share-id="" data-cart-share-state="">바로구매/보내기</a>
-                <p class="abs-r">
-                    <a href="#" class="btn-h36-black js-btn-fixed-top-product">상단고정/해지</a>
-                </p>
             </div><div id="pagination"></div>
         </div><!-- .sect-cont -->
     </div><!-- .pc-switch -->
 </div>
+
