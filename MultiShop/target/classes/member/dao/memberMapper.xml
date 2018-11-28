@@ -37,4 +37,10 @@
          m_jibunAddress = #{m_jibunAddress}
       where m_email = #{m_email}
    </insert>
+   
+   <!-- 재우추가 -->
+	<select id="member_getZipcode" parameterType="String" resultType="memberDTO">
+		select * from members where m_email=#{email}	
+	</select>
+   
 </mapper>

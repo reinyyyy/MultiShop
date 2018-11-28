@@ -30,6 +30,12 @@ public class DetailController {
    private DetailQnADTO detailQnADTO;
    @Autowired
    private DetailDAO detailDAO;
+   @Autowired
+   private MemberDTO memberDTO;
+   @Autowired
+   private MemberDAO memberDAO;
+   @Autowired
+   private OrderDAO orderDAO;
    
    //상세페이지
    @RequestMapping(value="detailPage", method=RequestMethod.GET)
@@ -63,7 +69,7 @@ public class DetailController {
    public String orderPage(Model model, @RequestParam(value="detail_colorSelect") String color, 
                                @RequestParam(value="detail_sizeSelect") String size, 
                                @RequestParam(value="detail_amountSelect") String amount, 
-                               @RequestParam String productCode, 
+                               @RequestParam int productCode, 
                                @RequestParam String productName) {
       
       model.addAttribute("color", color);
@@ -81,28 +87,63 @@ public class DetailController {
                               @RequestParam String size,
                               @RequestParam String amount,
                               @RequestParam String productCode, 
-                              @RequestParam String productName) {
+                              @RequestParam String productName, HttpSession session) {
       
+	  String email = (String) session.getAttribute("session_email");
+	      
+	  System.out.println(email+"@@@@@@@@@@@@"); 
+	  
       System.out.println("@@"+color+size+amount+productCode+productName+"@@");
       
-      //DB갔다오고
       
-      detailDTO.setP_color(color);
-      detailDTO.setP_size(size);
+      detailDTO.setP_option1(color);
+      detailDTO.setP_option2(size);
       detailDTO.setP_amount(Integer.parseInt(amount));
       detailDTO.setP_code(Integer.parseInt(productCode));
       detailDTO.setP_name(productName);
       detailDTO.setP_cost(99000);
       //detailDTO.getP_cost();
+      
       System.out.println(detailDTO);
       
       //다시 DB가고
-      
+      memberDTO = memberDAO.getZipcode(email);
+      System.out.println("@@"+memberDTO+"@@@");
       ModelAndView mav = new ModelAndView();
       mav.addObject("detailDTO", detailDTO);
+      mav.addObject("memberDTO", memberDTO);
       mav.setViewName("jsonView");
       
       return mav;
+   }
+   
+   //전재우 결재완료
+   @RequestMapping(value="orderOk", method=RequestMethod.POST)
+   public @ResponseBody String orderOk(@RequestParam Map<String,String> map, HttpSession session) {
+	   
+	   String email = (String) session.getAttribute("session_email");
+	      
+	   System.out.println(email+"@@@@@@@@@@@@");
+	   map.put("m_email", email);
+	   
+	   //임의로 추가 한 것
+	   map.put("d_code", "임의배송번호");//나중에 seq로 바꿔서 하자!!
+	   map.put("o_status", "배송준비중");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 배송준비중으로 한 것
+	   System.out.println(map);
+	   //재고확인 dao
+	   if(detailDAO.getClothes(map)==1) {
+		   System.out.println("성공크!");
+		   //재고 update
+		   detailDAO.updateOneClothes(map);
+		   //orderDAO 에 추가
+		   orderDAO.insertOrder(map);
+		   
+		   return "exist";
+	   }else {
+		   System.out.println("실패애애@");
+		   return "non_exist";
+	   }
+	   
    }
    
    //양현규--------------------

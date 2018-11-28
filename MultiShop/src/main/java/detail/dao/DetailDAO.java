@@ -8,11 +8,11 @@ import detail.bean.DetailQnADTO;
 import detail.bean.DetailhoogiDTO;
 
 public interface DetailDAO {
+   //재우
+   public int getClothes(Map<String, String> map);
    
-   //public List<DetailDTO> getClothes(DetailDTO detailDTO);
+   public void updateOneClothes(Map<String, String> map);
    
-   //public void deleteOneClothes(DetailDTO detailDTO);
-
    public void detail_userReview(DetailhoogiDTO detailhoogiDTO);
 
    public void detail_userQnA(DetailQnADTO detailQnADTO);

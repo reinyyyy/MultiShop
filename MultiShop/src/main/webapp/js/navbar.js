@@ -261,12 +261,16 @@ $(document).ready(function(){
    });
    /* member modify */
    
+   $('#mypage_member_modifyBtn').on('click',function(){
+	   location.href="../mypage/membermodifyconfirmForm.do";
+   });
+   
    $('#member_modify_confirm_Btn').on('click',function(){
       var pwd = $('#member_modify_pwd');
       if(pwd.val()==''){
          $('#member_modify_statusDiv').text('비밀번호를 입력해주세요').css('color','red');
       }else{
-         $.post('/MultiShop/member/membermodifyconfirm.do',
+         $.post('/MultiShop/mypage/membermodifyconfirm.do',
                $('#member_modify_confirm_form').serialize(),
                function(data){
                   if(data=='true'){
@@ -362,6 +366,16 @@ $(document).ready(function(){
             }
       );
    });
+   
+   /*delivery page*/
+   $('#mypage_deleveryBtn').on('click',function(){
+	   location.href='/MultiShop/mypage/deliveryPage.do';
+   });
+   
+   
+   
+   
+   
    /*find email*/
    $('#find_email_modal_findBtn').on('click',function(){
       var name = $('#find_email_modal_name');

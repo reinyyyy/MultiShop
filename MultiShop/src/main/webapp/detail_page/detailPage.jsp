@@ -39,7 +39,7 @@
                      <div class="popupSlide">
                         <div class="popupSlide">
                            <div class="mask">
-                              <div style="" class="zoomWrapper">
+                              <div style="" class="picZoomer">
                                  <img class="zoom_goods" id="detailMain_image" src="../image/coat1.jpg" data-zoom-image="" alt="" style="position: absolute;">
                               </div>
                            </div>
@@ -78,7 +78,7 @@
                      <li>
                         <dl>
                            <dt>배송비</dt>
-                           <dd>2,500원 <span>(50,000원 이상 구매 시 무료)</span></dd>
+                           <dd>2,500원 </dd>
                         </dl>
                      </li>
                   </ul>
@@ -87,13 +87,16 @@
                         <dl>
                            <dt>상품코드</dt>
                            <dt>0001</dt>
-                           <input type="hidden" name="productCode" id="productCode" value="0001">
+                           <input type="hidden" name="productCode" id="productCode" value="0003">
+                           <!-- <input type="hidden" name="p_midCate" id="p_midCate" value="">
+                           <input type="hidden" name="p_smallCate" id="p_smallCate" value=""> -->
+                           
                         </dl>
                      </li>
                      <li>
                         <dl>
                            <dt>제조국가</dt>
-                           <dd>대한민국</dd>
+                           <dd>이탈리아</dd>
                         </dl>
                      </li>
                      <li>
@@ -324,25 +327,30 @@
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/detailPage.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/jquery.picZoomer.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	//이미지 확대 기능
+	$('.picZoomer').picZoomer();
 
-//이미지 변경
-$('#detailSub1_image').click(function(){
-   $('#detailMain_image').attr('src', '../image/coat1.jpg');
-});
+	//이미지 변경
+	$('#detailSub1_image').click(function(){
+	   $('#detailMain_image').attr('src', '../image/coat1.jpg');
+	});
 
-$('#detailSub2_image').click(function(){
-   $('#detailMain_image').attr('src', '../image/coat2.jpg');
-});
+	$('#detailSub2_image').click(function(){
+	   $('#detailMain_image').attr('src', '../image/coat2.jpg');
+	});
 
-$('#detailSub3_image').click(function(){
-   $('#detailMain_image').attr('src', '../image/coat3.jpg');
-});
+	$('#detailSub3_image').click(function(){
+	   $('#detailMain_image').attr('src', '../image/coat3.jpg');
+	});
 
-$('#detailSub4_image').click(function(){
-   $('#detailMain_image').attr('src', '../image/coat4.jpg');
+	$('#detailSub4_image').click(function(){
+	   $('#detailMain_image').attr('src', '../image/coat4.jpg');
+	});
+	
 });
-   
 
 </script>
 </html>
