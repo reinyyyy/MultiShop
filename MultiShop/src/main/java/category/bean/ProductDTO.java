@@ -21,6 +21,6 @@ public class ProductDTO {
     private String p_maker;     
     private String p_origin;
     private String p_image;
-    private String p_date;
     private String p_sales;
+    private String p_date;
 }
