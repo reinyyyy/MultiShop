@@ -188,18 +188,17 @@
 		                           <a class="dropdown-item" href="#">Fat</a>
 		                           <a class="dropdown-item" href="#">Vitamin</a>
 		                           <a class="dropdown-item" href="#">Spice</a>
-		                        </ul></li>
-		                  </ul>
-			            </div>
-							
+		                        </ul></li>	                     
+		                  </ul>                	                    
+			            </div>					
 			               <div class="search_area col-md-5" id="navbarResponsive">
 								<form class="form-inline float_right" action="#">
 									<input class="form-control" type="text" placeholder="검색어 입력"> 
 									<button type="button" class="btn btn-primary" aria-label="left Align">
 										<i class="fa fa-search fa"></i>
 									</button>
-								</form>
-			               </div>
+								</form>					
+			               </div>			               
 		               </div>	
 		            </div>
 	            </div>
@@ -405,6 +404,7 @@
 
 <script type="text/javascript" src="../js/scrollTop.js"></script>
 <script type="text/javascript" src="../js/eventPopUp.js"></script>
+<script type="text/javascript" src="../js/followMenu.js"></script>
 <script>
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
