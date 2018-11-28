@@ -1,6 +1,8 @@
 package detail.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,38 +18,48 @@ import detail.bean.DetailhoogiDTO;
 public class DetailDAOMybatis implements DetailDAO {
    @Autowired
    private SqlSession sqlSession;
-   
-   /*
-   public List<DetailDTO> getClothes(DetailDTO detailDTO) {
-      return sqlSession.selectList("detailSQL.getClothes",detailDTO);
+   //재우
+   //옷 수량확인
+   public int getClothes(Map<String, String> map) {
+		return sqlSession.selectOne("detailSQL.getClothes",map);
+	}
+   //구매 시 옷 수량 수정
+   public void updateOneClothes(Map<String, String> map) {
+      sqlSession.update("detailSQL.updateOneClothes",map);
    }
-
-   public void deleteOneClothes(DetailDTO detailDTO) {
-      sqlSession.update("detailSQL.deleteOneClothes",detailDTO);
-   }*/
-   
    
    // 양현규
-   
-   public void detail_userReview(DetailhoogiDTO detailhoogiDTO) {
+   	@Override
+   	public void detail_userReview(DetailhoogiDTO detailhoogiDTO) {
       sqlSession.insert("detailSQL.detail_userReview",detailhoogiDTO);
-   }
-  
-   public List<DetailhoogiDTO> detail_GetReViewList() {
-      return sqlSession.selectList("detailSQL.detail_GetReViewList");
-   }
-   
-   public void detail_userQnA(DetailQnADTO detailQnADTO) {
+   	}
+   	//테이블 변경
+   	@Override
+   	public void detail_userQnA(DetailQnADTO detailQnADTO) {
       sqlSession.insert("detailSQL.detail_userQnA",detailQnADTO);
-   }
-   
-   public List<DetailQnADTO> detail_GETQnAList() {
-      return sqlSession.selectList("detailSQL.detail_GetQnAList");
-   }
- 
-   public DetailQnADTO detail_GetQnAViewList(int seq) {
+   	}
+   	@Override
+   	public DetailQnADTO detail_GetQnAViewList(int seq) {
       return sqlSession.selectOne("detailSQL.detail_GetQnAViewList",seq);
-   }
-   
+   	}
 
+   	@Override
+	public void detail_QnA_Answer(Map<String, String> map) {
+		sqlSession.update("detailSQL.detail_QnA_Answer",map);
+	}
+   	@Override
+	public List<DetailQnADTO> detail_QnA_List(int seq) {
+		return sqlSession.selectList("detailSQL.detail_QnA_List",seq);
+	}
+   	//후기 테이블 데이터 불러오기
+	@Override
+	public List<DetailhoogiDTO> detail_GetReViewTableList(int p_code) {
+		return sqlSession.selectList("detailSQL.detail_GetReViewTableList",p_code);
+	}
+	//Q&A 테이블 데이터 불러오기
+	@Override
+	public List<DetailQnADTO> detail_GetQnATableList(int p_code) {
+		return sqlSession.selectList("detailSQL.detail_GetQnATableList",p_code);
+	}
+   
 }

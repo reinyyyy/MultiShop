@@ -4601,7 +4601,7 @@ button.close {
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
+  left: 0; 
   z-index: 1050;
   display: none;
   overflow: hidden;
@@ -5626,8 +5626,8 @@ a.bg-dark:focus, a.bg-dark:hover {
 
 .videowrapper {
 position: relative;
-padding-bottom: 56.25%; /* 16:9 비율인 경우 */
-/* padding-bottom값은 4:3 비율인 경우 75%로 설정합니다 */
+padding-bottom: 56.25%; /* 16:9 鍮꾩쑉�씤 寃쎌슦 */
+/* padding-bottom媛믪� 4:3 鍮꾩쑉�씤 寃쎌슦 75%濡� �꽕�젙�빀�땲�떎 */
 padding-top: 25px;
 height: 0;
 }

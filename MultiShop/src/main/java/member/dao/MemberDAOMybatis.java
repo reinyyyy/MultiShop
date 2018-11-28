@@ -50,5 +50,9 @@ public class MemberDAOMybatis implements MemberDAO{
 	   }
 	public int membermodify(Map<String,String> map) {
 		    return sqlSession.update("memberSQL.member_modify", map);
-		   }
+	}
+
+	public MemberDTO getZipcode(String email) {
+		return sqlSession.selectOne("memberSQL.member_getZipcode",email);
+	}
 }
