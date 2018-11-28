@@ -41,6 +41,9 @@ $(document).ready(function(){
 					.append($('<td/>',{text : items.p_date}))
 					.appendTo($('#pc_prd_row'));
 				});
+			},
+			error : function(){
+				alert("에러");
 			}
 		});
 	});
