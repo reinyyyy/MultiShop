@@ -904,17 +904,27 @@ $(document).ready(function(){
 		$('#p_cateNum').on('change', function(){
 			var select = "<option value='0'>-- 2차 선택 --</option>";
 			if($(this).val() == 1){
-				select += "<option>탄수화물</option>"
-						  +"<option>단백질</option>"
-						  +"<option>지방</option>"
-						  +"<option>비타민</option>"
-						  +"<option>항신료</option>";
+				select += "<option>Carbohydrate</option>"
+						 +"<option>Protein</option>"
+						 +"<option>Fat</option>"
+						 +"<option>Vitamin</option>"
+						 +"<option>Spice</option>";
 				$('#p_midCate').html(select);
-				
 			}else if($(this).val() == 2){
-				
+				select += "<option>Audio/Video</option>"
+						 +"<option>Game</option>"
+						 +"<option>Smart Watch</option>"
+						 +"<option>Drone</option>"
+						 +"<option>TV</option>"
+						 +"<option>Laptop/Computer HardWare</option>";
+				 $('#p_midCate').html(select);
 			}else if($(this).val() == 3){
-				
+				select += "<option>Outer</option>"
+						 +"<option>TOP</option>"
+						 +"<option>Bottom</option>"
+						 +"<option>Shoes</option>"
+						 +"<option>Innerwear</option>";
+				 $('#p_midCate').html(select);
 			}
 		});
 	
