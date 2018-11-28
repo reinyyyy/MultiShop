@@ -100,22 +100,12 @@
 							 -->
 								 
 								 
-								<dl>
-									<dt>색상</dt>
-									<dd>
-										<div class="">
-											<select name="detail_colorSelect" id="detail_colorSelect">
-												<option value="black" selected="selected">black</option>
-												<option value="green">green</option>
-												<option value="begie">begie</option>
-												<option value="white">white</option>
-											</select>
-										</div>
-									</dd>
+								<dl id = "option_1">
+									<!-- 옵션 1 -->
 								</dl>
 						</li>
 						<li>
-							<dl>
+							<dl id = "option_2">
 								<dt>사이즈</dt>
 								<dd>
 									<div class="">
@@ -197,8 +187,78 @@
 			</div>
 		</div>
 	</div>
-<!-- <script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!-- Jquery src 금지 -->
+	<script>
+		$(document).ready(function(){
+			alert("${option1_list}");
+			var list = '${option1_list}';
+			
+			//alert(typeof(list));
+			
+			var result = list.replace(/,/g, '');
+			
+			console.log(result);
+			//alert("result : " + result);
+			var result2 = list.replace('[', '').replace(']', '').split(/[\s,]+/);
+			//alert("result2 : " + result2 + "type : " + typeof(result2));
+			
+			var option1_name;
+			var option_tag_1 = "";
+			$.each(result2, function(index, items){
+				if(index == 0){
+					option1_name = '<dt>'+items+'</dt>';
+				}else {
+					option_tag_1 += '<option value = "'+items+'" >'+items+'</option>';
+				}
+			});
+			
+			var option1_result = 
+			option1_name +
+			'<dd>' +
+				'<div>' +
+					'<select name="detail_colorSelect" id="detail_colorSelect">'+
+						option_tag_1 +
+					'</select>'+
+				'</div>'+
+			'</dd>'
+			alert(option1_result);
+			$('#option_1').html(option1_result);
+			
+			alert("option1_name : " + option1_name);
+			alert("option_tag_1 : " + option_tag_1);
+			
+		/* 	
+			<dl id = "option_1">
+				<dt>색상</dt>
+				<dd>
+					<div class="">
+						<select name="detail_colorSelect" id="detail_colorSelect">
+							<option value="black" selected="selected">black</option>
+							<option value="green">green</option>
+							<option value="begie">begie</option>
+							<option value="white">white</option>
+						</select>
+					</div>
+				</dd>
+			</dl>
+		 */
+			/* 
+			var option = 
+			<dt>색상</dt>
+			<dd>
+				<div class="">
+					<select name="detail_colorSelect" id="detail_colorSelect">
+						<option value="black" selected="selected">black</option>
+						<option value="green">green</option>
+						<option value="begie">begie</option>
+						<option value="white">white</option>
+					</select>
+				</div>
+			</dd> */
+		});
+	</script>
+	
+<!--
 <script type="text/javascript"
 	src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>

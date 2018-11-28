@@ -151,37 +151,47 @@ public class CategoryController {
 		ArrayList<String> option1_list = new ArrayList<String>();		//option1 = 중량
 		option1_list.add(option1_arr[0]);
 		
-		int option_level = 0;
-		for(int i = 0; i < group_list.size(); i++) {
-			option1_list.add(group_list.get(i).getP_option2().split("/")[option_level]);
-		}	
-		option_level += 1;
-		for(String str : option1_list) {			//1kg, 2kg, 3kg, 4kg
-			System.out.println(str);
-		}
+		int option1_length = option1_arr.length;
 		
 		ArrayList<String> option2_list = new ArrayList<String>();
 		option2_list.add(option1_arr[1]);
+		
+			
+		int option_level = 0;
+		for(int i = 0; i < group_list.size(); i++) {
+			option1_list.add(group_list.get(i).getP_option2().split("/")[option_level]);
+		}
+		
+		option_level = 1;
 		for(int i = 0; i < group_list.size(); i++) {
 			option2_list.add(group_list.get(i).getP_option2().split("/")[option_level]);
 		}
+			
 		
-		for(String str : option2_list) {			//현미 현미 현미
-			System.out.println(str);
+		for(String str : option1_list) {			//1kg, 2kg, 3kg, 4kg
+			System.out.print(str);
+			System.out.println();
 		}
 		
 		
+		for(String str : option2_list) {			//현미 현미 현미
+			System.out.print(str);
+			System.out.println();
+		}
+		
+		//option을 두개만 준다고 생각한상태임
 		
 		
 		
 		
 		System.out.println(productDTO);
-		System.out.println("그룹리스트 시작");
+		System.out.println("그룹리스트 시작");	
 		System.out.println(group_list);
 		System.out.println("그룹리스트 끝");
 		
 		
-
+		model.addAttribute("option1_list", option1_list);
+		model.addAttribute("option2_list", option2_list);
 		model.addAttribute("productDTO", productDTO);
 		model.addAttribute("group_list", group_list);
 		
