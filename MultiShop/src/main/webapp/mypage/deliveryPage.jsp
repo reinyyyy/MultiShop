@@ -15,7 +15,7 @@
 	    </thead>
 	</table>
 </div>
-
+<script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready( function () {
 	$('#myTable').dataTable({
@@ -30,7 +30,12 @@ $(document).ready( function () {
              {"data": "p_amount"}, 
              {"data": "o_status"},
              {"data": "o_tel"}
-         ]
+         ],
+         "searching":false,//검색기능
+         responsive: true,//반응형기능
+         "ordering": false,//컬럼눌러서정렬기능
+         "pageLength": 5,
+         "lengthChange": false
     }); 
 });
 </script>
