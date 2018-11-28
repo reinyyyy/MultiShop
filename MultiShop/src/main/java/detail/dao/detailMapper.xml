@@ -14,24 +14,18 @@
     
     <!-- 양현규 -->
    <insert parameterType="detail_hoogiDTO" id="detail_userReview">
-       insert into detail_hoogi values(#{seq},#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 
+       insert into detail_hoogi values(#{p_code},#{seq},#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 
    </insert>
 
-   <select id="detail_GetReViewList" parameterType="java.util.Map" resultType="detail_hoogiDTO">
-      <![CDATA[ select * from(select rownum rn,tt.*from
-	 (select*from DETAIL_HOOGI order by seq desc)
-	 tt)where rn>=#{detail_hoogi_startNum} and rn <= #{detail_hoogi_endNum}]]>
+   <select id="detail_GetReViewTableList" parameterType="int" resultType="detail_hoogiDTO">
+      select * from detail_hoogi where p_code = #{p_code} order by seq desc
    </select>
-
+   <select id="detail_GetQnATableList" parameterType="int" resultType="detail_QnADTO">
+		select * from detail_QnA where p_code = #{p_code} order by seq desc
+   </select>
    <insert parameterType="detail_QnADTO" id="detail_userQnA">
-      insert into detail_QnA values(#{seq},#{id},#{condition},#{detail_QnASubject},#{detail_QnAContent},sysdate,#{replyContent},#{reply}) 
+      insert into detail_QnA values(#{p_code},#{seq},#{id},#{condition},#{detail_QnASubject},#{detail_QnAContent},sysdate,#{replyContent},#{reply}) 
    </insert>
-   
-   <select id="detail_GetQnAList" parameterType="java.util.Map" resultType="detail_QnADTO">
-       <![CDATA[ select * from(select rownum rn,tt.*from
-	 (select*from DETAIL_QNA order by seq desc)
-	 tt)where rn>=#{detail_QnA_startNum} and rn <= #{detail_QnA_endNum}]]>
-   </select>
    
    <select parameterType="int" id="detail_GetQnAViewList" resultType="detail_QnADTO">
       select * from detail_QnA where seq = #{seq} 

@@ -72,7 +72,6 @@ $(document).ready(function(){
 
    //상품 후기 작성 버튼
    $('#detail_hoogiSendBtn').on('click',function(){
-      console.log("@@@send");
       if($('#detail_hoogiModalContent').val()==""){
          $('#detail_hoogiModalContentDiv').text('글을 입력하세요.').css('color','red').css('font-size','9pt');
       }
@@ -83,17 +82,21 @@ $(document).ready(function(){
          var detail_hoogiStar =  $('input[name="detail_hoogiStar"]:checked').val();
          var detail_hoogiModalContent = $('#detail_hoogiModalContent').val();
          /*var id = $('#session_email').val();*/
+         /*var p_code = $('#p_code').val();*/
+         var p_code = 1;
          var id ='id';
-         var seq= 25;
+         var seq= 3;
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_hoogi.do',
             data : {'detail_hoogiStar': detail_hoogiStar
                   ,'detail_hoogiModalContent':detail_hoogiModalContent
                   ,'id':id
-                  ,'seq':seq},
+                  ,'seq':seq
+                  ,'p_code':p_code},
             success : function(){
-            	$('#detail_hoogi_Table').load($('detail_page/detailPage.jsp'));
+            	location.reload();
+            	alert("글쓰기 완료");
             }
          });
       }
@@ -124,6 +127,8 @@ $(document).ready(function(){
       }
       else{
          /*var id = $('#session_email').val();*/
+    	  /*var p_code = $('#p_code').val();*/
+    	  var p_code = 1;
     	  var id ='id';
          var seq = 12;
          var condition = $('input[name="detail_QnACondition"]:checked').val();
@@ -134,15 +139,17 @@ $(document).ready(function(){
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_QnA.do',
-            data : {'seq':seq,
-                  'id':id,
-                  'condition':condition,
-                  'detail_QnASubject':detail_QnASubject,
-                  'detail_QnAContent':detail_QnAContent,
-                  'replyContent':replyContent,
-                  'reply':reply},
+            data : {'p_code':p_code,
+            	  	'seq':seq,
+            	  	'id':id,
+            	  	'condition':condition,
+            	  	'detail_QnASubject':detail_QnASubject,
+            	  	'detail_QnAContent':detail_QnAContent,
+            	  	'replyContent':replyContent,
+            	  	'reply':reply},
             success : function(){
                location.reload();
+               alert("Q&A작성 완료");
             }
          });
       }
