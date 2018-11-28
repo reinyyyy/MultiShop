@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import category.bean.ProductDTO;
-import category.bean.Product_boardDTO;
 
 public interface CategoryDAO {
 	public List<ProductDTO> getProductList(int code);
