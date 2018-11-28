@@ -2,3 +2,4 @@ div.modify_table {overflow: hidden; margin: 0 auto;}
 div.modify_table table th {background-color: #dddddd;}
 div#member_modify_statusDiv {text-align: center;}
 div.table_btn_area {text-align: center; margin: 10px 0px 50px 0;} 
+div.modify_table form {margin: 0 auto;}

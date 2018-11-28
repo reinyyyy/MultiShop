@@ -9,11 +9,13 @@
 <meta charset="UTF-8">
 <link href="../css/bootstrap.css" rel="stylesheet">
 <link href="../css/layout.css" rel="stylesheet">
+<link href="../css/common.css" rel="stylesheet">
+<link href="../css/mypage.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
-<link rel ="stylesheet" href="../css/animate.css">
+<link rel="stylesheet" href="../css/animate.css">
 <link rel="stylesheet" href="../css/my-spinner.css">
 <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css"/>
 
@@ -53,9 +55,9 @@
 </head>
 <body>
 
-		<div class="event_coupon">	
-			<a class="navbar-brand text-light">
-				<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>
+	<div class="event_coupon">	
+		<a class="navbar-brand text-light">
+			<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>
 		</a>
 		<button class="btn btn-primary btn-sm" aria-label="right Align">쿠폰 받기</button>
 	</div>
@@ -382,6 +384,7 @@
    crossorigin="anonymous"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/navbar.js"></script>
+<script type="text/javascript" src="../js/mypage.js"></script>
 <script type="text/javascript" src="../js/post.js"></script>
 <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="../js/rsa.js"></script>
