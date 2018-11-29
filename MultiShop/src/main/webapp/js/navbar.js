@@ -250,6 +250,7 @@ $(document).ready(function(){
    });
    
    
+   
    /*logout modal*/
       $('#non_member').on('click',function(){
          $('#mypage_nonmember').modal({backdrop: 'static', keyboard: false}) ;
@@ -260,10 +261,6 @@ $(document).ready(function(){
       location.href="../mypage/mypage.do";      
    });
    /* member modify */
-   
-   $('#mypage_member_modifyBtn').on('click',function(){
-	   location.href="../mypage/membermodifyconfirmForm.do";
-   });
    
    $('#member_modify_confirm_Btn').on('click',function(){
       var pwd = $('#member_modify_pwd');
@@ -444,8 +441,8 @@ $(document).ready(function(){
          $(this).find('form')[0].reset();
       }
       $(this).find('input').css({'border':''});
-     /* $('html, body').css({'overflow': 'initial', 'height': '100%'});*/ //scroll hidden 해제 
-      $('#element').off('scroll touchmove mousewheel'); // 터치무브 및 마우스휠 스크롤 가능
+/*      $('html, body').css({'overflow': 'initial', 'height': '100%'}); //scroll hidden 해제 
+*/      $('#element').off('scroll touchmove mousewheel'); // 터치무브 및 마우스휠 스크롤 가능
       $('#join_modal_statusDiv').empty();
       $('#login_modal_statusDiv').empty();
       $('#find_email_modal_statusDiv').empty();
@@ -470,7 +467,7 @@ $(document).ready(function(){
    });
    
    $('#noticeBtn').on('click',function(){
-	      location.href="/MultiShop/notice/notice.do"
+	      location.href="/MultiShop/notice/notice.do?pg=1"
 	   });
    
 });

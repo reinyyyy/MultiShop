@@ -9,14 +9,14 @@
 <meta charset="UTF-8">
 <link href="../css/bootstrap.css" rel="stylesheet">
 <link href="../css/layout.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
 <link rel ="stylesheet" href="../css/animate.css">
 <link rel="stylesheet" href="../css/my-spinner.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-<link href="../css/jquery-picZoomer.css" rel="stylesheet">
+
 <title>Welcome to COZY!!</title>
 <style>
 #nav_location {
@@ -29,6 +29,27 @@
 	zoom: 1;
 	position: relative;
 	z-index: 1
+}
+
+#floatMenu {
+	position: absolute;
+	width: 300px;
+	height: 55px;
+	left: 20px;
+	top: 220px;
+	background-color: #E6E6E6;
+	color: #fff; 
+	z-index:1300;
+}
+#wishList{
+	position: absolute;
+	width: 2500px;
+	height: 200px;
+	left: 1000px;
+	top: 800px;
+	background-color: #E6E6E6;
+	color: #fff; 
+	z-index:1300;
 }
 
 .float_left {
@@ -64,25 +85,29 @@
 		<div class="top_bg_area">
 			<div class="top_box_area">
 				<ul class="icon_list float_left">
-					 <li><c:if test="${session_email == null}">
+					 <li>
+					 	<c:if test="${session_email == null}">
                             <button type="button" id="login_navbar" class="btn btn-light"
                                 aria-label="Left Align">
                                 <i class="fas fa-sign-in-alt"></i>
                             </button>
-						<button type = "button" class = "btn btn-success" onclick = "location.href='../manage/addForm.do'">M</button>	<!--  임시 -->
+						<button type = "button" class = "btn btn-success" onclick = "location.href='../manage/main.do'">M</button>	<!--  임시 -->
  
-                        </c:if> <c:if test="${session_email != null}">
+                        </c:if> 
+                        <c:if test="${session_email != null}">
                             <button type="button" id="logout_navbar" class="btn btn-danger"
                                 aria-label="Left Align">
                                 <i class="fas fa-sign-in-alt"></i>
                             </button>
                         </c:if></li>
-                    <li><c:if test="${session_email == null}">
+                   		 <li>
+                    <c:if test="${session_email == null}">
                             <button type="button" id="non_member" class="btn btn-light"
                                 aria-label="Left Align">
                                 <i class="fas fa-user-circle"></i>
                             </button>
-                        </c:if> <c:if test="${session_email != null}">
+                        </c:if> 
+                        <c:if test="${session_email != null}">
                             <button type="button" id="mypageBtn" class="btn btn-success"
                                 aria-label="Left Align">
                                 <i class="fas fa-user-circle"></i>
@@ -101,9 +126,17 @@
 					
 				<ul class="icon_list float_right">
 					<li>    
-						<button type="button" class="btn btn-danger" aria-label="Left Align">
+					 <c:if test="${session_email != null}">
+						<button type="button" class="btn btn-danger" id="wishlist" onclick="document.getElementById('summary').style.display='none';" aria-label="Left Align">
 						   <i class="far fa-heart"></i>
 						</button>
+					 </c:if>
+					 
+					 <c:if test="${session_email == null}">
+						<button type="button" class="btn btn-dark" data-backdrop="static" data-toggle="modal" data-target="#wishlist_nonmember" aria-label="Left Align">
+						   <i class="fas fa-heart"></i>
+						</button>
+					 </c:if>
 					</li>
 					<li>
 						<button type="button" class="btn btn-success" data-backdrop="static" data-toggle="modal" data-target="#send_email" aria-label="Left Align">
@@ -189,18 +222,17 @@
 		                           <a class="dropdown-item" href="#">Fat</a>
 		                           <a class="dropdown-item" href="#">Vitamin</a>
 		                           <a class="dropdown-item" href="#">Spice</a>
-		                        </ul></li>
-		                  </ul>
-			            </div>
-							
+		                        </ul></li>	                     
+		                  </ul>                	                    
+			            </div>					
 			               <div class="search_area col-md-5" id="navbarResponsive">
 								<form class="form-inline float_right" action="#">
 									<input class="form-control" type="text" placeholder="검색어 입력"> 
 									<button type="button" class="btn btn-primary" aria-label="left Align">
 										<i class="fa fa-search fa"></i>
 									</button>
-								</form>
-			               </div>
+								</form>					
+			               </div>			               
 		               </div>	
 		            </div>
 	            </div>
@@ -217,22 +249,167 @@
 	
    <jsp:include page="modal.jsp"/>
 	
+	<div id="floatMenu">
+		<audio src="../music/Arms.mp3"  autoplay controls style="z-index: 1300"></audio>
+	</div>
+	
 	<div id='my-spinner' style="z-index: 1200">
       <div><span>
          <img src='//cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif'>
       </span></div>
-    </div>
-    
-   <!-- Footer -->
-   <footer class="py-5 bg-dark">
-  	   <div class="dropdown">
-          <p class="m-0 text-center text-white">(주)COZY 사업자 정보 보기
-       </div>
-      <div class="container">
-         <p class="m-0 text-center text-white">Copyright &copy; KGITBANK</p>     
       </div>
-      <!-- /.container -->
-   </footer>
+
+<!-- footer -->
+<footer class="page-footer font-small unique-color-dark">
+    <div style="background-color: #D8D8D8;">
+      <div class="container">
+        <!-- Grid row-->
+        <div class="row py-4 d-flex align-items-center">
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+            <h6 class="mb-0"><i class="fas fa-globe-asia"></i><strong>2019</strong> facebook, instagram, twitter, google+ <strong>Coming Soon!</strong></h6>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-7 text-center text-md-right">
+            <!-- Facebook -->
+            <a class="fb-ic">
+              <i class="fab fa-facebook fa-2x white-text"></i>
+            </a>
+            <!-- Twitter -->
+            <a class="tw-ic">
+              <i class="fab fa-twitter fa-2x white-text"> </i>
+            </a>
+            <!-- Google +-->
+            <a class="gplus-ic">
+              <i class="fab fa-google-plus fa-2x white-text"> </i>
+            </a>
+            <!--Instagram-->
+            <a class="ins-ic">
+              <i class="fab fa-instagram fa-2x white-text"> </i>
+            </a>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row-->
+      </div>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase font-weight-bold">사업자 정보</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p style="font-size:9pt; "> 상호명: (주)JJ Company<br>
+          	     대표: 제갈준혁<br>
+          	   사업장소재지: 서울특별시 종로구 묘동 56 4층<br>
+          	  사업자등록번호:203-44-25960<br>
+          	  통신판매업신고:2018-서울종로-1953    	     
+          </p>
+          <p style="font-size:17pt;">
+          <i class="fas fa-phone"></i>
+          1644-9301<br>
+          </p>
+          <p style="font-size:10pt;">
+          AM 10:00 ~ PM 06:00 <br>Off-time PM 12:30 ~ PM 02:00 <br>DAY OFF(SATURDAY. SUNDAY, HOLIDAY)<br></p>
+		 <button type="button" class="btn btn-dark">FAQ ></button>
+          
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <div class="container">
+          <i class="fas fa-mobile-alt fa-5x"></i>
+          <br><br>
+          </div>
+          <div>
+          <button id="privatePolicyBtn" data-backdrop="static" data-toggle="modal" data-target="#privatePolicy_modal" class="btn btn-light">Privacy</button>
+          <br>
+          </div>
+          <div>
+          <button id="termsAndConditionBtn" data-backdrop="static" data-toggle="modal" data-target="#termsAndConditions_modal" class="btn btn-light">Agreement</button>
+          <br><br>
+          </div>
+		 <div>
+		 	<i class="fab fa-cc-paypal fa-4x"></i> 	
+		 	<i class="fab fa-cc-visa fa-4x"></i>
+		 </div>
+		 <div>
+		 	<i class="fab fa-cc-discover fa-4x"></i>
+		 	<i class="fab fa-cc-mastercard fa-4x"></i>
+		 </div>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">제휴 Site</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p style="font-size:10pt;">
+          	신제품 소식을 just COZY와 협업 되어 있는 사이트에서 확인하세요!
+          </p>
+          <p>
+          	<i class="fab fa-apple"></i>
+            <a href="https://www.apple.com/kr/"> Apple</a>
+          </p>
+          <p>
+          	<i class="fas fa-gamepad"></i>
+            <a href="https://www.nintendo.co.kr/main.php">Nintendo</a>
+          </p>
+          <p>
+          	<i class="fas fa-tshirt"></i>
+            <a href="http://www.apc-korea.com/main.do?referer=https://www.google.co.kr/&null">A.P.C</a>
+          </p>
+          <p>
+         	 <i class="fas fa-shoe-prints"></i>
+            <a href="http://shop.adidas.co.kr/adiMain.action">Adidas</a>
+          </p>
+		  <p>
+		  <i class="far fa-lemon"></i>
+		  <a href="https://www.naturesway.com/Brands/Alive">Alive</a>
+		  </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">Contact</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p style="font-size:10pt; ">
+            <i class="fa fa-home mr-3"></i>서울시 종로구 묘동 56 단성사 4층 </p>
+          <p style="font-size:10pt; ">
+            <i class="fa fa-envelope mr-3"></i> 이종훈(y70ead@naver.com) </p>
+          <p style="font-size:10pt; ">
+            <i class="fa fa-phone mr-3"></i> 010-7255-0746</p>
+          <p style="font-size:10pt; ">
+            <i class="fa fa-print mr-3"></i> 02-1445-9304</p>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3" style="background-color: #000000;"><span style="color:white;">© 2018 Copyright:</span>
+      <a href="https://localhost:8080/MultiShop/main/index.do"> just COZY</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
 </body>
 <script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script
@@ -241,6 +418,7 @@
    crossorigin="anonymous"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/navbar.js"></script>
+<script type="text/javascript" src="../js/mypage.js"></script>
 <script type="text/javascript" src="../js/post.js"></script>
 <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="../js/rsa.js"></script>
@@ -250,7 +428,6 @@
 <script type="text/javascript" src="../js/jquery.validate.js"></script>
 <script type="text/javascript" src="../js/messages_ko.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../js/jquery.picZoomer.js"></script>
 <script>
    $('.dropdown').hover(function() {
       $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();
@@ -266,18 +443,13 @@
 </script>
 
 <script type="text/javascript" src="../js/scrollTop.js"></script>
+<script type="text/javascript" src="../js/eventPopUp.js"></script>
+<script type="text/javascript" src="../js/followMenu.js"></script>
 <script>
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 </script>
-
-<!-- <script type="text/javascript">
-$( document).ready(function() {
-	  window.open("../main/eventPopup.html", "Open Event!", "width=400, height=510, toolbar=no, menubar=no, scrollbars=no, resizable=no" );  
-	  
-});
-</script> -->
 
 <script type="text/javascript">
 $(document)
@@ -288,5 +460,4 @@ $(document)
    $('#my-spinner').hide();
 });
 </script>
-
 </html>

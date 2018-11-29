@@ -28,4 +28,5 @@ public interface DetailDAO {
    public List<DetailQnADTO> detail_GetQnATableList(int p_code);
 
 
+
 }
