@@ -38,9 +38,7 @@
 					</div>
 
 					<div class="popRight">
-						<span class="color_red fs24"><script type="text/javascript">
-								/* document.write(fnGetItemState('1')); */
-							</script></span> <span class="viewTitle">${clothesDTO.p_name}</span> <input
+						<span class="color_red fs24"></span> <span class="viewTitle">${clothesDTO.p_name}</span> <input
 							type="hidden" id="webItemNm" name="webItemNm"
 							value="00000 - 재우롱패딩">
 						<!-- 						<p class="sub">실 제본으로 책장이 넘기기 쉬운 노트</p> -->
@@ -103,7 +101,7 @@
 						<div class="conWrap">
 							<div class="totalWrap">
 								<span>총합계</span> <span id="totalPrice" class="totalPrice"
-									totalp="99000.0">99000</span>
+									totalp="99000.0"><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /> ￦</span>
 							</div>
 						</div>
 						<div class="btnWrap">

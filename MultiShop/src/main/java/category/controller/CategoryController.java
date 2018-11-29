@@ -148,30 +148,32 @@ public class CategoryController {
 			
 			첫 for문은 구분자 '/' 를 split 해주는 역할
 		*/
-		int option_length = productDTO.getP_option1().split("/").length;			// 구분자로 나눈 옵션1 의 길이 구함
-		System.out.println("option_length 의 길이 : " + option_length);
-		
-		ArrayList<ArrayList<String>> option_result_list = new ArrayList<ArrayList<String>>(); 
-		
-		String[] option_name = group_list.get(0).getP_option1().split("/");			// 대표로 하나만 받아와서 배열에 저장 [{중량}, {형태}]
-		String[] option_val = null;
-		for(int i = 0; i < option_length; i++) {			//
-			ArrayList<String> option_list = new ArrayList<String>();
-			option_list.add(option_name[i]);
+		if(productDTO.getP_option1() != null) {
+			int option_length = productDTO.getP_option1().split("/").length;			// 구분자로 나눈 옵션1 의 길이 구함
+			System.out.println("option_length 의 길이 : " + option_length);
 			
-			for(int j = 0; j < group_list.size(); j++) {
-				option_val = group_list.get(j).getP_option2().split("/");	//j == 1각 그룹마다 하나씩의 [{1kg}, {백미}]
-				option_list.add(option_val[i]);
-			}
+			ArrayList<ArrayList<String>> option_result_list = new ArrayList<ArrayList<String>>(); 
 			
-			for(String data : option_list) {
-				System.out.println("option_list"+i+" : " + data);
+			String[] option_name = group_list.get(0).getP_option1().split("/");			// 대표로 하나만 받아와서 배열에 저장 [{중량}, {형태}]
+			String[] option_val = null;
+			for(int i = 0; i < option_length; i++) {			//
+				ArrayList<String> option_list = new ArrayList<String>();
+				option_list.add(option_name[i]);
+				
+				for(int j = 0; j < group_list.size(); j++) {
+					option_val = group_list.get(j).getP_option2().split("/");	//j == 1각 그룹마다 하나씩의 [{1kg}, {백미}]
+					option_list.add(option_val[i]);
+				}
+				
+				for(String data : option_list) {
+					System.out.println("option_list"+i+" : " + data);
+				}
+				//List 를 배열로
+				option_result_list.add(option_list);
 			}
-			//List 를 배열로
-			option_result_list.add(option_list);
+			model.addAttribute("option_result_list", option_result_list);
 		}
 		
-		model.addAttribute("option_result_list", option_result_list);
 		model.addAttribute("productDTO", productDTO);
 		model.addAttribute("group_list", group_list);
 		

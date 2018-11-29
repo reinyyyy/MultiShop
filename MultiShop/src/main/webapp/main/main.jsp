@@ -9,13 +9,13 @@
 <meta charset="UTF-8">
 <link href="../css/bootstrap.css" rel="stylesheet">
 <link href="../css/layout.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
 <link rel ="stylesheet" href="../css/animate.css">
 <link rel="stylesheet" href="../css/my-spinner.css">
-<link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css"/>
 
 <title>Welcome to COZY!!</title>
 <style>
@@ -91,7 +91,7 @@
                                 aria-label="Left Align">
                                 <i class="fas fa-sign-in-alt"></i>
                             </button>
-						<button type = "button" class = "btn btn-success" onclick = "location.href='../manage/addForm.do'">M</button>	<!--  임시 -->
+						<button type = "button" class = "btn btn-success" onclick = "location.href='../manage/main.do'">M</button>	<!--  임시 -->
  
                         </c:if> 
                         <c:if test="${session_email != null}">
@@ -427,7 +427,7 @@
 <script type="text/javascript" src="../js/rng.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.js"></script>
 <script type="text/javascript" src="../js/messages_ko.js"></script>
-<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
    $('.dropdown').hover(function() {
       $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();

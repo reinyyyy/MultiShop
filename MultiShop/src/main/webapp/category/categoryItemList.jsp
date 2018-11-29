@@ -306,7 +306,7 @@
 				}, //따옴표치면 문자열, 안치면 숫자 
 				dataType : 'json',
 				success : function(data) { //data에는 리스트들
-					alert(JSON.stringify(data));
+					//alert(JSON.stringify(data));
 					var card_contents = '';
 					$.each(data.list, function(index, items) {
 						card_contents += card(items);
