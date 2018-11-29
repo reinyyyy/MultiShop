@@ -1,57 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
- 
-<script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
-<script type="text/javascript">
-$(document).ready(function() {
-	//30% 할인 이벤트 팝업
-	if(!checkPoupCookie("popname")){
-		window.open("http://localhost:8080/MultiShop/main/eventPopup.html","30% Discount!","width=410, height=540, resizable=no, scrollbar=no, status=no, menubar=no, toolbar=no, location=no"); 
-		}	
 
-	function checkPoupCookie(name) {
-		var cookie = document.cookie;
-		// 현재 쿠키가 존재할 경우
-		if (cookie.length > 0) {
-			// 자식창에서 set해준 쿠키명이 존재하는지 검색
-			startIndex = cookie.indexOf(name);
-			// 존재한다면
-			if (startIndex != -1) {
-				return true;
-			} else {
-				// 쿠키 내에 해당 쿠키가 존재하지 않을 경우
-				return false;
-			};
-		} else {
-			// 쿠키 자체가 없을 경우
-			return false;
-		};
-	}
-	
-	if(!checkPoupCookie("popname1")){
-		window.open("http://localhost:8080/MultiShop/main/openeventPopup.html","Open Event!","width=500, height=315, left=290 ,top=40 resizable=no, scrollbar=no, status=no, menubar=no, toolbar=no, location=no"); 
-		}	
-
-	function checkPoupCookie(cname) {
-		var cookie = document.cookie;
-		// 현재 쿠키가 존재할 경우
-		if (cookie.length > 0) {
-			// 자식창에서 set해준 쿠키명이 존재하는지 검색
-			startIndex = cookie.indexOf(cname);
-			// 존재한다면
-			if (startIndex != -1) {
-				return true;
-			} else {
-				// 쿠키 내에 해당 쿠키가 존재하지 않을 경우
-				return false;
-			};
-		} else {
-			// 쿠키 자체가 없을 경우
-			return false;
-		};
-	}
-});
-</script>
 <!-- slide_container -->
 <div class="slide_container">
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -468,3 +417,54 @@ $(document).ready(function() {
  	<!--// row -->
 </div>
 <!--// container -->
+<script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+   //30% 할인 이벤트 팝업
+   if(!checkPoupCookie("popname")){
+      window.open("http://localhost:8080/MultiShop/main/eventPopup.html","30% Discount!","width=410, height=540, resizable=no, scrollbar=no, status=no, menubar=no, toolbar=no, location=no"); 
+      }   
+
+   function checkPoupCookie(name) {
+      var cookie = document.cookie;
+      // 현재 쿠키가 존재할 경우
+      if (cookie.length > 0) {
+         // 자식창에서 set해준 쿠키명이 존재하는지 검색
+         startIndex = cookie.indexOf(name);
+         // 존재한다면
+         if (startIndex != -1) {
+            return true;
+         } else {
+            // 쿠키 내에 해당 쿠키가 존재하지 않을 경우
+            return false;
+         };
+      } else {
+         // 쿠키 자체가 없을 경우
+         return false;
+      };
+   }
+   
+   if(!checkPoupCookie("popname1")){
+      window.open("http://localhost:8080/MultiShop/main/openeventPopup.html","Open Event!","width=500, height=315, left=290 ,top=40 resizable=no, scrollbar=no, status=no, menubar=no, toolbar=no, location=no"); 
+      }   
+
+   function checkPoupCookie(cname) {
+      var cookie = document.cookie;
+      // 현재 쿠키가 존재할 경우
+      if (cookie.length > 0) {
+         // 자식창에서 set해준 쿠키명이 존재하는지 검색
+         startIndex = cookie.indexOf(cname);
+         // 존재한다면
+         if (startIndex != -1) {
+            return true;
+         } else {
+            // 쿠키 내에 해당 쿠키가 존재하지 않을 경우
+            return false;
+         };
+      } else {
+         // 쿠키 자체가 없을 경우
+         return false;
+      };
+   }
+});
+</script>

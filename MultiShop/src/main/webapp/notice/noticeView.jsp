@@ -42,8 +42,7 @@ table td.content_box {min-height: 150px; border-top: 1px solid #dddddd; border-b
 			</tbody>
 		</table>
 		<div>
-			<input type="hidden" value="${pg}" name="pg" />
-			<button type="button" class="btn btn-success" onclick="location.href='notice.do?pg=${pg}'">목록</button>
+			<button type="button" class="btn btn-success">목록</button>
 		</div>
 	</div>
 </div>

@@ -13,9 +13,16 @@
    href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
    crossorigin="anonymous">
+<style type="text/css">
+#section_location{
+	position: unset;
+}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
+	<input type = "hidden" id="session_email" value="${session_email }">
+	<input type = "hidden" id="p_code" value="${p_code }">
    <header>
       <div class="container">
          <div id="productView">
@@ -32,7 +39,7 @@
                      <div class="popupSlide">
                         <div class="popupSlide">
                            <div class="mask">
-                              <div style="" class="zoomWrapper">
+                              <div style="" class="picZoomer">
                                  <img class="zoom_goods" id="detailMain_image" src="../image/coat1.jpg" data-zoom-image="" alt="" style="position: absolute;">
                               </div>
                            </div>
@@ -71,7 +78,7 @@
                      <li>
                         <dl>
                            <dt>배송비</dt>
-                           <dd>2,500원 <span>(50,000원 이상 구매 시 무료)</span></dd>
+                           <dd>2,500원 </dd>
                         </dl>
                      </li>
                   </ul>
@@ -80,13 +87,16 @@
                         <dl>
                            <dt>상품코드</dt>
                            <dt>0001</dt>
-                           <input type="hidden" name="productCode" id="productCode" value="0001">
+                           <input type="hidden" name="productCode" id="productCode" value="0003">
+                           <!-- <input type="hidden" name="p_midCate" id="p_midCate" value="">
+                           <input type="hidden" name="p_smallCate" id="p_smallCate" value=""> -->
+                           
                         </dl>
                      </li>
                      <li>
                         <dl>
                            <dt>제조국가</dt>
-                           <dd>대한민국</dd>
+                           <dd>이탈리아</dd>
                         </dl>
                      </li>
                      <li>
@@ -262,12 +272,16 @@
               <!--사용 후기 테이블 위치  -->
               <br>
               <div id="detail_hoogi_Table">
-                 <jsp:include page="../detail_TablePaging/detail_hoogiPaging.jsp"/>
+              	<jsp:include page="../detail_Table/detail_hoogiTable.jsp"/>
               </div>
+               <%-- <br>
+              <div>
+              	<jsp:include page="../detail_Paging/detail_hoogiPaging.jsp"/>
+              </div> --%>
               <br>
             <div class="container" align="right">
-               <input type="button" value="사용후기작성" class="btn_hoogi" id="btn_hoogi" data-toggle="modal" data-taget="#detail_hoogiModal">
-              </div>
+            	<input type="button" value="사용후기작성" class="btn_hoogi" id="btn_hoogi" data-toggle="modal" data-taget="#detail_hoogiModal">
+            </div>
          </div>
        </section>
        
@@ -292,8 +306,12 @@
             <!-- QnA 테이블 위치 -->
             <br>
             <div id="detail_QnA_Table">
-                 <jsp:include page="../detail_TablePaging/detail_QnAPaging.jsp"/>
-              </div>
+                 <jsp:include page="../detail_Table/detail_QnATable.jsp"/>
+            </div>
+            <%-- <br>
+            <div>
+              	<jsp:include page="../detail_Paging/detail_QnAPaging.jsp"/>
+            </div> --%>
               <br>
               <div class="container" align="right">
                <input type="button" value="상품문의작성" class="detail_Btn_QnA mb-4" id="detail_Btn_QnA">
@@ -308,25 +326,31 @@
 <script type="text/javascript" src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/detailPage.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/jquery.picZoomer.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	//이미지 확대 기능
+	$('.picZoomer').picZoomer();
 
-//이미지 변경
-$('#detailSub1_image').click(function(){
-   $('#detailMain_image').attr('src', '../image/coat1.jpg');
-});
+	//이미지 변경
+	$('#detailSub1_image').click(function(){
+	   $('#detailMain_image').attr('src', '../image/coat1.jpg');
+	});
 
-$('#detailSub2_image').click(function(){
-   $('#detailMain_image').attr('src', '../image/coat2.jpg');
-});
+	$('#detailSub2_image').click(function(){
+	   $('#detailMain_image').attr('src', '../image/coat2.jpg');
+	});
 
-$('#detailSub3_image').click(function(){
-   $('#detailMain_image').attr('src', '../image/coat3.jpg');
-});
+	$('#detailSub3_image').click(function(){
+	   $('#detailMain_image').attr('src', '../image/coat3.jpg');
+	});
 
-$('#detailSub4_image').click(function(){
-   $('#detailMain_image').attr('src', '../image/coat4.jpg');
+	$('#detailSub4_image').click(function(){
+	   $('#detailMain_image').attr('src', '../image/coat4.jpg');
+	});
+	
 });
-   
 
 </script>
 </html>

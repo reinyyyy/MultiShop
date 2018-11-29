@@ -15,6 +15,6 @@ public interface OrderDAO {
 	public List<OrderDTO> orderList(Map<String,String> map);
 	
 	public int totalA();
-
-	public List<OrderDTO> orderAllList(Map<String,String> map);
+	//재우 DetailController에서 결재 때문에 추가한것
+	public void insertOrder(Map<String, String> map);
 }
