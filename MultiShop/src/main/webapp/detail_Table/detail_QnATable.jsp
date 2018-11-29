@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
-<table class="detail_QnATable" id="detail_QnATable">
+<table class="detail_QnATable" id="detail_QnATable" style ="width : 100%;">
 	<thead>
 		<tr>
 			<th width="40" height="20">번호</th>
@@ -27,7 +27,10 @@ $(document).ready(function(){
 			{"data":"reply"},
 			{"data":"id"},
 			{"data":"logtime"}
-		]
+		],
+		"searching" : false,
+		responsive : true,
+		"ordering": false
 	}); 
 });
 </script>	

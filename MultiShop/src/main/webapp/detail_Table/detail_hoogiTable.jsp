@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
-<table class="detail_hoogiTable" id="detail_hoogiTable">
+<table class="detail_hoogiTable" id="detail_hoogiTable" style="width : 100%;">
 	<thead>
 		<tr>
 			<th width="40" height="20">번호</th>
@@ -25,7 +25,10 @@ $(document).ready(function(){
 			{"data":"detail_hoogiModalContent"},
 			{"data":"id"},
 			{"data":"logtime"}
-		]
+		],
+		"searching" : false,
+		responsive : true,
+		"ordering": false
 	}); 
 });
 </script>
