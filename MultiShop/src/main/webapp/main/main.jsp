@@ -9,15 +9,13 @@
 <meta charset="UTF-8">
 <link href="../css/bootstrap.css" rel="stylesheet">
 <link href="../css/layout.css" rel="stylesheet">
-<link href="../css/common.css" rel="stylesheet">
-<link href="../css/mypage.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="../css/animate.css">
+<link rel ="stylesheet" href="../css/animate.css">
 <link rel="stylesheet" href="../css/my-spinner.css">
-<link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css"/>
 
 <title>Welcome to COZY!!</title>
 <style>
@@ -31,6 +29,27 @@
 	zoom: 1;
 	position: relative;
 	z-index: 1
+}
+
+#floatMenu {
+	position: absolute;
+	width: 300px;
+	height: 55px;
+	left: 20px;
+	top: 220px;
+	background-color: #E6E6E6;
+	color: #fff; 
+	z-index:1300;
+}
+#wishList{
+	position: absolute;
+	width: 2500px;
+	height: 200px;
+	left: 1000px;
+	top: 800px;
+	background-color: #E6E6E6;
+	color: #fff; 
+	z-index:1300;
 }
 
 .float_left {
@@ -55,9 +74,9 @@
 </head>
 <body>
 
-	<div class="event_coupon">	
-		<a class="navbar-brand text-light">
-			<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>
+		<div class="event_coupon">	
+			<a class="navbar-brand text-light">
+				<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>
 		</a>
 		<button class="btn btn-primary btn-sm" aria-label="right Align">쿠폰 받기</button>
 	</div>
@@ -66,25 +85,29 @@
 		<div class="top_bg_area">
 			<div class="top_box_area">
 				<ul class="icon_list float_left">
-					 <li><c:if test="${session_email == null}">
+					 <li>
+					 	<c:if test="${session_email == null}">
                             <button type="button" id="login_navbar" class="btn btn-light"
                                 aria-label="Left Align">
                                 <i class="fas fa-sign-in-alt"></i>
                             </button>
-						<button type = "button" class = "btn btn-success" onclick = "location.href='../manage/addForm.do'">M</button>	<!--  임시 -->
+						<button type = "button" class = "btn btn-success" onclick = "location.href='../manage/main.do'">M</button>	<!--  임시 -->
  
-                        </c:if> <c:if test="${session_email != null}">
+                        </c:if> 
+                        <c:if test="${session_email != null}">
                             <button type="button" id="logout_navbar" class="btn btn-danger"
                                 aria-label="Left Align">
                                 <i class="fas fa-sign-in-alt"></i>
                             </button>
                         </c:if></li>
-                    <li><c:if test="${session_email == null}">
+                   		 <li>
+                    <c:if test="${session_email == null}">
                             <button type="button" id="non_member" class="btn btn-light"
                                 aria-label="Left Align">
                                 <i class="fas fa-user-circle"></i>
                             </button>
-                        </c:if> <c:if test="${session_email != null}">
+                        </c:if> 
+                        <c:if test="${session_email != null}">
                             <button type="button" id="mypageBtn" class="btn btn-success"
                                 aria-label="Left Align">
                                 <i class="fas fa-user-circle"></i>
@@ -103,9 +126,17 @@
 					
 				<ul class="icon_list float_right">
 					<li>    
-						<button type="button" class="btn btn-danger" aria-label="Left Align">
+					 <c:if test="${session_email != null}">
+						<button type="button" class="btn btn-danger" id="wishlist" onclick="document.getElementById('summary').style.display='none';" aria-label="Left Align">
 						   <i class="far fa-heart"></i>
 						</button>
+					 </c:if>
+					 
+					 <c:if test="${session_email == null}">
+						<button type="button" class="btn btn-dark" data-backdrop="static" data-toggle="modal" data-target="#wishlist_nonmember" aria-label="Left Align">
+						   <i class="fas fa-heart"></i>
+						</button>
+					 </c:if>
 					</li>
 					<li>
 						<button type="button" class="btn btn-success" data-backdrop="static" data-toggle="modal" data-target="#send_email" aria-label="Left Align">
@@ -191,18 +222,17 @@
 		                           <a class="dropdown-item" href="#">Fat</a>
 		                           <a class="dropdown-item" href="#">Vitamin</a>
 		                           <a class="dropdown-item" href="#">Spice</a>
-		                        </ul></li>
-		                  </ul>
-			            </div>
-							
+		                        </ul></li>	                     
+		                  </ul>                	                    
+			            </div>					
 			               <div class="search_area col-md-5" id="navbarResponsive">
 								<form class="form-inline float_right" action="#">
 									<input class="form-control" type="text" placeholder="검색어 입력"> 
 									<button type="button" class="btn btn-primary" aria-label="left Align">
 										<i class="fa fa-search fa"></i>
 									</button>
-								</form>
-			               </div>
+								</form>					
+			               </div>			               
 		               </div>	
 		            </div>
 	            </div>
@@ -218,6 +248,10 @@
    </section>
 	
    <jsp:include page="modal.jsp"/>
+	
+	<div id="floatMenu">
+		<audio src="../music/Arms.mp3"  autoplay controls style="z-index: 1300"></audio>
+	</div>
 	
 	<div id='my-spinner' style="z-index: 1200">
       <div><span>
@@ -295,11 +329,11 @@
           <br><br>
           </div>
           <div>
-          <button id="privatePolicyBtn" data-backdrop="static" data-toggle="modal" data-target="#privatePolicy_modal" class="btn btn-light">개인정보취급방침</button>
+          <button id="privatePolicyBtn" data-backdrop="static" data-toggle="modal" data-target="#privatePolicy_modal" class="btn btn-light">Privacy</button>
           <br>
           </div>
           <div>
-          <button id="termsAndConditionBtn" data-backdrop="static" data-toggle="modal" data-target="#termsAndConditions_modal" class="btn btn-light">이용약관</button>
+          <button id="termsAndConditionBtn" data-backdrop="static" data-toggle="modal" data-target="#termsAndConditions_modal" class="btn btn-light">Agreement</button>
           <br><br>
           </div>
 		 <div>
@@ -393,7 +427,7 @@
 <script type="text/javascript" src="../js/rng.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.js"></script>
 <script type="text/javascript" src="../js/messages_ko.js"></script>
-<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
    $('.dropdown').hover(function() {
       $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();
@@ -410,6 +444,7 @@
 
 <script type="text/javascript" src="../js/scrollTop.js"></script>
 <script type="text/javascript" src="../js/eventPopUp.js"></script>
+<script type="text/javascript" src="../js/followMenu.js"></script>
 <script>
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()

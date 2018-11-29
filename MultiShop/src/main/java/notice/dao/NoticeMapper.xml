@@ -3,21 +3,10 @@
 
 <mapper namespace="noticeSQL"><!--매퍼의 이름  -->
 	<!-- 게시판 리스트 -->
-	<!-- <select id="noticeList" resultType="noticeDTO">
+	<select id="noticeList" resultType="noticeDTO">
 		select * from notice ORDER by n_number desc
-	</select> -->
-	
-	<select id="noticeList" parameterType="hashmap" resultType="noticeDTO">
-		<![CDATA[select * from(select rownum rn, tt.* from (select * from notice order by n_number desc)tt) where rn>=#{startNum} and rn<=#{endNum}]]>
 	</select>
-	
-	<select id="getNotice_TotalA" resultType="int">
-		select count(*) from notice
-	</select>
-	
 	<select id="noticeView" parameterType="int" resultType="noticeDTO">
 		select * from notice where n_number=#{n_number}
 	</select>
-	
-	
 </mapper>

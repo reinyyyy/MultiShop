@@ -2,33 +2,43 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="categorySQL">
-   <!-- clothes 리스트 -->
-   <select id = "getProductList" resultType = "clothesDTO">   <!-- cateNum 나중에 해줘야함 -->
-      <!-- select * from ()select rownum rn, tt * from (select * from PRODUCT where code = #{cateNum})tt) where rn between #{startNum} and #{endNum} -->
-      select * from clothes
-   </select>
-   
-   <!-- clothes 하나 불러오기 -->
-   <select id = "getProduct" parameterType = "String"   resultType = "clothesDTO">
-      select * from clothes where p_code = #{p_code}
-   </select>
+	<resultMap id="ResultMap" type="java.util.Map">
+        <result property="p_name" column="P_NAME" />
+        <result property="p_cateNum" column="P_CATENUM" />
+        <result property="p_code" column="P_CODE" />
+        <result property="p_contents" column="P_CONTENTS" />
+        <result property="p_COST" column="P_COST" />
+        <result property="p_image" column="P_IMAGE" />
+        <result property="p_date" column="P_DATE" />
+        <result property="p_main_img" column="MAIN_IMG" />
+    </resultMap>
+	
+	
+	<!-- 제품 테이블 전체 가져오기 이제 안쓸듯 -->
+	<select id = "getProductList" resultType = "productDTO">
+		select * from PRODUCT
+	</select>
+	
+	<!-- QUICK VIEW 모달에서 사용할 제품 하나 가져오기 -->
+	<select id = "getProduct" parameterType = "int"	resultType = "productDTO">
+		select * from PRODUCT where p_code = #{p_code}
+	</select>
+	
+	<!-- 신상품순 제품 글 목록 불러오기 -->
+	<select id = "getProduct_Board_map" parameterType = "java.util.Map" resultMap = "ResultMap">
+		select * from
+		(select rownum rn, tt.* from
+		(select PRODUCT_BOARD.*, PRODUCT.p_image"MAIN_IMG" from PRODUCT_BOARD, PRODUCT where PRODUCT_BOARD.p_code = PRODUCT.p_code and PRODUCT_BOARD.p_cateNum = ${cateNum} order by PRODUCT_BOARD.P_CODE DESC)tt
+		)where rn between #{startNum} and #{endNum}
+	</select>
+	
+	<!-- 대표그룹 기준잡고 해당하는 모든 옵션 그룹들 가져오기 -->
+	<select id = "getGroup" parameterType = "int" resultType = "productDTO">
+		select * from PRODUCT where p_group = #{p_group}
+	</select>
+	
+	<!-- 각 카테고리별 총 글 수 가져오기 -->
+	<select id = "getProduct_BoardTotalA" parameterType = "int" resultType = "int">
+		select count(*) from PRODUCT_BOARD where p_cateNum = #{cateNum}
+	</select>
 </mapper>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

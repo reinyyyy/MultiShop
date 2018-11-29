@@ -21,15 +21,22 @@ public class DeliveryPaging {
 		if(endPage > totalP) endPage = totalP;
 		
 		if(startPage > pageBlock)
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/mypage/delivery.do?pg="+(startPage-1)+"' aria-label='Previous' id='paging'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a></li>");
+			//pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/mypage/delivery.do?pg="+(startPage-1)+"' aria-label='Previous' id='paging'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' name="+(startPage-1)+" aria-label='Previous' id='paging'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a></li>");
+
 		for(int i=startPage; i<=endPage; i++) {
-			if(i==currentPage)
-				pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/mypage/delivery.do?pg="+i+"' id='currentPaging'>"+i+"</a></li>");
-			else
-				pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/mypage/delivery.do?pg="+i+"' id='paging'>"+i+"</a></li>");
+			if(i==currentPage) {
+				//pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/mypage/delivery.do?pg="+i+"' id='currentPaging'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' href='javascript:void(0)' id='currentPaging'>"+i+"</a></li>");
+			}else {
+				//pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/mypage/delivery.do?pg="+i+"' id='paging'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' name="+i+" id='paging'>"+i+"</a></li>");
+			}
 		}
-		if(endPage < totalP)
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/mypage/delivery.do?pg="+(endPage+1)+"' aria-label='Next' id='paging'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a></li>");
+		if(endPage < totalP) {
+			//pagingHTML.append("<li class='page-item'><a class='page-link' href='/MultiShop/mypage/delivery.do?pg="+(endPage+1)+"' aria-label='Next' id='paging'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' name="+(endPage+1)+" aria-label='Next' id='paging'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a></li>");
+		}
 	}
 }
 

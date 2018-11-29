@@ -8,12 +8,15 @@
 			order by 4)tt) 
 			where <![CDATA[rn>=#{startNum}]]> and <![CDATA[rn<=#{endNum}]]>
 	</select>
+	
 	<select id="totalA" resultType="Int">
 		select count(*)	from order_table
 	</select>
 	
-	<select id="orderAllList" parameterType="Map" resultType="orderDTO">
-		select * from order_table where m_email = #{email}
-	</select>
+	<!-- 재우 -->
+	<insert id="insertOrder" parameterType="Map">
+		insert into order_table values(#{m_email},#{d_code},order_seq.nextval,sysdate,#{m_roadAddress}||#{m_jibunAddress},
+		#{o_status},#{p_code},#{p_cost},#{p_amount}) 
+	</insert>
 
 </mapper>
