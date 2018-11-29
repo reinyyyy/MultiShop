@@ -51,24 +51,6 @@ public class DetailController {
       model.addAttribute("section", "/detail_page/detailPage.jsp");
       return "/main/main";
    }
-   //후기 테이블 보여지게 하는 코드
-   @RequestMapping(value="detail_hoogiPage", method=RequestMethod.GET)
-   public ModelAndView detail_hoogiPage(/*@RequestParam int p_code*/) {
-	   int p_code = 1;
-	   List<DetailhoogiDTO> detail_hoogiTableList = detailDAO.detail_GetReViewTableList(p_code);
-	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_hoogiTableList);
-	   
-	   return modelAndView;
-   }
-   @RequestMapping(value="detail_QnAPage", method=RequestMethod.GET)
-   public ModelAndView detail_QnAPage(/*@RequestParam int p_code*/) {
-	   int p_code = 1;
-	   List<DetailQnADTO> detail_QnATableList = detailDAO.detail_GetQnATableList(p_code);
-	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_QnATableList);
-	   
-	   return modelAndView;
-   }
-   
    
    //결재화면
    @RequestMapping(value="orderPage", method=RequestMethod.POST)
@@ -206,6 +188,25 @@ public class DetailController {
 	   modelAndView.addObject("detail_QnA_List", detail_QnA_List);
 	   modelAndView.addObject("section", "/detail_page/detailPage.jsp");
 	   modelAndView.setViewName("jsonView");
+	   return modelAndView;
+   }
+   
+   //후기 테이블 보여지게 하는 코드
+   @RequestMapping(value="detail_hoogiPage", method=RequestMethod.GET)
+   public ModelAndView detail_hoogiPage(/*@RequestParam int p_code*/) {
+	   int p_code = 1;
+	   List<DetailhoogiDTO> detail_hoogiTableList = detailDAO.detail_GetReViewTableList(p_code);
+	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_hoogiTableList);
+	   
+	   return modelAndView;
+   }
+   
+   @RequestMapping(value="detail_QnAPage", method=RequestMethod.GET)
+   public ModelAndView detail_QnAPage(/*@RequestParam int p_code*/) {
+	   int p_code = 1;
+	   List<DetailQnADTO> detail_QnATableList = detailDAO.detail_GetQnATableList(p_code);
+	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_QnATableList);
+	   
 	   return modelAndView;
    }
    
