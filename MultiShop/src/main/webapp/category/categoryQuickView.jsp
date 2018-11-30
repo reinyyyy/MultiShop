@@ -5,6 +5,12 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/contents.css" rel="stylesheet">
 <link href="../css/common.css" rel="stylesheet">
+<link rel="stylesheet"
+   href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+   integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+   crossorigin="anonymous">
+<link href="../css/xzoom.css" rel="stylesheet">
+   
 		<div id="productView">
 			<div id="productPopup">
 				<div class="productPopupWrap">
@@ -12,26 +18,22 @@
 						<div class="popupSlide">
 							<div class="popupSlide">
 								<div class="mask">
-									<div style="" class="zoomWrapper">
-										<img class="zoom_goods" src="../upload${productDTO.p_image}"
-											data-zoom-image="" alt="" style="position: absolute;">
-									</div>
-								</div>
-								<div class="pagerWrap" id="gallery_01"
-									style="text-align: center;">
-									<a href="#" class="sumImg"> <img
-										style="width: 100px; height: 100px; border: 2px solid lightgray"
-										id="" src="../image/coat1.jpg">
-									</a> <a href="#" class="sumImg"> <img
-										style="width: 100px; height: 100px;" id=""
-										src="../image/coat2.jpg">
-									</a> <a href="#" class="sumImg"> <img
-										style="width: 100px; height: 100px;" id=""
-										src="../image/coat3.jpg">
-									</a> <a href="#" class="sumImg"> <img
-										style="width: 100px; height: 100px;" id=""
-										src="../image/coat4.jpg">
-									</a>
+								<img class="xzoom" id="detailMain_image" src="../image/coat1.jpg" xoriginal="../image/coat1.jpg">
+                          	</div>
+                       		<div class="pagerWrap xzoom-thumbs" id="gallery_01" style="text-align:center;">
+                          		<a href="#" class="">
+                             		<img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub1_image" src="../image/coat1.jpg" xpreview="../image/coat1.jpg">
+                         		 </a>      
+                         		 <a href="#" class="">
+                             		<img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub2_image" src="../image/coat2.jpg">
+                          		</a>
+                          		<a href="#" class="">
+                            		 <img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub3_image" src="../image/coat3.jpg">
+                          		</a>
+                          		<a href="#" class="">
+                             		<img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub4_image" src="../image/coat4.jpg">
+                          		</a>
+                    			</div>
 								</div>
 							</div>
 						</div>
@@ -144,6 +146,7 @@
 		
 	
 	<!-- Jquery src 금지 -->
+	<script type="text/javascript" src="../js/xzoom.js"></script>
 	<script>
 		$(document).ready(function(){
 			var test = "${productDTO.p_image}";
@@ -197,13 +200,35 @@
 				option_tag = '';
 				
 			</c:forEach>
+			
+			
 			var temp = $('.aboutListBottom').html() + option_result;
 			$('.aboutListBottom').html(temp);
+			
+			//이미지 확대 기능
+			$(".xzoom").xzoom();
+			
+
+			 //이미지 변경
+			$('#detailSub1_image').click(function(){
+			   $('#detailMain_image').attr('xoriginal', '../image/coat1.jpg');
+			   $('#detailMain_image').attr('src', '../image/coat1.jpg');
+			});
+
+			$('#detailSub2_image').click(function(){
+			   $('#detailMain_image').attr('xoriginal', '../image/coat2.jpg');
+			   $('#detailMain_image').attr('src', '../image/coat2.jpg');
+			});
+
+			$('#detailSub3_image').click(function(){
+			   $('#detailMain_image').attr('xoriginal', '../image/coat3.jpg');
+			   $('#detailMain_image').attr('src', '../image/coat3.jpg');
+			});
+
+			$('#detailSub4_image').click(function(){
+			   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
+			   $('#detailMain_image').attr('src', '../image/coat4.jpg');
+			});
 		});
 	</script>
 	
-<!--
-<script type="text/javascript"
-	src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../js/detailPage.js"></script> -->
