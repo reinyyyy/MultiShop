@@ -1,4 +1,3 @@
-<<<<<<< Upstream, based on origin/minu
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -28,13 +27,6 @@
    <header>
       <div class="container">
          <div id="productView">
-            <div class="breadCrumb">
-               <ul>
-                  <li class="home"><a href="#">Home</a></li>
-                  <li><a href="#link" onclick="">fashion</a></li>
-                  <li><a href="#link" onclick="">Outer</a></li>
-               </ul>
-            </div>
          <div id="productPopup" >
             <div class="productPopupWrap">
                   <div class="popLeft">
@@ -188,7 +180,7 @@
              <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title">MultiShop&nbsp;: </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" id="basketModal_xBtn" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -318,6 +310,7 @@
        </section>
    </div>
    <jsp:include page="../detail_Modal/detail_Modal.jsp"/>
+   <jsp:include page="../detail_Modal/detail_nonLogin.jsp"/>
    
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

@@ -65,7 +65,7 @@ $(document).ready(function(){
          			});
          			
          		 }else if(data=="non_exist"){
-         			 alert("실패!!!!!!!!!!");
+         			 alert("order.js 실패!!!!");
          		 }
          		 
          	 },error : function(data){
