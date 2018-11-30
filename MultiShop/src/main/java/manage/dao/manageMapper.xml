@@ -86,6 +86,13 @@
 		p_startDate : 2018/11/27
 		p_lastDate : 2018/11/28
 	 -->
+	 
+	 <select id="orderList" resultType="orderDTO">
+	 	select * from order_table
+	 </select>
+	 <update id="orderStatusUpdate" parameterType="Map">
+	 	update order_table set o_status = #{o_status} where o_num = #{o_num}
+	 </update>
 </mapper>  
 
 

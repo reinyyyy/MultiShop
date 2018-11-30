@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../css/admin.css">
     <!-- 달력 -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+    <!-- 데이터테이블 -->
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     	
     <!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -84,7 +86,7 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
                 <a href="#" id="orderManageBtn" menu_id="3">주문관리</a>
                 <ul id="orderManageUl" style="display:none">
                 	<li class=" " value="0">
-                        <a href="../manage/orderManageTotal.do">주문내역</a>
+                        <a href="../manage/orderManageTotal2.do">주문내역</a>
                     </li>
                     <li class=" ">
                         <a href="../manage/orderSimpleTotal.do">개인 결제 내역</a>

@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import manage.dao.ManageDAO;
+import member.bean.MemberDTO;
+import member.dao.MemberDAO;
+import mypage.bean.OrderDTO;
 
 @Controller
 @RequestMapping("/manage")
@@ -28,6 +32,10 @@ public class ManageController {
 	
 	@Autowired
 	private ManageDAO manageDAO;
+	@Autowired
+	private MemberDTO memberDTO;
+	@Autowired
+	private MemberDAO memberDAO;
 	
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public ModelAndView main() {
@@ -61,6 +69,14 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/orderManageTotal.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	@RequestMapping(value="orderManageTotal2", method=RequestMethod.GET)
+	public ModelAndView orderManageTotal2() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("display", "/manage/orderManageTotal2.jsp");
 		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
@@ -285,5 +301,18 @@ public class ManageController {
 		mav.addObject("display", "/manage/test.jsp");
 		mav.setViewName("/section/adminIndex");
 		return mav;
+	}
+	
+	//오더리스트 json 받기
+	@RequestMapping(value="orderList", method=RequestMethod.POST)
+	public ModelAndView orderList() {
+		List<OrderDTO> list = manageDAO.orderList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//오더리스트 상품상태 변경
+	@RequestMapping(value="orderStatusUpdate", method=RequestMethod.POST)
+	public @ResponseBody int orderStatusUpdate(int o_num,String o_status) {
+		return manageDAO.orderStatusUpdate(o_num, o_status);
 	}
 }

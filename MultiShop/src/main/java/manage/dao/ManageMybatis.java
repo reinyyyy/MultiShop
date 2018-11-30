@@ -1,5 +1,6 @@
 package manage.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import mypage.bean.OrderDTO;
 
 @Component
 @Transactional
@@ -39,5 +41,18 @@ public class ManageMybatis implements ManageDAO {
 	//데이터 넣기전 seq 값 구하기
 	public int getSeq() {
 		return sqlSession.selectOne("manageSQL.getSeq");
+	}
+
+	@Override
+	public List<OrderDTO> orderList() {
+		return sqlSession.selectList("manageSQL.orderList");
+	}
+
+	@Override
+	public int orderStatusUpdate(int o_num,String o_status) {
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("o_num", o_num);
+			map.put("o_status", o_status);
+		 return sqlSession.update("manageSQL.orderStatusUpdate",map);
 	}
 }

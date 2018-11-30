@@ -5,6 +5,7 @@ import java.util.Map;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import mypage.bean.OrderDTO;
 
 public interface ManageDAO {
 
@@ -21,5 +22,11 @@ public interface ManageDAO {
 
 	//현재 시퀀스값 조회
 	public int getSeq();
+	
+	//주문리스트
+	public List<OrderDTO> orderList();
+	
+	//주문상태변경
+	public int orderStatusUpdate(int o_num,String o_status);
 	
 }
