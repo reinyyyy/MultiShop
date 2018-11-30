@@ -37,6 +37,7 @@
 </style>
 </head>
 <body class="bg-light">
+	
    <div class="container">
       <div class="py-5 text-center">
          <img class="d-block mx-auto mb-4 mt-4" src="../image/jaewoo.jpg" alt="" width="72" height="72"/>
@@ -44,6 +45,7 @@
          <p class="lead">깰껌</p>
       </div>
       <form id="orderPageForm" name="orderPageForm" class="needs-validation" method="post" action="orderOk.do">      <!-- novalidate은 유효성검사를 하지않겠다는 것 -->
+      <input type="hidden" id="session_email" value="${session_email }">
       <div class="row mb30">
          <div class="col-md-4 order-md-2 mb-4" id="basketDiv">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -128,7 +130,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="lastName">성</label>
-                      <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                      <input type="text" class="form-control" id="lastName" placeholder="성" value="" required>
                       <div class="lastNameDiv" id="lastNameDiv">
                            
                       </div>
@@ -140,7 +142,7 @@
                       	<div class="input-group-prepend">
                            <span class="input-group-text"></span>
                         </div>
-                      	<input type="text" class="form-control" id="userName" placeholder="이름 입력" required>
+                      	<input type="text" class="form-control" id="userName" placeholder="이름" required>
                       	<div class="userNameDiv" id="userNameDiv" style="width: 100%;">
                       
                       	</div>
@@ -190,7 +192,7 @@
                 <div class="row">
                      <div class="col-md-6 mb-3">
                        <label for="cc-name">카드 소유자 명</label>
-                       <input type="text" class="form-control" id="cc_name" placeholder="카드소유자의 이름을 입력하세요" value="" required>
+                       <input type="text" class="form-control" id="cc_name" placeholder="카드소유자의 이름을 영문으로 입력하세요" value="" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'');" required>
                        <small class="text-muted">Full name as displayed on card</small>
                        <div class="cc_nameDiv" id="cc_nameDiv">
                        </div>
@@ -198,7 +200,7 @@
                      
                      <div class="col-md-6 mb-3">
                        <label for="cc-number">카드 번호</label>
-                       <input type="text" class="form-control" id="cc_number" placeholder="" required>
+                       <input type="number" class="form-control" id="cc_number" placeholder="공백 없이 16자리르 입력 하세요" maxlength="16" oninput="maxLengthCheck(this)" required>
                        <div class="cc_numberDiv" id="cc_numberDiv">
                        </div>
                     </div>
@@ -207,8 +209,8 @@
                 <div class="row">
                      <div class="col-md-3 mb-3">
                        <label for="cc-expiration">유효 기간(mm/yy)</label>
-                       <input type="text" class="form-control w45 inblock" id="cc_expiration1" placeholder="(mm)" value="" required>
-                       <input type="text" class="form-control w45 inblock" id="cc_expiration2" placeholder="(yy)" value="" required>
+                       <input type="number" class="form-control w45 inblock" id="cc_expiration1" placeholder="mm" value="" maxlength="2" oninput="maxLengthCheck(this)" required>
+                       <input type="number" class="form-control w45 inblock" id="cc_expiration2" placeholder="yy" value="" maxlength="2" oninput="maxLengthCheck(this)" required>
                        <div class="cc_expirationDiv" id="cc_expirationDiv">
                       
                        </div>
@@ -216,7 +218,7 @@
                      
                      <div class="col-md-3 mb-3">
                        <label for="cc-expiration">CVV/CVC</label>
-                       <input type="text" class="form-control" id="cc_cvv" placeholder="" required>
+                       <input type="number" class="form-control" id="cc_cvv" placeholder="카드뒤 3자리 수" maxlength="3" oninput="maxLengthCheck(this)" required>
                        <div class="cc_cvvDiv" id="cc_cvvDiv">
                          </div>
                      </div>
@@ -230,10 +232,19 @@
       </form>
    </div>
 	<jsp:include page="orderPage_modal.jsp"/>
+	
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../js/order.js"></script>
 <script type="text/javascript">
+
+//글자수 제한
+function maxLengthCheck(object){
+	if(object.value.length>object.maxLength){
+		object.value = object.value.slice(0, object.maxLength);
+	}
+}
+
 $(document).ready(function(){
    $.ajax({
       type : 'POST',
@@ -247,10 +258,12 @@ $(document).ready(function(){
       success : function(data){
          //alert(JSON.stringify(data));
          
-         //회원의 주소 기본으로 불러오기
-         $('#join_modal_postcode').val(data.memberDTO.m_zipcode);
-         $('#join_modal_roadAddress').val(data.memberDTO.m_roadAddress);
-         $('#join_modal_jibunAddress').val(data.memberDTO.m_jibunAddress);
+         if(data.memberDTO!=null&&data.memberDTO!=""){
+        	//회원의 주소 기본으로 불러오기
+            $('#join_modal_postcode').val(data.memberDTO.m_zipcode);
+            $('#join_modal_roadAddress').val(data.memberDTO.m_roadAddress);
+            $('#join_modal_jibunAddress').val(data.memberDTO.m_jibunAddress);
+         }
          
          //상품 코드,이름
          $('#productCodeAndName').append(data.detailDTO.p_code + " / " + data.detailDTO.p_name);
@@ -297,7 +310,7 @@ $(document).ready(function(){
          
          //$('#order_totalPrice').text(totalPrice+"원");
       },error : function(data){
-         alert("실패");
+         alert("실패랍니다~");
       }
    });
    
