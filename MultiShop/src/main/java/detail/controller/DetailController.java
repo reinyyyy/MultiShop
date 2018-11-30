@@ -45,11 +45,9 @@ public class DetailController {
    
    //상세페이지
    @RequestMapping(value="detailPage", method=RequestMethod.GET)
-   public String detailPageView(/*@RequestParam int p_code,*/Model model, HttpSession session) {
-	  
-	  //model.addAllAttributes("p_code",p_code);
-	   
-	  String session_email = (String) session.getAttribute("session_email");
+   public String detailPageView(/*@RequestParam int p_code,*/Model model,HttpSession session) {
+   
+    String session_email = (String) session.getAttribute("session_email");
 	  System.out.println("아이디값="+session_email);
 	  
 	  if(session_email==null && session_email=="") {
@@ -57,7 +55,10 @@ public class DetailController {
 	  }else {
 		  model.addAttribute("session_email", session_email);
 	  }
+ 
 	  
+	  /*model.addAttribute("p_code",p_code);*/
+
       model.addAttribute("section", "/detail_page/detailPage.jsp");
       return "/main/main";
    }
@@ -70,7 +71,7 @@ public class DetailController {
                                @RequestParam int productCode, 
                                @RequestParam String productName,
                                HttpSession session) {
-	   
+      
       String session_email = (String) session.getAttribute("session_email");
       System.out.println("@@"+session_email);
       
@@ -128,8 +129,7 @@ public class DetailController {
    public @ResponseBody String orderOk(@RequestParam Map<String,String> map, HttpSession session) {
 	   
 	   String email = (String) session.getAttribute("session_email");
-	   
-	   
+	      
 	   System.out.println(email+"@@@@@@@@@@@@");
 	   map.put("m_email", email);
 	   
@@ -155,24 +155,44 @@ public class DetailController {
    
    //양현규--------------------
    
+ //후기 테이블 보여지게 하는 코드
+   @RequestMapping(value="detail_hoogiPage", method=RequestMethod.GET)
+   public ModelAndView detail_hoogiPage(/*@RequestParam int p_code*/) {
+	   int p_code = 1;
+	   List<DetailhoogiDTO> detail_hoogiTableList = detailDAO.detail_GetReViewTableList(p_code);
+	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_hoogiTableList);
+	   
+	   return modelAndView;
+   }
+   //Q&A 테이블 보여지게 하는 코드
+   @RequestMapping(value="detail_QnAPage", method=RequestMethod.GET)
+   public ModelAndView detail_QnAPage(/*@RequestParam int p_code*/) {
+	   int p_code = 1;
+	   List<DetailQnADTO> detail_QnATableList = detailDAO.detail_GetQnATableList(p_code);
+	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_QnATableList);
+	   
+	   return modelAndView;
+   }
+   //후기 작성시 저장
    @RequestMapping(value="detail_hoogi", method=RequestMethod.POST)
-   public ModelAndView detail_hoogiModal(DetailhoogiDTO detailhoogiDTO) {
+   public ModelAndView detail_hoogiModal(@RequestParam Map<String,String> map) {
       ModelAndView modelAndView = new ModelAndView();
-      detailDAO.detail_userReview(detailhoogiDTO);
+      detailDAO.detail_userReview(map);
       
       modelAndView.setViewName("/detail_page/detailPage");
       
+      return modelAndView;
+   }
+   //Q&A 작성시 저장
+   @RequestMapping(value="detail_QnA", method=RequestMethod.POST)
+   public ModelAndView detail_QnA(@RequestParam Map<String,String> map) {
+      ModelAndView modelAndView = new ModelAndView();
+      detailDAO.detail_userQnA(map);
+      
+      modelAndView.setViewName("/detail_page/detailPage");
       return modelAndView;
    }
    
-   @RequestMapping(value="detail_QnA", method=RequestMethod.POST)
-   public ModelAndView detail_QnA(DetailQnADTO detailQnADTO) {
-      ModelAndView modelAndView = new ModelAndView();
-      detailDAO.detail_userQnA(detailQnADTO);
-      
-      modelAndView.setViewName("/detail_page/detailPage");
-      return modelAndView;
-   }
    
    @RequestMapping(value="detail_QnAView", method=RequestMethod.POST)
    public ModelAndView detail_QnAView (@RequestParam int seq) {
@@ -209,25 +229,5 @@ public class DetailController {
 	   modelAndView.setViewName("jsonView");
 	   return modelAndView;
    }
-   
-   //후기 테이블 보여지게 하는 코드
-   @RequestMapping(value="detail_hoogiPage", method=RequestMethod.GET)
-   public ModelAndView detail_hoogiPage(/*@RequestParam int p_code*/) {
-	   int p_code = 1;
-	   List<DetailhoogiDTO> detail_hoogiTableList = detailDAO.detail_GetReViewTableList(p_code);
-	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_hoogiTableList);
-	   
-	   return modelAndView;
-   }
-   
-   @RequestMapping(value="detail_QnAPage", method=RequestMethod.GET)
-   public ModelAndView detail_QnAPage(/*@RequestParam int p_code*/) {
-	   int p_code = 1;
-	   List<DetailQnADTO> detail_QnATableList = detailDAO.detail_GetQnATableList(p_code);
-	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_QnATableList);
-	   
-	   return modelAndView;
-   }
-   
    
 }

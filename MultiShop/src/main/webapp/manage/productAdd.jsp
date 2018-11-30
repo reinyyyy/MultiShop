@@ -567,7 +567,7 @@
             <script>
             	$(document).ready(function(){
             		//p_contents 에서는 img 위치 알아하고 DB에 저장되어있던 상세이미지 풀어서 뿌려줘야함
-            		
+            		alert("");
             		
             		$('#check_img').click(function(){
             			var data = 	$('#default_iframe').contents().find('#contents_div').html();
@@ -699,6 +699,10 @@ $(document).ready(function(){
 	/* $(document).click(function(){
 		console.log($(this).prop('tagName'));
 	}); */
+		//이게 있어야 미리보기에 들어가짐
+		$('input[name="img_detail[]"]').change(function(){
+			readURL(this);
+		});
 	
 		//매개변수로 옵션태그 찍어내줌
 		function optionMaker(values){

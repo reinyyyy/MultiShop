@@ -72,6 +72,10 @@
 .wish {
 	background: url(../image/btn_goods_wish.png) no-repeat 50% 50%;
 }
+
+.card-body p{
+	cursor : pointer;
+}
 </style>
 </head>
 <body style="width: 100%">
@@ -124,12 +128,12 @@
 					<div id="collapseOne" class="collapse show" role="tabpanel"
 						aria-labelledby="headingOne" data-parent="#accordion">
 						<div class="card-body">
-							<a>All</a>
-							<a>Outer</a>
-							<a>Top</p>
-							<a>Bottom</p>
-							<a>Shoes</p>
-							<a>Inner</p>
+							<p>All</p>
+							<p>Outer</p>
+							<p>Top</p>
+							<p>Bottom</p>
+							<p>Shoes</p>
+							<p>Inner</p>
 						</div>
 					</div>
 				</div>
@@ -192,18 +196,17 @@
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
 					<ul>
-						<li class="active" onclick="fn_sort('6');"><a href="#link">인기순</a></li>
-						<li><a href="#link" onclick="fn_sort('1');">신상품순</a></li>
-						<li><a href="#link" onclick="javascript:fn_sort('3');">낮은가격순</a></li>
-						<li><a href="#link" onclick="javascript:fn_sort('4');">높은가격순</a></li>
+						<li class="active" onclick="fn_sort(2);"><a href="#link">인기순(공사중)</a></li>
+						<li><a href="#link" onclick="fn_sort(1);">신상품순</a></li>
+						<li><a href="#link" onclick="fn_sort(3);">낮은가격순</a></li>
+						<li><a href="#link" onclick="fn_sort(4);">높은가격순</a></li>
 						<li><a href="../detail_page/detailPage.do" onclick="">상세정보</a></li>
 					</ul>
 				</div>
 				<!--  몇개씩 보여줄 것인지 -->
 				<div class="select">
 					<span>DISPLAY</span> <span class="selectRecordCount"> <a
-						href="#link" val="10">10</a> <a href="#link" val="20">20</a> <a
-						href="#link" val="100">ALL</a>
+						onclick = "javascript:void(0)" val="10">10</a> <a onclick = "javascript:void(0)" val="20">20</a>
 					</span>
 				</div>
 			</div>
@@ -295,30 +298,7 @@
 				$('.quickViewBody').empty();
 			});
 			
-
-			//글목록 불러옴
-			$.ajax({
-				type : 'POST',
-				url : '../category/getList.do',
-				data : {
-					'cateNum' :  $("#cateNum").val(),
-					'pg' : $("#pg").val()
-				}, //따옴표치면 문자열, 안치면 숫자 
-				dataType : 'json',
-				success : function(data) { //data에는 리스트들
-					//alert(JSON.stringify(data));
-					var card_contents = '';
-					$.each(data.list, function(index, items) {
-						card_contents += card(items);
-					});
-					$('#card_contents').html(card_contents);
-					$('#categoryPaging').html(data.categoryPaging.pagingHTML);
-
-				}
-			});
-			/* $.postJSON('../category/getList.do', '${cateNum}', function(data){
-				alert(data);
-			}); */
+			
 		});
 	
 		
@@ -335,7 +315,7 @@
 			var card_html = 
 					'<div class="card" align="center">'
 					+ '<div style="position : relative;">'
-					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap">'
+					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap" style = "cursor : pointer;">'
 					+ '<div class="quick_menu" style="background : rgba(0,0,0,0.8)">'
 					+ '<a href="/product/view.asp?productNo=42046" class="btnl link" target="_blank" float="left"/>'
 					+ '<input type = "hidden" name = "p_code" value = ' + p_code + '>'
@@ -350,12 +330,19 @@
 			return card_html;
 		}
 		
+		//상세 페이지 이동 이벤트
+		$(document).on('click','.card-img-top', function(){
+			var p_code = $(this).next().find('input').val();
+			location.href = "../detail_page/detailPage.do?p_code="+p_code;
+		});
 		
 		//3자리수 콤마 제작 함수
 		function addComma(num) {
 			  var regexp = /\B(?=(\d{3})+(?!\d))/g;
 			  return num.toString().replace(regexp, ',');
 		}
+		
+		
 	</script>
 </body>
 </html>

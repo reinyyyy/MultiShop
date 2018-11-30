@@ -27,17 +27,17 @@ public class CategoryPaging {
 		if(endPage > totalP) endPage = totalP;
 		
 		if(startPage > pageBlock)
-			pagingHTML.append("[<a id='paging' href='categoryItemList.do?pg="+(startPage-1)+"'>이전</a>]");
+			pagingHTML.append("[<a id='paging' onclick='categoryList("+(startPage-1)+")'>이전</a>]");
 		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("[<a id='currentPaging' href='categoryItemList.do?pg="+i+"'>"+i+"</a>]");
+				pagingHTML.append("[<a id='currentPaging' onclick='categoryList("+i+")'>"+i+"</a>]");
 			else
-				pagingHTML.append("[<a id='paging' href='categoryItemList.do?pg="+i+"'>"+i+"</a>]");
+				pagingHTML.append("[<a id='paging' onclick='categoryList("+i+")'>"+i+"</a>]");
 		}
 		
 		if(endPage < totalP)
-			pagingHTML.append("[<a id='paging' href='categoryItemList.do?pg="+(endPage+1)+"'>다음</a>]");
+			pagingHTML.append("[<a id='paging' onclick=categoryList("+(endPage+1)+"'>다음</a>]");
 	}
 
 	public void makeSearchPagingHTML() {

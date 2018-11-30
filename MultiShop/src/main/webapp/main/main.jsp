@@ -74,6 +74,9 @@
 </head>
 <body>
 
+	<!-- 파라미터 값 -->
+	<input type = "hidden" name = "sortType" id = "sortType" value = "${sortType}">							
+
 		<div class="event_coupon">	
 			<a class="navbar-brand text-light">
 				<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>

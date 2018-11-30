@@ -13,13 +13,15 @@
     	
     <!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	
 	<!-- 달력 -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
     <!--common-->
+    
+	<script src="../js/manage/calendar.js"></script>
     <script src = "../js/manage/product.js"></script>
     <script src="../js/manage/member.js"></script>
-    <script src="../js/manage/calendar.js"></script>
     <script>
 	$(document).ready(function(){
 		
