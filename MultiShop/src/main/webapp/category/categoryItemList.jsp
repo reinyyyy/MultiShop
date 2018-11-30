@@ -304,9 +304,9 @@
 		
 		//제품 내용물 생성
 		function card(items) { //DB컬럼명을 가져다 써야함 banana.jpg			//받아오는거 DTO 에서 boardLIST 로 변경해야댐
-			var result = items.p_main_img.replace('/', '');
-			var src = '../upload/' + result;
-			console.log(result);
+			var result = items.p_main_img.split('/');
+			var src = '../upload/' + result[1];
+			console.log(result[1]);
 			var name = items.p_name;
 			var content = items.p_contents;
 			var price = items.p_COST;		//제품테이블에서 받아와함.

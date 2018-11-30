@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
 	var cateNum = $('#cateNum').val();
-	
+
 	//최초 글목록 sortType 으로 채워주기
 	//alert('수동적으로 : ' + $('#sortType').val());
 	//글목록 불러옴
@@ -16,6 +16,7 @@ $(document).ready(function(){
 		dataType : 'json',
 		success : function(data) { //data에는 리스트들
 			//alert(JSON.stringify(data));
+			
 			var card_contents = '';
 			$.each(data.list, function(index, items) {
 				card_contents += card(items);

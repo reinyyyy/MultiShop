@@ -105,7 +105,6 @@ public class CategoryController {
 		
 		System.out.println(list_map);
 		
-		
 		int totalA = categoryDAO.getProduct_BoardTotalA(Integer.parseInt(cateNum));
 		
 		categoryPaging.setCurrentPage(Integer.parseInt(pg));

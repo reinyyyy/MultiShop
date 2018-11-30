@@ -146,6 +146,21 @@
 	<!-- Jquery src 금지 -->
 	<script>
 		$(document).ready(function(){
+			var test = "${productDTO.p_image}";
+			var result = test.split('/');
+			
+			alert(result[1]);
+			var img_tag = '<img class="zoom_goods" src ="../upload/'+result[1]+'" data-zoom-image="" alt="" style="position:absolute;">'; 
+			$('.zoomWrapper').html(img_tag);
+			
+			$.each(result, function(index, items){
+				if(index > 1){
+					img_tag += '<a href = "#" class = "sumImg"> <img style = "width: 100px; height : 100px;" id = "" src = "../upload/"'+items+'>';
+				}
+			});
+			
+			
+			
 			/*
 						EL로 받아오면 모두 string 타입으로 데려오기때문에 [ 지워줘야함 ]
 			*/			

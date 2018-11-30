@@ -160,26 +160,34 @@ public class ManageController {
 							@RequestParam(value="p_contents") String p_contents){						//jsp의 name 속성이름과 Product_DTO , Product_boardDTO 의 이름이 동일해야함..
 		
 		System.out.println(p_option1_list.length);
+		int seq = 0;
+		
+		seq = manageDAO.getSeq() + 1;
 		
 		for(int i = 0; i < p_option1_list.length; i++) {
-			
-			
 			System.out.println(p_option1_list[i]);
 			System.out.println(p_option2_list[i]);
 			System.out.println(p_amount_list[i]);
 		}
 		
+		
+		
 		System.out.println(list.size());
+		//11.30 이미지 저장 있떤자리
 		String p_image = "";
+		int index = 1;
 		for(MultipartFile img : list) {
 			System.out.println("img : " + img.isEmpty());
 			System.out.println(img.getName());
 			if(!img.isEmpty()) {
 				String fileName = img.getOriginalFilename();
-				p_image += "/"+fileName;
+				String temp = fileName.substring(fileName.length()-4, fileName.length());
+				System.out.println(temp);
+				p_image += "/"+seq+"_"+index+temp;
+				index++;
 				
-				System.out.println("대표 이미지 파일 이름 : " + fileName);
-				File file = new File(UPLOAD_PATH, fileName);
+				System.out.println("대표 이미지 파일 이름 : " + p_image);
+				File file = new File(UPLOAD_PATH, p_image);
 				try {
 					FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
 				} catch (IOException e) {
@@ -187,9 +195,9 @@ public class ManageController {
 				}
 			}
 		}
+		
 		int cnt = 0;
 		int i = 0 ;
-		int seq = 0;
 		do {
 			ProductDTO productDTO = new ProductDTO();
 			productDTO.setP_cateNum(Integer.parseInt(map.get("p_cateNum")));
@@ -240,22 +248,6 @@ public class ManageController {
 		
 		//PRODUCT_BOARD 저장시작
 		
-		p_image = "";
-		for(MultipartFile img : detail_list) {
-			System.out.println(img.getName());
-			if(!img.isEmpty()) {
-				String fileName = img.getOriginalFilename();
-				p_image += "/"+fileName;
-				
-				System.out.println("상세 이미지 파일 이름 : " + fileName);
-				File file = new File(UPLOAD_PATH, fileName);
-				try {
-					FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 		
 		Product_boardDTO product_boardDTO = new Product_boardDTO();
 		product_boardDTO.setP_cateNum(Integer.parseInt(map.get("p_cateNum")));
@@ -265,6 +257,8 @@ public class ManageController {
 		product_boardDTO.setP_COST(Integer.parseInt(map.get("p_cost")));
 		product_boardDTO.setP_image(p_image);
 		//sysdate
+		
+		int p_code = product_boardDTO.getP_code();
 		
 		System.out.println();
 		System.out.println("Product_boardDTO : " + product_boardDTO);
