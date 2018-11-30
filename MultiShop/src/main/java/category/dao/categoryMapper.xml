@@ -11,6 +11,7 @@
         <result property="p_image" column="P_IMAGE" />
         <result property="p_date" column="P_DATE" />
         <result property="p_main_img" column="MAIN_IMG" />
+        <result property="p_midcate" column="P_MIDCATE" />
     </resultMap>
 	
 	
@@ -28,14 +29,21 @@
 	<select id = "getProduct_Board_map" parameterType = "java.util.Map" resultMap = "ResultMap">
 		select * from
 		(select rownum rn, tt.* from
-		(select PRODUCT_BOARD.*, PRODUCT.p_image"MAIN_IMG" from PRODUCT_BOARD, PRODUCT where PRODUCT_BOARD.p_code = PRODUCT.p_code and PRODUCT_BOARD.p_cateNum = ${cateNum} order by 
-		<if test = "order_type eq 1">
+		(select PRODUCT_BOARD.*, PRODUCT.p_image"MAIN_IMG", PRODUCT.p_midcate from PRODUCT_BOARD, PRODUCT where 
+		PRODUCT_BOARD.p_code = PRODUCT.p_code 
+		and PRODUCT_BOARD.p_cateNum = #{cateNum} 
+		<if test = "p_midCate != null and p_midCate != ''"> 
+			and P_MIDCATE = #{p_midCate}
+		</if>
+		
+			order by 
+		<if test = "order_type eq 1">	<!-- 높은가겨순 -->
 			PRODUCT_BOARD.P_COST asc
 		</if>
-		<if test = "order_type eq 2">
+		<if test = "order_type eq 2">	<!-- 낮은가격순 -->
 			PRODUCT_BOARD.P_COST DESC
 		</if>
-		<if test = "order_type eq 3">
+		<if test = "order_type eq 3">	<!-- 신상품순 -->
 			PRODUCT_BOARD.P_CODE DESC
 		</if>
 		)tt

@@ -206,8 +206,7 @@
 				<!--  몇개씩 보여줄 것인지 -->
 				<div class="select">
 					<span>DISPLAY</span> <span class="selectRecordCount"> <a
-						href="#link" val="10">10</a> <a href="#link" val="20">20</a> <a
-						href="#link" val="100">ALL</a>
+						onclick = "javascript:void(0)" val="10">10</a> <a onclick = "javascript:void(0)" val="20">20</a>
 					</span>
 				</div>
 			</div>

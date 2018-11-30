@@ -40,7 +40,7 @@ public class CategoryController {
 	@RequestMapping(value="categoryItemList", method=RequestMethod.GET)
 	public ModelAndView categoryItemList(@RequestParam(defaultValue="1") int cateNum,
 										@RequestParam(defaultValue="1") int pg,
-										@RequestParam(defaultValue="신상품순") String sortType) {
+										@RequestParam(defaultValue="1") String sortType) {
 		ModelAndView mav = new ModelAndView();
 		if(cateNum == 1) {
 			mav.addObject("pageName", "Food");
@@ -61,52 +61,54 @@ public class CategoryController {
 	
 	//각 카테고리 전체 리스트 하나로 됨, 구분자 cateNum
 	@RequestMapping(value="getList", method=RequestMethod.POST)
-	public ModelAndView getList(@RequestParam int cateNum,
-								@RequestParam(defaultValue="1") int pg,
-								@RequestParam(defaultValue="1") int sortType,
-								@RequestParam String p_midCate) {
+	public ModelAndView getList(@RequestParam String cateNum,
+								@RequestParam(defaultValue="1") String pg,
+								@RequestParam(defaultValue="1") String sortType,
+								@RequestParam(required=false) String p_midCate) {
 		
+		int sortType_int = Integer.parseInt(sortType);
 		//sortType 1 : 신상품순
 		//sortType 2 : 인기순
 		//sortType 3 : 낮은가격순
 		//sortType 4 : 높은가격순
-		
+		System.out.println("p_midCate = " + p_midCate + " p_cateNum = " + cateNum);
 		
 		// list_num 에 따라서 12개씩~ 현재는 5개씩보여주는 상태임
-		int endNum = pg*5;
+		int endNum = Integer.parseInt(pg)*5;
 		int startNum = endNum-4;
 		
 		System.out.println("리스트 생성 pg : " + pg + " endNum = " + endNum + " startNum = " + startNum + " sortType = " + sortType);
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("cateNum", cateNum);
-		map.put("startNum", startNum);
-		map.put("endNum", endNum);
+		map.put("startNum", startNum+"");
+		map.put("endNum", endNum+"");
+		map.put("p_midCate", p_midCate);
 		//List<Product_boardDTO> list = categoryDAO.getProduct_Board_list(map);
 		
 		List<Map<String, String>> list_map = null;
-		if(sortType == 2) {
+		if(sortType_int == 2) {
 			System.out.println("인기순 들어옴");
 			list_map = categoryDAO.getProduct_Board_map_best(map);
-		}else if(sortType == 3){
+		}else if(sortType_int == 3){
 			System.out.println("낮은가격순 들어옴");
-			map.put("order_type", 1);
+			map.put("order_type", "1");
 			list_map = categoryDAO.getProduct_Board_map(map);
-		}else if(sortType == 4){
+		}else if(sortType_int == 4){
 			System.out.println("높은가격순 들어옴");
-			map.put("order_type", 2);
+			map.put("order_type", "2");
 			list_map = categoryDAO.getProduct_Board_map(map);
 		}else {
 			System.out.println("신상품순 들어옴");
-			map.put("order_type", 3);
+			map.put("order_type", "3");
 			list_map = categoryDAO.getProduct_Board_map(map);
 		}
 		
 		System.out.println(list_map);
 		
 		
-		int totalA = categoryDAO.getProduct_BoardTotalA(cateNum);
+		int totalA = categoryDAO.getProduct_BoardTotalA(Integer.parseInt(cateNum));
 		
-		categoryPaging.setCurrentPage(pg);
+		categoryPaging.setCurrentPage(Integer.parseInt(pg));
 		categoryPaging.setPageBlock(3);
 		categoryPaging.setPageSize(5);
 		categoryPaging.setTotalA(totalA);
