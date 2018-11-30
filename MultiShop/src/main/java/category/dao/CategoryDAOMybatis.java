@@ -41,4 +41,9 @@ public class CategoryDAOMybatis implements CategoryDAO{
 	public List<Map<String, String>> getProduct_Board_map(Map<String, Integer> map) {
 		return sqlSession.selectList("categorySQL.getProduct_Board_map", map);
 	}
+
+	@Override
+	public List<Map<String, String>> getProduct_Board_map_best(Map<String, Integer> map) {
+		return sqlSession.selectList("categorySQL.getProduct_Board_map_best", map);
+	}
 }

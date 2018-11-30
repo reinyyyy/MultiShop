@@ -11,6 +11,7 @@ public interface CategoryDAO {
 	public List<ProductDTO> getGroup(int p_group);
 	public int getProduct_BoardTotalA(int cateNum);
 	public List<Map<String, String>> getProduct_Board_map(Map<String, Integer> map);
+	public List<Map<String, String>> getProduct_Board_map_best(Map<String, Integer> map);
 	
 	//대분류 구별
 	

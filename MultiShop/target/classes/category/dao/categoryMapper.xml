@@ -24,12 +24,26 @@
 		select * from PRODUCT where p_code = #{p_code}
 	</select>
 	
-	<!-- 신상품순 제품 글 목록 불러오기 -->
+	<!-- 글 목록 P_CATENUM 기준 분류 -->
 	<select id = "getProduct_Board_map" parameterType = "java.util.Map" resultMap = "ResultMap">
 		select * from
 		(select rownum rn, tt.* from
-		(select PRODUCT_BOARD.*, PRODUCT.p_image"MAIN_IMG" from PRODUCT_BOARD, PRODUCT where PRODUCT_BOARD.p_code = PRODUCT.p_code and PRODUCT_BOARD.p_cateNum = ${cateNum} order by PRODUCT_BOARD.P_CODE DESC)tt
+		(select PRODUCT_BOARD.*, PRODUCT.p_image"MAIN_IMG" from PRODUCT_BOARD, PRODUCT where PRODUCT_BOARD.p_code = PRODUCT.p_code and PRODUCT_BOARD.p_cateNum = ${cateNum} order by 
+		<if test = "order_type eq 1">
+			PRODUCT_BOARD.P_COST asc
+		</if>
+		<if test = "order_type eq 2">
+			PRODUCT_BOARD.P_COST DESC
+		</if>
+		<if test = "order_type eq 3">
+			PRODUCT_BOARD.P_CODE DESC
+		</if>
+		)tt
 		)where rn between #{startNum} and #{endNum}
+	</select>
+	
+	<select id = "getProduct_Board_map_best" parameterType = "java.util.Map" resultMap = "ResultMap">
+		select * from PRODUCT
 	</select>
 	
 	<!-- 대표그룹 기준잡고 해당하는 모든 옵션 그룹들 가져오기 -->
@@ -41,4 +55,8 @@
 	<select id = "getProduct_BoardTotalA" parameterType = "int" resultType = "int">
 		select count(*) from PRODUCT_BOARD where p_cateNum = #{cateNum}
 	</select>
+	
+	<!-- 글 목록 P_CATENUM and P_MIDCATE 기준 정렬 -->
+	
+	
 </mapper>  

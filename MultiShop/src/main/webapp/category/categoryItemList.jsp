@@ -72,6 +72,10 @@
 .wish {
 	background: url(../image/btn_goods_wish.png) no-repeat 50% 50%;
 }
+
+.card-body p{
+	cursor : pointer;
+}
 </style>
 </head>
 <body style="width: 100%">
@@ -124,12 +128,12 @@
 					<div id="collapseOne" class="collapse show" role="tabpanel"
 						aria-labelledby="headingOne" data-parent="#accordion">
 						<div class="card-body">
-							<a>All</a>
-							<a>Outer</a>
-							<a>Top</p>
-							<a>Bottom</p>
-							<a>Shoes</p>
-							<a>Inner</p>
+							<p>All</p>
+							<p>Outer</p>
+							<p>Top</p>
+							<p>Bottom</p>
+							<p>Shoes</p>
+							<p>Inner</p>
 						</div>
 					</div>
 				</div>
@@ -192,10 +196,10 @@
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
 					<ul>
-						<li class="active" onclick="fn_sort('6');"><a href="#link">인기순</a></li>
-						<li><a href="#link" onclick="fn_sort('1');">신상품순</a></li>
-						<li><a href="#link" onclick="javascript:fn_sort('3');">낮은가격순</a></li>
-						<li><a href="#link" onclick="javascript:fn_sort('4');">높은가격순</a></li>
+						<li class="active" onclick="fn_sort(2);"><a href="#link">인기순(공사중)</a></li>
+						<li><a href="#link" onclick="fn_sort(1);">신상품순</a></li>
+						<li><a href="#link" onclick="fn_sort(3);">낮은가격순</a></li>
+						<li><a href="#link" onclick="fn_sort(4);">높은가격순</a></li>
 						<li><a href="../detail_page/detailPage.do" onclick="">상세정보</a></li>
 					</ul>
 				</div>
@@ -295,30 +299,7 @@
 				$('.quickViewBody').empty();
 			});
 			
-
-			//글목록 불러옴
-			$.ajax({
-				type : 'POST',
-				url : '../category/getList.do',
-				data : {
-					'cateNum' :  $("#cateNum").val(),
-					'pg' : $("#pg").val()
-				}, //따옴표치면 문자열, 안치면 숫자 
-				dataType : 'json',
-				success : function(data) { //data에는 리스트들
-					//alert(JSON.stringify(data));
-					var card_contents = '';
-					$.each(data.list, function(index, items) {
-						card_contents += card(items);
-					});
-					$('#card_contents').html(card_contents);
-					$('#categoryPaging').html(data.categoryPaging.pagingHTML);
-
-				}
-			});
-			/* $.postJSON('../category/getList.do', '${cateNum}', function(data){
-				alert(data);
-			}); */
+			
 		});
 	
 		
@@ -361,6 +342,8 @@
 			  var regexp = /\B(?=(\d{3})+(?!\d))/g;
 			  return num.toString().replace(regexp, ',');
 		}
+		
+		
 	</script>
 </body>
 </html>

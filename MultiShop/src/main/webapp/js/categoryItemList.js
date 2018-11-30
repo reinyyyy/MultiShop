@@ -1,11 +1,56 @@
 $(document).ready(function(){
-	/*$(document).on('mouseenter', '.card-img-top',function() {
-		$('.util').attr('display', 'block');
-		alert($('.util').attr('display'));
+	
+	//최초 글목록 sortType 으로 채워주기
+	alert('수동적으로 : ' + $('#sortType').val());
+	//글목록 불러옴
+	$.ajax({
+		type : 'POST',
+		url : '../category/getList.do',
+		data : {
+			'cateNum' :  $("#cateNum").val(),
+			'pg' : $("#pg").val(),
+			'sortType' : $('#sortType').val()
+		}, //따옴표치면 문자열, 안치면 숫자 
+		dataType : 'json',
+		success : function(data) { //data에는 리스트들
+			//alert(JSON.stringify(data));
+			var card_contents = '';
+			$.each(data.list, function(index, items) {
+				card_contents += card(items);
+			});
+			$('#card_contents').html(card_contents);
+			$('#categoryPaging').html(data.categoryPaging.pagingHTML);
+
+		}
 	});
-	$(document).on('mouseleave', '.card-img-top',function() {
-		$('.util').attr('display', 'none');
-	});*/
+	
+	$('.card-body p').click(function(){
+		var p_midCate = $(this).text();
+		
+		
+		$.ajax({
+			type : 'POST',
+			url : '../category/getList.do',
+			data : {
+				'cateNum' :  $("#cateNum").val(),
+				'pg' : $("#pg").val(),
+				'sortType' : $('#sortType').val()
+			}, //따옴표치면 문자열, 안치면 숫자 
+			dataType : 'json',
+			success : function(data) { //data에는 리스트들
+				//alert(JSON.stringify(data));
+				var card_contents = '';
+				$.each(data.list, function(index, items) {
+					card_contents += card(items);
+				});
+				$('#card_contents').html(card_contents);
+				$('#categoryPaging').html(data.categoryPaging.pagingHTML);
+
+			}
+		});
+		
+		alert(p_midCate);
+	});
 })
 
 
@@ -19,23 +64,50 @@ $(document).ready(function(){
 
 //categoriItemList.jsp 에서 사용
 
-function fn_sort(sortNo) {
-	alert(sortNo);
+function categoryList(pg){
+	alert('페이지이동  : ' + $("#sortType").val());
+	location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val();
+}
+
+function fn_sort(sortType) {			//sortType 제어 정렬누를시 pg 1로 설정
+	$('#sortType').val(sortType);
+	
+	$('#pg').val(1);
+	
+	alert($("#sortType").val());
+	
+	location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val();
+	
+	/*
+	$.ajax({
+		type : 'POST',
+		url : '../category/getList.do',
+		data : {
+			'cateNum' :  $("#cateNum").val(),
+			'pg' : $("#pg").val(),
+			'sortType' : sortType
+		}, //따옴표치면 문자열, 안치면 숫자 
+		dataType : 'json',
+		success : function(data) { //data에는 리스트들
+			alert(JSON.stringify(data));
+			//alert(JSON.stringify(data));
+			var card_contents = '';
+			$.each(data.list, function(index, items) {
+				card_contents += card(items);
+			});
+			$('#card_contents').html(card_contents);
+			$('#categoryPaging').html(data.categoryPaging.pagingHTML);
+
+		},
+		error : function(){
+			alert('실패');
+		}
+	});
+	
+	*/
+	
 }
 
 function goPage(cateNum){
 	location.href = "../category/categoryItemList.do?cateNum="+cateNum;
 }
-/*
-function postJSON(url, data){
-	var ajax = $.ajax({
-		type : 'POST',
-		url : url,
-		data : data,
-		dataType : 'json',
-		success : function(data){
-			alert(JSON.stringify(data));
-			return data;
-		}
-	});
-}*/
