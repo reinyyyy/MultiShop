@@ -43,11 +43,24 @@ $(document).ready(function(){
       var select_color = $('#detail_colorSelect').val();
       var select_size = $('#detail_sizeSelect').val();
       var select_amount = $('#detail_amountSelect').val();
+      var session_email = $('#session_email').val();
       
       $('#basketModal').modal({backdrop: 'static', keyboard: false});
       
       $('#goBasket').click(function(){
-         $('#detail_form').submit();
+    	  if(session_email.length<=0){
+        	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+    	    	  
+        	  //장바구니 비 로그인시
+        	  $('#detail_loginBtn').click(function(){
+        		  $('#basketModal_xBtn').trigger('click');
+        		  $('#non_loginCloseBtn').trigger('click');
+        		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
+    		  });
+          }else if(session_email.length>0){
+        	  location.href="../mypage/mypage.do"
+          }
+    	  
       });
       
    });
@@ -57,8 +70,21 @@ $(document).ready(function(){
       var select_color = $('#detail_colorSelect').val();
       var select_size = $('#detail_sizeSelect').val();
       var select_amount = $('#detail_amountSelect').val();
+      var session_email = $('#session_email').val();
+      //alert(session_email.length);
       
-      $('#detail_form').submit();
+      if(session_email.length<=0){
+    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+	    	  
+    	  //바로구매 비 로그인시
+    	  $('#detail_loginBtn').click(function(){
+    		  $('#non_loginCloseBtn').trigger('click');
+    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
+		  });
+      }else if(session_email.length>0){
+    	  $('#detail_form').submit();
+      }
+      
       
    });
    

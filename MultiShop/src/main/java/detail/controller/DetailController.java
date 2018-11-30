@@ -46,10 +46,19 @@ public class DetailController {
    //상세페이지
    @RequestMapping(value="detailPage", method=RequestMethod.GET)
    public String detailPageView(/*@RequestParam int p_code,*/Model model,HttpSession session) {
+   
+    String session_email = (String) session.getAttribute("session_email");
+	  System.out.println("아이디값="+session_email);
+	  
+	  if(session_email==null && session_email=="") {
+		  model.addAttribute("session_email", null);
+	  }else {
+		  model.addAttribute("session_email", session_email);
+	  }
  
-	   String session_email = (String)session.getAttribute("session_email");
+	  
 	  /*model.addAttribute("p_code",p_code);*/
-	  model.addAttribute("session_email", session_email);
+
       model.addAttribute("section", "/detail_page/detailPage.jsp");
       return "/main/main";
    }
@@ -60,13 +69,18 @@ public class DetailController {
                                @RequestParam(value="detail_sizeSelect") String size, 
                                @RequestParam(value="detail_amountSelect") String amount, 
                                @RequestParam int productCode, 
-                               @RequestParam String productName) {
+                               @RequestParam String productName,
+                               HttpSession session) {
+      
+      String session_email = (String) session.getAttribute("session_email");
+      System.out.println("@@"+session_email);
       
       model.addAttribute("color", color);
       model.addAttribute("size", size);
       model.addAttribute("amount", amount);
       model.addAttribute("productCode", productCode);
       model.addAttribute("productName", productName);
+      model.addAttribute("session_email", session_email);
       model.addAttribute("section", "/detail_page/orderPage.jsp");
       return "/main/main";
    }
@@ -96,13 +110,16 @@ public class DetailController {
       
       System.out.println(detailDTO);
       
-      //다시 DB가고
-      memberDTO = memberDAO.getZipcode(email);
-      System.out.println("@@"+memberDTO+"@@@");
       ModelAndView mav = new ModelAndView();
       mav.addObject("detailDTO", detailDTO);
-      mav.addObject("memberDTO", memberDTO);
       mav.setViewName("jsonView");
+      
+      if(email!=null&&email!="") {
+    	  //다시 DB가고
+          memberDTO = memberDAO.getZipcode(email);
+          System.out.println("@@memberDTO="+memberDTO+"@@@");
+          mav.addObject("memberDTO", memberDTO);
+      }
       
       return mav;
    }
