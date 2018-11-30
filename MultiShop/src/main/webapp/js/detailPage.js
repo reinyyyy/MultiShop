@@ -13,7 +13,7 @@ $(document).ready(function(){
       }else if(select_amount==2){
          $('#totalPrice').text((totalPrice*2).toLocaleString());
       }else if(select_amount==3){
-         $('#totalPrice').text((totalPrice*3).toLocaleString());
+         $('#totalPrice').text((totalPrice*3).toLocaleString());	
       }else if(select_amount==4){
          $('#totalPrice').text((totalPrice*4).toLocaleString());
       }else if(select_amount==5){
