@@ -19,7 +19,7 @@
 		#{o_status},#{p_code},#{p_cost},#{p_amount}) 
 	</insert>
 
-	<select id="orderAllList" parameterType="Map" resultType="orderDTO">
+	<select id="orderAllList" parameterType="String" resultType="orderDTO">
       select * from order_table where m_email = #{email}
    	</select>
    	

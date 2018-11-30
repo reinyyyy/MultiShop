@@ -18,6 +18,6 @@ public interface OrderDAO {
 	//재우 DetailController에서 결재 때문에 추가한것
 	public void insertOrder(Map<String, String> map);
 	
-	public List<OrderDTO> orderAllList(Map<String,String> map);
+	public List<OrderDTO> orderAllList(String email);
 	
 }

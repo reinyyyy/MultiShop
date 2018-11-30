@@ -85,9 +85,7 @@ public class MypageController {
       @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.POST)
       public ModelAndView delivery(HttpSession session) {
       String email = (String) session.getAttribute("session_email");
-      Map<String,String> map = new HashMap<String,String>();
-      map.put("email", email);
-      List<OrderDTO> list = orderDAO.orderAllList(map);
+      List<OrderDTO> list = orderDAO.orderAllList(email);
       ModelAndView mav = new ModelAndView("jsonView","data",list);
       return mav;
       }
