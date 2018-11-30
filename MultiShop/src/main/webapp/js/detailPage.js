@@ -81,18 +81,16 @@ $(document).ready(function(){
       else{
          var detail_hoogiStar =  $('input[name="detail_hoogiStar"]:checked').val();
          var detail_hoogiModalContent = $('#detail_hoogiModalContent').val();
-         /*var id = $('#session_email').val();*/
+         var id = $('#session_email').val();
+         alert(id);
          /*var p_code = $('#p_code').val();*/
          var p_code = 1;
-         var id ='id';
-         var seq= 3;
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_hoogi.do',
             data : {'detail_hoogiStar': detail_hoogiStar
                   ,'detail_hoogiModalContent':detail_hoogiModalContent
                   ,'id':id
-                  ,'seq':seq
                   ,'p_code':p_code},
             success : function(){
             	location.reload();
@@ -126,11 +124,9 @@ $(document).ready(function(){
          $('#detail_QnAContentDiv').text('내용을 입력하세요.').css('color','red').css('font-size','9pt');
       }
       else{
-         /*var id = $('#session_email').val();*/
+         var id = $('#session_email').val();
     	  /*var p_code = $('#p_code').val();*/
     	  var p_code = 1;
-    	  var id ='id';
-         var seq = 12;
          var condition = $('input[name="detail_QnACondition"]:checked').val();
          var detail_QnASubject = $('#detail_QnASubject').val();
          var detail_QnAContent = $('#detail_QnAContent').val();
@@ -140,7 +136,6 @@ $(document).ready(function(){
             type : 'POST',
             url : '/MultiShop/detail_page/detail_QnA.do',
             data : {'p_code':p_code,
-            	  	'seq':seq,
             	  	'id':id,
             	  	'condition':condition,
             	  	'detail_QnASubject':detail_QnASubject,
@@ -184,7 +179,6 @@ $(document).ready(function(){
    //QnA 답변 완료
    $('#detail_QnASendViewBtn').on('click',function(){
       var seq = $('#detail_QnAReplySeq').val();
-      /*var id = $('#session_email').val();*/
       var detail_QnAReplyView = $('#detail_QnAReplyView').val();
       var reply = 'complet';
       

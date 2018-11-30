@@ -331,7 +331,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	//이미지 확대 기능
-	$('.picZoomer').picZoomer();
+	/* $('.picZoomer').picZoomer(); */
 
 	//이미지 변경
 	$('#detailSub1_image').click(function(){

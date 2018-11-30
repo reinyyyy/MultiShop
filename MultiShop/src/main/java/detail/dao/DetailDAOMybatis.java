@@ -30,13 +30,13 @@ public class DetailDAOMybatis implements DetailDAO {
    
    // 양현규
    	@Override
-   	public void detail_userReview(DetailhoogiDTO detailhoogiDTO) {
-      sqlSession.insert("detailSQL.detail_userReview",detailhoogiDTO);
+   	public void detail_userReview(Map<String,String> map) {
+      sqlSession.insert("detailSQL.detail_userReview",map);
    	}
    	//테이블 변경
    	@Override
-   	public void detail_userQnA(DetailQnADTO detailQnADTO) {
-      sqlSession.insert("detailSQL.detail_userQnA",detailQnADTO);
+   	public void detail_userQnA(Map<String,String> map) {
+      sqlSession.insert("detailSQL.detail_userQnA",map);
    	}
    	@Override
    	public DetailQnADTO detail_GetQnAViewList(int seq) {
