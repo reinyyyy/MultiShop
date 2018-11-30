@@ -71,7 +71,7 @@ $(document).ready(function(){
             function(data){
                $('#RSAModulus').val(data.RSAModulus);
                $('#RSAExponent').val(data.RSAExponent);
-               $('#login_modal').modal({backdrop: 'static', keyboard: false});
+               $('#login_modal').modal({backdrop: 'static', keyboard: false}); 
             },'json'
       );
    });

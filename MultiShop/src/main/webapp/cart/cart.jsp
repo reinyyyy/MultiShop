@@ -4,14 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet" href="../css/shoppingcart.css">
-
-<title>Basket</title>
 </head>
-
 <body>
-  
-    <div class="basket">
+ <div class="basket">
       <div class="basket-module">
         <label for="promo-code">쿠폰입력</label>
         <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
@@ -66,7 +63,7 @@
         </div>
       </div>
     </div>
-    <aside>
+    <aside> -->
       <div class="summary">
         <div class="summary-total-items"><span class="total-items"></span> WishList</div>
         <div class="summary-subtotal">
@@ -94,8 +91,8 @@
           <button class="checkout-cta">Go to Secure Checkout</button>
         </div>
       </div>
-    </aside>
-  
-</body>
-
+     </aside>
+     </body>
 </html>
+
+

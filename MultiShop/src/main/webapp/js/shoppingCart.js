@@ -124,8 +124,5 @@ function removeItem(removeButton) {
   });
 }
 
-$(document).ready(function(){
-	$('#wishlist').click(function(){
-		$('#summary').show();
-	});
-});
+
+

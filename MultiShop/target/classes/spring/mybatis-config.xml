@@ -9,6 +9,6 @@
       	<typeAlias type="detail.bean.DetailhoogiDTO" alias="detail_hoogiDTO"/>
       	<typeAlias type="detail.bean.DetailQnADTO" alias="detail_QnADTO"/>
       	<typeAlias type="mypage.bean.OrderDTO" alias="orderDTO"/>
-	</typeAliases>
-	 
+      	<typeAlias type="cart.bean.CartDTO" alias="cartDTO"/>
+	</typeAliases>  
 </configuration>
