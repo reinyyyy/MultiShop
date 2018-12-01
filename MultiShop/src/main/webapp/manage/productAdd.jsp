@@ -306,7 +306,7 @@
 					<tr id = "option_no_tr">
 					 	<th>재고<span class="fc-red">*</span></th>
 					 	<td>
-							<input class = "need_check_input only_number"  type="text" id = "no_p_amount" name="p_amount[]_list" placeholder="재고 " value="">
+							<input class = "need_check_input only_number"  type="text" id = "no_p_amount" name="p_amount[]" placeholder="재고 " value="">
 							<div id = "no_p_amount_div"></div>
 						</td>
 						<td>
@@ -352,7 +352,7 @@
 										<div id = "p_option2_div"></div>
 									</td>
 									<td>
-										<input class = "need_check_input"  type="text" id = "p_amount" name="p_amount[]" placeholder="재고 " value="">
+										<input class = "need_check_input"  type="text" id = "p_amount" name="p_amount[]_list" placeholder="재고 " value="">
 										<div id = "ok_p_amount_div"></div>
 									</td>
 									<td style="width : 10%">
