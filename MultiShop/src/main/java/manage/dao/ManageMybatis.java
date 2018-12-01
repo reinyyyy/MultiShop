@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import manage.bean.InquiryDTO;
 
 @Component
 @Transactional
@@ -39,5 +40,10 @@ public class ManageMybatis implements ManageDAO {
 	//데이터 넣기전 seq 값 구하기
 	public int getSeq() {
 		return sqlSession.selectOne("manageSQL.getSeq");
+	}
+
+	@Override
+	public int inquiryInsert(InquiryDTO inquiryDTO) {
+		return sqlSession.insert("manageSQL.inquiryInsert", inquiryDTO);
 	}
 }

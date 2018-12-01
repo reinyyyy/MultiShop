@@ -5,6 +5,7 @@ import java.util.Map;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import manage.bean.InquiryDTO;
 
 public interface ManageDAO {
 
@@ -21,5 +22,7 @@ public interface ManageDAO {
 
 	//현재 시퀀스값 조회
 	public int getSeq();
+
+	public int inquiryInsert(InquiryDTO inquiryDTO);
 	
 }
