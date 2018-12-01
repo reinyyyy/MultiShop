@@ -10,6 +10,7 @@
       	<typeAlias type="category.bean.ProductDTO" alias="productDTO"/>
       	<typeAlias type="category.bean.Product_boardDTO" alias="product_boardDTO"/>
       <typeAlias type="mypage.bean.OrderDTO" alias="orderDTO"/>
+      <typeAlias type="manage.bean.InquiryDTO" alias="inquiryDTO"/>
 	</typeAliases>
 	 
 </configuration>

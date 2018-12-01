@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import manage.bean.InquiryDTO;
 import mypage.bean.OrderDTO;
 
 @Component
@@ -54,5 +55,18 @@ public class ManageMybatis implements ManageDAO {
 			map.put("o_num", o_num);
 			map.put("o_status", o_status);
 		 return sqlSession.update("manageSQL.orderStatusUpdate",map);
+	}
+
+	@Override
+	public List<InquiryDTO> inquiryList() {
+		return sqlSession.selectList("manageSQL.inquiryList");
+	}
+
+	@Override
+	public int inquiryUpdate(int i_seq, String i_inquiry) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("i_seq", i_seq);
+		map.put("i_inquiry", i_inquiry);
+		return sqlSession.update("manageSQL.inquiryUpdate",map);
 	}
 }

@@ -11,6 +11,9 @@
             <div id="order_list" class="tbl-list tbl-extend tbl-horz mt-20">
             	<jsp:include page="../manage/order_table.jsp"></jsp:include>
             </div>
+            <div id="inquiry_list" class="tbl-list tbl-extend tbl-horz mt-20">
+            	<jsp:include page="../manage/inquiry_table.jsp"></jsp:include>
+            </div>
             <div class="paging" id="pagination">
             </div><!-- .paging -->
         </div><!-- .sect-cont -->
