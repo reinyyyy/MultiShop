@@ -5,6 +5,7 @@ import java.util.Map;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import manage.bean.InquiryDTO;
 import mypage.bean.OrderDTO;
 
 public interface ManageDAO {
@@ -29,4 +30,9 @@ public interface ManageDAO {
 	//주문상태변경
 	public int orderStatusUpdate(int o_num,String o_status);
 	
+	//1:1리스트
+	public List<InquiryDTO> inquiryList();
+
+	//1:1답변변경
+	public int inquiryUpdate(int i_seq,String i_inquiry);
 }

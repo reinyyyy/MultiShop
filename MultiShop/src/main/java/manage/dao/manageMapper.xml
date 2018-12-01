@@ -88,10 +88,16 @@
 	 -->
 	 
 	 <select id="orderList" resultType="orderDTO">
-	 	select * from order_table
+	 	select * from order_table order by 4 desc
 	 </select>
 	 <update id="orderStatusUpdate" parameterType="Map">
 	 	update order_table set o_status = #{o_status} where o_num = #{o_num}
+	 </update>
+	 <select id="inquiryList" resultType="inquiryDTO">
+	 	select * from inquiry order by 1 desc
+	 </select>
+	 <update id="inquiryUpdate" parameterType="Map">
+	 	update inquiry set i_inquiry = #{i_inquiry} where i_seq = #{i_seq}
 	 </update>
 </mapper>  
 

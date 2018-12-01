@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<table id="order_list_table">
+<table id="order_list_table" style="width: 100%;">
 	<thead>
 		<tr>
 			<th>주문일시</th>
@@ -93,6 +93,7 @@ $(document).ready(function() {
 					 {"o_status":"배송중","o_num":orderNum},
 					 function(data){
 						 if(data=='1'){
+							 alert('배송상태가 변경되었습니다.');
 							 location.reload();
 						 }
 					 });
@@ -101,6 +102,7 @@ $(document).ready(function() {
 						 {"o_status":"배송완료","o_num":orderNum},
 						 function(data){
 							 if(data=='1'){
+								 alert('배송상태가 변경되었습니다.');
 								 location.reload();
 							 }
 						 });

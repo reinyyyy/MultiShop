@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import manage.bean.InquiryDTO;
 import manage.dao.ManageDAO;
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
@@ -315,4 +316,16 @@ public class ManageController {
 	public @ResponseBody int orderStatusUpdate(int o_num,String o_status) {
 		return manageDAO.orderStatusUpdate(o_num, o_status);
 	}
+	//1:1문의 json 받기
+	@RequestMapping(value="inquiryList", method=RequestMethod.POST)
+	public ModelAndView inquiryList() {
+		List<InquiryDTO> list = manageDAO.inquiryList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//1:1문의 답변상태 변경
+		@RequestMapping(value="inquiryUpdate", method=RequestMethod.POST)
+		public @ResponseBody int inquiryUpdate(int i_seq,String i_inquiry) {
+			return manageDAO.inquiryUpdate(i_seq, i_inquiry);
+		}
 }
