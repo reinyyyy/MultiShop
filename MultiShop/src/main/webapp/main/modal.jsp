@@ -310,7 +310,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">
+				<button type="button" id="send_mailBtn" class="btn btn-primary">
 					<i class="fas fa-hand-pointer"></i>
 				</button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">

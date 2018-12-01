@@ -13,21 +13,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import manage.bean.InquiryDTO;
 import manage.dao.ManageDAO;
 
 @Controller
 @RequestMapping("/manage")
 public class ManageController {
 	
-	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	private static final String UPLOAD_PATH = "D:\\Spring\\workspace\\1\\MultiShop\\src\\main\\webapp\\upload";
 	
 	@Autowired
 	private ManageDAO manageDAO;
+	
+	@Autowired
+	private InquiryDTO inquiryDTO;
 	
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public ModelAndView main() {
@@ -275,7 +280,7 @@ public class ManageController {
 		
 		//DB 접근
 		manageDAO.product_boardInsert(product_boardDTO);
-		
+		System.out.println(product_boardDTO);
 		//PRODUCT_BOARD 저장완료
 		String[] detail_image = p_image.split("/");
 		
@@ -285,5 +290,11 @@ public class ManageController {
 		mav.addObject("display", "/manage/test.jsp");
 		mav.setViewName("/section/adminIndex");
 		return mav;
+	}
+	
+	/*1:1문의*/
+	@RequestMapping(value="inquiryInsert", method=RequestMethod.POST)
+	public @ResponseBody int inquiryInsert(@ModelAttribute InquiryDTO inquiryDTO) {
+		return manageDAO.inquiryInsert(inquiryDTO);
 	}
 }

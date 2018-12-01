@@ -467,8 +467,33 @@ $(document).ready(function(){
    });
    
    $('#noticeBtn').on('click',function(){
-	      location.href="/MultiShop/notice/notice.do?pg=1"
-	   });
+	   location.href="/MultiShop/notice/notice.do?pg=1"
+   });
    
+   /* 1:1답변 */
+   $('#send_mailBtn').on('click',function(){
+	   var inputEmail = $('#inputEmail');
+	   var inputTitle = $('#inputTitle');
+	   var emailTextarea = $('#emailTextarea');
+	   if(inputEmail.val()==''){
+		   $('#inputEmail').attr('placeholder','이메일을 입력해주세요.');
+	   }else if(inputTitle.val()==''){
+		   $('#inputTitle').attr('placeholder','제목을 입력해주세요.');
+	   }else if(emailTextarea.val()==''){
+		   $('#emailTextarea').attr('placeholder','내용을 입력해주세요.');
+	   }else{
+         $.post('/MultiShop/manage/inquiryInsert.do',
+        		 	{"m_email":inputEmail.val(),"i_title":inputTitle.val(),"i_content":emailTextarea.val()},
+        		 	function(data){
+						if(data==1){
+							alert("답변등록이 완료되었습니다.");
+							$('#send_email').modal('hide');
+						}else{
+							alert("실패");
+						}
+         			},'text'
+           		);
+        	}
+	});
 });
 
