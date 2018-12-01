@@ -3,6 +3,7 @@ package manage.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -180,14 +181,18 @@ public class ManageController {
 			System.out.println("img : " + img.isEmpty());
 			System.out.println(img.getName());
 			if(!img.isEmpty()) {
-				String fileName = img.getOriginalFilename();
-				String temp = fileName.substring(fileName.length()-4, fileName.length());
-				System.out.println(temp);
-				p_image += "/"+seq+"_"+index+temp;
+				String fullName = img.getOriginalFilename();	//확장자를 포함한 파일의 진짜이름
+				String temp_name = "/"+seq+"_"+index; 				//1_1 , 1_2 식으로 만듦
+				String save_name = temp_name + fullName.substring(fullName.length()-4, fullName.length());		//1_1에  확장자를 더함
+				
+				System.out.println(temp_name);
+				
+				p_image += "/"+seq+"_"+index+fullName.substring(fullName.length()-4, fullName.length());		//DB에 들어갈 이름 구함
+				 
 				index++;
 				
 				System.out.println("대표 이미지 파일 이름 : " + p_image);
-				File file = new File(UPLOAD_PATH, p_image);
+				File file = new File(UPLOAD_PATH, save_name);
 				try {
 					FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
 				} catch (IOException e) {
@@ -247,7 +252,30 @@ public class ManageController {
 		//int p_code = p_group_list.get(0); //dao묶음 풀기
 		
 		//PRODUCT_BOARD 저장시작
-		
+		p_image = "";
+		index = 10;
+		for(MultipartFile img : detail_list) {
+			System.out.println(img.getName());
+			if(!img.isEmpty()) {
+				String fullName = img.getOriginalFilename();	//확장자를 포함한 파일의 진짜이름
+				String temp_name = "/"+seq+"_"+index; 				//1_1 , 1_2 식으로 만듦
+				String save_name = temp_name + fullName.substring(fullName.length()-4, fullName.length());		//1_1에  확장자를 더함
+				
+				System.out.println(temp_name);
+				
+				p_image += "/"+seq+"_"+index+fullName.substring(fullName.length()-4, fullName.length());		//DB에 들어갈 이름 구함
+				 
+				index++;
+				
+				System.out.println("상세 이미지 파일 이름 : " + p_image);
+				File file = new File(UPLOAD_PATH, save_name);
+				try {
+					FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		Product_boardDTO product_boardDTO = new Product_boardDTO();
 		product_boardDTO.setP_cateNum(Integer.parseInt(map.get("p_cateNum")));
