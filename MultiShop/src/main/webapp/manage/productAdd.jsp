@@ -100,24 +100,24 @@
                 <tr>
                     <th><strong>상품명 <span class="fc-red">*</span></strong></th>
                     <td>
-                        <input type="text" id = "p_name"name="p_name" value="" class="w70per">
-                        <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/250)</span>
+                        <input class = "need_check_input" type="text" id = "p_name"name="p_name" value="" class="w70per" maxlength = "40">
+                        <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/40)</span>
                         <div id = "p_name_div"></div>
                     </td>
                 </tr>
                 <tr>
                     <th><strong>제조사 <span class="fc-red">*</span></strong></th>
                     <td>
-                        <input type="text" id = "p_maker" name="p_maker" value="" class="w70per">
-                        <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/250)</span>
+                        <input class = "need_check_input"  type="text" id = "p_maker" name="p_maker" value="" class="w70per" maxlength = "40">
+                        <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/40)</span>
                         <div id = "p_maker_div"></div>
                     </td>
                 </tr>
                 <tr>
                     <th><strong>원산지 <span class="fc-red">*</span></strong></th>
                     <td>
-                        <input type="text" id = "p_origin" name="p_origin" value="" class="w70per">
-                        <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/250)</span>
+                        <input class = "need_check_input"  type="text" id = "p_origin" name="p_origin" value="" class="w70per" maxlength = "40">
+                        <span class="mt-5 fc-gray fs-15">(<span id="prd_byte">0</span>/40)</span>
                         <div id = "p_origin_div"></div>
                     </td>
                 </tr>
@@ -296,38 +296,22 @@
 					<colgroup>
 						<col class="w140">
 					</colgroup>
-				<tbody>
+					<tbody>
 					<tr>
 						<th>옵션 선택</th>
 						<td><label><input type="radio"  class = "option_check" name = "option_check"value="Y" checked="checked" ><span>사용함</span></label>
 							<label><input type="radio" class = "option_check" name = "option_check"value="N"><span>사용안함</span></label>
 							</td>
 					</tr>
-				
-					<tr class="opt-select js-optResetFalse is-pc-row" is-opt="true" style="display:none;">
-						<th>옵션명<span class="fc-red">*</span></th>
-						
-						<td>
-                           	<ul class="mobile-option">
-                               	<li>
-									<select id="add_option_id" prd-id="0"></select>
-                                   </li>
-                                   <li>
-									<span>옵션값</span><span class="fc-red">*</span> <input type="text" name="add_option_value"> <a href="#" class="btn-black" id="btn_add_opt">추가</a>
-                                   </li>
-                               </ul>
+					<tr id = "option_no_tr">
+					 	<th>재고<span class="fc-red">*</span></th>
+					 	<td>
+							<input class = "need_check_input only_number"  type="text" id = "no_p_amount" name="p_amount[]_list" placeholder="재고 " value="">
+							<div id = "no_p_amount_div"></div>
 						</td>
-					</tr>
-							<tr id = "option_no_tr">
-								 	<th>재고<span class="fc-red">*</span></th>
-								 	<td>
-										<input type="text" id = "no_p_amount" name="p_amount[]" placeholder="재고 " value="">
-										<div id = "no_p_amount_div"></div>
-									</td>
-									<td>
-									</td>
-		                   </tr>
-			                   
+						<td>
+						</td>
+                   </tr>
 					<tr id = "option_ok_tr" class="opt-select js-optResetTrue bg-yellow is-pc-row" is-opt="false" style="display: table-row;">
 						<td colspan="2">
 							<div class="tbl-list" id="mix_option">
@@ -341,13 +325,13 @@
 								<thead>
 								<tr>
 									<th>
-										옵션명
+										옵션명<span class="fc-red">*</span>
 									</th>
 									<th>
-										옵션값
+										옵션값<span class="fc-red">*</span>
 									</th>
 									<th>
-										재고
+										재고<span class="fc-red">*</span>
 									</th>
 									<th style="width: 10%">
 										<a href="javascript:void(0)" class="btn-add-opt">
@@ -359,16 +343,16 @@
 								<tbody id="p_option_tbody">
 								<tr>
 									<td>
-										<input type="text" id = "p_option1" name="p_option1[]" placeholder="옵션명을 입력하세요. (예시: 색상/사이즈)" value="">
+										<input class = "need_check_input"  type="text" id = "p_option1" name="p_option1[]" placeholder="옵션명을 입력하세요. (예시: 색상/사이즈)" value="" >
 										<div id = "p_option1_div"></div>
 										<!-- 옵션1 , 를 기준으로 나눌거임 -->
 									</td>
 									<td>
-										<input type="text" id = "p_option2" name="p_option2[]" placeholder="옵션값을 입력하세요. (예시: red/m)" value="">
+										<input class = "need_check_input"  type="text" id = "p_option2" name="p_option2[]" placeholder="옵션값을 입력하세요. (예시: red/m)" value="">
 										<div id = "p_option2_div"></div>
 									</td>
 									<td>
-										<input type="text" id = "p_amount" name="p_amount[]" placeholder="재고 " value="">
+										<input class = "need_check_input"  type="text" id = "p_amount" name="p_amount[]" placeholder="재고 " value="">
 										<div id = "ok_p_amount_div"></div>
 									</td>
 									<td style="width : 10%">
@@ -406,7 +390,7 @@
                                 			'<tr>' +
                                 			'<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상/사이즈)"></td>' +
                                 			'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red/m)"></td>' +
-                                			'<td><input type = "text" name = "p_amount[]" placeholder = "재고 " value = ""></td>' + 
+                                			'<td><input type = "text" name = "p_amount[]_list" placeholder = "재고 " value = ""></td>' + 
                                 			'<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
                                 			'</tr>'
                                 			;
@@ -747,16 +731,81 @@ $('.btn-arrow').on('click', function(e) {
         $(this).parent('.sect-hd').next('.sect-cont').hide();
     }
 });
+
+//파일 사이즈 체크
+function CheckUploadFileSize(objFile, file){
+	 var nMaxSize = 4 * 1024 * 1024; // 4 MB
+	 var nFileSize = objFile.files[0].size;
+	alert(nFileSize);
+	
+	 if (nFileSize > nMaxSize) {
+		 alert("10MB보다 큽니다" + nFileSize + " byte");
+		 return false;
+	 }else{
+		return true; 
+	 }
+ }
+
+function CheckuploadFileExt(objFile){
+	var strFilePath = objFile.value;
+	
+	// 정규식
+	var IMG_FORMAT = "\.(bmp|gif|jpg|jpeg|png)$";
+	
+ 	if((new RegExp(IMG_FORMAT, "i")).test(strFilePath)){
+ 		return true;
+ 	}else{
+ 		alert("이미지파일만 업로드해주세요");
+ 		return false;	
+ 	}
+}
+
+function getTextLength(str) {
+	var len = 0;
+
+	for (var i = 0; i < str.length; i++) {
+		//if (escape(str.charAt(i)).length == 6) {
+			//len++;
+		//}
+		len++;
+	}
+	return len;
+}
+
+function bytesHandler(obj, tag){
+	var text = $(obj).val();
+	tag.next().find('span').text(getTextLength(text));
+}
 	
 $(document).ready(function(){
-		//이게 있어야 미리보기에 들어가짐
+	
+		//키입력이벤트		상품명, 제조사, 원산지
+		$('.need_check_input').keydown(function(){
+	        if ($(this).val().length > $(this).attr('maxlength')) {
+				 $(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+			}
+			bytesHandler(this, $(this));
+		});
+
+
+		//파일업로드이벤트 유효성검사 해줘야댐
 		$('input[name="img_detail[]"]').change(function(){
+			if(!CheckUploadFileSize(this, $(this)) || !CheckuploadFileExt(this)){
+				return;
+			}
+			
 			readURL(this);
 			readURL_input(this, $(this));
 		});
 		$('input[name="img[]"]').change(function(){
+			if(!CheckUploadFileSize(this, $(this)) || !CheckuploadFileExt(this)){
+				return;
+			}
+			
 			readURL_input(this, $(this));
 		});
+		
+		
 	
 		//매개변수로 옵션태그 찍어내줌
 		function optionMaker(values){
