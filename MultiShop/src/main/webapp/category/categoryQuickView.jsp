@@ -171,11 +171,20 @@
 			var option_tag = '';
 			var class_index = '';
 			var option_result = '';
-			<c:forEach items="${option_result_list}" var="item1">
+			var option_DTO = [];
+			<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
 				var option_list = "${item1}";
-				var split_result = option_list.replace('[', '').replace(']', '').split(/[\s,]+/);
 				
-				$.each(split_result, function(index, item){
+				var split_result = option_list.replace('[', '').replace(']', '').split(/[\s,]+/);
+				option_DTO["${first_index.count-1}"] = split_result;
+				alert(split_result);
+				var ovl_result = [];
+				$.each(split_result, function(i, el){
+					if($.inArray(el, ovl_result) === -1) ovl_result.push(el);
+				});
+				
+				//중복제거 후 코드
+				$.each(ovl_result, function(index, item){
 					if(index == 0){
 						option_name = '<dt>'+item+'</dt>';
 					}else {
@@ -183,6 +192,16 @@
 					}
 					class_index = index;
 				});
+/*	중복제거 전 코드 				
+				$.each(split_result, function(index, item){
+					if(index == 0){
+						option_name = '<dt>'+item+'</dt>';
+					}else {
+						option_tag += '<option value = "'+item+'" >'+item+'</option>';
+					}
+					class_index = index;
+				}); */
+				
 				
 				option_result +=
 				'<li>'+
@@ -190,7 +209,7 @@
 						option_name +
 						'<dd>' +
 							'<div>' +
-								'<select name="detail_colorSelect" id="detail_colorSelect">'+
+								'<select class = "option_select" name="option_select'+'${first_index.count}" id="option_select'+'${first_index.count}">'+
 									option_tag +
 								'</select>'+
 							'</div>'+
@@ -198,9 +217,20 @@
 					'</dl>'+
 				'</li>';
 				option_tag = '';
-				
 			</c:forEach>
 			
+			var test = [];
+			$(document).on('change', '.option_select', function(){
+				//alert($(this).val());
+				$.each(option_DTO, function(index, items){
+					alert("포문들어옴 " + index + " " + items);
+					$.each(items, function(i, t){
+						if(i != 0){
+							alert("이중포 들어옴" + t);
+						}
+					});
+				});
+			});
 			
 			var temp = $('.aboutListBottom').html() + option_result;
 			$('.aboutListBottom').html(temp);
@@ -229,6 +259,15 @@
 			   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
 			   $('#detailMain_image').attr('src', '../image/coat4.jpg');
 			});
+			alert(option_DTO.length);
+			alert(option_DTO);
+			function option_maker(){
+					
+			}
+			
+			
 		});
+		
+		
 	</script>
 	
