@@ -43,12 +43,6 @@
 </style>
 <body style="">
 
-<script type="text/javascript">
-var isMobile    = false;
-var admDir      = "/adm";
-var imgPath     = "//image.makeshop.co.kr/mysoho";
-</script>
-<input type="text" id="datepicker3">
 <div id="aside" tabindex="1" style="overflow: hidden; outline: none;">
     <div class="menu-wrapper">
         <div class="hd ani">
@@ -56,7 +50,7 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
                 <div class="inner">
                     <div class="info">
                         <p class="photo">
-                        	<i class="fas fa-cog fa-5x"></i>
+                        	<a href="../manage/main.do"><i class="fas fa-cog fa-5x"></i></a>
                         </p>
                     </div>
                 </div>
@@ -76,13 +70,16 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
                 <a href="#"  id="memberManageBtn">고객관리</a>
             </li>
         	<li>
-                <a href="#"  id="orderManageBtn">주문관리</a>
+                <a href="../manage/orderManagePage.do"  id="orderManageBtn">주문관리</a>
             </li>
         	<li>
-                <a href="#"  id="inquiryManageBtn">1:1문의관리</a>
+                <a href="../manage/inquiryPage.do"  id="inquiryManageBtn">1:1문의관리</a>
             </li>
         	<li>
-                <a href="#"  id="noticeManageBtn">공지관리</a>
+                <a href="../manage/noticePage.do"  id="noticeManageBtn">공지관리</a>
+            </li>
+        	<li>
+                <a href="../main/index.do"  id="noticeManageBtn">나가기</a>
             </li>
         </ul>
     </div><!-- .menu-wrapper -->
@@ -92,7 +89,6 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
     <div class="page-hd">
         <h1><a href="../manage/main.do">관리자 페이지</a></h1>
     </div><!-- .page-hd -->
-
 <style type="text/css">
 .period-4x .btn-toggle {
     width:20%;

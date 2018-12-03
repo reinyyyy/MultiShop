@@ -3,29 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="page-body">
     <h2 class="blind">메인</h2>
-    <!-- notice -->
-      <div class="sect-hd">
-        <h3>공지사항</h3>
-        <a href="../manage/noticePage.do" class="right lnk">공지사항</a>
-    </div><!-- .sect-hd -->
-    <div class="sect-cont">
-        <div id="notice_list" class="tbl-list tbl-extend tbl-horz mt-20">
-        	<table id="notice_list_table" style="width: 100%;">
-				<thead>
-					<tr>
-						<th>공지번호</th>
-						<th>제목</th>
-						<th>내용</th>
-						<th>등록일</th>
-					</tr>
-				</thead>
-			</table>
-        </div>
-    </div><!-- .sect-cont -->
-
+    
     <div class="sect-hd">
         <h3>주문현황</h3>
-        <a href="../manage/orderManageTotal2.do" class="right lnk">주문관리</a>
+        <a href="../manage/orderManagePage.do" class="right lnk">주문관리</a>
     </div><!-- .sect-hd -->
     <div class="sect-cont pd-none">
         <ul class="order-status">
@@ -55,6 +36,28 @@
             </li>
                     </ul>
     </div><!-- .sect-cont -->
+    
+    <!-- notice -->
+      <div class="sect-hd">
+        <h3>공지사항</h3>
+        <a href="../manage/noticePage.do" class="right lnk">공지관리</a>
+    </div><!-- .sect-hd -->
+    <div class="sect-cont">
+        <div id="notice_list" class="tbl-list tbl-extend tbl-horz mt-20">
+        	<table id="notice_list_table" style="width: 100%;">
+				<thead>
+					<tr>
+						<th>공지번호</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>등록일</th>
+					</tr>
+				</thead>
+			</table>
+        </div>
+    </div><!-- .sect-cont -->
+
+    
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src = "../js/manage/product.js"></script>

@@ -311,6 +311,13 @@ public class ManageController {
 		return mav;
 	}
 	
+	//주문관리페이지
+	@RequestMapping(value="orderManagePage", method=RequestMethod.GET)
+	public ModelAndView orderManagePage(@ModelAttribute ModelAndView mav) {
+		mav.addObject("display", "/manage/orderManagePage.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
 	//오더리스트 json 받기
 	@RequestMapping(value="orderList", method=RequestMethod.POST)
 	public ModelAndView orderList() {
@@ -323,6 +330,13 @@ public class ManageController {
 	public @ResponseBody int orderStatusUpdate(int o_num,String o_status) {
 		return manageDAO.orderStatusUpdate(o_num, o_status);
 	}
+	//1:1문의페이지
+		@RequestMapping(value="inquiryPage", method=RequestMethod.GET)
+		public ModelAndView inquiryPage(@ModelAttribute ModelAndView mav) {
+			mav.addObject("display", "/manage/inquiryPage.jsp");
+			mav.setViewName("/main/adminIndex");
+			return mav;
+		}
 	//1:1문의 json 받기
 	@RequestMapping(value="inquiryList", method=RequestMethod.POST)
 	public ModelAndView inquiryList() {
@@ -338,7 +352,6 @@ public class ManageController {
 	//공지사항페이지
 	@RequestMapping(value="noticePage", method=RequestMethod.GET)
 	public ModelAndView noticePage(@ModelAttribute ModelAndView mav) {
-		
 		mav.addObject("display", "/manage/noticeManage.jsp");
 		mav.setViewName("/main/adminIndex");
 		return mav;
