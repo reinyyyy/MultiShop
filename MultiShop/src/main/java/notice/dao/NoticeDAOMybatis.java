@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import notice.bean.NoticeDTO;
+import notice.bean.QnaDTO;
 
 @Transactional
 @Component
@@ -17,6 +18,8 @@ public class NoticeDAOMybatis implements NoticeDAO {
 	private SqlSession sqlSession;
 	@Autowired
 	private NoticeDTO noticeDTO;
+	@Autowired
+	private QnaDTO qnaDTO;
 	/*
 	public List<NoticeDTO> noticeList() {
 		return sqlSession.selectList("noticeSQL.noticeList");
@@ -32,6 +35,11 @@ public class NoticeDAOMybatis implements NoticeDAO {
 	
 	public NoticeDTO noticeView(int n_number) {
 		return sqlSession.selectOne("noticeSQL.noticeView", n_number);
+	}
+
+	@Override
+	public List<QnaDTO> qnaList() {
+		return sqlSession.selectList("noticeSQL.qnaList");
 	}
 
 }

@@ -495,5 +495,12 @@ $(document).ready(function(){
            		);
         	}
 	});
+   	
+   	/* Q&A */
+   $('#qnaBtn').on('click',function(){
+	   location.href="/MultiShop/qna/qna.do";
+   });
+   
+   
 });
 

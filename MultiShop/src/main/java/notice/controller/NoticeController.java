@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import notice.bean.NoticeDTO;
 import notice.bean.NoticePaging;
+import notice.bean.QnaDTO;
 import notice.dao.NoticeDAO;
 
 @Controller
@@ -26,6 +27,8 @@ public class NoticeController {
 	private NoticeDAO noticeDAO;
 	@Autowired
 	private NoticeDTO noticeDTO;
+	@Autowired
+	private QnaDTO qnaDTO;
 	@Autowired
 	private NoticePaging noticePaging;
 	
@@ -82,5 +85,16 @@ public class NoticeController {
 		mav.setViewName("/main/main");
 		return mav;
 	}
-
+	
+	//qna
+	@RequestMapping(value="/qna/qna.do", method=RequestMethod.GET)
+	public ModelAndView qna() {
+		ModelAndView mav = new ModelAndView();
+		List<QnaDTO> list = noticeDAO.qnaList();
+		mav.addObject("qnalist",list);
+		System.out.println(list);
+		mav.addObject("section","/qna/qna.jsp");
+		mav.setViewName("/main/main");
+		return mav;
+	}
 }

@@ -19,5 +19,7 @@
 		select * from notice where n_number=#{n_number}
 	</select>
 	
-	
+	<select id="qnaList" resultType="qnaDTO">
+		<![CDATA[select * from qnatable order by q_number desc]]>
+	</select>
 </mapper>

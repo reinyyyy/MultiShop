@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import notice.bean.NoticeDTO;
+import notice.bean.QnaDTO;
 
 @Transactional
 @Component
@@ -19,6 +20,8 @@ public interface NoticeDAO {
 	public int getNotice_TotalA();
 
 	public NoticeDTO noticeView(int n_number);
+
+	public List<QnaDTO> qnaList();
 
 
 }
