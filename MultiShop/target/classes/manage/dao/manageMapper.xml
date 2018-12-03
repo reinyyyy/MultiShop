@@ -99,6 +99,13 @@
 	 <update id="inquiryUpdate" parameterType="Map">
 	 	update inquiry set i_inquiry = #{i_inquiry} where i_seq = #{i_seq}
 	 </update>
+	 <select id="noticeList" resultType="noticeDTO">
+	 	select * from notice order by 1 desc
+	 </select>
+	 
+	 <insert id="noticeInsert" parameterType="Map">
+ 		insert into notice values(notice_SEQ.nextval,#{n_subject},#{n_content},sysdate)
+	 </insert>
 </mapper>  
 
 

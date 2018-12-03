@@ -7,6 +7,7 @@ import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import manage.bean.InquiryDTO;
 import mypage.bean.OrderDTO;
+import notice.bean.NoticeDTO;
 
 public interface ManageDAO {
 
@@ -35,4 +36,10 @@ public interface ManageDAO {
 
 	//1:1답변변경
 	public int inquiryUpdate(int i_seq,String i_inquiry);
+
+	//1:1리스트
+	public List<NoticeDTO> noticeList();
+	
+	//1:1답변변경
+	public int noticeInsert(Map<String,String> map);
 }

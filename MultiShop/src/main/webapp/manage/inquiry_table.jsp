@@ -32,7 +32,7 @@ $(document).ready(function() {
              {
                  "render": function ( data, type, row ) {
                      	if(data==null){
-                     		return "답변달기";
+                     		return "<button>답변달기</button>";
                      	}else{
                      		return data;
                      	}

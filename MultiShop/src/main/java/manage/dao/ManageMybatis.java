@@ -13,6 +13,7 @@ import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import manage.bean.InquiryDTO;
 import mypage.bean.OrderDTO;
+import notice.bean.NoticeDTO;
 
 @Component
 @Transactional
@@ -68,5 +69,15 @@ public class ManageMybatis implements ManageDAO {
 		map.put("i_seq", i_seq);
 		map.put("i_inquiry", i_inquiry);
 		return sqlSession.update("manageSQL.inquiryUpdate",map);
+	}
+
+	@Override
+	public List<NoticeDTO> noticeList() {
+		return sqlSession.selectList("manageSQL.noticeList");
+	}
+
+	@Override
+	public int noticeInsert(Map<String,String> map) {
+		return sqlSession.insert("manageSQL.noticeInsert",map);
 	}
 }

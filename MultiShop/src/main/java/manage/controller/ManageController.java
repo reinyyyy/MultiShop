@@ -24,6 +24,7 @@ import manage.dao.ManageDAO;
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
 import mypage.bean.OrderDTO;
+import notice.bean.NoticeDTO;
 
 @Controller
 @RequestMapping("/manage")
@@ -327,5 +328,26 @@ public class ManageController {
 	@RequestMapping(value="inquiryUpdate", method=RequestMethod.POST)
 	public @ResponseBody int inquiryUpdate(int i_seq,String i_inquiry) {
 		return manageDAO.inquiryUpdate(i_seq, i_inquiry);
+	}
+	//공지사항페이지
+	@RequestMapping(value="noticePage", method=RequestMethod.GET)
+	public ModelAndView noticePage(@ModelAttribute ModelAndView mav) {
+		
+		mav.addObject("display", "/manage/noticeManage.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	
+	//공지사항 json 받기
+	@RequestMapping(value="noticeList", method=RequestMethod.POST)
+	public ModelAndView noticeList() {
+		List<NoticeDTO> list = manageDAO.noticeList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//공지사항 쓰기
+	@RequestMapping(value="noticeInsert", method=RequestMethod.POST)
+	public @ResponseBody int noticeInsert(@RequestParam Map<String,String> map) {
+		return manageDAO.noticeInsert(map);
 	}
 }
