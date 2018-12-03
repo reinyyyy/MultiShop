@@ -273,7 +273,7 @@
 			//{사이즈, 11, 22, 33 , 42}
 			
 			// {블랙, 미디움, 11},
-			// {블랙, 미디움, 11},
+			// {블랙, 라지, 22},
 			// {블랙, 미디움, 11},
 			// {블랙, 미디움, 11},
 			
@@ -301,17 +301,19 @@
 			alert(result_DTO[2]);
 			alert(result_DTO[3]);
 			 */
-		
+			
 			//option_list_maker(result_DTO);
 			 
 			//하위 옵션 판단함수
 			var user_selected = new Array();
 			var i = 0;
-			var amount;
+			var amount_op;
 			function option_list_maker (name, next_index){
 				
 				if(next_index == 1){	//첫옵션 선택시 초기화
-					user_selected = new Array();
+					//user_selected = new Array();
+					arr_clear(next_index);	
+					$('#amount_input').val(0);
 				}else{
 					arr_clear(next_index);	
 				}
@@ -326,24 +328,37 @@
 							op += op_maker(items[next_index], op);
 						}
 						//alert('t : ' + items[next_index-1] + ' 같음');
-						if(option_length == next_index){
-							var ctn = 1;
-							for(var j = 0; j < user_selected.length; j++ ){
-								if(items[i] == user_selected[k]){
-									alert('items['+j+'] = ' + items[j] + 'user_selected['+k+'] = ' + user_selected[k]);
-									ctn += 1;	
+						if(option_length == next_index){		// 마지막 옵션 선택했을 경우
+							
+							/*
+							
+								판단 필요한 거 : result_DTO[] 와  user_selected 에 비교해서 수량 빼내와야댐  
+								
+								
+							*/
+							
+							var cnt = 1;
+							//alert("포문돌기전 유저선택값 " + user_selected);			12/3 7:53
+							//alert(user_selected.length);							12/3 7:53
+							for(var j = 0; j < user_selected.length; j++){
+								if(items[j] == user_selected[j]){
+									//alert("같음!! " + items[j]);	
+									cnt += 1;
 								}else{
-									ctn = 1;	
+									alert("다름!! " + items[j]);
+									cnt = 1;
 								}
-								if(ctn == user_selected.length){
-									amount = items[j+1];
-									
-								}
-								k++;
 							}
+							if(cnt == user_selected.length+1){		//두 배열이 완전 똑같을경우
+								amount_op = items[cnt-1];
+								//alert("완전똑같음"+ items);			12/3 7:53
+								$('#amount_input').val(amount_op);								
+							}
+							//alert(amount_op);	
+							
 							k = 0;
-							alert("선택해온 값 " + user_selected);
-							//alert("개수..."+ amount);
+							//alert("선택해온 값 " + user_selected);		12/3 7:53
+							//alert("개수..."+ amount);			12/3 7:53
 						}
 					}
 				});
@@ -352,9 +367,10 @@
 				
 			}
 			
+			//선택한값 삭제 함수
 			function arr_clear(start_num){
-				for(var i = (start_num-1); i < user_selected.length; i++){
-					user_selected.splice(i, 1);
+				for(var z = (start_num-1); z < user_selected.length; z++){
+					user_selected.splice(z, 1);
 				}
 				i = start_num-1;
 				
@@ -372,9 +388,18 @@
 				//alert($(this).val());			11:55
 				//alert($(this).prev().val());	11:55
 				//{블랙, 미디움, 11}
+				reset($(this).prev().val());	
 				option_list_maker($(this).val(), $(this).prev().val()); 
 				
 			});
+				
+			function reset(remove_num){
+				var val = Number(remove_num)+2;
+				for(var i = 0; i < option_length; i++){
+					$('#option_select'+val).empty().append('<option>옵션선택</option>');
+					val += 1;
+				}
+			} 
 			
 			
 			
@@ -443,6 +468,10 @@
 				
 			}
 			
+			
+			for(var i = 2; i < option_DTO.length; i++){
+				$('#option_select'+i).html('<option>옵션선택</option>');
+			}	
 			
 		});
 		
