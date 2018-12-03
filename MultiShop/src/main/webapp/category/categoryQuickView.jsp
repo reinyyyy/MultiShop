@@ -77,12 +77,6 @@
 										<dd>${productDTO.p_origin }</dd>
 									</dl>
 								</li>
-								<li>
-									<dl>
-										<dt>발송예정일</dt>
-										<dd>12월 25일 이내</dd>			<!-- 모르겠음 ㅜㅜ -->
-									</dl>
-								</li>
 							<!-- cateNum 에 따라서 동적으로 다르게 생성해줘야함 --> 
 							
 							
@@ -161,6 +155,7 @@
 			
 			//alert(result[1]);
 			var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
+			$('.mask').find('img').attr('src', );
 			$('.mask').html(img_tag);
 			
 			$.each(result, function(index, items){
@@ -408,10 +403,9 @@
 			var amount_input =
 				'<li>'+
 					'<dl id = "amount_list">'+
-						'수량' +
 						'<dd>' +
 							'<div>' +
-								'<input id = "amount_input" type="number" min="0" max="99"'+
+							'<dt>수량</dt><input id = "amount_input" type="number" min="0" max="99"'+
 									//'onkeydown="max_amount()"'+
    									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
 								'id="yourid">'+

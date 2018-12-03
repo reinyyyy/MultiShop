@@ -184,14 +184,14 @@
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content">
 		<!-- 상단 히스토리 바 -->
-			<nav aria-label="breadcrumb" role="navigation">
+		<%-- 	<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb">
 					<!-- 사용자 클릭히스토리로 동적 처리필요 -->
 					<li class="breadcrumb-item"><a href="../main/index.do">HOME</a></li>
 					<li class="breadcrumb-item"><a onclick="goPage('${cateNum}')" href = "javascript:void(0)">${pageName }</a></li>
 					<li class="breadcrumb-item active" aria-current="page">데이터</li>
 				</ol>
-			</nav>
+			</nav> --%>
 		
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
@@ -239,7 +239,7 @@
 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="../js/categoryItemList.js"></script>
+	
 	<script type="text/javascript" src="../js/detailPage.js"></script>
 	<script>
 	//카테고리 값으로 받아옴	
@@ -333,7 +333,8 @@
 		//상세 페이지 이동 이벤트
 		$(document).on('click','.card-img-top', function(){
 			var p_code = $(this).next().find('input').val();
-			location.href = "../detail_page/detailPage.do?p_code="+p_code;
+			var cateNum = $('#cateNum').val();
+			location.href = "../detail_page/detailPage.do?p_code="+p_code+"&cateNum="+cateNum;
 		});
 		
 		//3자리수 콤마 제작 함수
@@ -344,6 +345,7 @@
 		
 		
 	</script>
+	<script src="../js/categoryItemList.js"></script>
 </body>
 </html>
 

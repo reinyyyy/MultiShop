@@ -600,7 +600,7 @@
             		$('#check_img').click(function(){
             			var data = 	$('#default_iframe').contents().find('#contents_div').html();
             			var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
-            			var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '<img>');
+            			var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '');	//두번째인자에 '<img>' 주면 태그 위치남겨줌
             			alert(result2);
             		});
             		
@@ -614,8 +614,6 @@
     	        		var holder = $('#holder'); 
     	        	    //holder = document.getElementById('holder'),
     	        	    state = document.getElementById('status');
-    	        	    
-    	        	    
     	        	    
     	        	    $.each(upload, function(index, items){
     	        	    	var file = items.files;
@@ -909,7 +907,7 @@ $(document).ready(function(){
     	//컨텐츠 hidden값에 넣어줘야함
     	var data = 	$('#default_iframe').contents().find('#contents_div').html();
 		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n').replace(/<br>/gi, '\n');
-		var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '<img>');
+		var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '');	//'<img>'두번째인자 지워주면 됨
 //		alert(result2); //이미지태그 개수 및 위치 표시가능
 		
 		$('#p_contents').val(result2);
