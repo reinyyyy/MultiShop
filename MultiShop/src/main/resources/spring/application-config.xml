@@ -28,6 +28,8 @@
     <context:component-scan base-package="manage.bean"/>
     <context:component-scan base-package="manage.dao"/>
     <context:component-scan base-package="mypage.dao"/>
+    <context:component-scan base-package="cart.dao"/>
+	<context:component-scan base-package="cart.bean"/>
     
     <!-- mail -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 

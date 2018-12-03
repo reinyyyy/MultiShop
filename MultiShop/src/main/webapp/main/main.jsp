@@ -41,15 +41,12 @@
 	color: #fff; 
 	z-index:1300;
 }
+
 #wishList{
 	position: absolute;
-	width: 2500px;
-	height: 200px;
-	left: 1000px;
-	top: 800px;
-	background-color: #E6E6E6;
-	color: #fff; 
-	z-index:1300;
+ 	left: 1200px;
+	top: 200px;
+	z-index:1090;
 }
 
 .float_left {
@@ -112,12 +109,21 @@
                                 aria-label="Left Align">
                                 <i class="fas fa-user-circle"></i>
                             </button>
-                        </c:if></li>
+                        </c:if>
+                       </li>
                     <li>
-                        <button type="button" class="btn btn-light"
+                    <c:if test="${session_email == null}">
+                        <button type="button" class="btn btn-light" data-backdrop="static" data-toggle="modal" data-target="#cart_nonmember" aria-label="Left Align">
+						   <i class="fas fa-shopping-cart"></i>
+						</button>
+                      </c:if>
+                      
+                      <c:if test="${session_email != null}">
+                        <button type="button" class="btn btn-dark" id="shoppingCartBtn"
                             aria-label="Left Align">
                             <i class="fas fa-shopping-cart"></i>
                         </button>
+                      </c:if>
                     </li>
 				</ul>
 				<a href="http://localhost:8080/MultiShop/main/index.do">
@@ -127,7 +133,7 @@
 				<ul class="icon_list float_right">
 					<li>    
 					 <c:if test="${session_email != null}">
-						<button type="button" class="btn btn-danger" id="wishlist" onclick="document.getElementById('summary').style.display='none';" aria-label="Left Align">
+						<button type="button" class="btn btn-danger" id="wishlist_login" aria-label="Left Align">
 						   <i class="far fa-heart"></i>
 						</button>
 					 </c:if>
@@ -249,10 +255,11 @@
 	
    <jsp:include page="modal.jsp"/>
 	
-	<div id="floatMenu">
+	<!-- <div id="floatMenu">
 		<audio src="../music/Arms.mp3"  autoplay controls style="z-index: 1300"></audio>
-	</div>
-	
+	</div> -->
+	<div id="wishList">
+   	</div>
 	<div id='my-spinner' style="z-index: 1200">
       <div><span>
          <img src='//cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif'>
@@ -445,6 +452,13 @@
 <script type="text/javascript" src="../js/scrollTop.js"></script>
 <script type="text/javascript" src="../js/eventPopUp.js"></script>
 <script type="text/javascript" src="../js/followMenu.js"></script>
+<script type="text/javascript" src="../js/shoppingCart.js"></script>
+<script type="text/javascript">
+$('#wishlist_login').click(function(){
+	$('#wishList').load("../section/wishlist.jsp");
+});
+
+</script>
 <script>
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
