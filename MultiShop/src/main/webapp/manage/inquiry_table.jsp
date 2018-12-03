@@ -15,6 +15,11 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	$.post('/MultiShop/manage/inquiryList.do',
+			function(data){
+			console.log(data);
+	});
+	
 	var inquiry = '';
    var table = $('#inquiry_list_table').DataTable({
        ajax: {

@@ -324,8 +324,8 @@ public class ManageController {
 		return mav;
 	}
 	//1:1문의 답변상태 변경
-		@RequestMapping(value="inquiryUpdate", method=RequestMethod.POST)
-		public @ResponseBody int inquiryUpdate(int i_seq,String i_inquiry) {
-			return manageDAO.inquiryUpdate(i_seq, i_inquiry);
-		}
+	@RequestMapping(value="inquiryUpdate", method=RequestMethod.POST)
+	public @ResponseBody int inquiryUpdate(int i_seq,String i_inquiry) {
+		return manageDAO.inquiryUpdate(i_seq, i_inquiry);
+	}
 }
