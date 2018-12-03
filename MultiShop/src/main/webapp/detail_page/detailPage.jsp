@@ -61,10 +61,10 @@
                      <li>
                         <dl>
                            <dt>판매가</dt>
-                           <dd>99,000원</dd>
+                           <dd id="product_price"></dd>
                         </dl>
                      </li>
-                     <input type="hidden" name="itemP" id="itemP" value="99000.0">
+                     <input type="hidden" name="product_price" id="product_price" value="99000.0">
                      <li>
                         <dl>
                            <dt>배송비</dt>
@@ -76,8 +76,8 @@
                      <li>
                         <dl>
                            <dt>상품코드</dt>
-                           <dt>0001</dt>
-                           <input type="hidden" name="productCode" id="productCode" value="0003">
+                           <dt id="product_code">${p_code}</dt>
+                           <input type="hidden" name="productCode" id="productCode" value="${p_code}">
                            <!-- <input type="hidden" name="p_midCate" id="p_midCate" value="">
                            <input type="hidden" name="p_smallCate" id="p_smallCate" value=""> -->
                            
@@ -100,7 +100,7 @@
                            <dt>색상</dt>
                            <dd>
                               <div class="detail_color">
-                                 <select name="detail_colorSelect" id="detail_colorSelect">
+                                 <select name="detail_colorSelect" id="detail_colorSelect" onchange="changeColor(this.value)">
                                     <option value="black" selected="selected">black</option>
                                     <option value="green">green</option>
                                     <option value="begie">begie</option>
@@ -116,10 +116,10 @@
                            <dd>
                               <div class="detail_size">
                                  <select name="detail_sizeSelect" id="detail_sizeSelect">
-                                    <option value="S" selected="selected">S</option>
+                                    <!-- <option value="S" selected="selected">S</option>
                                     <option value="M">M</option>
                                     <option value="L">L</option>
-                                    <option value="XL">XL</option>
+                                    <option value="XL">XL</option> -->
                                  </select>
                               </div>
                            </dd>
@@ -320,10 +320,118 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <script type="text/javascript">
+
+//색깔 선택 시 재고 확인 후 동적으로 구매가능한 사이즈만 확인 
+function changeColor(detail_colorSelect){
+	$.ajax({
+		type : "POST",
+		url : '/MultiShop/detail_page/getSelectBox.do',
+		dataType : 'json',
+		data : {selectColor : detail_colorSelect},
+		success : function(data){
+			//alert(JSON.stringify(data));
+			$('#detail_sizeSelect').find("option").remove().end().append("<option value=''>전체</option>");
+			
+			$.each(data.sizeList, function(i){
+				$('#detail_sizeSelect').append("<option value='"+data.sizeList[i]+"'>"+data.sizeList[i]+"</option>");
+			});
+			
+		},error : function(data){
+			alert("에러에러에러에러에러에러에러!");
+		}
+		
+	});//ajax
+	
+}
+
+
+/* function categoryChange(){
+	
+	var black = ["S","M","L","XL"];
+	var begie = ["M","L","XL"];
+	var green = ["S","M"];
+	var white = ["L","XL","XXL"];
+	
+	var selectColor = $("#detail_colorSelect option:selected").val();
+	alert(selectColor);
+	
+	var changeItem;
+	
+	if(selectColor=="black"){
+		changeItem = black;
+	}else if(selectColor="begie"){
+		changeItem = begie;
+	}else if(selectColor="green"){
+		changeItem = green;
+	}else if(selectColor="white"){
+		changeItem = white;
+		alert(changeItem);
+	}
+	
+	$('#detail_sizeSelect').empty();
+	
+	for(var i=0; i<changeItem.length; i++){
+		alert(changeItem[i]);
+		var newOption = $("<option>"+changeItem[i]+"</option>");
+		$('#detail_sizeSelect').append(newOption);
+	}
+	
+	
+	
+	/* for (x in choose) {
+	    var opt = document.createElement("option");
+	    opt.value = choose[x];
+	    opt.innerHTML = choose[x];
+	    target.appendChild(opt);
+	}  
+	
+} */
+
 $(document).ready(function(){
+	
 	//이미지 확대 기능
 	$(".xzoom").xzoom();
 	
+	var option_arr =[];
+	//상세페이지 값너어주기
+	var k = 0;
+	var j = 0;
+	$.ajax({
+		type : 'POST',
+		url : '/MultiShop/detail_page/getDetailPage.do',
+		data : {'p_code':'${p_code}'},
+		dataType : 'json',
+		success : function(data){
+			//alert(JSON.stringify(data));
+			alert(data.product_boardDTO.p_COST);
+			
+			alert(data.product_boardDTO.p_name + data.product_boardDTO.p_contents);
+			$('#product_price').text(data.product_boardDTO.p_COST+"원");
+				
+			$.each(data.detail_list, function(index, items){
+				//alert("index : " + index +"items : " + items);			//index 변수명, items 값
+				//alert(items.p_midCate);
+				$.each(items, function(i, t){
+					option_arr[k] = t;
+					k++;
+				});
+			});
+			//alert(option_arr);
+			/* 
+			alert(JSON.stringify(data));
+			var detail_list = data.detail_list;
+			alert(detail_list[0]);
+			var jbSplit = jbString.split('/');
+			alert(jbSplit); */
+			/*
+			for(var i in JwSplit){
+				console(JwSplit[i]);
+			} */
+		},error : function(data){
+			alert("에러발생!@!@");	
+		}
+		
+	});
 
 	 //이미지 변경
 	$('#detailSub1_image').click(function(){

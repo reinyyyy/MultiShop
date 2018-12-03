@@ -11,6 +11,15 @@
       update product set p_amount=p_amount-#{p_amount}, p_sales=#{p_amount} where p_option1=#{p_color} and p_option2=#{p_size}
    </update>
    
+   <select id="getDetailPageSource" parameterType="int" resultType="detailDTO">
+   		select * from product where p_group=#{p_code}
+   </select>
+   
+   <select id="getDetailPageInfo" parameterType="int" resultType="Product_boardDTO">
+   		select * from product_board where p_code=#{p_code}
+   </select>
+   
+   
     <!-- 양현규 -->
    <insert parameterType="java.util.Map" id="detail_userReview">
        insert into detail_hoogi values(#{p_code},detail_hoogi_seq.nextval,#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 

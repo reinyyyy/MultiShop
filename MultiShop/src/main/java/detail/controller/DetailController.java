@@ -1,5 +1,6 @@
 package detail.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import category.bean.ProductDTO;
+import category.bean.Product_boardDTO;
 import detail.bean.DetailDTO;
 import detail.bean.DetailQnADTO;
 import detail.bean.DetailhoogiDTO;
@@ -42,10 +45,12 @@ public class DetailController {
    private MemberDAO memberDAO;
    @Autowired
    private OrderDAO orderDAO;
+   @Autowired
+   private Product_boardDTO product_boardDTO;
    
    //상세페이지
    @RequestMapping(value="detailPage", method=RequestMethod.GET)
-   public String detailPageView(/*@RequestParam int p_code,*/Model model,HttpSession session) {
+   public String detailPageView(@RequestParam int p_code,Model model,HttpSession session) {
    
     String session_email = (String) session.getAttribute("session_email");
 	  System.out.println("아이디값="+session_email);
@@ -56,12 +61,129 @@ public class DetailController {
 		  model.addAttribute("session_email", session_email);
 	  }
  
+	  System.out.println("p_code = "+p_code+"@@@@@");
 	  
-	  /*model.addAttribute("p_code",p_code);*/
-
+	  /*
+	   * detailDTO = detailDAO.getDetailPageSource(p_code);
+	  System.out.println("detailDTO==="+detailDTO);*/
+	  
+	  
+	 /* String option1 = detailDTO.getP_option1();
+	  String[] splitResulit = option1.split("/");
+	  
+	  
+	  for(int i=0; i<=splitResulit.length; i++) {
+		  String asd = splitResulit[i];
+	  }*/
+	  
+	  model.addAttribute("detailDTO", detailDTO);
+	  model.addAttribute("p_code",p_code);
       model.addAttribute("section", "/detail_page/detailPage.jsp");
       return "/main/main";
    }
+   
+   @RequestMapping(value="getDetailPage", method=RequestMethod.POST)
+   public ModelAndView getDetailPage(@RequestParam int p_code, HttpSession session) {
+	   
+	   List<DetailDTO> detail_list = detailDAO.getDetailPageSource(p_code);
+	   System.out.println(detail_list);
+	   System.out.println();
+	   System.out.println(detail_list.size());
+	   System.out.println("-----------------");
+  
+	   for(int i=0; i<=detail_list.size()-1; i++) {
+		   System.out.println(detail_list.get(i).getP_option1()+"\t"+" "+detail_list.get(i).getP_option2()+"\t"+detail_list.get(i).getP_amount());
+	   }
+	   
+	   product_boardDTO = detailDAO.getDetailPageInfo(p_code);
+	   System.out.println("product_boardDTO="+product_boardDTO);
+	   
+	   ModelAndView mav = new ModelAndView();
+	   mav.addObject("product_boardDTO", product_boardDTO);
+	   mav.addObject("detail_list", detail_list);
+	   mav.addObject("p_code", p_code);
+	   mav.setViewName("jsonView");
+	   return mav;
+   }
+
+   // DB에서 재고 확인 후 살 수 있는 사이즈만 동적으로 추가 해 주는 것
+   @RequestMapping(value="getSelectBox", method=RequestMethod.POST)
+   public ModelAndView getSelectBox(@RequestParam String selectColor) {
+	   //System.out.println("선택된 값 : "+selectColor);
+	   
+	   //임시
+	   int p_code = 3;
+	   List<DetailDTO> dtoList = detailDAO.getDetailPageSource(p_code);
+	   System.out.println("dtoList = " + dtoList);
+	   
+	   String option1="";
+	   String option2 ="";
+	   String[] option2_arr = new String[dtoList.size()];
+	   for(int i=0; i<dtoList.size(); i++) {
+		   System.out.println(dtoList.get(i).getP_amount());
+		   //System.out.println(dtoList.get(i).getP_option1()+"\t"+" "+dtoList.get(i).getP_option2());
+		   option1 = (String) dtoList.get(i).getP_option1();
+		   option2_arr[i] = dtoList.get(i).getP_option2()+"/"+dtoList.get(i).getP_amount();
+		   System.out.println("option1===="+option1);
+		   System.out.println("option2===="+option2);
+		   System.out.println("**************************");
+		  /* System.out.println("option1="+option1.split("/"));
+		   String[] color_size1 = option1.split("/");
+		   System.out.println(color_size1[0]);
+		   System.out.println(color_size1[1]);
+		   System.out.println("@@@@@@@@@");
+		   
+		   System.out.println("option2="+option2.split("/"));
+		   String[] color_size2 = option2.split("/");
+		   System.out.println(color_size2[0]);
+		   System.out.println(color_size2[1]);*/
+	   }
+	   //System.out.println("for문밖 option1="+option1);
+	   
+	   
+	   for(String data : option2_arr) {
+		   System.out.println(data);
+		   System.out.println("--------");
+		   String option2_arrSplit[] = data.split("/");
+		   
+		   for(String data2 : option2_arrSplit) {
+			   System.out.println("split=="+data2);
+			   System.out.println("====end====");
+		   }
+		   
+	   }
+	   
+	  /* String arr2[] = arr[0].split("/");
+	   
+	   for(String data2 : arr2) {
+		   System.out.println(data2);
+	   }*/
+	   
+	   List<String> sizeList = new ArrayList();
+	   
+	   if(selectColor.equals("black")) {
+		   sizeList.add("S");
+		   sizeList.add("M");
+		   sizeList.add("L");
+		   sizeList.add("XL");
+	   }else if(selectColor.equals("green")) {
+		   sizeList.add("XS");
+		   sizeList.add("S");
+		   sizeList.add("M");
+	   }else if(selectColor.equals("white")) {
+		   sizeList.add("L");
+		   sizeList.add("XL");
+	   }else if(selectColor.equals("begie")) {
+		   sizeList.add("XXL");
+	   }
+	   //System.out.println(sizeList+"갯수=="+sizeList.size());
+	   
+	   ModelAndView mav = new ModelAndView();
+	   mav.addObject("sizeList", sizeList);
+	   mav.setViewName("jsonView");
+	   return mav;
+   }
+   
    
    //결재화면
    @RequestMapping(value="orderPage", method=RequestMethod.POST)
@@ -135,7 +257,7 @@ public class DetailController {
 	   
 	   //임의로 추가 한 것
 	   map.put("d_code", "임의배송번호");//나중에 seq로 바꿔서 하자!!
-	   map.put("o_status", "배송준비중");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 배송준비중으로 한 것
+	   map.put("o_status", "배송대기");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 배송준비중으로 한 것
 	   System.out.println(map);
 	   //재고확인 dao
 	   if(detailDAO.getClothes(map)==1) {

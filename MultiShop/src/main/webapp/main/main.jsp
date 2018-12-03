@@ -252,9 +252,9 @@
 	
    <jsp:include page="modal.jsp"/>
 	
-	<div id="floatMenu">
+	<!-- <div id="floatMenu">
 		<audio src="../music/Arms.mp3"  autoplay controls style="z-index: 1300"></audio>
-	</div>
+	</div> -->
 	
 	<div id='my-spinner' style="z-index: 1200">
       <div><span>
