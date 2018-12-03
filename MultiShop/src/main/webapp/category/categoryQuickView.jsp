@@ -152,16 +152,15 @@
 			
 			
 			
-			//option_DTO 제작
-			var option_DTO_DB = [];
 			
 			
 			var test = "${productDTO.p_image}";
 			var result = test.split('/');
 			
 			//alert(result[1]);
-			var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
-			$('.mask').html(img_tag);
+			//var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
+			$('.mask').children().find('img').attr('src',  '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
+			//$('.mask').html(img_tag);
 			
 			$.each(result, function(index, items){
 				if(index > 1){
