@@ -267,7 +267,7 @@ $(document).ready(function(){
       if(pwd.val()==''){
          $('#member_modify_statusDiv').text('비밀번호를 입력해주세요').css('color','red');
       }else{
-         $.post('/MultiShop/member/membermodifyconfirm.do',
+         $.post('/MultiShop/mypage/membermodifyconfirm.do',
                $('#member_modify_confirm_form').serialize(),
                function(data){
                   if(data=='true'){
@@ -363,6 +363,16 @@ $(document).ready(function(){
             }
       );
    });
+   
+   /*delivery page*/
+   $('#mypage_deleveryBtn').on('click',function(){
+	   location.href='/MultiShop/mypage/deliveryPage.do';
+   });
+   
+   
+   
+   
+   
    /*find email*/
    $('#find_email_modal_findBtn').on('click',function(){
       var name = $('#find_email_modal_name');
@@ -448,8 +458,8 @@ $(document).ready(function(){
    
    /*modal-show*/
    $('.modal').on('show.bs.modal', function () {
-      /*$('html, body').css({'overflow': 'hidden', 'height': '100%'}); // 모달팝업 중 html,body의 scroll을 hidden시킴
-*/      $('#element').on('scroll touchmove mousewheel', function(event) { // 터치무브와 마우스휠 스크롤 방지
+     /* $('html, body').css({'overflow': 'hidden', 'height': '100%'});*/ // 모달팝업 중 html,body의 scroll을 hidden시킴
+      $('#element').on('scroll touchmove mousewheel', function(event) { // 터치무브와 마우스휠 스크롤 방지
           event.preventDefault();
           event.stopPropagation();
           return false;

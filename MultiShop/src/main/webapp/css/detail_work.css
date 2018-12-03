@@ -1,0 +1,101 @@
+
+@charset "UTF-8";
+
+@media (max-width: 518px) {
+   .detail_hoogi{
+      display: none;
+   }
+   .detail_QnA{
+      display : none;
+   }
+   .detail_Product{
+      display : none;
+   }
+   .detail_Information{
+      display : none;
+   }
+}
+.btn_hoogi{
+   color : white;
+   background-color: #4f794f;
+   border: 2px;
+   font-size: 13px;
+   width : 150px;
+   height : 35px;
+}
+.detail_Btn_QnA{
+   color : white;
+   background-color: #4f794f;
+   border: 2px;
+   font-size: 13px;
+   width : 150px;
+   height : 35px;
+}
+table th{
+ background-color: #d5d3d3;
+ text-align: center;
+ font-size: 13px;
+ color : #6b6b6b;
+}
+.detail_hoogiTable .detail_hoogi{
+   text-align: center;
+   font-size: 12px;
+   border-right: 1px solid #d5d3d3;
+   border-bottom : 1px solid #d5d3d3;
+}
+.detail_hoogiTable .detail_hoogi:last-child {
+   border-right:0px;
+}
+.detail_QnATable .detail_QnA{
+   text-align: center;
+   font-size: 12px;
+   border-right: 1px solid #d5d3d3;
+   border-bottom : 1px solid #d5d3d3;
+}
+.detail_QnATable .detail_QnA:last-child {
+   border-right:0px;
+}
+.detail_hoogiModalUl li{
+   list-style : none;
+   float : left;
+}
+#detail_QnAContent{
+   height : 170px;
+}
+.detail_QnAModalUl{
+   padding: 0px;
+    margin: 0px;
+    text-align: center;
+}
+.detail_QnAModalUl li{
+   list-style: none;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+.detail_QnAModalUl li img{
+   width : 50px;
+   height : 50px;
+}
+.detail_QnACondition {
+   width : 20px;
+   height : 20px;
+}
+.detail_QnA_ContactUs{
+   cursor: pointer;
+}
+#detail_QnAContentView{
+   height : 170px;
+}
+.detail_QnAView_Form-group{
+   margin-bottom: 0px;
+}
+#detail_QnAReplyView{
+   height : 80px;
+}
+.detail_hoogi_alramSpan{
+	cursor : pointer;
+}	
+.detail_QnAView_List{
+	border-bottom: 1px solid #d5d3d3;
+}
