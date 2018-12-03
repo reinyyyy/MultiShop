@@ -145,7 +145,7 @@
 						
 					</li>
 					<li>
-						<button type="button" id="qnaBtn" class="btn btn-info" aria-label="Left Align">
+						<button type="button" class="btn btn-info" aria-label="Left Align">
 						   <i class="fas fa-question"></i>
 						</button>
 					</li>
@@ -248,11 +248,11 @@
    </section>
 	
    <jsp:include page="modal.jsp"/>
-	<!-- 
-	<div id="floatMenu">
+	
+	<!-- <div id="floatMenu">
 		<audio src="../music/Arms.mp3"  autoplay controls style="z-index: 1300"></audio>
-	</div>
-	 -->
+	</div> -->
+	
 	<div id='my-spinner' style="z-index: 1200">
       <div><span>
          <img src='//cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif'>

@@ -30,15 +30,24 @@ public class ManageController {
 	
 	@Autowired
 	private ManageDAO manageDAO;
-	
+	@Autowired
+	private MemberDTO memberDTO;
+	@Autowired
+	private MemberDAO memberDAO;
 	@Autowired
 	private InquiryDTO inquiryDTO;
 	
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("display", "/manage/main.jsp");
+		int delivery_wait = manageDAO.orderTableCount("배송대기");
+		int delivery_ing = manageDAO.orderTableCount("배송중");
+		int delivery_complete = manageDAO.orderTableCount("배송완료");
+		mav.addObject("delivery_wait", delivery_wait);
+		mav.addObject("delivery_ing", delivery_ing);
+		mav.addObject("delivery_complete",delivery_complete);
+		mav.addObject("totalSales", manageDAO.totalSales());
+		mav.addObject("display", "/manage/main2.jsp");
 		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
@@ -66,6 +75,14 @@ public class ManageController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("display", "/manage/orderManageTotal.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	@RequestMapping(value="orderManageTotal2", method=RequestMethod.GET)
+	public ModelAndView orderManageTotal2() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("display", "/manage/orderManageTotal2.jsp");
 		mav.setViewName("/main/adminIndex");
 		return mav;
 	}
@@ -280,7 +297,7 @@ public class ManageController {
 		
 		//DB 접근
 		manageDAO.product_boardInsert(product_boardDTO);
-		System.out.println(product_boardDTO);
+		
 		//PRODUCT_BOARD 저장완료
 		String[] detail_image = p_image.split("/");
 		
@@ -296,5 +313,50 @@ public class ManageController {
 	@RequestMapping(value="inquiryInsert", method=RequestMethod.POST)
 	public @ResponseBody int inquiryInsert(@ModelAttribute InquiryDTO inquiryDTO) {
 		return manageDAO.inquiryInsert(inquiryDTO);
+	}
+	//오더리스트 json 받기
+	@RequestMapping(value="orderList", method=RequestMethod.POST)
+	public ModelAndView orderList() {
+		List<OrderDTO> list = manageDAO.orderList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//오더리스트 상품상태 변경
+	@RequestMapping(value="orderStatusUpdate", method=RequestMethod.POST)
+	public @ResponseBody int orderStatusUpdate(int o_num,String o_status) {
+		return manageDAO.orderStatusUpdate(o_num, o_status);
+	}
+	//1:1문의 json 받기
+	@RequestMapping(value="inquiryList", method=RequestMethod.POST)
+	public ModelAndView inquiryList() {
+		List<InquiryDTO> list = manageDAO.inquiryList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//1:1문의 답변상태 변경
+	@RequestMapping(value="inquiryUpdate", method=RequestMethod.POST)
+	public @ResponseBody int inquiryUpdate(int i_seq,String i_inquiry) {
+		return manageDAO.inquiryUpdate(i_seq, i_inquiry);
+	}
+	//공지사항페이지
+	@RequestMapping(value="noticePage", method=RequestMethod.GET)
+	public ModelAndView noticePage(@ModelAttribute ModelAndView mav) {
+		
+		mav.addObject("display", "/manage/noticeManage.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	
+	//공지사항 json 받기
+	@RequestMapping(value="noticeList", method=RequestMethod.POST)
+	public ModelAndView noticeList() {
+		List<NoticeDTO> list = manageDAO.noticeList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//공지사항 쓰기
+	@RequestMapping(value="noticeInsert", method=RequestMethod.POST)
+	public @ResponseBody int noticeInsert(@RequestParam Map<String,String> map) {
+		return manageDAO.noticeInsert(map);
 	}
 }

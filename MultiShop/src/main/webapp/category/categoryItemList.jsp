@@ -335,7 +335,7 @@
 			var card_html = 
 					'<div class="card" align="center">'
 					+ '<div style="position : relative;">'
-					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap">'
+					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap" style = "cursor : pointer;">'
 					+ '<div class="quick_menu" style="background : rgba(0,0,0,0.8)">'
 					+ '<a href="/product/view.asp?productNo=42046" class="btnl link" target="_blank" float="left"/>'
 					+ '<input type = "hidden" name = "p_code" value = ' + p_code + '>'
@@ -350,6 +350,11 @@
 			return card_html;
 		}
 		
+		//상세 페이지 이동 이벤트
+		$(document).on('click','.card-img-top', function(){
+			var p_code = $(this).next().find('input').val();
+			location.href = "../detail_page/detailPage.do?p_code="+p_code;
+		});
 		
 		//3자리수 콤마 제작 함수
 		function addComma(num) {

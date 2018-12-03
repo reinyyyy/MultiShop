@@ -1,5 +1,6 @@
 package manage.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import manage.bean.InquiryDTO;
+import mypage.bean.OrderDTO;
+import notice.bean.NoticeDTO;
 
 @Component
 @Transactional
@@ -45,5 +48,51 @@ public class ManageMybatis implements ManageDAO {
 	@Override
 	public int inquiryInsert(InquiryDTO inquiryDTO) {
 		return sqlSession.insert("manageSQL.inquiryInsert", inquiryDTO);
+	}
+	
+	@Override
+	public List<OrderDTO> orderList() {
+		return sqlSession.selectList("manageSQL.orderList");
+	}
+
+	@Override
+	public int orderStatusUpdate(int o_num,String o_status) {
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("o_num", o_num);
+			map.put("o_status", o_status);
+		 return sqlSession.update("manageSQL.orderStatusUpdate",map);
+	}
+
+	@Override
+	public List<InquiryDTO> inquiryList() {
+		return sqlSession.selectList("manageSQL.inquiryList");
+	}
+
+	@Override
+	public int inquiryUpdate(int i_seq, String i_inquiry) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("i_seq", i_seq);
+		map.put("i_inquiry", i_inquiry);
+		return sqlSession.update("manageSQL.inquiryUpdate",map);
+	}
+
+	@Override
+	public List<NoticeDTO> noticeList() {
+		return sqlSession.selectList("manageSQL.noticeList");
+	}
+
+	@Override
+	public int noticeInsert(Map<String,String> map) {
+		return sqlSession.insert("manageSQL.noticeInsert",map);
+	}
+
+	@Override
+	public int orderTableCount(String status) {
+		return sqlSession.selectOne("manageSQL.orderTableCount", status);
+	}
+
+	@Override
+	public String totalSales() {
+		return sqlSession.selectOne("manageSQL.totalSales");
 	}
 }

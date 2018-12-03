@@ -914,3 +914,28 @@
          </div>
       </div>
    </div>
+   
+   <!-- 1:1문의 답변달기 -->
+   <div class="modal fade animated rollIn" id="inquiry_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Login</h4>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>					
+			</div>
+			<div class="modal-body" style="text-align: center;">
+				<div class="input-group" style="margin-bottom: 10px;">
+					<span class="input-group-addon" style="background-color: #A9F5A9;"><span style="color:white"><i class="far fa-check -o fa-fw"></span></i></span>
+					<input type="text" class="form-control" width ="50" id="inquiry_modal_inquiry" name="inquiry_modal_inquiry" placeholder="답변을달아주세요" required="required">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div id="inquiry_modal_statusDiv">
+				</div>
+				<div class="container">
+					<button type="button" id="inquiry_modal_inquiryBtn" class="btn btn-dark btn-lg"><span style="color: white">답변달기</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

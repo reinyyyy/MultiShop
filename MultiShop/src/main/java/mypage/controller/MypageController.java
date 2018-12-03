@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,88 +24,69 @@ import mypage.dao.OrderDAO;
 
 @Controller
 public class MypageController {
-	
-	@Autowired
-	private MemberDTO memberDTO;
-	@Autowired
-	private MemberDAO memberDAO;
-	@Autowired
-	private OrderDTO orderDTO;
-	@Autowired
-	private OrderDAO orderDAO;
-	
-	 @RequestMapping(value="/mypage/mypage.do", method=RequestMethod.GET)
-	   public ModelAndView mypage(@ModelAttribute ModelAndView mav) {
-	      mav.addObject("section","/mypage/mypage.jsp");
-	      mav.setViewName("/main/main");
-	      return mav;
-	   }
-	   @RequestMapping(value="/mypage/membermodifyconfirmForm.do", method=RequestMethod.GET)
-	   public ModelAndView membermodifyconfirmForm(@ModelAttribute ModelAndView mav) {
-		   mav.addObject("section","/mypage/memberModify.jsp");
-		   mav.setViewName("/main/main");
-		   return mav;
-	   }
-	   @RequestMapping(value = "/mypage/membermodifyconfirm.do",method=RequestMethod.POST)
-	   public @ResponseBody String membermodifyconfirm(@RequestParam Map<String,String> map,HttpSession session) {
-	      memberDTO = memberDAO.member_view(map.get("m_email"), map.get("m_pwd"));
-	      if(memberDTO!=null) {
-	         session.setAttribute("memberDTO", memberDTO);
-	         return "true";
-	      }else {
-	         return "false";
-	      }
-	   }
-	   @RequestMapping(value="/mypage/memberModifyForm.do",method=RequestMethod.GET)
-	   public ModelAndView memberModifyForm(@ModelAttribute ModelAndView mav) {
-	      mav.addObject("section","/mypage/memberModifyPage.jsp");
-	      mav.setViewName("/main/main");
-	      return mav;
-	   }
-	   @RequestMapping(value="/mypage/memberModify.do",method=RequestMethod.POST)
-	   public @ResponseBody String memberModify(@RequestParam Map<String,String> map) {
-	      int su = memberDAO.membermodify(map);
-	      if(su==1) {
-	         return "true";
-	      }else {
-	         return "false";
-	      }
-	   }
-	   @RequestMapping(value="/mypage/deliveryPage.do",method=RequestMethod.GET)
-	   public ModelAndView deliveryPage(@ModelAttribute ModelAndView mav,@RequestParam(value="pg", defaultValue="1") int pg) {
-		   mav.addObject("section","/mypage/deliveryPage.jsp");
-		   mav.setViewName("/main/main");
-		   return mav;
-	   }
-	   
-	   @RequestMapping(value="/mypage/deliveryList.do",method=RequestMethod.POST)
-	   public @ResponseBody String deliveryList(@ModelAttribute Model model,
-			   HttpSession session,
-			   HttpServletRequest request,
-			   @RequestParam(value="pg", defaultValue="1") int pg) {
-		  String email = (String) session.getAttribute("session_email");
-		  
-		  int endNum = pg*3;
-		  int startNum = endNum-2;
-		  Map<String,String> map = new HashMap<String,String>();
-		  map.put("email", email);
-		  map.put("startNum", startNum+"");
-		  map.put("endNum", endNum+"");
-		  List<OrderDTO> list = orderDAO.orderList(map);
-		  int totalA = orderDAO.totalA();
-		  
-		  DeliveryPaging deliveryPaging = new DeliveryPaging();
-		  deliveryPaging.setCurrentPage(pg);
-		  deliveryPaging.setPageBlock(3);
-		  deliveryPaging.setPageSize(3);
-		  deliveryPaging.setTotalA(totalA);
-		  deliveryPaging.makePagingHTML();
-		  
-		  model.addAttribute("orderList",list);
-		  model.addAttribute("orderPaging",deliveryPaging.getPagingHTML());
-		  model.addAttribute("pg",pg);
-		  model.addAttribute("section","/mypage/deliveryPage.jsp");
-		  return "ture";
-	   }
-
+   
+   @Autowired
+   private MemberDTO memberDTO;
+   @Autowired
+   private MemberDAO memberDAO;
+   @Autowired
+   private OrderDTO orderDTO;
+   @Autowired
+   private OrderDAO orderDAO;
+   
+    @RequestMapping(value="/mypage/mypage.do", method=RequestMethod.GET)
+      public ModelAndView mypage(@ModelAttribute ModelAndView mav) {
+         mav.addObject("section","/mypage/mypage.jsp");
+         mav.setViewName("/main/main");
+         return mav;
+      }
+      @RequestMapping(value="/mypage/membermodifyconfirmForm.do", method=RequestMethod.GET)
+      public ModelAndView membermodifyconfirmForm(@ModelAttribute ModelAndView mav) {
+         mav.addObject("section","/mypage/memberModify.jsp");
+         mav.setViewName("/main/main");
+         return mav;
+      }
+      @RequestMapping(value = "/mypage/membermodifyconfirm.do",method=RequestMethod.POST)
+      public @ResponseBody String membermodifyconfirm(@RequestParam Map<String,String> map,HttpSession session) {
+         memberDTO = memberDAO.member_view(map.get("m_email"), map.get("m_pwd"));
+         if(memberDTO!=null) {
+            session.setAttribute("memberDTO", memberDTO);
+            return "true";
+         }else {
+            return "false";
+         }
+      }
+      @RequestMapping(value="/mypage/memberModifyForm.do",method=RequestMethod.GET)
+      public ModelAndView memberModifyForm(@ModelAttribute ModelAndView mav) {
+         mav.addObject("section","/mypage/memberModifyPage.jsp");
+         mav.setViewName("/main/main");
+         return mav;
+      }
+      @RequestMapping(value="/mypage/memberModify.do",method=RequestMethod.POST)
+      public @ResponseBody String memberModify(@RequestParam Map<String,String> map) {
+         int su = memberDAO.membermodify(map);
+         if(su==1) {
+            return "true";
+         }else {
+            return "false";
+         }
+      }
+      
+      
+      @RequestMapping(value="/mypage/deliveryPage.do",method=RequestMethod.GET)
+      public ModelAndView deliveryPage(@ModelAttribute ModelAndView mav,HttpSession session,
+                           HttpServletRequest request,
+                           @RequestParam(value="pg",defaultValue="1") int pg) {
+         mav.addObject("section","../mypage/deliveryPage.jsp");
+         mav.setViewName("/main/main");
+         return mav;
+      }
+      
+      @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.POST)
+      public ModelAndView delivery(HttpSession session) {
+      String email = (String) session.getAttribute("session_email");
+      List<OrderDTO> list = orderDAO.orderAllList(email);
+      ModelAndView mav = new ModelAndView("jsonView","data",list);
+      return mav;
+      }
 }
