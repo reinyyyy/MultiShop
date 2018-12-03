@@ -31,7 +31,7 @@
 				</form>        			
         	</div>
         	
-            <div id="order_list" class="tbl-list tbl-extend tbl-horz mt-20">
+            <div id="notice_list" class="tbl-list tbl-extend tbl-horz mt-20">
             	<jsp:include page="../manage/notice_table.jsp"></jsp:include>
             </div>
         </div><!-- .sect-cont -->

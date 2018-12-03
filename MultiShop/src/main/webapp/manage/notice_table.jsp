@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<table id="order_list_table" style="width: 100%;">
+<table id="notice_list_table" style="width: 100%;">
 	<thead>
 		<tr>
 			<th>공지번호</th>
@@ -10,11 +10,10 @@
 		</tr>
 	</thead>
 </table>
-
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-   var table = $('#order_list_table').DataTable({
+   var table = $('#notice_list_table').DataTable({
        ajax: {
             'url':'/MultiShop/manage/noticeList.do',
             'type': 'POST'

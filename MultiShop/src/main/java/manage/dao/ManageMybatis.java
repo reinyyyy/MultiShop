@@ -80,4 +80,14 @@ public class ManageMybatis implements ManageDAO {
 	public int noticeInsert(Map<String,String> map) {
 		return sqlSession.insert("manageSQL.noticeInsert",map);
 	}
+
+	@Override
+	public int orderTableCount(String status) {
+		return sqlSession.selectOne("manageSQL.orderTableCount", status);
+	}
+
+	@Override
+	public String totalSales() {
+		return sqlSession.selectOne("manageSQL.totalSales");
+	}
 }

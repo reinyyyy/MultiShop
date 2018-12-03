@@ -42,8 +42,14 @@ public class ManageController {
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("display", "/manage/main.jsp");
+		int delivery_wait = manageDAO.orderTableCount("배송대기");
+		int delivery_ing = manageDAO.orderTableCount("배송중");
+		int delivery_complete = manageDAO.orderTableCount("배송완료");
+		mav.addObject("delivery_wait", delivery_wait);
+		mav.addObject("delivery_ing", delivery_ing);
+		mav.addObject("delivery_complete",delivery_complete);
+		mav.addObject("totalSales", manageDAO.totalSales());
+		mav.addObject("display", "/manage/main2.jsp");
 		mav.setViewName("/main/adminIndex");
 		return mav;
 	}

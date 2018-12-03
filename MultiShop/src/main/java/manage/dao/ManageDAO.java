@@ -42,4 +42,10 @@ public interface ManageDAO {
 	
 	//1:1답변변경
 	public int noticeInsert(Map<String,String> map);
+	
+	//오더테이블 배송상태별 카운트값
+	public int orderTableCount(String status);
+	
+	//총판매액
+	public String totalSales();
 }

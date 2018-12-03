@@ -16,7 +16,7 @@
 		</tr>
 	</thead>
 </table>
-
+<input type="hidden" id="orderList_option" value='0'/>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -43,6 +43,12 @@ $(document).ready(function() {
                      return data *row['p_amount'];
                  },
                  "targets": 9
+             },
+             {
+            	 "render": function(data){
+            		 return '<button>'+data+'</button>';
+            	 },
+            	 "targets": 1
              }
          ],
          responsive: true,
@@ -55,7 +61,7 @@ $(document).ready(function() {
              "info": "현재 _START_ - _END_ / _TOTAL_건",
              "infoEmpty": "데이터 없음",
              "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-             "search": "전체 검색: ",
+             "search": "검색: ",
              "zeroRecords": "일치하는 데이터가 없어요.",
              "loadingRecords": "로딩중...",
              "processing":     "잠시만 기다려 주세요...",
@@ -111,7 +117,5 @@ $(document).ready(function() {
 		  }
 	  }
    }); 
-  
-   
 });
 </script>

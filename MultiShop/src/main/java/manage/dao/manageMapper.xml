@@ -106,6 +106,12 @@
 	 <insert id="noticeInsert" parameterType="Map">
  		insert into notice values(notice_SEQ.nextval,#{n_subject},#{n_content},sysdate)
 	 </insert>
+	 <select id="orderTableCount" resultType="Int">
+	 	select count(*) from order_table where o_status= #{status}
+	 </select>
+	 <select id="totalSales" resultType="String">
+	 	select to_char(sum(p_cost*p_amount),'9,999,999') from order_table
+	 </select>
 </mapper>  
 
 
