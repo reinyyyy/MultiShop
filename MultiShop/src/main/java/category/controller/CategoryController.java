@@ -201,6 +201,13 @@ public class CategoryController {
 			model.addAttribute("option_result_list", option_result_list);
 		}
 		
+		System.out.println("그룹들사이즈 : " + group_list.size());
+		int[] amount_list = new int[group_list.size()];
+		for(int i = 0; i < group_list.size(); i++) {
+			amount_list[i] = group_list.get(i).getP_amount();
+		}
+		System.out.println("amount_list : " + amount_list);
+		model.addAttribute("amount_list", amount_list);
 		model.addAttribute("productDTO", productDTO);
 		model.addAttribute("group_list", group_list);
 		

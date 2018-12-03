@@ -149,12 +149,19 @@
 	<script type="text/javascript" src="../js/xzoom.js"></script>
 	<script>
 		$(document).ready(function(){
+			
+			
+			
+			//option_DTO 제작
+			var option_DTO_DB = [];
+			
+			
 			var test = "${productDTO.p_image}";
 			var result = test.split('/');
 			
-			alert(result[1]);
-			var img_tag = '<img class="zoom_goods" src ="../upload/'+result[1]+'" data-zoom-image="" alt="" style="position:absolute;">'; 
-			$('.zoomWrapper').html(img_tag);
+			//alert(result[1]);
+			var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
+			$('.mask').html(img_tag);
 			
 			$.each(result, function(index, items){
 				if(index > 1){
@@ -167,30 +174,56 @@
 			/*
 						EL로 받아오면 모두 string 타입으로 데려오기때문에 [ 지워줘야함 ]
 			*/			
-			var option_name = '';
-			var option_tag = '';
-			var class_index = '';
-			var option_result = '';
+			
+			
+			// 1. select 레이아웃 생성
+			// 2. option_DTO 생성
+			// 3. 상위 select 하나만 중복제거해서 보여주고, 그 아래 하위들은 동적으로 생성되게 만들기
+			
+			
+			
+			var amount = [];//수량
+			amount[0] = '수량';
+			
+			var option_name = '';			//
+			var option_tag = '<option>옵션선택</option>';	//기본
+			var class_index = '';			
+			var option_result = '';			
 			var option_DTO = [];
+			var amount_index;
+			//alert("${option_result_list}");		[[색상, 블랙, 블랙, 레드, 레드], [사이즈, 미디움, 라지, 미디움, 스몰]]  Type = String
+			var total_size = 1;
 			<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
-				var option_list = "${item1}";
 				
-				var split_result = option_list.replace('[', '').replace(']', '').split(/[\s,]+/);
+				var option_list = "${item1}";
+				//alert(option_list);		//index 0 : [색상, 블랙, 블랙, 레드, 레드], index 1 : [사이즈, 미디움, 라지, 미디움, 스몰]	Type = String //9:23
+				
+				
+				var split_result = option_list.replace('[', '').replace(']', '').split(/[\s,]+/);		
+				//inedx 0 : 색상,블랙,블랙,레드,레드	index 1 : 사이즈,미디움,라지,미디움,스몰	Type = 배열
+				
 				option_DTO["${first_index.count-1}"] = split_result;
-				alert(split_result);
+				amount_index = "${first_index.count}";
+				
+				//중복제거
 				var ovl_result = [];
 				$.each(split_result, function(i, el){
 					if($.inArray(el, ovl_result) === -1) ovl_result.push(el);
 				});
 				
 				//중복제거 후 코드
+				
 				$.each(ovl_result, function(index, item){
+					
 					if(index == 0){
 						option_name = '<dt>'+item+'</dt>';
 					}else {
 						option_tag += '<option value = "'+item+'" >'+item+'</option>';
 					}
-					class_index = index;
+					if("${first_index.count}" != 1){
+						option_tag = '';
+					}
+					class_index = index;		//클래스명 지을때 씀
 				});
 /*	중복제거 전 코드 				
 				$.each(split_result, function(index, item){
@@ -202,13 +235,13 @@
 					class_index = index;
 				}); */
 				
-				
 				option_result +=
 				'<li>'+
 					'<dl id = "option_'+class_index+'">'+
 						option_name +
 						'<dd>' +
 							'<div>' +
+								'<input type = "hidden" value = "${first_index.count}">'+
 								'<select class = "option_select" name="option_select'+'${first_index.count}" id="option_select'+'${first_index.count}">'+
 									option_tag +
 								'</select>'+
@@ -216,23 +249,168 @@
 						'</dd>'+
 					'</dl>'+
 				'</li>';
-				option_tag = '';
+				option_tag = '<option>옵션선택</option>';
 			</c:forEach>
+			//option_DTO[amount_index] = [11, 22, 33, 44];
+			//alert(option_DTO);
+			//alert(option_DTO.length);
+			var option_length = (option_DTO.length); //옵션 개수			
 			
-			var test = [];
-			$(document).on('change', '.option_select', function(){
-				//alert($(this).val());
-				$.each(option_DTO, function(index, items){
-					alert("포문들어옴 " + index + " " + items);
-					$.each(items, function(i, t){
-						if(i != 0){
-							alert("이중포 들어옴" + t);
-						}
-					});
-				});
+			<c:forEach items = "${amount_list}" var = "amount" varStatus = "amount_index">
+				total_size += 1;	//그룹 전체 수량 판단
+				amount["${amount_index.count}"] = "${amount}"; 
+			</c:forEach>
+			//alert(amount);
+			
+			option_DTO[amount_index] = amount; 
+			$.each(option_DTO, function(index, items){
+				//alert('완성본 option_DTO['+index+'] : ' + option_DTO[index]);		////9:23
 			});
 			
-			var temp = $('.aboutListBottom').html() + option_result;
+			//[amount_index] 재고 인덱스
+			//{색상, 블랙, 블랙, 레드, 레드},
+			//{사이즈, 미디움, 라지, 미디움, 스몰},
+			//{사이즈, 11, 22, 33 , 42}
+			
+			// {블랙, 미디움, 11},
+			// {블랙, 미디움, 11},
+			// {블랙, 미디움, 11},
+			// {블랙, 미디움, 11},
+			
+			//첫 옵션제외 두번째 옵션부터 들어옴
+			//alert(total_size);		//3	//9:23
+			
+			var result_DTO = new Array();
+			change_arr(option_DTO);
+			//
+			//DTO 행열 바꿔주는 함수
+			function change_arr (arr){
+				//alert(arr.length);	//9:23
+				var k = 1;
+				for(var i = 0; i < total_size-1; i++){
+					var temp_arr = new Array();
+					$.each(arr, function(index, items){
+						temp_arr[index] = items[k];
+					});
+					k++;
+					result_DTO[i] = temp_arr;
+				}
+			}
+			/* alert(result_DTO[0]);
+			alert(result_DTO[1]);
+			alert(result_DTO[2]);
+			alert(result_DTO[3]);
+			 */
+		
+			//option_list_maker(result_DTO);
+			 
+			//하위 옵션 판단함수
+			var user_selected = new Array();
+			var i = 0;
+			var amount;
+			function option_list_maker (name, next_index){
+				
+				if(next_index == 1){	//첫옵션 선택시 초기화
+					user_selected = new Array();
+				}else{
+					arr_clear(next_index);	
+				}
+				user_selected[i] = name;
+				i++;
+				var k = 0;
+				var op = '';
+				$.each(result_DTO, function(index, items){
+					if(name == items[next_index-1]){
+						if(items[next_index-1] == name){
+							//alert(items[next_index-1] +"와 같은 이름 " + name +"사이즈는 " + items[next_index]);
+							op += op_maker(items[next_index], op);
+						}
+						//alert('t : ' + items[next_index-1] + ' 같음');
+						if(option_length == next_index){
+							var ctn = 1;
+							for(var j = 0; j < user_selected.length; j++ ){
+								if(items[i] == user_selected[k]){
+									alert('items['+j+'] = ' + items[j] + 'user_selected['+k+'] = ' + user_selected[k]);
+									ctn += 1;	
+								}else{
+									ctn = 1;	
+								}
+								if(ctn == user_selected.length){
+									amount = items[j+1];
+									
+								}
+								k++;
+							}
+							k = 0;
+							alert("선택해온 값 " + user_selected);
+							//alert("개수..."+ amount);
+						}
+					}
+				});
+				//var c_option = '<option>'+
+				$('#option_select'+(Number(next_index)+1)).html('<option>옵션선택</option>'+op);
+				
+			}
+			
+			function arr_clear(start_num){
+				for(var i = (start_num-1); i < user_selected.length; i++){
+					user_selected.splice(i, 1);
+				}
+				i = start_num-1;
+				
+			}
+			
+			function op_maker(op_value, op){
+				if(op == '<option>'+op_value+'</option>'){
+					return ''; 
+				}else{
+					return '<option>'+op_value+'</option>';
+				}
+			}
+			
+			$(document).on('change', '.option_select', function(){
+				//alert($(this).val());			11:55
+				//alert($(this).prev().val());	11:55
+				//{블랙, 미디움, 11}
+				option_list_maker($(this).val(), $(this).prev().val()); 
+				
+			});
+			
+			
+			
+			
+			//사이즈 생성
+			var amount_input =
+				'<li>'+
+					'<dl id = "amount_list">'+
+						'수량' +
+						'<dd>' +
+							'<div>' +
+								'<input id = "amount_input" type="number" min="0" max="99"'+
+									//'onkeydown="max_amount()"'+
+   									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
+								'id="yourid">'+
+							'</div>'+
+						'</dd>'+
+					'</dl>'+
+				'</li>';
+			$(document).on('keyup','#amount_input', function () {
+				alert("change");
+				this.value = this.value.replace(/\D/g, '');
+				if(this.value > test){
+					this.value = test;	
+				}
+			});
+			
+			$('#wr_2').on('keyup', function() {
+
+			    this.value = this.value.replace(/\D/g, '');
+
+			    if (this.value > 150) this.value = 150;
+
+			});
+				
+			var temp = $('.aboutListBottom').html() + option_result + amount_input;
 			$('.aboutListBottom').html(temp);
 			
 			//이미지 확대 기능
@@ -259,10 +437,10 @@
 			   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
 			   $('#detailMain_image').attr('src', '../image/coat4.jpg');
 			});
-			alert(option_DTO.length);
-			alert(option_DTO);
+			//alert(option_DTO.length);
+			//alert(option_DTO);
 			function option_maker(){
-					
+				
 			}
 			
 			
