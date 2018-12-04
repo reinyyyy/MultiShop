@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import detail.bean.DetailQnADTO;
 import manage.bean.InquiryDTO;
+import member.bean.MemberDTO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
 
@@ -90,4 +92,41 @@ public class ManageMybatis implements ManageDAO {
 	public String totalSales() {
 		return sqlSession.selectOne("manageSQL.totalSales");
 	}
+
+	@Override
+	public List<MemberDTO> memberList() {
+		return sqlSession.selectList("manageSQL.memberList");
+	}
+	
+	@Override
+   public List<DetailQnADTO> productQnaList() {
+      return sqlSession.selectList("manageSQL.productQnaList");
+   }
+
+	@Override
+	public int productQnaUpdate(Map<String,String> map) {
+		return sqlSession.update("manageSQL.productQnaUpdate",map);
+	}
+
+	@Override
+	public List<DetailQnADTO> productQnaAnswerList(int p_code, int seq) {
+		Map<String,String> map = new HashMap<String,String>();
+	      map.put("p_code", p_code+"");
+	      map.put("seq",seq+"");
+	      return sqlSession.selectList("manageSQL.productQnaAnswerList",map);
+	}
+
+	@Override
+	public List<ProductDTO> productManageList() {
+		return sqlSession.selectList("manageSQL.productManageList");
+	}
+	@Override
+	public void productModifyJson(Map<String, String> map) {
+      sqlSession.update("manageSQL.productModifyJson",map);
+	}
+	@Override
+	public void productDeleteJson(Map<String, String> map) {
+		sqlSession.delete("manageSQL.productDeleteJson",map);
+	}
+	
 }

@@ -58,16 +58,16 @@
         </div><!-- // .hd .ani -->
         <ul id="snb">
         	<li>
-                <a href="#"  id="productManageBtn">상품관리</a>
-            </li>
-        	<li>
                 <a href="#"  id="productInsertBtn">상품추가</a>
             </li>
         	<li>
-                <a href="#"  id="productQnABtn">상품문의</a>
+                <a href="../manage/productManagePage.do"  id="productManageBtn">상품관리</a>
             </li>
         	<li>
-                <a href="#"  id="memberManageBtn">고객관리</a>
+                <a href="../manage/productQnaPage.do"  id="productQnABtn">상품문의</a>
+            </li>
+        	<li>
+                <a href="../manage/memberManagePage.do"  id="memberManageBtn">고객관리</a>
             </li>
         	<li>
                 <a href="../manage/orderManagePage.do"  id="orderManageBtn">주문관리</a>

@@ -112,6 +112,41 @@
 	 <select id="totalSales" resultType="String">
 	 	select to_char(sum(p_cost*p_amount),'9,999,999') from order_table
 	 </select>
+	 
+	 <select id="memberList" resultType="memberDTO">
+	 	select m_email,m_name,m_tel_phone, m_roadaddress||' '||m_jibunaddress as m_zipcode, m_date from members order by m_date desc
+	 </select>
+	 
+	 <select id="productQnaList" parameterType="Map" resultType="detail_QnADTO">
+       select * from detail_QnA where reply= 'ready' order by logtime desc
+    </select>
+    
+    <update id="productQnaUpdate" parameterType="Map">
+       update DETAIL_QNA SET REPLYCONTENT = #{replyContent}, reply=#{reply} where p_code = #{p_code} and seq = #{seq}
+    </update>
+    
+    <select id="productQnaAnswerList" parameterType="java.util.Map" resultType="detail_QnADTO">
+       select * from detail_QnA where p_code = #{p_code} and seq=#{seq}
+    </select>
+    
+    <select id = "productManageList" resultType = "productDTO">
+      select * from PRODUCT
+   </select>
+
+	<update id="productModifyJson" parameterType="Map">
+		update product set
+		p_name=#{p_name},
+		p_amount=#{p_amount},
+		p_cost=#{p_cost},
+		p_date=sysdate,
+		p_status=#{p_status}
+		where p_code = #{p_code}
+	</update>
+   
+   <delete id="productDeleteJson" parameterType="Map">
+      delete product where p_code = #{p_code}
+   </delete>
+   
 </mapper>  
 
 

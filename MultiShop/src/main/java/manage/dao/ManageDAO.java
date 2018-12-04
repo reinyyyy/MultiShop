@@ -5,7 +5,9 @@ import java.util.Map;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import detail.bean.DetailQnADTO;
 import manage.bean.InquiryDTO;
+import member.bean.MemberDTO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
 
@@ -48,4 +50,23 @@ public interface ManageDAO {
 	
 	//총판매액
 	public String totalSales();
+	
+	//멤버리스트
+	public List<MemberDTO> memberList();
+	
+	//상품후기리스트
+	public List<DetailQnADTO> productQnaList();
+	
+	//상품후기 답변달기
+	public int productQnaUpdate(Map<String,String> map);
+	
+	//질문뿌려주기
+	public List<DetailQnADTO> productQnaAnswerList(int p_code, int seq);
+	
+	public List<ProductDTO> productManageList();
+	
+	public void productModifyJson(Map<String, String> map);
+
+	public void productDeleteJson(Map<String, String> map);
+	
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import detail.bean.DetailQnADTO;
 import manage.bean.InquiryDTO;
 import manage.dao.ManageDAO;
 import member.bean.MemberDTO;
@@ -369,4 +370,72 @@ public class ManageController {
 	public @ResponseBody int noticeInsert(@RequestParam Map<String,String> map) {
 		return manageDAO.noticeInsert(map);
 	}
+	
+	//고객관리페이지
+	@RequestMapping(value="memberManagePage", method=RequestMethod.GET)
+	public ModelAndView memberManagePage(@ModelAttribute ModelAndView mav) {
+		mav.addObject("display", "/manage/memberManagePage.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	//고객관리 json 받기
+	@RequestMapping(value="memberList", method=RequestMethod.POST)
+	public ModelAndView memberList() {
+		List<MemberDTO> list = manageDAO.memberList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//상품문의페이지
+	@RequestMapping(value="productQnaPage", method=RequestMethod.GET)
+	public ModelAndView productQnaPage(@ModelAttribute ModelAndView mav) {
+		mav.addObject("display", "/manage/productQnaPage.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	//상품문의 json 받기
+		@RequestMapping(value="productQnaList", method=RequestMethod.POST)
+		public ModelAndView productQnaList() {
+			List<DetailQnADTO> list = manageDAO.productQnaList();
+			ModelAndView mav = new ModelAndView("jsonView","data",list);
+			return mav;
+		}
+	//상품문의 답변달기
+	@RequestMapping(value="productQnaUpdate", method=RequestMethod.POST)
+	public @ResponseBody int productQnaUpdate(@RequestParam Map<String,String> map) {
+		return manageDAO.productQnaUpdate(map);
+	}
+	//답변하기 위해 정보 빼내옴
+   @RequestMapping(value="productQnaAnswerList",method=RequestMethod.POST)
+   public ModelAndView productQnaAnswerList(@RequestParam int p_code,@RequestParam int seq) {
+      ModelAndView mav = new ModelAndView();
+      List<DetailQnADTO> getDetail_AnswerList = manageDAO.productQnaAnswerList(p_code,seq);
+      mav.addObject("getDetail_AnswerList", getDetail_AnswerList);
+      mav.addObject("display", "/manage/memberTotal2.jsp");
+      mav.setViewName("jsonView");
+      return mav;
+   }
+   
+   //제품관리페이지
+ 	@RequestMapping(value="productManagePage", method=RequestMethod.GET)
+ 	public ModelAndView productManagePage(@ModelAttribute ModelAndView mav) {
+ 		mav.addObject("display", "/manage/productManagePage.jsp");
+ 		mav.setViewName("/main/adminIndex");
+ 		return mav;
+ 	}
+   //제품관리 리스트
+   @RequestMapping(value="productManageList", method=RequestMethod.POST)
+   public ModelAndView productManageList() {
+      List<ProductDTO> list = manageDAO.productManageList();
+      ModelAndView mav = new ModelAndView("jsonView","data",list);
+      return mav;
+   }
+   @RequestMapping(value="productModifyJson", method=RequestMethod.POST)
+   public @ResponseBody void productModifyJson(@RequestParam Map<String, String> map) {
+      manageDAO.productModifyJson(map);
+   }
+   
+   @RequestMapping(value="productDeleteJson", method=RequestMethod.POST)
+   public @ResponseBody void productDeleteJson(@RequestParam Map<String, String> map) {
+      manageDAO.productDeleteJson(map);
+   }
 }
