@@ -5,6 +5,8 @@ import java.util.Map;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import detail.bean.DetailQnADTO;
+import member.bean.MemberDTO;
 
 public interface ManageDAO {
 
@@ -21,5 +23,13 @@ public interface ManageDAO {
 
 	//현재 시퀀스값 조회
 	public int getSeq();
+
+	public List<MemberDTO> getMembersList();
+
+	public List<DetailQnADTO> getQnAReadyList();
+
+	public void detail_AnswerUpdate(Map<String, String> map);
+
+	public List<DetailQnADTO> getDetail_AnswerList(int p_code,int seq);
 	
 }

@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="../css/admin.css">
     <!-- 달력 -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+    <style type="text/css">
+    	#memberTotalTable td{
+    		text-align: center;
+    	}
+    </style>
     	
     <!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

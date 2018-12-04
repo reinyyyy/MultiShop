@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
+import detail.bean.DetailQnADTO;
 import manage.dao.ManageDAO;
+import member.bean.MemberDTO;
 
 @Controller
 @RequestMapping("/manage")
@@ -78,8 +80,24 @@ public class ManageController {
 	public ModelAndView memberTotal() {
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("display", "/manage/memberTotal.jsp");
+		mav.addObject("display", "/manage/memberTotal2.jsp");
 		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	//회원 목록 데이터테이블
+	@RequestMapping(value="/getMembersList",method=RequestMethod.GET)
+	public ModelAndView getMembersList() {
+		List<MemberDTO> getMembersList = manageDAO.getMembersList();
+		ModelAndView mav = new ModelAndView("jsonView","data",getMembersList);
+		
+		return mav;
+	}
+	//Q&A 목록 데이터테이블
+	@RequestMapping(value="/getQnAReadyList", method=RequestMethod.GET)
+	public ModelAndView getQnAReadyList() {
+		List<DetailQnADTO> getQnAReadyList = manageDAO.getQnAReadyList();
+		ModelAndView mav = new ModelAndView("jsonView","data",getQnAReadyList);
+		
 		return mav;
 	}
 	
@@ -94,6 +112,30 @@ public class ManageController {
 		mav.setViewName("jsonView");
 		
 		return mav;
+	}
+	//답변하기 위해 정보 빼내옴
+	@RequestMapping(value="getDetail_AnswerList",method=RequestMethod.POST)
+	public ModelAndView getDetail_AnswerList(@RequestParam int p_code,@RequestParam int seq) {
+		ModelAndView mav = new ModelAndView();
+		List<DetailQnADTO> getDetail_AnswerList = manageDAO.getDetail_AnswerList(p_code,seq);
+		mav.addObject("getDetail_AnswerList", getDetail_AnswerList);
+		mav.addObject("display", "/manage/memberTotal2.jsp");
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	@RequestMapping(value="detail_AnswerUpdate", method=RequestMethod.POST)
+	public ModelAndView detail_AnswerUpdate(@RequestParam Map<String,String> map) {
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println(map.get("replyContent")+map.get("p_code")+map.get("seq"));
+		manageDAO.detail_AnswerUpdate(map);
+		
+		mav.addObject("display", "/manage/memberTotal2.jsp");
+		mav.setViewName("/main/adminIndex");
+		
+		return mav;
+		
 	}
 	
 	//제품 등록 및 판매 등록 요청
