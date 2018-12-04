@@ -6,14 +6,10 @@ import java.util.Map;
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import detail.bean.DetailQnADTO;
-<<<<<<< HEAD
 import manage.bean.InquiryDTO;
 import member.bean.MemberDTO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
-=======
-import member.bean.MemberDTO;
->>>>>>> refs/remotes/origin/HyunGyuYang2
 
 public interface ManageDAO {
 
@@ -31,7 +27,6 @@ public interface ManageDAO {
 	//현재 시퀀스값 조회
 	public int getSeq();
 
-<<<<<<< HEAD
 	public int inquiryInsert(InquiryDTO inquiryDTO);
 	
 	//주문리스트
@@ -75,14 +70,12 @@ public interface ManageDAO {
 	public void productModifyJson(Map<String, String> map);
 
 	public void productDeleteJson(Map<String, String> map);
-=======
-	public List<MemberDTO> getMembersList();
+ 	public List<MemberDTO> getMembersList();
 
 	public List<DetailQnADTO> getQnAReadyList();
 
 	public void detail_AnswerUpdate(Map<String, String> map);
 
 	public List<DetailQnADTO> getDetail_AnswerList(int p_code,int seq);
->>>>>>> refs/remotes/origin/HyunGyuYang2
 	
 }

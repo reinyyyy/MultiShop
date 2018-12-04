@@ -19,10 +19,6 @@ public class MemberDTO {
 	private String m_roadAddress;
 	private String m_jibunAddress;
 	private int m_point;
-<<<<<<< HEAD
-=======
-	
->>>>>>> refs/remotes/origin/HyunGyuYang2
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date m_date;
 }

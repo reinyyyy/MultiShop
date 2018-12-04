@@ -12,14 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import detail.bean.DetailQnADTO;
-<<<<<<< HEAD
 import manage.bean.InquiryDTO;
 import member.bean.MemberDTO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
-=======
-import member.bean.MemberDTO;
->>>>>>> refs/remotes/origin/HyunGyuYang2
 
 @Component
 @Transactional
@@ -52,7 +48,6 @@ public class ManageMybatis implements ManageDAO {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public int inquiryInsert(InquiryDTO inquiryDTO) {
 		return sqlSession.insert("manageSQL.inquiryInsert", inquiryDTO);
 	}
@@ -139,7 +134,6 @@ public class ManageMybatis implements ManageDAO {
 		sqlSession.delete("manageSQL.productDeleteJson",map);
 	}
 	
-=======
 	public List<MemberDTO> getMembersList() {
 		return sqlSession.selectList("manageSQL.getMembersList");
 	}
@@ -162,5 +156,4 @@ public class ManageMybatis implements ManageDAO {
 		sqlSession.update("manageSQL.detail_AnswerUpdate",map);
 	}
 
->>>>>>> refs/remotes/origin/HyunGyuYang2
 }
