@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import category.bean.Product_boardDTO;
 import detail.bean.DetailDTO;
 import detail.bean.DetailQnADTO;
 import detail.bean.DetailhoogiDTO;
@@ -27,7 +28,17 @@ public class DetailDAOMybatis implements DetailDAO {
    public void updateOneClothes(Map<String, String> map) {
       sqlSession.update("detailSQL.updateOneClothes",map);
    }
-   
+   	//상세페이지 옵션 불러오기
+	@Override
+	public List<DetailDTO> getDetailPageSource(int p_code) {
+		return sqlSession.selectList("detailSQL.getDetailPageSource",p_code);
+	}
+	
+	@Override
+	public Product_boardDTO getDetailPageInfo(int p_code) {
+		return sqlSession.selectOne("detailSQL.getDetailPageInfo",p_code);
+	}
+	
    // 양현규
    	@Override
    	public void detail_userReview(Map<String,String> map) {
@@ -61,5 +72,7 @@ public class DetailDAOMybatis implements DetailDAO {
 	public List<DetailQnADTO> detail_GetQnATableList(int p_code) {
 		return sqlSession.selectList("detailSQL.detail_GetQnATableList",p_code);
 	}
+	
+	
    
 }

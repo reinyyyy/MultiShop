@@ -200,7 +200,7 @@
 						<li><a href="#link" onclick="fn_sort(1);">신상품순</a></li>
 						<li><a href="#link" onclick="fn_sort(3);">낮은가격순</a></li>
 						<li><a href="#link" onclick="fn_sort(4);">높은가격순</a></li>
-						<li><a href="../detail_page/detailPage.do" onclick="">상세정보</a></li>
+						<li><a href="../detail_page/detailPage.do?p_code=1" onclick="">상세정보</a></li>
 					</ul>
 				</div>
 				<!--  몇개씩 보여줄 것인지 -->

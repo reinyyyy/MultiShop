@@ -41,7 +41,7 @@
    <div class="container">
       <div class="py-5 text-center">
          <img class="d-block mx-auto mb-4 mt-4" src="../image/jaewoo.jpg" alt="" width="72" height="72"/>
-         <h2>결재</h2>
+         <h2>Check out</h2>
          <p class="lead">깰껌</p>
       </div>
       <form id="orderPageForm" name="orderPageForm" class="needs-validation" method="post" action="orderOk.do">      <!-- novalidate은 유효성검사를 하지않겠다는 것 -->
@@ -100,22 +100,6 @@
                   </li>
             </ul>
             <!-- </form> -->
-            <!-- 쿠폰 -->
-            <!-- <form class="card p-2" id="useCouponForm" method="post" action="useCoupon.do"> -->
-                  <div class="input-group">
-                       <!-- <input type="text" class="form-control" placeholder="Promo code"> -->
-                       <select class="form-control" id="PromoCode">
-	                     <option value="   쿠폰1" selected="selected">쿠폰1</option>
-	                     <option value="쿠폰2">쿠폰2</option>
-	                     <option value="쿠폰3">쿠폰3</option>
-	                     <option value="쿠폰4">쿠폰4</option>
-	                   </select>
-                       <div class="input-group-append">
-                         <button type="submit" class="btn btn-secondary">사용</button>
-                       </div>
-                  </div>
-                <!-- </form> -->
-                
               </div>
               <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">정보 입력</h4>
@@ -167,12 +151,6 @@
 					<input type="text" class="form-control" id="join_modal_roadAddress" name="m_roadAddress" placeholder="도로명주소" readonly>
 					<input type="text" class="form-control" id="join_modal_jibunAddress" name="m_jibunAddress" placeholder="상세 주소">
 				</div>
-                 
-               	<hr class="mb-4">
-                <div class="custom-control custom-checkbox">
-                     <input type="checkbox" class="order_checkBox" id="save-info">
-                     <label class="custom-control-label" for="save-info">이 주소를 저장하겠습니다.</label>
-                </div>
                   
                 <hr class="mb-4">
                 <h4 class="mb-3">카드 선택</h4>
@@ -200,7 +178,7 @@
                      
                      <div class="col-md-6 mb-3">
                        <label for="cc-number">카드 번호</label>
-                       <input type="number" class="form-control" id="cc_number" placeholder="공백 없이 16자리르 입력 하세요" maxlength="16" oninput="maxLengthCheck(this)" required>
+                       <input type="number" class="form-control" id="cc_number" placeholder="공백 없이 16자리를 입력 하세요" maxlength="16" oninput="maxLengthCheck(this)" required>
                        <div class="cc_numberDiv" id="cc_numberDiv">
                        </div>
                     </div>
@@ -218,7 +196,7 @@
                      
                      <div class="col-md-3 mb-3">
                        <label for="cc-expiration">CVV/CVC</label>
-                       <input type="number" class="form-control" id="cc_cvv" placeholder="카드뒤 3자리 수" maxlength="3" oninput="maxLengthCheck(this)" required>
+                       <input type="number" class="form-control" id="cc_cvv" placeholder="카드뒤 3자리" maxlength="3" oninput="maxLengthCheck(this)" required>
                        <div class="cc_cvvDiv" id="cc_cvvDiv">
                          </div>
                      </div>
