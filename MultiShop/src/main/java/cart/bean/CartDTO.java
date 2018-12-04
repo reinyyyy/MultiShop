@@ -7,7 +7,7 @@ import lombok.Data;
 @Component
 @Data
 public class CartDTO {
-	public int c_cartId;
+	public int c_seq;
 	public String m_email;
 	public String p_code;
 	public int p_cost;

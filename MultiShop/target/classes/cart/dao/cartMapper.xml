@@ -4,8 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="cartSQL"> 
+<resultMap id="ResultMap" type="java.util.Map">
+	<result property="c_seq" column="C_SEQ" />
+	<result property="m_email" column="M_EMAIL" />
+	<result property="p_code" column="P_CODE" />
+	<result property="p_cost" column="P_COST" />
+	<result property="p_amount" column="P_AMOUNT" />
+	<result property="p_option1" column="P_OPTION1" />
+	<result property="p_option2" column="P_OPTION2" />
+	<result property="p_name" column="P_NAME" />
+	<result property="p_image" column="P_IMAGE" />
+	<result property="max_amount" column="MAX_AMOUNT" />
+</resultMap>
+
 	<insert id="insertCart">
-		insert into cart values (#{c_cartId}, #{m_email}, #{p_code}, #{p_cost}, #{p_amount}, #{p_option1}, #{p_option2})
+		insert into cart values (cart_seq.NEXTVAL, #{m_email}, #{p_code}, #{p_cost}, #{p_amount}, #{p_option1}, #{p_option2})
 	</insert>
 	
 	<update id="updateCart">
@@ -16,40 +29,33 @@
 		select count(*) from cart where m_email=#{m_email} and p_code=#{p_code}
 	</select>
 	
-	<select id="cartList" resultType="cartDTO">
-		select 
-		c.cartId as cartId,
-		c.m_email as email,
-		p.p_code as p_code,
-		m.m_name as m_name,
+	<select id="cartList" parameterType="String" resultMap="ResultMap">
+		select c.*,
+		
 		p.p_name as p_name,
-		c.p_amount as p_amount,
-		p.p_cost as p_cost,
-		(p_cost * amount ) money
+		p.p_image as p_image,
+		p.p_amount as max_amount
 		
 		from 
-		members m, product p, cart c,
+		members m, product p, cart c
 		
-		where m.m_email = c.m_email 
-		and p.p_code = c.p_code
-		and c.m_email = #{m_email}
-		
+		where m.m_email = #{email} 
+	
 		order by 
-		c.c_cartId
-			
+		c_seq		
 	</select>
 	<!-- 장바구니 total 금액 -->
-	<select id="sumMoney" resultType="int">
-		select NVL(SUM(p_cost * p_amount),0) money 
+ 	<select id="sumMoney" resultType="int">
+		select NVL(SUM(c.p_cost * c.p_amount),0) money 
 		from cart c, product p
-		where c.p_code = p.p_code and c.m_email=#{m_email}
-	</select>
+		where c.m_email=#{email}
+	</select>  
 	<!-- 장바구니 수정 -->
 	<update id="modifyCart">
 		update cart set p_amount=#{p_amount} where m_email=#{m_email} and p_code=#{p_code}
 	</update>
 	<!-- 장바구니 삭제 -->
 	<delete id="deleteCart">
-		delete from cart where c_cartId = #{c_cardId}
+		delete from cart where c_seq = #{c_seq}
 	</delete>
 </mapper>
