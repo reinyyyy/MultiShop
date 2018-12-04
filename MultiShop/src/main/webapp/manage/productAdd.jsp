@@ -149,7 +149,7 @@
                 <tbody>
                     <tr>
                         <th><strong>판매가격 <span class="fc-red">*</span></strong></th>
-                        <td><div class="base pr-20"><span class="fc-red">\</span> <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" style='width:300px;' id = "p_cost" name="p_cost" value="0" class="w20per num_only" placeholder = ",제외 숫자만 입력"></div>
+                        <td><div class="base pr-20"><span class="fc-red">\</span> <input type="text" onKeyPress="return numkeyCheck(event)" style='width:300px;' id = "p_cost" name="p_cost" value="0" class="w20per num_only" placeholder = ",제외 숫자만 입력"></div>
 	                        <div id = "p_cost_div"></div>
                         </td>
                     </tr>
@@ -158,25 +158,6 @@
         </div>
     </div>
     <!-- ======================= 가격 종료 ======================= -->
-    
-    
-    
-    <!-- ======================= 해시태그 시작 ======================= -->
-    <!-- <div class="sect-hd">
-        <h3>해시태그#</h3>
-        <span class="txt-select">(선택)</span>
-        <span class="sect-hd-side txt-gray mobile-switch">등록안함</span>
-        <a href="#" class="btn-arrow up">닫기</a>
-    </div>.sect-hd
-    <div class="sect-cont" style="display: none;">
-        <div class="hashtag-setting">
-            <div class="base"><span>#</span> <input type="text" class="MSH-input-hashtag" placeholder="태그는 띄어쓰기나 엔터로 구분할 수 있습니다." style="width:80%" maxlength="30"></div>
-            <ul class="MSH-hashtag-area">
-                            </ul>
-        </div>
-    </div> -->
-    <!-- .sect-cont -->
-    <!-- ======================= 해시태그 종료 ======================= -->
     
     
     
@@ -261,25 +242,6 @@
     
     
     
-    <!-- ======================= 재고 시작 ======================= -->
-    <!-- <div class="sect-hd">
-		<h3>재고</h3>
-		<span class="txt-select">(선택)</span>
-		<a href="#" class="btn-arrow up">닫기</a>
-	</div><!-- .sect-hd -->
-	<!-- <div class="sect-cont" style="display: none;">
-		<ul id="stock-non" class="mobile-stock stock" style="">
-			<li>
-				<label><span>수량</span></label>
-				<div class="base pr-20"><input type="text" name="p_amount" value="0"> <span>개</span></div>
-			</li>
-		</ul>
-		<p id="stock-use" class="fc-blue stock" style="display:none">선택형 옵션 사용 시, 옵션 재고로 대체됩니다.</p>
-	</div> -->
-	<!-- ======================= 재고 종료 ======================= -->
-	
-	
-	
 	<!-- ======================= 옵션 시작 ======================= -->
 	<div class="sect-hd" style="">
         <h3>옵션/재고</h3>
@@ -363,46 +325,6 @@
 							
 						</table>
 								<!--  옵션 설정 테이블 종료 -->
-								
-								
-								<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-								<script>
-                                	$(document).ready(function(){
-                                		$('#option_no_tr').hide();
-                                		//옵션 사용여부
-                                		$('input:radio[name=option_check]').click(function(){
-                                			if($(this).val() == 'Y'){
-                                				$('#option_ok_tr').show();
-                                				$('#option_no_tr').hide();
-                                			}
-                                			if($(this).val() == 'N'){
-                                				$('#option_ok_tr').hide();
-                                				$('#option_no_tr').show();
-                                			}
-                                			
-                                		});
-                                		
-                                 		$('#add_mix_option').on('click', '.btn-add-opt', function(){
-                                			var appendTo_option = 
-                                			'<tr>' +
-                                			'<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상/사이즈)"></td>' +
-                                			'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red/m)"></td>' +
-                                			'<td><input type = "text" name = "p_amount[]_list" placeholder = "재고 " value = ""></td>' + 
-                                			'<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
-                                			'</tr>'
-                                			;
-                                			//var appendTo_html = $('#p_option_tbody').html() + appendTo_option;
-                                			//$('#p_option_tbody').html(appendTo_html);
-                                			$('#p_option_tbody').append(appendTo_option);
-                                		})//기존 정보 사라짐
-                                		$('#add_mix_option').on('click', '.btn-del-opt', function(){
-                                			if($('#p_option_tbody tr').length == 1){	//옵션 최소한개는 유지
-                                				return;
-                                			}
-                                			$(this).parent().parent().remove();
-                                		});
-                                	});
-                                </script>
 								</div>
 							</td>
 						</tr>
@@ -413,64 +335,6 @@
 	</div><!-- .sect-cont -->
 
     <!-- ======================= 옵션 종료 ======================= -->
-    <!-- ======================= 배송 시작 ======================= -->
-    <div class="sect-hd">
-        <h3>배송</h3>
-        <!-- <span class="txt-select">(선택)</span> -->
-        <a href="#" class="btn-arrow up">닫기</a>
-    </div><!-- .sect-hd -->
-    <div class="sect-cont pd-none" style="display: none;">
-        <div class="tbl-setting">
-            <table>
-                <caption></caption>
-                <colgroup>
-                    <col class="w140">
-                    <col>
-                </colgroup>
-                <tbody>
-                    <!-- 18.08.27 추가 s -->
-                    <tr>
-                        <th>배송 여부</th>
-                        <td>
-                            <label class="mr-40"><input type="radio" name="prd_use_delivery" value="Y" checked="checked"><span>배송함</span></label>
-                            <label class="mr-40"><input type="radio" name="prd_use_delivery" value="N"><span>배송 안함</span></label>
-                        </td>
-                    </tr>
-                    <!-- 18.08.27 추가 e -->
-                    <tr class="delivery">
-                        <th>기본 배송비</th>
-                        <td>
-                            <select name="prd_delivery_type" class="w20per">
-                                <option value="Y" selected="">무료</option>
-                                <option value="N">조건부 무료</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr class="delivery bg-yellow condition1" style="display:none;">
-                        <th>배송비 <span class="fc-red">*</span></th>
-                        <td>
-                            <div class="base pr-20"><input type="text" name="prd_delivery" class="w20per" value="0"> <span class="fs-15">원</span></div>
-                        </td>
-                    </tr>
-                    <tr class="delivery bg-yellow condition1" style="display:none;">
-                        <th>결제 조건 <span class="fc-red">*</span></th>
-                        <td>
-                            <span class="base pr-20"><input type="text" class="w20per" name="prd_delivery_min" value="0"> <span class="fs-15">원</span></span> <span class="mt-5 fs-15">이상 결제 시 배송비 무료</span>
-                        </td>
-                    </tr>
-                    <tr class="delivery">
-                        <th>지역 배송비</th>
-                        <td>
-                            <label><input type="radio" name="prd_use_delivery_area" value="Y"><span>사용함</span></label>
-                            <a href="/adm/order/policy/delivery" class="btn-h32-black-o mr-20">배송비 등록</a>
-                            <label class="mr-40"><input type="radio" name="prd_use_delivery_area" value="N" checked=""><span>사용 안함</span></label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div><!-- .tbl-setting -->
-    </div><!-- .sect-cont -->
-    <!-- ======================= 배송 종료 ======================= -->
     
     
     
@@ -568,7 +432,7 @@
         
            <div id="pagekinCreateArea" style="width: 100%; height: 400px;">
            			<!-- 상세내용 미리보기 -->
-					<iframe src="editor/default.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
+					<iframe src="editor/contents.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
 						<!-- 상세 이미지 & 글내용 include 영역 -->
 					 </iframe>
             </div>
@@ -587,38 +451,6 @@
         </div>
     </div><!-- .sect-cont -->
     <!-- ======================= 상세설명 종료 ======================= -->
-    
-    
-    
-    <!-- ======================= 사용 결제수단 시작 ======================= -->
-    <!-- <div class="sect-hd">
-        <h3>사용 결제수단</h3>
-                <a href="/adm/bank/manage" class="btn-h32-black-o">계좌 등록</a>
-                        <a href="/adm/card/manage" class="btn-h32-black-o">카드 결제 신청</a>
-                <span class="txt-select">(선택)</span>
-        <a href="#" class="btn-arrow up">닫기</a>
-    </div>.sect-hd
-    <div class="sect-cont pd-none" style="display: none;">
-        <div class="tbl-setting">
-            <table>
-                <caption></caption>
-                <colgroup>
-                    <col>
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td class="mobile-block">
-                                                        <label class="mr-40">
-                               <input type="checkbox" name="chk_prd_pay_type[]" value="MBA,PBV" checked=""><span>현금 (무통장)</span>
-                            </label>
-                                                    </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>.tbl-setting
-    </div>.sect-cont -->
-    <!-- ======================= 사용 결제수단 종료 ======================= -->
-    
     
     
     <div class="btn-c">
@@ -646,6 +478,8 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+//input file 이미지 미리보기 
 function readURL_input(input, tag) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -660,6 +494,7 @@ function readURL_input(input, tag) {
 $("#imgInput").change(function(){
     readURL(this);
 });
+
 //컨텐츠 토글
 $('.btn-arrow').on('click', function(e) {
     e.preventDefault();
@@ -715,6 +550,43 @@ function bytesHandler(obj, tag){
 }
 	
 $(document).ready(function(){
+	
+	$('#option_no_tr').hide();
+	//옵션 사용여부
+	$('input:radio[name=option_check]').click(function(){
+		if($(this).val() == 'Y'){
+			$('#option_ok_tr').show();
+			$('#option_no_tr').hide();
+		}
+		if($(this).val() == 'N'){
+			$('#option_ok_tr').hide();
+			$('#option_no_tr').show();
+		}
+		
+	});
+	
+		$('#add_mix_option').on('click', '.btn-add-opt', function(){
+		var appendTo_option = 
+		'<tr>' +
+		'<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상/사이즈)"></td>' +
+		'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red/m)"></td>' +
+		'<td><input type = "text" name = "p_amount[]_list" placeholder = "재고 " value = ""></td>' + 
+		'<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
+		'</tr>'
+		;
+		//var appendTo_html = $('#p_option_tbody').html() + appendTo_option;
+		//$('#p_option_tbody').html(appendTo_html);
+		$('#p_option_tbody').append(appendTo_option);
+	})//기존 정보 사라짐
+	$('#add_mix_option').on('click', '.btn-del-opt', function(){
+		if($('#p_option_tbody tr').length == 1){	//옵션 최소한개는 유지
+			return;
+		}
+		$(this).parent().parent().remove();
+	});
+		
+		
+		
 	$('#check_img').click(function(){
 		var data = 	$('#default_iframe').contents().find('#contents_div').html();
 		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
@@ -933,7 +805,7 @@ $(document).ready(function(){
     
     //재고, 판매가격 이벤트 숫자만허용
      
-    
+
 })
 
 </script>
