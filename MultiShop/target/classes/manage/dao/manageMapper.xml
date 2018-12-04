@@ -87,7 +87,16 @@
 		p_lastDate : 2018/11/28
 	 -->
 	 
-	 <select id="orderList" resultType="orderDTO">
+	 <insert id="inquiryInsert" parameterType="inquiryDTO">
+		insert into Inquiry values(Inquiry_SEQ.nextval,
+			#{m_email},
+			#{i_title},
+			#{i_content},
+			''
+		)
+	</insert>
+	
+	<select id="orderList" resultType="orderDTO">
 	 	select * from order_table order by 4 desc
 	 </select>
 	 <update id="orderStatusUpdate" parameterType="Map">

@@ -4,5 +4,5 @@
     <div style="text-align: center;">
 	    <button type="button" class="btn btn-primary" id="mypage_member_modifyBtn">회원정보수정</button>
 	    <button type="button" class="btn btn-primary" id="mypage_deleveryBtn">주문배송조회</button>
-	    <button type="button" class="btn btn-primary" id="mypage_coupon_pointBtn">쿠폰/포인트</button>
+	    <button type="button" class="btn btn-primary" id="mypage_inquiryBtn">나의 1:1 문의</button>
     </div>

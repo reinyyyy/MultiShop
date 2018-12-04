@@ -39,6 +39,8 @@ public class ManageController {
 	private MemberDTO memberDTO;
 	@Autowired
 	private MemberDAO memberDAO;
+	@Autowired
+	private InquiryDTO inquiryDTO;
 	
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public ModelAndView main() {

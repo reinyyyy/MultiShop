@@ -42,9 +42,19 @@ table td.content_box {min-height: 150px; border-top: 1px solid #dddddd; border-b
 			</tbody>
 		</table>
 		<div>
-			<button type="button" class="btn btn-success">목록</button>
+			<input type="hidden" name="pg" id="pg" value="${pg}">
+			<button type="button" id="noticeViewBtn" class="btn btn-success">목록</button>
 		</div>
 	</div>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var pg = $('#pg').val();  
+		$('#noticeViewBtn').on('click',function(){
+			location.href="http://localhost:8080/MultiShop/notice/notice.do?pg="+pg;		
+		});
+	});
+</script>
 </html>

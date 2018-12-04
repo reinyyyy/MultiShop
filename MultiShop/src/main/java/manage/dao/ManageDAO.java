@@ -26,6 +26,8 @@ public interface ManageDAO {
 
 	//현재 시퀀스값 조회
 	public int getSeq();
+
+	public int inquiryInsert(InquiryDTO inquiryDTO);
 	
 	//주문리스트
 	public List<OrderDTO> orderList();

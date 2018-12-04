@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="member.dao"/>
 	<context:component-scan base-package="notice.dao"/>
+	<context:component-scan base-package="notice.bean"/>
+	<context:component-scan base-package="notice.controller"/>
 	<context:component-scan base-package="category.controller"/>
 	<context:component-scan base-package="manage.controller"/>
 	<context:component-scan base-package="main.controller"/>

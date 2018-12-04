@@ -48,6 +48,11 @@ public class ManageMybatis implements ManageDAO {
 	}
 
 	@Override
+	public int inquiryInsert(InquiryDTO inquiryDTO) {
+		return sqlSession.insert("manageSQL.inquiryInsert", inquiryDTO);
+	}
+	
+	@Override
 	public List<OrderDTO> orderList() {
 		return sqlSession.selectList("manageSQL.orderList");
 	}

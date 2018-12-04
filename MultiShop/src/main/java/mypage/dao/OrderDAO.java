@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import manage.bean.InquiryDTO;
 import mypage.bean.OrderDTO;
 
 @Transactional
@@ -19,5 +20,7 @@ public interface OrderDAO {
 	public void insertOrder(Map<String, String> map);
 	
 	public List<OrderDTO> orderAllList(String email);
+
+	public List<InquiryDTO> inquiryList(String email);
 	
 }

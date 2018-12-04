@@ -242,9 +242,35 @@
     
     
     
+<<<<<<< HEAD
    <!-- ======================= 옵션 시작 ======================= -->
    <div class="sect-hd" style="">
         <h3>옵션/재고</h3>
+=======
+    <!-- ======================= 재고 시작 ======================= -->
+    <!-- <div class="sect-hd">
+      <h3>재고</h3>
+      <span class="txt-select">(선택)</span>
+      <a href="#" class="btn-arrow up">닫기</a>
+   </div><!-- .sect-hd -->
+   <!-- <div class="sect-cont" style="display: none;">
+      <ul id="stock-non" class="mobile-stock stock" style="">
+         <li>
+            <label><span>수량</span></label>
+            <div class="base pr-20"><input type="text" name="p_amount" value="0"> <span>개</span></div>
+         </li>
+      </ul>
+      <p id="stock-use" class="fc-blue stock" style="display:none">선택형 옵션 사용 시, 옵션 재고로 대체됩니다.</p>
+   </div> -->
+   <!-- ======================= 재고 종료 ======================= -->
+   
+   
+   
+   <!-- ======================= 옵션 시작 ======================= -->
+   <div class="sect-hd" style="">
+        <h3>옵션</h3>
+        <a href="#prdGuide2" class="lnk-qmark open-layer">도움말</a>
+>>>>>>> refs/remotes/origin/taehun
         <a href="#" class="btn-arrow up">닫기</a>
     </div>
     
@@ -257,6 +283,7 @@
                <colgroup>
                   <col class="w140">
                </colgroup>
+<<<<<<< HEAD
                <tbody>
                <tr>
                   <th>옵션 선택</th>
@@ -325,6 +352,97 @@
                      
                   </table>
                         <!--  옵션 설정 테이블 종료 -->
+=======
+            <tbody>
+               <tr class="opt-select js-optResetFalse is-pc-row" is-opt="true" style="display:none;">
+                  <th>옵션명</th>
+                  <td>
+                              <ul class="mobile-option">
+                                  <li>
+                           <select id="add_option_id" prd-id="0"></select>
+                                   </li>
+                                   <li>
+                           <span>옵션값</span> <input type="text" name="add_option_value"> <a href="#" class="btn-black" id="btn_add_opt">추가</a>
+                                   </li>
+                               </ul>
+                  </td>
+               </tr>
+               
+               <tr class="opt-select js-optResetTrue bg-yellow is-pc-row" is-opt="false" style="display: table-row;">
+                  <td colspan="2">
+                     <div class="tbl-list" id="mix_option">
+                        <!-- 옵션 설정 테이블 시작 -->
+                        <table id="add_mix_option">
+                        <colgroup>
+                           <col><!-- 없으면 테이블 레이아웃깨짐 -->
+                           <col><!-- 없으면 테이블 레이아웃깨짐 -->
+                           <col style="width: 100px"><!-- 없으면 테이블 레이아웃깨짐 -->
+                        </colgroup>
+                        <thead>
+                        <tr>
+                           <th>
+                              옵션명
+                           </th>
+                           <th>
+                              옵션값
+                           </th>
+                           <th>
+                              재고
+                           </th>
+                           <th style="width: 10%">
+                              <a href="javascript:void(0)" class="btn-add-opt">
+                              <img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_plus.png" alt="추가" style="width: 30px">
+                              </a>
+                           </th>
+                        </tr>
+                        </thead>
+                        <tbody id="p_option_tbody">
+                        <tr>
+                           <td>
+                              <input type="text" name="p_option1[]" placeholder="옵션명을 입력하세요. (예시: 색상/사이즈)" value="">
+                              <!-- 옵션1 , 를 기준으로 나눌거임 -->
+                           </td>
+                           <td>
+                              <input type="text" name="p_option2[]" placeholder="옵션값을 입력하세요. (예시: red/m)" value="">
+                           </td>
+                           <td>
+                              <input type="text" name="p_amount[]" placeholder="재고 " value="">
+                           </td>
+                           <td style="width : 10%">
+                              <a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a>
+                           </td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        <!--  옵션 설정 테이블 종료 -->
+                        
+                        <input type="button" value="확인" id="check_btn">
+                        <!-- 테스트용 -->
+                        
+                        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                        <script>
+                                   $(document).ready(function(){
+                                       $('#add_mix_option').on('click', '.btn-add-opt', function(){
+                                         var appendTo_option = 
+                                         '<tr>' +
+                                         '<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상/사이즈)"></td>' +
+                                         '<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red/m)"></td>' +
+                                         '<td><input type = "text" name = "p_amount[]" placeholder = "재고 " value = ""></td>' + 
+                                         '<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
+                                         '</tr>'
+                                         ;
+                                         var appendTo_html = $('#p_option_tbody').html() + appendTo_option;
+                                         $('#p_option_tbody').html(appendTo_html);
+                                      })//기존 정보 사라짐
+                                      $('#check_btn').click(function(){
+                                          alert("");
+                                       });
+                                      $('#add_mix_option').on('click', '.btn-del-opt', function(){
+                                         $(this).parent().parent().remove();
+                                      });
+                                   });
+                                </script>
+>>>>>>> refs/remotes/origin/taehun
                         </div>
                      </td>
                   </tr>
@@ -368,6 +486,7 @@
                                  <p>
                                     <span class="btn-prd-upload">
                                        <img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+<<<<<<< HEAD
                                        <input type="file" class = "img_detail" name="img_detail[]">
                                     </span>
                                  </p>
@@ -401,6 +520,41 @@
                                     <span class="btn-prd-upload">
                                        <img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
                                        <input type="file" class = "img_detail" name="img_detail[]">
+=======
+                                       <input type="file" name="img_detail[]">
+                                    </span>
+                                 </p>
+                              </li>
+                              <li class="add swiper-slide prd-img-resizing">
+                                 <p>
+                                    <span class="btn-prd-upload">
+                                       <img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+                                       <input type="file" name="img_detail[]">
+                                    </span>
+                                 </p>
+                              </li>
+                              <li class="add swiper-slide prd-img-resizing">
+                                 <p>
+                                    <span class="btn-prd-upload">
+                                       <img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+                                       <input type="file" name="img_detail[]">
+                                    </span>
+                                 </p>
+                              </li>
+                              <li class="add swiper-slide prd-img-resizing">
+                                 <p>
+                                    <span class="btn-prd-upload">
+                                       <img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+                                       <input type="file" name="img_detail[]">
+                                    </span>
+                                 </p>
+                              </li>
+                              <li class="add swiper-slide prd-img-resizing">
+                                 <p>
+                                    <span class="btn-prd-upload">
+                                       <img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
+                                       <input type="file" name="img_detail[]">
+>>>>>>> refs/remotes/origin/taehun
                                     </span>
                                  </p>
                               </li>
@@ -432,14 +586,26 @@
         
            <div id="pagekinCreateArea" style="width: 100%; height: 400px;">
                     <!-- 상세내용 미리보기 -->
+<<<<<<< HEAD
                <iframe src="editor/contents.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
                   <!-- 상세 이미지 & 글내용 include 영역 -->
                 </iframe>
+=======
+               <iframe src="editor/default.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
+                  <!-- 상세 이미지 & 글내용 include 영역 -->
+                </iframe>
+                <p id="status">이미지 선택안됨</p>
+>>>>>>> refs/remotes/origin/taehun
             </div>
             <div>
             <br>
+<<<<<<< HEAD
                <!-- <input type = "button" value = "확인" id = "check">
                <input type = "button" value = "태그거르기 확인" id = "check_img"> -->
+=======
+               <input type = "button" value = "확인" id = "check">
+               <input type = "button" value = "태그거르기 확인" id = "check_img">
+>>>>>>> refs/remotes/origin/taehun
                <input type = "hidden" value = "" name = "p_contents" id = "p_contents">
             </div>
             
@@ -448,6 +614,58 @@
             
             </div>
             
+<<<<<<< HEAD
+=======
+            <!-- 테스트용 script -->
+            <script>
+               $(document).ready(function(){
+                  //p_contents 에서는 img 위치 알아하고 DB에 저장되어있던 상세이미지 풀어서 뿌려줘야함
+                  alert("");
+                  
+                  $('#check_img').click(function(){
+                     var data =    $('#default_iframe').contents().find('#contents_div').html();
+                     var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
+                     var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '<img>');
+                     alert(result2);
+                  });
+                  
+                  $('#check').click(function(){
+                     var data = $('#default_iframe').contents().find('#contents_div').html();
+                     var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
+                     alert (result);
+                     
+                     //var upload = document.getElementsByTagName('input')[0],
+                     var upload = $('input[name="img[]"]');
+                     var holder = $('#holder'); 
+                      //holder = document.getElementById('holder'),
+                      state = document.getElementById('status');
+                      
+                      
+                      
+                      $.each(upload, function(index, items){
+                         var file = items.files;
+                         var reader = new FileReader();
+                         reader.onload = function(event){
+                            var img = new Image();
+                            img.src = event.target.result;
+                            if(img.width > 560){
+                               img.width = 560;   
+                            }
+                            holder.html(img);
+                         }
+                         
+                         alert(items.files);
+                         if (typeof window.FileReader === 'undefined') {
+                             state.className = 'fail';
+                           } else {
+                             state.className = 'success';
+                             state.innerHTML = '이미지 선택됨';
+                           }
+                      });
+                  });
+               });
+            </script>
+>>>>>>> refs/remotes/origin/taehun
         </div>
     </div><!-- .sect-cont -->
     <!-- ======================= 상세설명 종료 ======================= -->
@@ -508,6 +726,7 @@ $('.btn-arrow').on('click', function(e) {
         $(this).parent('.sect-hd').next('.sect-cont').hide();
     }
 });
+<<<<<<< HEAD
 //파일 사이즈 체크
 function CheckUploadFileSize(objFile, file){
     var nMaxSize = 10 * 1024 * 1024; // 4 MB
@@ -548,8 +767,11 @@ function bytesHandler(obj, tag){
    var text = $(obj).val();
    tag.next().find('span').text(getTextLength(text));
 }
+=======
+>>>>>>> refs/remotes/origin/taehun
    
 $(document).ready(function(){
+<<<<<<< HEAD
    
    $('#option_no_tr').hide();
    //옵션 사용여부
@@ -626,7 +848,109 @@ $(document).ready(function(){
            }
        });
    });
+=======
+   /* $(document).click(function(){
+      console.log($(this).prop('tagName'));
+   }); */
+      //이게 있어야 미리보기에 들어가짐
+      $('input[name="img_detail[]"]').change(function(){
+         readURL(this);
+      });
+   
+      //매개변수로 옵션태그 찍어내줌
+      function optionMaker(values){
+         var option_tag = "";
+         for(i = 0; i < values.length; i++){
+            option_tag += "<option>"+values[i]+"</option>";
+         }
+         return option_tag;
+      }
+   
+      //대분류 카테고리 변경 이벤트
+      $('#p_cateNum').on('change', function(){
+         var select = "<option value='0'>-- 2차 선택 --</option>";
+         if($(this).val() == 1){
+            select += optionMaker(['Carbohydrate', 'Protein', 'Fat', 'Vitamin', 'Spice']);
+            $('#p_midCate').html(select);
+         }else if($(this).val() == 2){
+            select += optionMaker(['Auido/Video', 'Game', 'Smart Watch', 'Drone', 'TV', 'Laptop/Computer HardWare']);
+             $('#p_midCate').html(select);
+         }else if($(this).val() == 3){
+            select += optionMaker(['Outer', 'TOP', 'Bottom', 'Shoes', 'Innerwear']);
+             $('#p_midCate').html(select);
+         }
+      });
+   
+   
+      //중분류 카테고리 변경 이벤트
+      $('.p_cate_ul').on('change', '#p_midCate', function(){
+         var select = "<option value = '0'>-- 3차 선택 --</option>";
+         
+         $('#p_smallCate').show();
+         var cateNum = $('#p_cateNum').val();
+         
+         if(cateNum == 1){
+            if($(this).val() == 'Carbohydrate'){
+               select += optionMaker(['쌀', '면', '제과']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Protein'){
+               select += optionMaker(['소고기', '닭고기', '돼지고기', '유제품']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Fat'){
+               select += optionMaker(['유류', '견과류', '인스턴트']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Vitamin'){
+               select += optionMaker(['종합 비타민', '남성용', '여성용', '과일']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Spice'){
+               select += optionMaker(['화학 조미료', '천연 조미료', '기타 향신료']);
+               $('#p_smallCate').html(select);
+            }
+         }
+         
+         if(cateNum == 2){
+            if($(this).val() == 'Auido/Video'){
+               select += optionMaker(['speaker', 'headphone,earphone', 'camera', 'beam projector']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Game'){
+               select += optionMaker(['console', 'game package']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Smart Watch'){
+               $('#p_smallCate').hide();
+            }else if ($(this).val() == 'Drone'){
+               $('#p_smallCate').hide();
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'TV'){
+               select += optionMaker(['TV', 'home audio', 'home speaker', 'VR sets']);
+               $('#p_smallCate').html(select);
+            }else if($(this).val() == 'Laptop/Computer HardWare'){
+               select += optionMaker(['laptop', 'mouse', 'tablet']);
+               $('#p_smallCate').html(select);
+            }
+         }
+         
+         if(cateNum == 3){
+            if ($(this).val() == 'Outer'){
+               select += optionMaker(['코트 ', '자켓', '점퍼']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'TOP'){
+               select += optionMaker(['니트/가디건', '셔츠', '티셔츠']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Bottom'){
+               select += optionMaker(['청바지', '슬랙스', '면바지']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Shoes'){
+               select += optionMaker(['구두', '단화', '런닝화']);
+               $('#p_smallCate').html(select);
+            }else if ($(this).val() == 'Innerwear'){
+               select += optionMaker(['속옷', '내복']);
+               $('#p_smallCate').html(select);
+            }
+         }
+      });
+>>>>>>> refs/remotes/origin/taehun
 
+<<<<<<< HEAD
       //키입력이벤트      상품명, 제조사, 원산지
       $('.need_check_input').keydown(function(){
            if ($(this).val().length > $(this).attr('maxlength')) {
@@ -745,8 +1069,11 @@ $(document).ready(function(){
             }
          }
       });
+=======
+>>>>>>> refs/remotes/origin/taehun
     //   상품 등록 버튼
     $('#btn_save').click(function(){
+<<<<<<< HEAD
        $('#p_cateNum_div').empty();
        $('#p_midCate_div').empty();
        $('#p_smallCate_div').empty();
@@ -801,6 +1128,20 @@ $(document).ready(function(){
       }else{
           $('#product_form').submit();
       }
+=======
+       
+       //컨텐츠 hidden값에 넣어줘야함
+       var data =    $('#default_iframe').contents().find('#contents_div').html();
+      var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n').replace(/<br>/gi, '\n');
+      var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '<img>');
+      alert(result2); //이미지태그 개수 및 위치 표시가능
+      
+      $('#p_contents').val(result2);
+      
+      alert($('#p_contents').val());
+      //여기서 유효성검사 해줘야함
+       $('#product_form').submit();
+>>>>>>> refs/remotes/origin/taehun
     });
     
     //재고, 판매가격 이벤트 숫자만허용

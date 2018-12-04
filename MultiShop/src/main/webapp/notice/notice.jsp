@@ -7,6 +7,22 @@
 <title>Insert title here</title>
 <link href = "../css/categoryItemList.css" rel = "stylesheet" />
 <link href = "../css/common.css" rel = "stylesheet" />
+<style>
+div#noticePagingDiv {text-align: center;}
+div#noticePagingDiv > a {
+	display: inline-block;
+    border-radius: 5px;
+    min-width: 40px;
+    margin: 0 3px;
+    padding: 9px;
+    color: #fff;
+    background-color: #727b84;
+    border-color: #6c757d;
+}
+div#noticePagingDiv > a:hover {
+	text-decoration: none;
+}
+</style>
 </head>
 <body>
 	<div id="jb-container">
@@ -39,12 +55,10 @@
 						
 					</tbody>
 				</table>
+				<input type="hidden" id="pg" name="pg" value="${pg}" />
 			</div>
-			<div align="center">
-				<button type="button" class="btn btn-secondary" onclick="alert();">1</button>
-				<button type="button" class="btn btn-secondary">2</button>
-				<button type="button" class="btn btn-secondary">3</button>
-				<button type="button" class="btn btn-secondary">다음</button>
+			<div id="noticePagingDiv">
+
 			</div>
 		</div>
 	</div>
@@ -55,6 +69,7 @@
 		$.ajax({
 			type:'POST',
 			url:'/MultiShop/notice/noticeList.do',
+			data: {"pg":$('#pg').val()},
 			dataType:"json",
 			success: function(data){
 				/* alert(JSON.stringify(data)); */
@@ -72,11 +87,13 @@
 						text : new Date(items.n_date).toLocaleDateString()
 					})).appendTo($('#notice_table'));
 				});
+				$('#noticePagingDiv').html(data.noticePaging);
 			}
 		});
 		$('#notice_table').on('click','.subjectA',function(){
+			var pg = $('#pg').val();
 			var n_number = $(this).parent().prev().text();
-			location.href="./noticeView.do?n_number="+n_number;
+			location.href="./noticeView.do?n_number="+n_number+"&pg="+pg;
 		});
 	});
 </script>
