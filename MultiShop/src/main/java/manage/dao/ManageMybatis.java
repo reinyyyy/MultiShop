@@ -19,4 +19,12 @@ public class ManageMybatis implements ManageDAO {
 	public List<ProductDTO> getProductListsJson(Map<String, String> map) {
 		return sqlSession.selectList("manageSQL.getProductListsJson", map);
 	}
+
+	public void productModifyJson(Map<String, String> map) {
+		sqlSession.update("manageSQL.productModifyJson",map);
+	}
+
+	public void productDeleteJson(Map<String, String> map) {
+		sqlSession.delete("manageSQL.productDeleteJson",map);
+	}
 }

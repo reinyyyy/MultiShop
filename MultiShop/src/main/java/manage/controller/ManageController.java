@@ -80,9 +80,30 @@ public class ManageController {
 		System.out.println(list);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", list);
+		mav.addObject("data", list);
 		mav.setViewName("jsonView");
 		
+		return mav;
+	}
+	
+	@RequestMapping(value="productModifyJson", method=RequestMethod.POST)
+	public ModelAndView productModifyJson(@RequestParam Map<String, String> map) {
+		
+		manageDAO.productModifyJson(map);
+		System.out.println(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	@RequestMapping(value="productDeleteJson", method=RequestMethod.POST)
+	public ModelAndView productDeleteJson(@RequestParam Map<String, String> map) {
+		
+		manageDAO.productDeleteJson(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("jsonView");
 		return mav;
 	}
 }

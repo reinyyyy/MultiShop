@@ -2,140 +2,187 @@
     pageEncoding="UTF-8"%>
 <div id="prdSearch" class="page-body">
     <h2>상품 관련</h2>
-
-    <form id="search_prd_order_form" method="post" action="/adm/order/manage/total">
-        <input type="hidden" name="search_keyword" value="">
-        <input type="hidden" name="search_keyword_type" value="prd_id">
-        <input type="hidden" name="search_date" value="6m">
-    </form> 
-
-    <div class="sect-top">
-        <form id="search_form" action="/adm/product/manage/getList" method="post" onsubmit="return false;">
-        <input type="hidden" id="page" name="page" value="1">
-        <input type="hidden" id="excel" name="excel" value="N">
-        <input type="hidden" name="search_limit_cnt" value="10">
-        <input type="hidden" name="search_prd_sort" value="up-dt-desc">
-        <div class="tbl-setting">
-            <table>
-                <caption></caption>
-                <colgroup>
-                    <col class="w140">
-                    <col>
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th class="txt-l">상태</th>
-                        <td>
-                            <ul class="arr-align">
-                                <li class="w20per">
-                                    <select class="search_prd_display">
-                                        <option value="A">전체</option>
-                                        <option value="Y">판매중</option>
-                                        <option value="N">판매중지</option>
-                                        <option value="S">품절</option>
-                                    </select>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="txt-l">상품명</th>
-                        <td>
-                            <ul class="arr-align">
-                                <li class="w40per">
-                                    <input type="text" class="search_keyword">
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="txt-l">등록일</th>
-                        <td>
-                            <ul class="arr-align">
-                                <li class="w20per period-3x">
-                                    <a href="#" class="btn-toggle btn-dateterm today">오늘</a>
-                                    <a href="#" class="btn-toggle btn-dateterm week">1주일</a>
-                                    <a href="#" class="btn-toggle btn-dateterm month">1개월</a>
-                                </li>
-                                <li class="w40per calendar">
-                                    <label><input type="text" id="datepicker1" value="">
-                                    	<img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
-                                    <span>~</span>
-                                    <label><input type="text" id="datepicker2" value=""><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h16_calendar.png" alt="calendar"></label>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div><!-- .tbl-setting -->
-        <div class="btn-c">
-            <a href = "#" class="btn-h52-blue" id="btn_search">검색</a>
-        </div>
-        </form>
-    </div><!-- .sect-top -->
-
+    
     <div class="pc-switch">
-        <div class="sect-hd">
-            <h3>상품 검색 결과</h3>
-            <span>( 총 : <em class="prd-total">0</em> 판매중 : <em class="prd-sell-count">0</em> / 판매중지 : <em class="prd-nosell-count">0</em> )</span>
-
-            <p class="abs-r">
-                <select name="search-sort" class="mr-5" style="width:130px">
-                    <option value="sell_desc">판매 높은순</option>
-                    <option value="sell_asc">판매 낮은순</option>
-                    <option value="stock_desc">재고 많은순</option>
-                    <option value="stock_asc">재고 적은순</option>
-                </select>
-                <select class="mr-5 search-limit" style="width:140px">
-                    <option value="10">10개씩 보기</option>
-                    <option value="30">30개씩 보기</option>
-                </select>
-            </p>
-        </div><!-- .sect-hd -->
-
         <div class="sect-cont">
-            <div class="tbl-side exec-bar">
-                <span class="txt-count"><em>0</em>개 상품을</span>
-                <select style="width:100px" class="js-prd-display">
-                    <option value="Y">판매</option>
-                    <option value="N">판매중지</option>
-                    <option value="S">품절</option>
-                    <option value="D">삭제</option>
-                </select>
-            </div><!-- .tbl-side -->
-            <div class="tbl-list mt-20" style="height: 175px;">
-                <table id="ftb" style="width:1465px">
-                    <caption></caption>
-                    <thead>
-                        <tr>
-                            <th style="width:55px"><label class="single"><input type="checkbox" class="chk-all-prd" pc-type="pc"><span></span></label></th>
-                            <th style="width:95px">상품번호</th>
-                            <th style="width:300px">상품명</th>
-                            <th style="width:200px">판매가</th>
-                            <th style="width:100px">판매상태</th>
-                            <th style="width:100px">재고</th>
-                            <th style="width:100px">판매수</th> 
-                            <th style="width:220px">등록일(수정일)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="pc_prd_row">
-                    	<tr>
-    						<td colspan="8" class="text-center non-data">데이터가 존재하지 않습니다.</td>
-						</tr>
-					</tbody>
+            <div class="tbl-side exec-bar" style="overflow:auto;">    
+                <div class="tbl-list mt-20" style="height: 175px;">
+                <table id="productLists">
+						<thead>
+							<tr>
+								<th>상품코드</th>
+								<th>상품명</th>
+								<th>수량</th>
+								<th>가격</th>
+								<th>등록일</th>
+								<th>판매량</th>
+								<th>판매 상태</th>
+							</tr>
+						</thead>
                 </table>
-            </div><!-- .tbl-list -->
-            <div class="tbl-side exec-bar mt-10">
-                <span class="txt-count"><em>0</em>개 상품을</span>
-                <select style="width:100px" class="js-prd-display">
-                    <option value="Y">판매</option>
-                    <option value="N">판매중지</option>
-                    <option value="S">품절</option>
-                    <option value="D">삭제</option>
-                </select>
-            </div><div id="pagination"></div>
+            	</div><!-- .tbl-list -->
+            </div><!-- .tbl-side -->
+            <div id="pagination"></div>
         </div><!-- .sect-cont -->
+        <br>
+        <br>
+        <br>
+        <div id="modifyForm">
+        	<table id="productRow">
+				<thead>
+					<tr>
+						<th>상품코드</th>
+						<th>상품명</th>
+						<th>수량</th>
+						<th>가격</th>
+						<th>등록일</th>
+						<th>판매량</th>
+						<th>판매 상태</th>
+					</tr>
+				</thead>
+				
+					<tr>
+						<td class="p_code1" align="center"></td>
+						<td class="p_name1" align="center"><input type="text" id="p_name2" value=""></td>
+						<td class="p_amount1" align="center"><input type="text" id="p_amount2" value=""></td>
+						<td class="p_cost1" align="center"><input type="text" id="p_cost2" value=""></td>
+						<td class="p_date1" align="center"></td>
+						<td class="p_sales1" align="center"></td>
+						<td class="p_status1" align="center"><a id="" href='#'><span id="p_status2"></span></a></td>
+					</tr>
+            </table>
+            <br>
+            <div style="float:right; margin-right : 100px">
+				<input type="button" id="p_modify" value="수정하기">
+				<input type="button" id="p_delete" value="삭제하기">
+            </div>
+            <div id="p_data_null" style="float:right; margin-right:50px">
+			</div>
+        </div>
     </div><!-- .pc-switch -->
 </div>
+<script>
+$(document).ready(function(){
+	
+	$('#productLists').DataTable({
+		ajax: {
+	         'url':'/MultiShop/manage/productListsJson.do',
+	         'type': 'POST'
+	     },
+		"columns" : [
+			{"data":"p_code","class":"p_code modify"},
+			{"data":"p_name","class":"p_name modify"},
+			{"data":"p_amount","class":"p_amount modify"},
+			{"data":"p_cost","class":"p_cost modify"},
+			{"data":"p_date","class":"p_date modify"},
+			{"data":"p_sales","class":"p_sales modify"},
+			{"data":"p_status","class":"p_status modify"}
+		],
+		"searching" : true,
+		responsive : true,
+		"ordering": true,
+		"language" : {
+			"emptyTable" : "데이터가 없습니다.",
+			"info" : "_START_ - _END_ (총 _TOTAL_개)",
+			"infoEmpty" : "0명",
+			"infoFiltered" :"(전체 _MAX_개의 품목 중 검색결과)",
+			"lengthMenu" : "_MENU_"+"&emsp;&emsp;",
+			"zeroRecords" : "검색된 데이터가 없습니다.",
+			"paginate" : {
+				"first" : "첫페이지",
+				"last" : "마지막 페이지",
+				"next" : "다음",
+				"previous" : "이전"
+			},
+			"aria" : {
+				"sortAscending" : "오름차순 정렬",
+				"sortDescending" : "내림차순 정렬"
+			}
+		}
+	});
+	
+	$('#productLists').on('click','tbody tr', function(){
+		
+		var tr = $(this);
+		var td = tr.children();
+		var arr = new Array();
+		
+		console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+		
+		td.each(function(i){
+	        arr.push(td.eq(i).text());
+	    });
+		
+		var p_code = td.eq(0).text();
+		var p_name = td.eq(1).text();
+		var p_amount = td.eq(2).text();
+		var p_cost = td.eq(3).text();
+		var p_date = td.eq(4).text();
+		var p_sales = td.eq(5).text();
+		var p_status = td.eq(6).text();
+		
+		$(".p_code1").text(p_code);
+		$('#p_name2').val(p_name);
+		$('#p_amount2').val(p_amount);
+		$('#p_cost2').val(p_cost);
+		$(".p_date1").text(p_date);
+		$(".p_sales1").text(p_sales);
+		$('#p_status2').text(p_status);
+			
+	});
+	
+	$('#p_status2').click(function(){
+		if($('#p_status2').text()=='Y'){
+			$('#p_status2').text('N');
+		}else {
+			$('#p_status2').text('Y');
+		}
+	});
+	
+	$('#p_modify').on('click',function(){
+		
+		p_code = $(".p_code1").text();
+		p_name = $('#p_name2').val();
+		p_amount = $('#p_amount2').val();
+		p_cost = $('#p_cost2').val();
+		p_date = $(".p_date1").text();
+		p_sales = $(".p_sales1").text();
+		p_status = $('#p_status2').text();
+		
+		if(p_code == ''){
+			$('#p_data_null').html("데이터가 없습니다.").css('color','red').css('font-weight','bold');
+		}else {
+			$.ajax({
+				url : './productModifyJson.do',
+				type : 'POST',
+				data : {'p_code':p_code,'p_name':p_name,'p_amount':p_amount,'p_cost':p_cost,'p_date':p_date,'p_sales':p_sales, 'p_status':p_status},
+				dataType : 'json',
+				success : function(data){
+					location.reload();
+				}
+			});
+		}
+	});
+	
+$('#p_delete').on('click',function(){
+		
+		p_code = $(".p_code1").text();
+		
+		if(p_code == ''){
+			$('#p_data_null').html("데이터가 없습니다.").css('color','red').css('font-weight','bold');
+		}else {
+			$.ajax({
+				url : './productDeleteJson.do',
+				type : 'POST',
+				data : {'p_code':p_code},
+				dataType : 'json',
+				success : function(data){
+					alert('삭제되었습니다.');
+					location.reload();
+				}
+			});
+		}
+	});
+});
+</script>
 

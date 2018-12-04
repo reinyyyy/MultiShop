@@ -7,6 +7,10 @@ import category.bean.ProductDTO;
 
 public interface ManageDAO {
 
-	List<ProductDTO> getProductListsJson(Map<String, String> map);
+	public List<ProductDTO> getProductListsJson(Map<String, String> map);
+
+	public void productModifyJson(Map<String, String> map);
+
+	public void productDeleteJson(Map<String, String> map);
 	
 }

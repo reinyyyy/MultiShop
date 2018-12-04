@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="../css/admin.css">
     <!-- 달력 -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
-    	
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">	
     <!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	
 	<!-- 달력 -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
@@ -157,4 +158,5 @@ var imgPath     = "//image.makeshop.co.kr/mysoho";
 <input type="hidden" name="autoSms[prod_deli]" value="">
 	<jsp:include page="${display }"/>
 </body>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 </html>
