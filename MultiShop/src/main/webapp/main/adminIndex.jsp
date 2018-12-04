@@ -58,7 +58,7 @@
         </div><!-- // .hd .ani -->
         <ul id="snb">
         	<li>
-                <a href="#"  id="productInsertBtn">상품추가</a>
+                <a href="../manage/productAdd.do"  id="productInsertBtn">상품추가</a>
             </li>
         	<li>
                 <a href="../manage/productManagePage.do"  id="productManageBtn">상품관리</a>
