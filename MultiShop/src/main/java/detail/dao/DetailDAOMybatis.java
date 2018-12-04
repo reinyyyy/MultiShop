@@ -38,7 +38,6 @@ public class DetailDAOMybatis implements DetailDAO {
 	public Product_boardDTO getDetailPageInfo(int p_code) {
 		return sqlSession.selectOne("detailSQL.getDetailPageInfo",p_code);
 	}
-   
 	
    // 양현규
    	@Override
@@ -73,6 +72,7 @@ public class DetailDAOMybatis implements DetailDAO {
 	public List<DetailQnADTO> detail_GetQnATableList(int p_code) {
 		return sqlSession.selectList("detailSQL.detail_GetQnATableList",p_code);
 	}
+	
 	
    
 }

@@ -19,7 +19,6 @@
    		select * from product_board where p_code=#{p_code}
    </select>
    
-   
     <!-- 양현규 -->
    <insert parameterType="java.util.Map" id="detail_userReview">
        insert into detail_hoogi values(#{p_code},detail_hoogi_seq.nextval,#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 
