@@ -234,8 +234,7 @@ public class DetailController {
    
    //결재화면
    @RequestMapping(value="orderPage", method=RequestMethod.POST)
-   public String orderPage(Model model, @RequestParam(value="option_select1") String color, 
-                               @RequestParam(value="option_select2") String size, 
+   public String orderPage(Model model, @RequestParam Map<String, String> map, 
                                @RequestParam(value="amount_input") String amount, 
                                @RequestParam int productCode, 
                                @RequestParam String productName,
@@ -243,9 +242,12 @@ public class DetailController {
       
       String session_email = (String) session.getAttribute("session_email");
       System.out.println("@@"+session_email);
-      
-      model.addAttribute("color", color);
-      model.addAttribute("size", size);
+      System.out.println();
+      System.out.println(map);
+      System.out.println(amount);
+      System.out.println(productCode);
+      /*model.addAttribute("color", color);
+      model.addAttribute("size", size);*/
       model.addAttribute("amount", amount);
       model.addAttribute("productCode", productCode);
       model.addAttribute("productName", productName);

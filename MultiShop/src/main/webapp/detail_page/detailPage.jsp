@@ -155,7 +155,7 @@
                      <div class="conWrap">
                         <div class="totalWrap">
                            <span>총합계</span>
-                           <span id="totalPrice" class="totalPrice" totalp="99000.0">99000</span>
+                           <span id="totalPrice" class="totalPrice" totalp="99000.0">${p_ }</span>
                         </div>
                      </div>
                      <div class="btnWrap">
@@ -684,19 +684,18 @@ $(document).ready(function(){
 	} 
 	//수량 생성
 	var amount_input =
-		'<li>'+
-			'<dl id = "amount_list">'+
-				'수량' +
-				'<dd>' +
-					'<div>' +
-						'<input name = "amount_input" id = "amount_input" type="number" min="0" max="99"'+
-							//'onkeydown="max_amount()"'+
-								///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
-						'id="yourid">'+
-					'</div>'+
-				'</dd>'+
-			'</dl>'+
-		'</li>';
+				'<li>'+
+					'<dl id = "amount_list">'+
+						'<dd>' +
+							'<div>' +
+							'<dt>수량</dt><input id = "amount_input" type="number" min="0" max="99"'+
+									//'onkeydown="max_amount()"'+
+   									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
+								'id="yourid">'+
+							'</div>'+
+						'</dd>'+
+					'</dl>'+
+				'</li>';
 	$(document).on('keyup','#amount_input', function () {
 		alert("change");
 		this.value = this.value.replace(/\D/g, '');

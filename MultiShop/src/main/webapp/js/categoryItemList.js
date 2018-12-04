@@ -19,7 +19,7 @@ $(document).ready(function(){
 			//alert(data.list.length);
 			if(data.list.length == 0){
 				var temp = '<div style="width : 100%; height : 300px; margin-top : 300px" align="center">'+
-			    '<strong style="">상품이 없습니다</strong>'+
+			    '<h4>상품이 없습니다</h4>'+
 			    '</div>';
 				$('#card_contents').html(temp);
 				return;
@@ -41,7 +41,7 @@ $(document).ready(function(){
 	//페이징처리, sql문 새로 작성
 	//페이징처리해서 다른페이지 눌렀을경우 ?
 	$('.card-body p').click(function(){
-		
+		alert("");
 		var cateNum_param = $(this).parent().parent().prev().find('a').text();
 		
 		if(cateNum_param == ' Clothes '){
@@ -60,6 +60,8 @@ $(document).ready(function(){
 			p_midCate = '';
 		}//학원에서 수정해야댐@@
 		
+		
+		
 		$.ajax({
 			type : 'POST',
 			url : '../category/getList.do',
@@ -74,7 +76,7 @@ $(document).ready(function(){
 				//alert(JSON.stringify(data));
 				if(data.list.length == 0){
 					var temp = '<div style="width : 100%; height : 300px; margin-top : 300px;" align="center">'+
-				    '<strong style="">상품이 없습니다</strong>'+
+				    '<h4 style="">상품이 없습니다</h4>'+
 				    '</div>';
 					$('#card_contents').html(temp);
 					return;
@@ -85,7 +87,6 @@ $(document).ready(function(){
 				});
 				$('#card_contents').html(card_contents);
 				$('.pagination').html(data.categoryPaging.pagingHTML);
-
 			}
 		});
 	});
