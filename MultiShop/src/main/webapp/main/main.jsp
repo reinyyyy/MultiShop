@@ -145,7 +145,7 @@
 						
 					</li>
 					<li>
-						<button type="button" class="btn btn-info" aria-label="Left Align">
+						<button type="button" id="qnaBtn" class="btn btn-info" aria-label="Left Align">
 						   <i class="fas fa-question"></i>
 						</button>
 					</li>

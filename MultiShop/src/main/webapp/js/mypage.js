@@ -191,3 +191,7 @@
          );
       }
    });
+   /* 1:1문의 */
+   $('#mypage_inquiryBtn').on('click',function(){
+	   location.href='/MultiShop/mypage/inquiryPage.do'
+   });

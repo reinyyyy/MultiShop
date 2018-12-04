@@ -21,6 +21,10 @@ import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import manage.bean.InquiryDTO;
 import manage.dao.ManageDAO;
+import member.bean.MemberDTO;
+import member.dao.MemberDAO;
+import mypage.bean.OrderDTO;
+import notice.bean.NoticeDTO;
 
 @Controller
 @RequestMapping("/manage")

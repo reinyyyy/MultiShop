@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -92,7 +91,7 @@
 						<div class="card-body">
 							<a class="cursor" id="mypage_member_modifyBtn">회원정보수정</a></br>
 							<a class="cursor" id="mypage_deleveryBtn">주문배송조회</a></br>
-							<a class="cursor" id="mypage_coupon_pointBtn">쿠폰/포인트</a></br>
+							<a class="cursor" id="mypage_inquiryBtn">나의 1:1 문의</a></br>
 						</div>
 					</div>
 				</div>
@@ -135,24 +134,3 @@
 </div>
 </body>
 </html>
-=======
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-	<div style="text-align: center;"><h3>비밀번호</h3></div>
-   <div id="member_modify_confirm" style="text-align: center;">
-   <form id="member_modify_confirm_form" method="post" action="/MultShop/">
-      <div>
-         이메일 : <input type="text" id="member_modify_email" name="m_email" value='${session_email }' readonly="readonly">
-      </div>
-      <div>
-         비밀번호 : <input type="password" id="member_modify_pwd" name="m_pwd">
-      </div>
-      <div id="member_modify_statusDiv">
-      </div>
-      <div>
-         <input type="button" value="확인" id="member_modify_confirm_Btn">
-         <input type="reset" value="취소">
-      </div>
-   </form>
-   </div>
->>>>>>> refs/remotes/origin/minu
