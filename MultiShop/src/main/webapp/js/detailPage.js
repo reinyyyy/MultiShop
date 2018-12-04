@@ -43,11 +43,24 @@ $(document).ready(function(){
       var select_color = $('#detail_colorSelect').val();
       var select_size = $('#detail_sizeSelect').val();
       var select_amount = $('#detail_amountSelect').val();
+      var session_email = $('#session_email').val();
       
       $('#basketModal').modal({backdrop: 'static', keyboard: false});
       
       $('#goBasket').click(function(){
-         $('#detail_form').submit();
+    	  if(session_email.length<=0){
+        	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+    	    	  
+        	  //장바구니 비 로그인시
+        	  $('#detail_loginBtn').click(function(){
+        		  $('#basketModal_xBtn').trigger('click');
+        		  $('#non_loginCloseBtn').trigger('click');
+        		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
+    		  });
+          }else if(session_email.length>0){
+        	  location.href="../mypage/mypage.do"
+          }
+    	  
       });
       
    });
@@ -57,8 +70,21 @@ $(document).ready(function(){
       var select_color = $('#detail_colorSelect').val();
       var select_size = $('#detail_sizeSelect').val();
       var select_amount = $('#detail_amountSelect').val();
+      var session_email = $('#session_email').val();
+      //alert(session_email.length);
       
-      $('#detail_form').submit();
+      if(session_email.length<=0){
+    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+	    	  
+    	  //바로구매 비 로그인시
+    	  $('#detail_loginBtn').click(function(){
+    		  $('#non_loginCloseBtn').trigger('click');
+    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
+		  });
+      }else if(session_email.length>0){
+    	  $('#detail_form').submit();
+      }
+      
       
    });
    
@@ -81,18 +107,16 @@ $(document).ready(function(){
       else{
          var detail_hoogiStar =  $('input[name="detail_hoogiStar"]:checked').val();
          var detail_hoogiModalContent = $('#detail_hoogiModalContent').val();
-         /*var id = $('#session_email').val();*/
+         var id = $('#session_email').val();
+         alert(id);
          /*var p_code = $('#p_code').val();*/
          var p_code = 1;
-         var id ='id';
-         var seq= 3;
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_hoogi.do',
             data : {'detail_hoogiStar': detail_hoogiStar
                   ,'detail_hoogiModalContent':detail_hoogiModalContent
                   ,'id':id
-                  ,'seq':seq
                   ,'p_code':p_code},
             success : function(){
             	location.reload();
@@ -126,11 +150,9 @@ $(document).ready(function(){
          $('#detail_QnAContentDiv').text('내용을 입력하세요.').css('color','red').css('font-size','9pt');
       }
       else{
-         /*var id = $('#session_email').val();*/
+         var id = $('#session_email').val();
     	  /*var p_code = $('#p_code').val();*/
     	  var p_code = 1;
-    	  var id ='id';
-         var seq = 12;
          var condition = $('input[name="detail_QnACondition"]:checked').val();
          var detail_QnASubject = $('#detail_QnASubject').val();
          var detail_QnAContent = $('#detail_QnAContent').val();
@@ -140,7 +162,6 @@ $(document).ready(function(){
             type : 'POST',
             url : '/MultiShop/detail_page/detail_QnA.do',
             data : {'p_code':p_code,
-            	  	'seq':seq,
             	  	'id':id,
             	  	'condition':condition,
             	  	'detail_QnASubject':detail_QnASubject,
@@ -184,7 +205,6 @@ $(document).ready(function(){
    //QnA 답변 완료
    $('#detail_QnASendViewBtn').on('click',function(){
       var seq = $('#detail_QnAReplySeq').val();
-      /*var id = $('#session_email').val();*/
       var detail_QnAReplyView = $('#detail_QnAReplyView').val();
       var reply = 'complet';
       

@@ -13,6 +13,7 @@
    href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
    crossorigin="anonymous">
+
 <style type="text/css">
 #section_location{
 	position: unset;
@@ -26,38 +27,27 @@
    <header>
       <div class="container">
          <div id="productView">
-            <div class="breadCrumb">
-               <ul>
-                  <li class="home"><a href="#">Home</a></li>
-                  <li><a href="#link" onclick="">fashion</a></li>
-                  <li><a href="#link" onclick="">Outer</a></li>
-               </ul>
-            </div>
          <div id="productPopup" >
             <div class="productPopupWrap">
                   <div class="popLeft">
                      <div class="popupSlide">
-                        <div class="popupSlide">
-                           <div class="mask">
-                              <div style="" class="picZoomer">
-                                 <img class="zoom_goods" id="detailMain_image" src="../image/coat1.jpg" data-zoom-image="" alt="" style="position: absolute;">
-                              </div>
-                           </div>
-                        <div class="pagerWrap" id="gallery_01" style="text-align:center;">
-                           <a href="#" class="sumImg">
-                              <img style="width:100px; height:100px; border:2px solid lightgray" id="detailSub1_image" src="../image/coat1.jpg">
-                           </a>      
-                           <a href="#" class="sumImg">
-                              <img style="width:100px; height:100px;" id="detailSub2_image" src="../image/coat2.jpg">
-                           </a>
-                           <a href="#" class="sumImg">
-                              <img style="width:100px; height:100px; " id="detailSub3_image" src="../image/coat3.jpg">
-                           </a>
-                           <a href="#" class="sumImg">
-                              <img style="width:100px; height:100px; " id="detailSub4_image" src="../image/coat4.jpg">
-                           </a>
-                        </div>
-                     </div>
+                          <div class="mask">
+                          	<img class="xzoom" id="detailMain_image" src="../image/coat1.jpg" xoriginal="../image/coat1.jpg">
+                          </div>
+                       <div class="pagerWrap xzoom-thumbs" id="gallery_01" style="text-align:center;">
+                          <a href="#" class="">
+                             <img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub1_image" src="../image/coat1.jpg" xpreview="../image/coat1.jpg">
+                          </a>      
+                          <a href="#" class="">
+                             <img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub2_image" src="../image/coat2.jpg">
+                          </a>
+                          <a href="#" class="">
+                             <img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub3_image" src="../image/coat3.jpg">
+                          </a>
+                          <a href="#" class="">
+                             <img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub4_image" src="../image/coat4.jpg">
+                          </a>
+                       </div>
                   </div>
                </div>
             <form id ="detail_form" method="post" action="orderPage.do">
@@ -190,7 +180,7 @@
              <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title">MultiShop&nbsp;: </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" id="basketModal_xBtn" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -320,6 +310,7 @@
        </section>
    </div>
    <jsp:include page="../detail_Modal/detail_Modal.jsp"/>
+   <jsp:include page="../detail_Modal/detail_nonLogin.jsp"/>
    
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -327,26 +318,31 @@
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/detailPage.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="../js/jquery.picZoomer.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	//이미지 확대 기능
-	$('.picZoomer').picZoomer();
+	$(".xzoom").xzoom();
+	
 
-	//이미지 변경
+	 //이미지 변경
 	$('#detailSub1_image').click(function(){
+	   $('#detailMain_image').attr('xoriginal', '../image/coat1.jpg');
 	   $('#detailMain_image').attr('src', '../image/coat1.jpg');
 	});
 
 	$('#detailSub2_image').click(function(){
+	   $('#detailMain_image').attr('xoriginal', '../image/coat2.jpg');
 	   $('#detailMain_image').attr('src', '../image/coat2.jpg');
 	});
 
 	$('#detailSub3_image').click(function(){
+	   $('#detailMain_image').attr('xoriginal', '../image/coat3.jpg');
 	   $('#detailMain_image').attr('src', '../image/coat3.jpg');
 	});
 
 	$('#detailSub4_image').click(function(){
+	   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
 	   $('#detailMain_image').attr('src', '../image/coat4.jpg');
 	});
 	

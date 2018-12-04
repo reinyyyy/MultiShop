@@ -13,9 +13,9 @@ public interface DetailDAO {
    
    public void updateOneClothes(Map<String, String> map);
    
-   public void detail_userReview(DetailhoogiDTO detailhoogiDTO);
+   public void detail_userReview(Map<String,String> map);
 
-   public void detail_userQnA(DetailQnADTO detailQnADTO);
+   public void detail_userQnA(Map<String,String> map);
 
    public DetailQnADTO detail_GetQnAViewList(int seq);
 	

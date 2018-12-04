@@ -10,9 +10,17 @@
     <link rel="stylesheet" href="../css/admin.css">
     <!-- 달력 -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+<<<<<<< HEAD
     <!-- 데이터테이블 -->
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+=======
+    <style type="text/css">
+    	#memberTotalTable td{
+    		text-align: center;
+    	}
+    </style>
+>>>>>>> refs/remotes/origin/HyunGyuYang2
     	
     <!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

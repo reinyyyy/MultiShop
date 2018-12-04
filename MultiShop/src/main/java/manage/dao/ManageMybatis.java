@@ -12,10 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import detail.bean.DetailQnADTO;
+<<<<<<< HEAD
 import manage.bean.InquiryDTO;
 import member.bean.MemberDTO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
+=======
+import member.bean.MemberDTO;
+>>>>>>> refs/remotes/origin/HyunGyuYang2
 
 @Component
 @Transactional
@@ -48,6 +52,7 @@ public class ManageMybatis implements ManageDAO {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public int inquiryInsert(InquiryDTO inquiryDTO) {
 		return sqlSession.insert("manageSQL.inquiryInsert", inquiryDTO);
 	}
@@ -134,4 +139,28 @@ public class ManageMybatis implements ManageDAO {
 		sqlSession.delete("manageSQL.productDeleteJson",map);
 	}
 	
+=======
+	public List<MemberDTO> getMembersList() {
+		return sqlSession.selectList("manageSQL.getMembersList");
+	}
+
+	@Override
+	public List<DetailQnADTO> getQnAReadyList() {
+		return sqlSession.selectList("manageSQL.getQnAReadyList");
+	}
+	
+	@Override
+	public List<DetailQnADTO> getDetail_AnswerList(int p_code,int seq) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("p_code", p_code+"");
+		map.put("seq",seq+"");
+		return sqlSession.selectList("manageSQL.getDetail_AnswerList",map);
+	}
+	//Q&A답변하기
+	@Override
+	public void detail_AnswerUpdate(Map<String, String> map) {
+		sqlSession.update("manageSQL.detail_AnswerUpdate",map);
+	}
+
+>>>>>>> refs/remotes/origin/HyunGyuYang2
 }

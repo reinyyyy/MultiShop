@@ -12,8 +12,8 @@
    </update>
    
     <!-- 양현규 -->
-   <insert parameterType="detail_hoogiDTO" id="detail_userReview">
-       insert into detail_hoogi values(#{p_code},#{seq},#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 
+   <insert parameterType="java.util.Map" id="detail_userReview">
+       insert into detail_hoogi values(#{p_code},detail_hoogi_seq.nextval,#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 
    </insert>
 
    <select id="detail_GetReViewTableList" parameterType="int" resultType="detail_hoogiDTO">
@@ -22,8 +22,16 @@
    <select id="detail_GetQnATableList" parameterType="int" resultType="detail_QnADTO">
 		select * from detail_QnA where p_code = #{p_code} order by seq desc
    </select>
-   <insert parameterType="detail_QnADTO" id="detail_userQnA">
-      insert into detail_QnA values(#{p_code},#{seq},#{id},#{condition},#{detail_QnASubject},#{detail_QnAContent},sysdate,#{replyContent},#{reply}) 
+   <insert parameterType="java.util.Map" id="detail_userQnA">
+      insert into detail_QnA values(#{p_code}
+      								,detail_QnA_seq.nextval
+      								,#{id}
+      								,#{condition}
+      								,#{detail_QnASubject}
+      								,#{detail_QnAContent}
+      								,sysdate
+      								,#{reply}
+      								,#{replyContent}) 
    </insert>
    
    <select parameterType="int" id="detail_GetQnAViewList" resultType="detail_QnADTO">

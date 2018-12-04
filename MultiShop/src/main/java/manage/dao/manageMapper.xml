@@ -2,6 +2,9 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="manageSQL">
+	<select id="getMembersList" resultType="memberDTO">
+		select * from members
+	</select>
 	<select id = "getProductListsJson" parameterType = "Map" resultType = "productDTO">
 		select * from PRODUCT 
 		
@@ -86,6 +89,7 @@
 		p_startDate : 2018/11/27
 		p_lastDate : 2018/11/28
 	 -->
+<<<<<<< HEAD
 	 
 	 <insert id="inquiryInsert" parameterType="inquiryDTO">
 		insert into Inquiry values(Inquiry_SEQ.nextval,
@@ -156,6 +160,17 @@
       delete product where p_code = #{p_code}
    </delete>
    
+=======
+	 <select id="getDetail_AnswerList" parameterType="java.util.Map" resultType="detail_QnADTO">
+	 	select * from detail_QnA where p_code = #{p_code} and seq=#{seq}
+	 </select>
+	 <select id="getQnAReadyList" resultType="detail_QnADTO">
+	 	select * from detail_QnA where reply='ready'
+	 </select>
+	 <update id="detail_AnswerUpdate" parameterType="java.util.Map">
+	 	update DETAIL_QNA SET REPLYCONTENT = #{replyContent}, reply=#{reply} where p_code = #{p_code} and seq = #{seq}
+	 </update>
+>>>>>>> refs/remotes/origin/HyunGyuYang2
 </mapper>  
 
 
