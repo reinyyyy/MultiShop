@@ -26,18 +26,26 @@ public class CategoryPaging {
 		int endPage = startPage+pageBlock-1;
 		if(endPage > totalP) endPage = totalP;
 		
-		if(startPage > pageBlock)
-			pagingHTML.append("[<a id='paging' href='categoryItemList.do?pg="+(startPage-1)+"'>이전</a>]");
-		
+		if(startPage > pageBlock) {
+			//pagingHTML.append("[<a id='paging' onclick='categoryList("+(startPage-1)+")'>이전</a>]");
+			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+(startPage-1)+")' tabindex=\"-1\">이전</a></li>");
+		}else {
+			pagingHTML.append("<li class=\"page-item disabled\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+(startPage-1)+")' tabindex=\"-1\">이전</a></li>");
+		}
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("[<a id='currentPaging' href='categoryItemList.do?pg="+i+"'>"+i+"</a>]");
+				//pagingHTML.append("[<a id='currentPaging' onclick='categoryList("+i+")'>"+i+"</a>]");
+				pagingHTML.append("<li class=\"page-item active\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+i+")'>"+i+ 
+						"									<span class=\"sr-only\">(current)</span>\n" + 
+						"							</a></li>");
 			else
-				pagingHTML.append("[<a id='paging' href='categoryItemList.do?pg="+i+"'>"+i+"</a>]");
+//				pagingHTML.append("[<a id='paging' onclick='categoryList("+i+")'>"+i+"</a>]");
+				pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+i+")'>"+i+"</a></li>");
 		}
 		
 		if(endPage < totalP)
-			pagingHTML.append("[<a id='paging' href='categoryItemList.do?pg="+(endPage+1)+"'>다음</a>]");
+			//pagingHTML.append("[<a id='paging' onclick=categoryList("+(endPage+1)+"'>다음</a>]");
+			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\"onclick=categoryList("+(endPage+1)+"'>다음</a></li>");
 	}
 
 	public void makeSearchPagingHTML() {

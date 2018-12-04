@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="detailSQL">
+ 	<!-- 재우 -->
+   <select id="getClothes" parameterType="Map" resultType="int">
+      select count(*) from product where p_option1=#{p_color} and p_option2=#{p_size}  
+   </select>
+    
+   <update id="updateOneClothes" parameterType="Map">
+      update product set p_amount=p_amount-#{p_amount}, p_sales=#{p_amount} where p_option1=#{p_color} and p_option2=#{p_size}
+   </update>
+   
+    <!-- 양현규 -->
+   <insert parameterType="detail_hoogiDTO" id="detail_userReview">
+       insert into detail_hoogi values(#{p_code},#{seq},#{id},#{detail_hoogiStar},#{detail_hoogiModalContent},sysdate) 
+   </insert>
+
+   <select id="detail_GetReViewTableList" parameterType="int" resultType="detail_hoogiDTO">
+      select * from detail_hoogi where p_code = #{p_code} order by seq desc
+   </select>
+   <select id="detail_GetQnATableList" parameterType="int" resultType="detail_QnADTO">
+		select * from detail_QnA where p_code = #{p_code} order by seq desc
+   </select>
+   <insert parameterType="detail_QnADTO" id="detail_userQnA">
+      insert into detail_QnA values(#{p_code},#{seq},#{id},#{condition},#{detail_QnASubject},#{detail_QnAContent},sysdate,#{replyContent},#{reply}) 
+   </insert>
+   
+   <select parameterType="int" id="detail_GetQnAViewList" resultType="detail_QnADTO">
+      select * from detail_QnA where seq = #{seq} 
+   </select>
+   <update id="detail_QnA_Answer" parameterType="java.util.Map">
+   	 update detail_QnA set replyContent = #{replyContent} ,reply = #{reply} where seq= #{seq}
+   </update>
+   <select id="detail_QnA_List" parameterType="int" resultType="detail_QnADTO">
+   	 select * from detail_QnA where seq = #{seq}
+   </select>
+   <select id="detail_GetTotalReView" resultType="int">
+   		select count(*) from detail_hoogi
+   </select>
+   <select id="detail_detail_GetTotalQnA" resultType="int">
+   		select count(*) from detail_QnA
+   </select>
+   
+</mapper>

@@ -38,7 +38,12 @@ public class CategoryDAOMybatis implements CategoryDAO{
 	}
 	
 	//글 리스트 목록 맵으로 받아오기
-	public List<Map<String, String>> getProduct_Board_map(Map<String, Integer> map) {
+	public List<Map<String, String>> getProduct_Board_map(Map<String, String> map) {
 		return sqlSession.selectList("categorySQL.getProduct_Board_map", map);
+	}
+
+	@Override
+	public List<Map<String, String>> getProduct_Board_map_best(Map<String, String> map) {
+		return sqlSession.selectList("categorySQL.getProduct_Board_map_best", map);
 	}
 }

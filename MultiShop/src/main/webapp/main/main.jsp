@@ -74,6 +74,10 @@
 </head>
 <body>
 
+	<!-- 파라미터 값 -->
+	<input type = "hidden" name = "sortType" id = "sortType" value = "${sortType}">
+	<input type = "hidden" name = "midCate" id = "midCate" value = "">					
+
 		<div class="event_coupon">	
 			<a class="navbar-brand text-light">
 				<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>
@@ -145,7 +149,7 @@
 						
 					</li>
 					<li>
-						<button type="button" id="qnaBtn" class="btn btn-info" aria-label="Left Align">
+						<button type="button" class="btn btn-info" aria-label="Left Align">
 						   <i class="fas fa-question"></i>
 						</button>
 					</li>
@@ -214,7 +218,7 @@
 		                        </ul></li>
 		                     <li class="nav-item dropdown"><a
 		                        class="dropdown-toggle text-secondary" data-toggle="dropdown"
-		                        href="#" aria-expanded="false"  onclick = "location.href='../category/categoryItemList.do'"> Food </a>
+		                        href="#" aria-expanded="false"  onclick = "location.href='../category/categoryItemList.do?cateNum=1'"> Food </a>
 		                        <ul class="dropdown-menu" id="FoodMenu" role="menu">
 		                           <a class="dropdown-item" href="#">All</a>
 		                           <a class="dropdown-item" href="#">Carbohydrate</a>
@@ -461,4 +465,3 @@ $(document)
    $('#my-spinner').hide();
 });
 </script>
-</html>

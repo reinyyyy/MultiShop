@@ -6,35 +6,22 @@
 		select * from members
 	</select>
 	<select id = "getProductListsJson" parameterType = "Map" resultType = "productDTO">
-		select * from PRODUCT 
-		
-		<if test = "(p_status eq 'A'.toString())">
-			where (p_status = 'Y' or p_status = 'N')
-		</if>
-		<if test = "(p_status neq 'A'.toString())">
-			where p_status = #{p_status} 
-		</if>
-		
-		<if test = "p_name == ''">
-      	</if>
-     	<if test = "p_name != ''">
-			and p_name like '%'||#{p_name}||'%'
-		</if>
-		
-			and p_date between #{p_startDate} and (to_date(#{p_lastDate},'yy-mm-dd')+1)
-		<!-- <if test = "(search_sort eq 'sell_desc'.toString())">
-			order by #{p_sales} desc
-		</if>
-		<if test = "(search_sort eq 'sell_asc'.toString())">
-			order by #{p_sales} asc
-		</if>
-		<if test = "(search_sort eq 'stock_desc'.toString())">
-			order by #{p_amount} desc
-		</if>
-		<if test = "(search_sort eq 'stock_asc'.toString())">
-			order by #{p_amount} asc
-		</if> -->
-	</select>
+      select * from PRODUCT
+   </select>
+   
+   <update id="productModifyJson" parameterType="Map">
+      update product set
+      p_name=#{p_name},
+      p_amount=#{p_amount},
+      p_cost=#{p_cost},
+      p_date=sysdate,
+      p_status=#{p_status}
+      where p_code = #{p_code}
+   </update>
+   
+   <delete id="productDeleteJson" parameterType="Map">
+      delete product where p_code = #{p_code}
+   </delete>
 	
 	
 	<insert id = "productInsert" parameterType = "productDTO">
@@ -137,7 +124,7 @@
        update DETAIL_QNA SET REPLYCONTENT = #{replyContent}, reply=#{reply} where p_code = #{p_code} and seq = #{seq}
     </update>
     
-    <select id="productQnaAnswerList" parameterType="java.util.Map" resultType="detail_QnADTO">
+    <select id="productQnaproductQnaAnswerListAnswerList" parameterType="java.util.Map" resultType="detail_QnADTO">
        select * from detail_QnA where p_code = #{p_code} and seq=#{seq}
     </select>
     
@@ -145,7 +132,7 @@
       select * from PRODUCT
    </select>
 
-	<update id="productModifyJson" parameterType="Map">
+<!-- 	<update id="productModifyJson" parameterType="Map">
 		update product set
 		p_name=#{p_name},
 		p_amount=#{p_amount},
@@ -153,21 +140,12 @@
 		p_date=sysdate,
 		p_status=#{p_status}
 		where p_code = #{p_code}
-	</update>
+	</update> -->
    
-   <delete id="productDeleteJson" parameterType="Map">
+<!--    <delete id="productDeleteJson" parameterType="Map">
       delete product where p_code = #{p_code}
-   </delete>
+   </delete> -->
 </mapper>  
-
-
-
-
-
-
-
-
-
 
 
 
