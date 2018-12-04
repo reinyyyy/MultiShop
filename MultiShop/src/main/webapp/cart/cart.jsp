@@ -10,6 +10,7 @@
 </head>
 <body>
  <div class="container">
+ <form name="cartForm" id="cartForm" method="post" action="http://localhost:8080/MultiShop/cart/update.do">
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
@@ -54,7 +55,9 @@
 						</tr>
 					</tfoot>
 				</table>
+		</form>
 </div>
+
      <script type="text/javascript" src="../js/cart.js"></script>
 </html>
 
