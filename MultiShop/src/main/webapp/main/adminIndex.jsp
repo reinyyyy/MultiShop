@@ -9,8 +9,8 @@
     <!-- <link rel="icon" href="/mysoho_icon.png" type="image/x-icon"> -->
     <link rel="stylesheet" href="../css/admin.css">
     <!-- 달력 -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
-    	
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" /> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	
@@ -18,8 +18,8 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
     <!--common-->
-    
-	<script src="../js/manage/calendar.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<!-- <script src="../js/manage/calendar.js"></script> -->
     <script src = "../js/manage/product.js"></script>
     <script src="../js/manage/member.js"></script>
     <script>

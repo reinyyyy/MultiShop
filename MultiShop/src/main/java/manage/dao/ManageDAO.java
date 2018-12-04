@@ -25,4 +25,8 @@ public interface ManageDAO {
 
 	public int inquiryInsert(InquiryDTO inquiryDTO);
 	
+    public void productModifyJson(Map<String, String> map);
+
+    public void productDeleteJson(Map<String, String> map);
+	
 }

@@ -18,10 +18,6 @@ public class ManageMybatis implements ManageDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<ProductDTO> getProductListsJson(Map<String, String> map) {
-		return sqlSession.selectList("manageSQL.getProductListsJson", map);
-	}
-	
 	//상품 등록
 	public void productInsert(ProductDTO productDTO) {
 		sqlSession.insert("manageSQL.productInsert", productDTO);
@@ -46,4 +42,16 @@ public class ManageMybatis implements ManageDAO {
 	public int inquiryInsert(InquiryDTO inquiryDTO) {
 		return sqlSession.insert("manageSQL.inquiryInsert", inquiryDTO);
 	}
+	
+	public List<ProductDTO> getProductListsJson(Map<String, String> map) {
+		return sqlSession.selectList("manageSQL.getProductListsJson", map);
+    }
+
+    public void productModifyJson(Map<String, String> map) {
+       sqlSession.update("manageSQL.productModifyJson",map);
+    }
+
+    public void productDeleteJson(Map<String, String> map) {
+       sqlSession.delete("manageSQL.productDeleteJson",map);
+    }
 }

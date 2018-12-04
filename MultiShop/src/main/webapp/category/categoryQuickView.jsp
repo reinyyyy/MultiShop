@@ -185,7 +185,6 @@
 			//alert("${option_result_list}");		[[색상, 블랙, 블랙, 레드, 레드], [사이즈, 미디움, 라지, 미디움, 스몰]]  Type = String
 			var total_size = 1;
 			<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
-				
 				var option_list = "${item1}";
 				//alert(option_list);		//index 0 : [색상, 블랙, 블랙, 레드, 레드], index 1 : [사이즈, 미디움, 라지, 미디움, 스몰]	Type = String //9:23
 				
