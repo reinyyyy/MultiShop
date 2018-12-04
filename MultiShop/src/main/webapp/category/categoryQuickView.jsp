@@ -145,24 +145,20 @@
 		$(document).ready(function(){
 			
 			
-			
-			//option_DTO 제작
-			var option_DTO_DB = [];
-			
-			
-			var test = "${productDTO.p_image}";
-			var result = test.split('/');
-			
+			var img_param = "${productDTO.p_image}";
+			var result = img_param.split('/');
 			//alert(result[1]);
-			var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
-			$('.mask').find('img').attr('src', );
-			$('.mask').html(img_tag);
-			
+			//var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
+			$('.mask').children().attr('src',  '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
+			//$('.mask').html(img_tag);
+			var img_length = result.length-1;	//이미지 개수
+			var img_tag = '';
 			$.each(result, function(index, items){
-				if(index > 1){
-					img_tag += '<a href = "#" class = "sumImg"> <img style = "width: 100px; height : 100px;" id = "" src = "../upload/"'+items+'>';
+				if(index > 0 && items != undefined){
+					img_tag += '<a href = "#" class = "sumImg"> <img class="xzoom-gallery" style = "width: 100px; height : 100px;" id = "" src = "../upload/'+items+'">';
 				}
 			});
+			$('.pagerWrap').html(img_tag);
 			
 			
 			
@@ -268,7 +264,7 @@
 			//{사이즈, 11, 22, 33 , 42}
 			
 			// {블랙, 미디움, 11},
-			// {블랙, 라지, 22},
+			// {블랙, 미디움, 11},
 			// {블랙, 미디움, 11},
 			// {블랙, 미디움, 11},
 			
@@ -296,7 +292,7 @@
 			alert(result_DTO[2]);
 			alert(result_DTO[3]);
 			 */
-			
+		
 			//option_list_maker(result_DTO);
 			 
 			//하위 옵션 판단함수
@@ -413,22 +409,22 @@
 						'</dd>'+
 					'</dl>'+
 				'</li>';
+				
+			//수량 체인지 이벤트
 			$(document).on('keyup','#amount_input', function () {
 				alert("change");
 				this.value = this.value.replace(/\D/g, '');
-				if(this.value > test){
-					this.value = test;	
+				if(this.value > img_param){
+					this.value = img_param;	
 				}
 			});
 			
 			$('#wr_2').on('keyup', function() {
-
 			    this.value = this.value.replace(/\D/g, '');
-
 			    if (this.value > 150) this.value = 150;
-
 			});
-				
+			
+			//옵션 생성 해서 집어넣음
 			var temp = $('.aboutListBottom').html() + option_result + amount_input;
 			$('.aboutListBottom').html(temp);
 			
@@ -437,32 +433,12 @@
 			
 
 			 //이미지 변경
-			$('#detailSub1_image').click(function(){
-			   $('#detailMain_image').attr('xoriginal', '../image/coat1.jpg');
-			   $('#detailMain_image').attr('src', '../image/coat1.jpg');
-			});
-
-			$('#detailSub2_image').click(function(){
-			   $('#detailMain_image').attr('xoriginal', '../image/coat2.jpg');
-			   $('#detailMain_image').attr('src', '../image/coat2.jpg');
-			});
-
-			$('#detailSub3_image').click(function(){
-			   $('#detailMain_image').attr('xoriginal', '../image/coat3.jpg');
-			   $('#detailMain_image').attr('src', '../image/coat3.jpg');
-			});
-
-			$('#detailSub4_image').click(function(){
-			   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
-			   $('#detailMain_image').attr('src', '../image/coat4.jpg');
-			});
-			//alert(option_DTO.length);
-			//alert(option_DTO);
-			function option_maker(){
-				
-			}
+			 $(document).on('click', '.xzoom-gallery', function(){
+				var src = $(this).attr('src');
+				$('.mask').children().attr('src', src).attr('xoriginal', src);
+			 });
 			
-			
+			 
 			for(var i = 2; i < option_DTO.length; i++){
 				$('#option_select'+i).html('<option>옵션선택</option>');
 			}	

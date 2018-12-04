@@ -223,6 +223,7 @@
 					<button type="button" class="btn btn-secondary">3</button>
 					<button type="button" class="btn btn-secondary">다음</button> -->
 				</div>
+				
 
 				<!-- <div class="input-group">	여기에서 검색만들꺼면 이거쓰면됨
 						<span class="input-group-addon" id="btnGroupAddon2">@</span> 

@@ -536,17 +536,15 @@
     
     
     <div class="sect-cont" style="display: block;">
-        <div class="mb-10">
+        <!-- <div class="mb-10">
            <img src="https://cafe.pstatic.net/editor/btn_n_aligncenter.gif" alt="중간 정렬" width="21" height="21" title="중간 정렬" nhn:command="justifycenter" nhn:argument="undefined" nhn:state="normal" style="cursor: pointer;">
-        </div>
+        </div> -->
         
-        가운데정렬 테스트할때 사용하면됨
-        
-        <div id="pagekinArea" class="prdDtail-pagekin prd-write">
+        <div id="pagekinArea" class="prdDtail-pagekin prd-write">sss
         
            <div id="pagekinCreateArea" style="width: 100%; height: 400px;">
-           			<!-- 상세내용 미리보기 -->
-					<iframe src="editor/default.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
+           			<!-- 상세내용 미리보기 -->sss
+					<iframe src="editor/contents.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
 						<!-- 상세 이미지 & 글내용 include 영역 -->
 					 </iframe>
                 <p id="status">이미지 선택안됨</p>

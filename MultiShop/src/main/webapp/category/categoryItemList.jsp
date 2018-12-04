@@ -225,6 +225,11 @@
 					<button type="button" class="btn btn-secondary">2</button>
 					<button type="button" class="btn btn-secondary">3</button>
 					<button type="button" class="btn btn-secondary">다음</button> -->
+					<nav aria-label="...">
+						<ul class="pagination justify-content-center">
+							
+						</ul>
+					</nav>
 				</div>
 
 				<!-- <div class="input-group">	여기에서 검색만들꺼면 이거쓰면됨
@@ -232,6 +237,21 @@
 						<input type="text" class="form-control" placeholder="넣을 수도 뺄수도 있습니다"
 						aria-label="입력그룹 예제" aria-describedby="btnGroupAddon2">
 					</div> -->
+					<div>
+					<nav aria-label="...">
+						<ul class="pagination">
+							<li class="page-item disabled"><a class="page-link" href="#"
+								tabindex="-1">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item active"><a class="page-link" href="#">2
+									<span class="sr-only">(current)</span>
+							</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</div>

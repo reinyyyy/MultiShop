@@ -75,7 +75,8 @@
 <body>
 
 	<!-- 파라미터 값 -->
-	<input type = "hidden" name = "sortType" id = "sortType" value = "${sortType}">							
+	<input type = "hidden" name = "sortType" id = "sortType" value = "${sortType}">
+	<input type = "hidden" name = "midCate" id = "midCate" value = "">					
 
 		<div class="event_coupon">	
 			<a class="navbar-brand text-light">
@@ -217,7 +218,7 @@
 		                        </ul></li>
 		                     <li class="nav-item dropdown"><a
 		                        class="dropdown-toggle text-secondary" data-toggle="dropdown"
-		                        href="#" aria-expanded="false"  onclick = "location.href='../category/categoryItemList.do'"> Food </a>
+		                        href="#" aria-expanded="false"  onclick = "location.href='../category/categoryItemList.do?cateNum=1'"> Food </a>
 		                        <ul class="dropdown-menu" id="FoodMenu" role="menu">
 		                           <a class="dropdown-item" href="#">All</a>
 		                           <a class="dropdown-item" href="#">Carbohydrate</a>
@@ -252,9 +253,9 @@
 	
    <jsp:include page="modal.jsp"/>
 	
-	<div id="floatMenu">
+	<!-- <div id="floatMenu">
 		<audio src="../music/Arms.mp3"  autoplay controls style="z-index: 1300"></audio>
-	</div>
+	</div> -->
 	
 	<div id='my-spinner' style="z-index: 1200">
       <div><span>

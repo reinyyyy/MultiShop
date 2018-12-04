@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <div id="prdRegist" class="page-body rw">
     <form id="product_form" method="post" enctype="multipart/form-data" action="add.do">
         <div class="main-hd">
@@ -29,7 +30,6 @@
     <!-- ======================= 판매 아이템 시작 ======================= -->
     <div class="sect-hd">
         <h3>카테고리</h3>
-        <a href="#prdGuide10" class="lnk-qmark open-layer">도움말</a>
         <a href="#" class="btn-arrow">닫기</a>
     </div>
     
@@ -149,7 +149,7 @@
                 <tbody>
                     <tr>
                         <th><strong>판매가격 <span class="fc-red">*</span></strong></th>
-                        <td><div class="base pr-20"><span class="fc-red">\</span> <input type="text" id = "p_cost" name="p_cost" style="width:300px;" value="0" class="w20per" placeholder = ",제외 숫자만 입력"></div>
+                        <td><div class="base pr-20"><span class="fc-red">\</span> <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" style='width:300px;' id = "p_cost" name="p_cost" value="0" class="w20per num_only" placeholder = ",제외 숫자만 입력"></div>
 	                        <div id = "p_cost_div"></div>
                         </td>
                     </tr>
@@ -183,7 +183,6 @@
     <!-- ======================= 상품 이미지 시작 ======================= -->
     <div class="sect-hd">
         <h3>상품 대표이미지</h3>
-        <a href="#prdGuide1" class="lnk-qmark open-layer">도움말</a>
         <a href="#" class="btn-arrow">닫기</a>
     </div>
     
@@ -284,7 +283,6 @@
 	<!-- ======================= 옵션 시작 ======================= -->
 	<div class="sect-hd" style="">
         <h3>옵션/재고</h3>
-        <a href="#prdGuide2" class="lnk-qmark open-layer">도움말</a>
         <a href="#" class="btn-arrow up">닫기</a>
     </div>
     
@@ -353,7 +351,7 @@
 										<div id = "p_option2_div"></div>
 									</td>
 									<td>
-										<input class = "need_check_input"  type="text" id = "p_amount" name="p_amount[]_list" placeholder="재고 " value="">
+										<input class = "need_check_input num_only"  type="text" id = "p_amount" name="p_amount[]_list" placeholder="재고 " value="">
 										<div id = "ok_p_amount_div"></div>
 									</td>
 									<td style="width : 10%">
@@ -366,8 +364,6 @@
 						</table>
 								<!--  옵션 설정 테이블 종료 -->
 								
-								<input type="button" value="확인" id="check_btn">
-								<!-- 테스트용 -->
 								
 								<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 								<script>
@@ -395,13 +391,14 @@
                                 			'<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
                                 			'</tr>'
                                 			;
-                                			var appendTo_html = $('#p_option_tbody').html() + appendTo_option;
-                                			$('#p_option_tbody').html(appendTo_html);
+                                			//var appendTo_html = $('#p_option_tbody').html() + appendTo_option;
+                                			//$('#p_option_tbody').html(appendTo_html);
+                                			$('#p_option_tbody').append(appendTo_option);
                                 		})//기존 정보 사라짐
-                                		$('#check_btn').click(function(){
-                                 			alert("");
-                                 		});
                                 		$('#add_mix_option').on('click', '.btn-del-opt', function(){
+                                			if($('#p_option_tbody tr').length == 1){	//옵션 최소한개는 유지
+                                				return;
+                                			}
                                 			$(this).parent().parent().remove();
                                 		});
                                 	});
@@ -419,7 +416,6 @@
     <!-- ======================= 배송 시작 ======================= -->
     <div class="sect-hd">
         <h3>배송</h3>
-        <a href="#prdGuide4" class="lnk-qmark open-layer">도움말</a>
         <!-- <span class="txt-select">(선택)</span> -->
         <a href="#" class="btn-arrow up">닫기</a>
     </div><!-- .sect-hd -->
@@ -481,7 +477,6 @@
     <!-- 						 상세 이미지 시작                       -->
     <div class="sect-hd">
         <h3>상품 상세이미지</h3>
-        <a href="#prdGuide1" class="lnk-qmark open-layer">도움말</a>
         <a href="#" class="btn-arrow">닫기</a>
     </div>
     
@@ -565,11 +560,9 @@
         <a href="#" class="btn-arrow up">닫기</a>
     </div><!-- .sect-hd -->
     <div class="sect-cont" style="display: block;">
-        <div class="mb-10">
+        <!-- <div class="mb-10">
            <img src="https://cafe.pstatic.net/editor/btn_n_aligncenter.gif" alt="중간 정렬" width="21" height="21" title="중간 정렬" nhn:command="justifycenter" nhn:argument="undefined" nhn:state="normal" style="cursor: pointer;">
-        </div>
-        
-        가운데정렬 테스트할때 사용하면됨
+        </div> -->
         
         <div id="pagekinArea" class="prdDtail-pagekin prd-write">
         
@@ -578,12 +571,11 @@
 					<iframe src="editor/default.jsp" id = "default_iframe" title="글쓰기영역" frameborder="0" style="width: 100%; height: 100%; display: block;">
 						<!-- 상세 이미지 & 글내용 include 영역 -->
 					 </iframe>
-                <p id="status">이미지 선택안됨</p>
             </div>
             <div>
             <br>
-            	<input type = "button" value = "확인" id = "check">
-            	<input type = "button" value = "태그거르기 확인" id = "check_img">
+            	<!-- <input type = "button" value = "확인" id = "check">
+            	<input type = "button" value = "태그거르기 확인" id = "check_img"> -->
             	<input type = "hidden" value = "" name = "p_contents" id = "p_contents">
             </div>
             
@@ -592,52 +584,6 @@
             
             </div>
             
-            <!-- 테스트용 script -->
-            <script>
-            	$(document).ready(function(){
-            		//p_contents 에서는 img 위치 알아하고 DB에 저장되어있던 상세이미지 풀어서 뿌려줘야함
-            		
-            		$('#check_img').click(function(){
-            			var data = 	$('#default_iframe').contents().find('#contents_div').html();
-            			var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
-            			var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '');	//두번째인자에 '<img>' 주면 태그 위치남겨줌
-            			alert(result2);
-            		});
-            		
-            		$('#check').click(function(){
-    	        		var data = $('#default_iframe').contents().find('#contents_div').html();
-    	        		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
-    	        		alert (result);
-    	        		
-    	        		//var upload = document.getElementsByTagName('input')[0],
-    	        		var upload = $('input[name="img[]"]');
-    	        		var holder = $('#holder'); 
-    	        	    //holder = document.getElementById('holder'),
-    	        	    state = document.getElementById('status');
-    	        	    
-    	        	    $.each(upload, function(index, items){
-    	        	    	var file = items.files;
-    	        	    	var reader = new FileReader();
-    	        	    	reader.onload = function(event){
-    	        	    		var img = new Image();
-    	        	    		img.src = event.target.result;
-    	        	    		if(img.width > 560){
-    	        	    			img.width = 560;	
-    	        	    		}
-    	        	    		holder.html(img);
-    	        	    	}
-    	        	    	
-    	        	    	alert(items.files);
-    	        	    	if (typeof window.FileReader === 'undefined') {
-    	      	        	  state.className = 'fail';
-    	      	        	} else {
-    	      	        	  state.className = 'success';
-    	      	        	  state.innerHTML = '이미지 선택됨';
-    	      	        	}
-    	        	    });
-            		});
-            	});
-            </script>
         </div>
     </div><!-- .sect-cont -->
     <!-- ======================= 상세설명 종료 ======================= -->
@@ -729,9 +675,9 @@ $('.btn-arrow').on('click', function(e) {
 });
 //파일 사이즈 체크
 function CheckUploadFileSize(objFile, file){
-	 var nMaxSize = 4 * 1024 * 1024; // 4 MB
+	 var nMaxSize = 10 * 1024 * 1024; // 4 MB
 	 var nFileSize = objFile.files[0].size;
-	alert(nFileSize);
+	//alert(nFileSize);
 	
 	 if (nFileSize > nMaxSize) {
 		 alert("10MB보다 큽니다" + nFileSize + " byte");
@@ -769,7 +715,46 @@ function bytesHandler(obj, tag){
 }
 	
 $(document).ready(function(){
+	$('#check_img').click(function(){
+		var data = 	$('#default_iframe').contents().find('#contents_div').html();
+		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
+		var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '');	//두번째인자에 '<img>' 주면 태그 위치남겨줌
+		alert(result2);
+	});
 	
+	$('#check').click(function(){
+		var data = $('#default_iframe').contents().find('#contents_div').html();
+		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
+		alert (result);
+		
+		//var upload = document.getElementsByTagName('input')[0],
+		var upload = $('input[name="img[]"]');
+		var holder = $('#holder'); 
+	    //holder = document.getElementById('holder'),
+	    state = document.getElementById('status');
+	    
+	    $.each(upload, function(index, items){
+	    	var file = items.files;
+	    	var reader = new FileReader();
+	    	reader.onload = function(event){
+	    		var img = new Image();
+	    		img.src = event.target.result;
+	    		if(img.width > 560){
+	    			img.width = 560;	
+	    		}
+	    		holder.html(img);
+	    	}
+	    	
+    	alert(items.files);
+    	if (typeof window.FileReader === 'undefined') {
+        	  state.className = 'fail';
+        	} else {
+        	  state.className = 'success';
+        	  state.innerHTML = '이미지 선택됨';
+        	}
+	    });
+	});
+
 		//키입력이벤트		상품명, 제조사, 원산지
 		$('.need_check_input').keydown(function(){
 	        if ($(this).val().length > $(this).attr('maxlength')) {
@@ -807,6 +792,7 @@ $(document).ready(function(){
 	
 		//대분류 카테고리 변경 이벤트
 		$('#p_cateNum').on('change', function(){
+			$('#p_smallCate').html("<option value = '0'>-- 3차 선택 --</option>");
 			var select = "<option value='0'>-- 2차 선택 --</option>";
 			if($(this).val() == 1){
 				select += optionMaker(['Carbohydrate', 'Protein', 'Fat', 'Vitamin', 'Spice']);
@@ -905,12 +891,12 @@ $(document).ready(function(){
     	
     	
     	//컨텐츠 hidden값에 넣어줘야함
-    	var data = 	$('#default_iframe').contents().find('#contents_div').html();
-		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n').replace(/<br>/gi, '\n');
-		var result2 = result.replace(/<(\/img|img)([^>]*)>/gi, '');	//'<img>'두번째인자 지워주면 됨
+    	var all_contents = 	$('#default_iframe').contents().find('#contents_div').html();
+		var div_tag_remove = all_contents.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n').replace(/<br>/gi, '\n');
+		var contents_param = div_tag_remove.replace(/<(\/img|img)([^>]*)>/gi, '');	//'<img>'두번째인자 지워주면 됨
 //		alert(result2); //이미지태그 개수 및 위치 표시가능
 		
-		$('#p_contents').val(result2);
+		$('#p_contents').val(contents_param);
 		
 	//	alert($('#p_contents').val());
 		//여기서 유효성검사 해줘야함
@@ -944,5 +930,10 @@ $(document).ready(function(){
     		$('#product_form').submit();
 		}
     });
+    
+    //재고, 판매가격 이벤트 숫자만허용
+     
+    
 })
+
 </script>

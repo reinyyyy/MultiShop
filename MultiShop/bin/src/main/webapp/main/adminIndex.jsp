@@ -7,7 +7,7 @@
     <!-- <link rel="shortcut icon" href="/mysoho_icon.png" type="image/x-icon"> -->
     <link rel="stylesheet" href="../css/calendar.css">
     <!-- <link rel="icon" href="/mysoho_icon.png" type="image/x-icon"> -->
-    <link rel="stylesheet" href="../css/admin.css">
+   <!--  <link rel="stylesheet" href="../css/admin.css"> -->
     <!-- 달력 -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
     	
