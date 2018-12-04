@@ -184,14 +184,14 @@
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content">
 		<!-- 상단 히스토리 바 -->
-			<nav aria-label="breadcrumb" role="navigation">
+		<%-- 	<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb">
 					<!-- 사용자 클릭히스토리로 동적 처리필요 -->
 					<li class="breadcrumb-item"><a href="../main/index.do">HOME</a></li>
 					<li class="breadcrumb-item"><a onclick="goPage('${cateNum}')" href = "javascript:void(0)">${pageName }</a></li>
 					<li class="breadcrumb-item active" aria-current="page">데이터</li>
 				</ol>
-			</nav>
+			</nav> --%>
 		
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
@@ -225,6 +225,11 @@
 					<button type="button" class="btn btn-secondary">2</button>
 					<button type="button" class="btn btn-secondary">3</button>
 					<button type="button" class="btn btn-secondary">다음</button> -->
+					<nav aria-label="...">
+						<ul class="pagination justify-content-center">
+							
+						</ul>
+					</nav>
 				</div>
 
 				<!-- <div class="input-group">	여기에서 검색만들꺼면 이거쓰면됨
@@ -232,6 +237,21 @@
 						<input type="text" class="form-control" placeholder="넣을 수도 뺄수도 있습니다"
 						aria-label="입력그룹 예제" aria-describedby="btnGroupAddon2">
 					</div> -->
+					<div>
+					<nav aria-label="...">
+						<ul class="pagination">
+							<li class="page-item disabled"><a class="page-link" href="#"
+								tabindex="-1">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item active"><a class="page-link" href="#">2
+									<span class="sr-only">(current)</span>
+							</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -239,7 +259,7 @@
 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="../js/categoryItemList.js"></script>
+	
 	<script type="text/javascript" src="../js/detailPage.js"></script>
 	<script>
 	//카테고리 값으로 받아옴	
@@ -333,7 +353,8 @@
 		//상세 페이지 이동 이벤트
 		$(document).on('click','.card-img-top', function(){
 			var p_code = $(this).next().find('input').val();
-			location.href = "../detail_page/detailPage.do?p_code="+p_code;
+			var cateNum = $('#cateNum').val();
+			location.href = "../detail_page/detailPage.do?p_code="+p_code+"&cateNum="+cateNum;
 		});
 		
 		//3자리수 콤마 제작 함수
@@ -344,6 +365,7 @@
 		
 		
 	</script>
+	<script src="../js/categoryItemList.js"></script>
 </body>
 </html>
 

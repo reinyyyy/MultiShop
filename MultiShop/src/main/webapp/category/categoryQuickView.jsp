@@ -77,12 +77,6 @@
 										<dd>${productDTO.p_origin }</dd>
 									</dl>
 								</li>
-								<li>
-									<dl>
-										<dt>발송예정일</dt>
-										<dd>12월 25일 이내</dd>			<!-- 모르겠음 ㅜㅜ -->
-									</dl>
-								</li>
 							<!-- cateNum 에 따라서 동적으로 다르게 생성해줘야함 --> 
 							
 							
@@ -151,22 +145,20 @@
 		$(document).ready(function(){
 			
 			
-			
-			
-			
-			var test = "${productDTO.p_image}";
-			var result = test.split('/');
-			
+			var img_param = "${productDTO.p_image}";
+			var result = img_param.split('/');
 			//alert(result[1]);
 			//var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
-			$('.mask').children().find('img').attr('src',  '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
+			$('.mask').children().attr('src',  '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
 			//$('.mask').html(img_tag);
-			
+			var img_length = result.length-1;	//이미지 개수
+			var img_tag = '';
 			$.each(result, function(index, items){
-				if(index > 1){
-					img_tag += '<a href = "#" class = "sumImg"> <img style = "width: 100px; height : 100px;" id = "" src = "../upload/"'+items+'>';
+				if(index > 0 && items != undefined){
+					img_tag += '<a href = "#" class = "sumImg"> <img class="xzoom-gallery" style = "width: 100px; height : 100px;" id = "" src = "../upload/'+items+'">';
 				}
 			});
+			$('.pagerWrap').html(img_tag);
 			
 			
 			
@@ -306,11 +298,13 @@
 			//하위 옵션 판단함수
 			var user_selected = new Array();
 			var i = 0;
-			var amount;
+			var amount_op;
 			function option_list_maker (name, next_index){
 				
 				if(next_index == 1){	//첫옵션 선택시 초기화
-					user_selected = new Array();
+					//user_selected = new Array();
+					arr_clear(next_index);	
+					$('#amount_input').val(0);
 				}else{
 					arr_clear(next_index);	
 				}
@@ -325,24 +319,37 @@
 							op += op_maker(items[next_index], op);
 						}
 						//alert('t : ' + items[next_index-1] + ' 같음');
-						if(option_length == next_index){
-							var ctn = 1;
-							for(var j = 0; j < user_selected.length; j++ ){
-								if(items[i] == user_selected[k]){
-									alert('items['+j+'] = ' + items[j] + 'user_selected['+k+'] = ' + user_selected[k]);
-									ctn += 1;	
+						if(option_length == next_index){		// 마지막 옵션 선택했을 경우
+							
+							/*
+							
+								판단 필요한 거 : result_DTO[] 와  user_selected 에 비교해서 수량 빼내와야댐  
+								
+								
+							*/
+							
+							var cnt = 1;
+							//alert("포문돌기전 유저선택값 " + user_selected);			12/3 7:53
+							//alert(user_selected.length);							12/3 7:53
+							for(var j = 0; j < user_selected.length; j++){
+								if(items[j] == user_selected[j]){
+									//alert("같음!! " + items[j]);	
+									cnt += 1;
 								}else{
-									ctn = 1;	
+									alert("다름!! " + items[j]);
+									cnt = 1;
 								}
-								if(ctn == user_selected.length){
-									amount = items[j+1];
-									
-								}
-								k++;
 							}
+							if(cnt == user_selected.length+1){		//두 배열이 완전 똑같을경우
+								amount_op = items[cnt-1];
+								//alert("완전똑같음"+ items);			12/3 7:53
+								$('#amount_input').val(amount_op);								
+							}
+							//alert(amount_op);	
+							
 							k = 0;
-							alert("선택해온 값 " + user_selected);
-							//alert("개수..."+ amount);
+							//alert("선택해온 값 " + user_selected);		12/3 7:53
+							//alert("개수..."+ amount);			12/3 7:53
 						}
 					}
 				});
@@ -351,9 +358,10 @@
 				
 			}
 			
+			//선택한값 삭제 함수
 			function arr_clear(start_num){
-				for(var i = (start_num-1); i < user_selected.length; i++){
-					user_selected.splice(i, 1);
+				for(var z = (start_num-1); z < user_selected.length; z++){
+					user_selected.splice(z, 1);
 				}
 				i = start_num-1;
 				
@@ -371,9 +379,18 @@
 				//alert($(this).val());			11:55
 				//alert($(this).prev().val());	11:55
 				//{블랙, 미디움, 11}
+				reset($(this).prev().val());	
 				option_list_maker($(this).val(), $(this).prev().val()); 
 				
 			});
+				
+			function reset(remove_num){
+				var val = Number(remove_num)+2;
+				for(var i = 0; i < option_length; i++){
+					$('#option_select'+val).empty().append('<option>옵션선택</option>');
+					val += 1;
+				}
+			} 
 			
 			
 			
@@ -382,10 +399,9 @@
 			var amount_input =
 				'<li>'+
 					'<dl id = "amount_list">'+
-						'수량' +
 						'<dd>' +
 							'<div>' +
-								'<input id = "amount_input" type="number" min="0" max="99"'+
+							'<dt>수량</dt><input id = "amount_input" type="number" min="0" max="99"'+
 									//'onkeydown="max_amount()"'+
    									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
 								'id="yourid">'+
@@ -393,22 +409,22 @@
 						'</dd>'+
 					'</dl>'+
 				'</li>';
+				
+			//수량 체인지 이벤트
 			$(document).on('keyup','#amount_input', function () {
 				alert("change");
 				this.value = this.value.replace(/\D/g, '');
-				if(this.value > test){
-					this.value = test;	
+				if(this.value > img_param){
+					this.value = img_param;	
 				}
 			});
 			
 			$('#wr_2').on('keyup', function() {
-
 			    this.value = this.value.replace(/\D/g, '');
-
 			    if (this.value > 150) this.value = 150;
-
 			});
-				
+			
+			//옵션 생성 해서 집어넣음
 			var temp = $('.aboutListBottom').html() + option_result + amount_input;
 			$('.aboutListBottom').html(temp);
 			
@@ -417,31 +433,15 @@
 			
 
 			 //이미지 변경
-			$('#detailSub1_image').click(function(){
-			   $('#detailMain_image').attr('xoriginal', '../image/coat1.jpg');
-			   $('#detailMain_image').attr('src', '../image/coat1.jpg');
-			});
-
-			$('#detailSub2_image').click(function(){
-			   $('#detailMain_image').attr('xoriginal', '../image/coat2.jpg');
-			   $('#detailMain_image').attr('src', '../image/coat2.jpg');
-			});
-
-			$('#detailSub3_image').click(function(){
-			   $('#detailMain_image').attr('xoriginal', '../image/coat3.jpg');
-			   $('#detailMain_image').attr('src', '../image/coat3.jpg');
-			});
-
-			$('#detailSub4_image').click(function(){
-			   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
-			   $('#detailMain_image').attr('src', '../image/coat4.jpg');
-			});
-			//alert(option_DTO.length);
-			//alert(option_DTO);
-			function option_maker(){
-				
-			}
+			 $(document).on('click', '.xzoom-gallery', function(){
+				var src = $(this).attr('src');
+				$('.mask').children().attr('src', src).attr('xoriginal', src);
+			 });
 			
+			 
+			for(var i = 2; i < option_DTO.length; i++){
+				$('#option_select'+i).html('<option>옵션선택</option>');
+			}	
 			
 		});
 		
