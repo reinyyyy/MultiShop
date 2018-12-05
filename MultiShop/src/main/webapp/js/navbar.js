@@ -122,7 +122,7 @@ $(document).ready(function(){
       /*location.href="http://localhost:8080/MultiShop/main/index.do";*/
    });
    $('#logout_complete_modal_Btn').on('click',function(){
-	   location.href='/MultiShop/main/index.do';
+      location.href='/MultiShop/main/index.do';
    });
    
    /*join modal*/
@@ -250,6 +250,7 @@ $(document).ready(function(){
    });
    
    
+   
    /*logout modal*/
       $('#non_member').on('click',function(){
          $('#mypage_nonmember').modal({backdrop: 'static', keyboard: false}) ;
@@ -266,7 +267,7 @@ $(document).ready(function(){
       if(pwd.val()==''){
          $('#member_modify_statusDiv').text('비밀번호를 입력해주세요').css('color','red');
       }else{
-         $.post('/MultiShop/member/membermodifyconfirm.do',
+         $.post('/MultiShop/mypage/membermodifyconfirm.do',
                $('#member_modify_confirm_form').serialize(),
                function(data){
                   if(data=='true'){
@@ -362,6 +363,16 @@ $(document).ready(function(){
             }
       );
    });
+   
+   /*delivery page*/
+   $('#mypage_deleveryBtn').on('click',function(){
+      location.href='/MultiShop/mypage/deliveryPage.do';
+   });
+   
+   
+   
+   
+   
    /*find email*/
    $('#find_email_modal_findBtn').on('click',function(){
       var name = $('#find_email_modal_name');
@@ -405,8 +416,8 @@ $(document).ready(function(){
             if(data=='false'){
                $('#find_pwd_modal_statusDiv').text('정보가 맞지 않습니다').css('color','red');
             }else if(data=='true'){
-            	 $('#find_pwd_modal').modal('hide');
-               $.post('/MultiShop/member/sendMail.do',	 
+                $('#find_pwd_modal').modal('hide');
+               $.post('/MultiShop/member/sendMail.do',    
                      $('#find_pwd_modal_form').serialize(),
                      function(data){
                         if(data=='true'){            
@@ -430,24 +441,24 @@ $(document).ready(function(){
          $(this).find('form')[0].reset();
       }
       $(this).find('input').css({'border':''});
-      $('html, body').css({'overflow': 'initial', 'height': '100%'}); //scroll hidden 해제 
-      $('#element').off('scroll touchmove mousewheel'); // 터치무브 및 마우스휠 스크롤 가능
+/*      $('html, body').css({'overflow': 'initial', 'height': '100%'}); //scroll hidden 해제 
+*/      $('#element').off('scroll touchmove mousewheel'); // 터치무브 및 마우스휠 스크롤 가능
       $('#join_modal_statusDiv').empty();
       $('#login_modal_statusDiv').empty();
       $('#find_email_modal_statusDiv').empty();
       $('#find_pwd_modal_statusDiv').empty();
-   	});
+      });
    $('#find_email_complete_model').on('hidden.bs.modal',function(){
       $('#find_email_complete_email').text('');
       
-   	});
+      });
    $('#find_pwd_modal').on('hidden.bs.modal',function(){
-	      $('#find_pwd_modal_statusDiv').text('');
-	   });
+         $('#find_pwd_modal_statusDiv').text('');
+      });
    
    /*modal-show*/
    $('.modal').on('show.bs.modal', function () {
-      $('html, body').css({'overflow': 'hidden', 'height': '100%'}); // 모달팝업 중 html,body의 scroll을 hidden시킴
+     /* $('html, body').css({'overflow': 'hidden', 'height': '100%'});*/ // 모달팝업 중 html,body의 scroll을 hidden시킴
       $('#element').on('scroll touchmove mousewheel', function(event) { // 터치무브와 마우스휠 스크롤 방지
           event.preventDefault();
           event.stopPropagation();
@@ -456,8 +467,39 @@ $(document).ready(function(){
    });
    
    $('#noticeBtn').on('click',function(){
-	      location.href="/MultiShop/notice/notice.do"
-	   });
+      location.href="/MultiShop/notice/notice.do?pg=1"
+   });
+   
+   /* 1:1답변 */
+   $('#send_mailBtn').on('click',function(){
+      var inputEmail = $('#inputEmail');
+      var inputTitle = $('#inputTitle');
+      var emailTextarea = $('#emailTextarea');
+      if(inputEmail.val()==''){
+         $('#inputEmail').attr('placeholder','이메일을 입력해주세요.');
+      }else if(inputTitle.val()==''){
+         $('#inputTitle').attr('placeholder','제목을 입력해주세요.');
+      }else if(emailTextarea.val()==''){
+         $('#emailTextarea').attr('placeholder','내용을 입력해주세요.');
+      }else{
+         $.post('/MultiShop/manage/inquiryInsert.do',
+                  {"m_email":inputEmail.val(),"i_title":inputTitle.val(),"i_content":emailTextarea.val()},
+                  function(data){
+                  if(data==1){
+                     alert("답변등록이 완료되었습니다.");
+                     $('#send_email').modal('hide');
+                  }else{
+                     alert("실패");
+                  }
+                  },'text'
+                 );
+           }
+   });
+      
+      /* Q&A */
+   $('#qnaBtn').on('click',function(){
+      location.href="/MultiShop/qna/qna.do";
+   });
+   
    
 });
-
