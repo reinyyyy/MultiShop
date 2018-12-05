@@ -65,11 +65,11 @@
                            <dd id="product_price"><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" />￦</dd>      <!-- 가격 -->
                         </dl>
                      </li>
-                     <input type="hidden" name="product_price" id="product_price" value="99000.0">
+                     <input type="hidden" name="product_price" id="product_price" value="${productDTO.p_cost }">
                      <li>
                         <dl>
                            <dt>배송비</dt>
-                           <dd>2,500원 </dd>
+                           <dd>무료</dd>
                         </dl>
                      </li>
                   </ul>
@@ -155,7 +155,7 @@
                      <div class="conWrap">
                         <div class="totalWrap">
                            <span>총합계</span>
-                           <span id="totalPrice" class="totalPrice" totalp="99000.0">${p_ }</span>
+                           <span id="totalPrice" class="totalPrice"><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /> ￦</span>
                         </div>
                      </div>
                      <div class="btnWrap">
@@ -395,7 +395,7 @@
 } */
 
 $(document).ready(function(){
-	//이미지 확대 기능
+	/* //이미지 확대 기능
 	$(".xzoom").xzoom();
 	
 	//이미지 변경
@@ -417,7 +417,7 @@ $(document).ready(function(){
 	$('#detailSub4_image').click(function(){
 	   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
 	   $('#detailMain_image').attr('src', '../image/coat4.jpg');
-	});
+	}); */
 	
 	
 	
@@ -463,24 +463,33 @@ $(document).ready(function(){
 		
 	}); */
 	
-	var test = "${productDTO.p_image}";
-	var result = test.split('/');
-	
+	var img_param = "${productDTO.p_image}";
+	var result = img_param.split('/');
 	//alert(result[1]);
-	var img_tag = '<img class="xzoom" id = "detailMain_image" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
-	$('.mask').children().attr('src', '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
-	
+	//var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
+	$('.mask').children().attr('src',  '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
+	//$('.mask').html(img_tag);
+	var img_length = result.length-1;	//이미지 개수
+	var img_tag = '';
 	$.each(result, function(index, items){
-		if(index > 1){
-			img_tag += '<a href = "#" class = "sumImg"> <img style = "width: 100px; height : 100px;" id = "" src = "../upload/"'+items+'>';
+		if(index > 0 && items != undefined){
+			img_tag += '<a href = "#" class = "sumImg"> <img class="xzoom-gallery" style = "width: 100px; height : 100px;" id = "" src = "../upload/'+items+'">';
 		}
 	});
+	$('.pagerWrap').html(img_tag);
+	
+	
+	
 	/*
 				EL로 받아오면 모두 string 타입으로 데려오기때문에 [ 지워줘야함 ]
 	*/			
+	
+	
 	// 1. select 레이아웃 생성
 	// 2. option_DTO 생성
 	// 3. 상위 select 하나만 중복제거해서 보여주고, 그 아래 하위들은 동적으로 생성되게 만들기
+	
+	
 	
 	var amount = [];//수량
 	amount[0] = '수량';
@@ -496,17 +505,24 @@ $(document).ready(function(){
 	<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
 		var option_list = "${item1}";
 		//alert(option_list);		//index 0 : [색상, 블랙, 블랙, 레드, 레드], index 1 : [사이즈, 미디움, 라지, 미디움, 스몰]	Type = String //9:23
+		
+		
 		var split_result = option_list.replace('[', '').replace(']', '').split(/[\s,]+/);		
 		//inedx 0 : 색상,블랙,블랙,레드,레드	index 1 : 사이즈,미디움,라지,미디움,스몰	Type = 배열
+		
 		option_DTO["${first_index.count-1}"] = split_result;
 		amount_index = "${first_index.count}";
+		
 		//중복제거
 		var ovl_result = [];
 		$.each(split_result, function(i, el){
 			if($.inArray(el, ovl_result) === -1) ovl_result.push(el);
 		});
+		
 		//중복제거 후 코드
+		
 		$.each(ovl_result, function(index, item){
+			
 			if(index == 0){
 				option_name = '<dt>'+item+'</dt>';
 			}else {
@@ -526,6 +542,7 @@ $(document).ready(function(){
 			}
 			class_index = index;
 		}); */
+		
 		option_result +=
 		'<li>'+
 			'<dl id = "option_'+class_index+'">'+
@@ -554,13 +571,17 @@ $(document).ready(function(){
 	//alert(amount);
 	
 	option_DTO[amount_index] = amount; 
+	$.each(option_DTO, function(index, items){
+		//alert('완성본 option_DTO['+index+'] : ' + option_DTO[index]);		////9:23
+	});
+	
 	//[amount_index] 재고 인덱스
 	//{색상, 블랙, 블랙, 레드, 레드},
 	//{사이즈, 미디움, 라지, 미디움, 스몰},
 	//{사이즈, 11, 22, 33 , 42}
 	
 	// {블랙, 미디움, 11},
-	// {블랙, 라지, 22},
+	// {블랙, 미디움, 11},
 	// {블랙, 미디움, 11},
 	// {블랙, 미디움, 11},
 	
@@ -588,7 +609,7 @@ $(document).ready(function(){
 	alert(result_DTO[2]);
 	alert(result_DTO[3]);
 	 */
-	
+
 	//option_list_maker(result_DTO);
 	 
 	//하위 옵션 판단함수
@@ -600,7 +621,8 @@ $(document).ready(function(){
 		if(next_index == 1){	//첫옵션 선택시 초기화
 			//user_selected = new Array();
 			arr_clear(next_index);	
-			$('#amount_input').val(0);
+			$('#amount_input').val('');
+			$('#amount_input').attr('disabled', 'true');
 		}else{
 			arr_clear(next_index);	
 		}
@@ -617,7 +639,12 @@ $(document).ready(function(){
 				//alert('t : ' + items[next_index-1] + ' 같음');
 				if(option_length == next_index){		// 마지막 옵션 선택했을 경우
 					
-						//판단 필요한 거 : result_DTO[] 와  user_selected 에 비교해서 수량 빼내와야댐  
+					/*
+					
+						판단 필요한 거 : result_DTO[] 와  user_selected 에 비교해서 수량 빼내와야댐  
+						
+						
+					*/
 					
 					var cnt = 1;
 					//alert("포문돌기전 유저선택값 " + user_selected);			12/3 7:53
@@ -627,14 +654,16 @@ $(document).ready(function(){
 							//alert("같음!! " + items[j]);	
 							cnt += 1;
 						}else{
-							alert("다름!! " + items[j]);
+							//alert("다름!! " + items[j]);
 							cnt = 1;
 						}
 					}
 					if(cnt == user_selected.length+1){		//두 배열이 완전 똑같을경우
 						amount_op = items[cnt-1];
 						//alert("완전똑같음"+ items);			12/3 7:53
-						$('#amount_input').val(amount_op);								
+						$('#amount_input').val(0);			//과거 amount_op 엿음
+						$('#amount_input').attr('max', amount_op);
+						$('#amount_input').removeAttr('disabled');
 					}
 					//alert(amount_op);	
 					
@@ -682,38 +711,76 @@ $(document).ready(function(){
 			val += 1;
 		}
 	} 
-	//수량 생성
+	
+	
+	
+	
+	//사이즈 생성
 	var amount_input =
-				'<li>'+
-					'<dl id = "amount_list">'+
-						'<dd>' +
-							'<div>' +
-							'<dt>수량</dt><input id = "amount_input" type="number" min="0" max="99"'+
-									//'onkeydown="max_amount()"'+
-   									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
-								'id="yourid">'+
-							'</div>'+
-						'</dd>'+
-					'</dl>'+
-				'</li>';
-	$(document).on('keyup','#amount_input', function () {
-		alert("change");
-		this.value = this.value.replace(/\D/g, '');
-		if(this.value > test){
-			this.value = test;	
-		}
+		'<li>'+
+			'<dl id = "amount_list">'+
+				'<dd>' +
+					'<div>' +
+					'<dt>수량</dt><input name="amount_input" id = "amount_input" disabled="true" type="number" min="0" max="99"'+
+							//'onkeydown="max_amount()"'+
+								///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
+						'id="yourid">'+
+					'</div>'+
+				'</dd>'+
+			'</dl>'+
+		'</li>';
+	
+	var total_price = Number("${productDTO.p_cost}");
+		
+	//수량 체인지 이벤트
+	$(document).on('keypress','#amount_input', function () {
+		
+		if(Number($(this).val()) > amount_op){
+			$('#amount_input').val(amount_op);
+			price = total_price * $(this).val();
+			$('#totalPrice').html((price.toLocaleString()) + '￦');
+		};
 	});
 	
-	$('#wr_2').on('keyup', function() {
-
-	    this.value = this.value.replace(/\D/g, '');
-
-	    if (this.value > 150) this.value = 150;
-
-	});
+	$(document).on('blur','#amount_input', function(){
 		
+		if(Number($(this).val()) > amount_op){
+			$('#amount_input').val(amount_op);
+			price = total_price * $(this).val();
+			$('#totalPrice').html((price.toLocaleString()) + '￦');
+		};
+	});
+	
+	$(document).on('change', '#amount_input', function(){
+		
+		var price = total_price * Number($(this).val());
+		$('#totalPrice').html((price.toLocaleString()) + '￦');
+		console.log(price);
+	});
+	
+	/* $('#wr_2').on('keyup', function() {
+	    this.value = this.value.replace(/\D/g, '');
+	    if (this.value > 150) this.value = 150;
+	}); */
+	
+	//옵션 생성 해서 집어넣음
 	var temp = $('.aboutListBottom').html() + option_result + amount_input;
 	$('.aboutListBottom').html(temp);
+	
+	//이미지 확대 기능
+	$(".xzoom").xzoom();
+	
+
+	 //이미지 변경
+	 $(document).on('click', '.xzoom-gallery', function(){
+		var src = $(this).attr('src');
+		$('.mask').children().attr('src', src).attr('xoriginal', src);
+	 });
+	
+	 
+	for(var i = 2; i < option_DTO.length; i++){
+		$('#option_select'+i).html('<option>옵션선택</option>');
+	}
 
 	 
 });

@@ -73,11 +73,13 @@ public class DetailController {
       System.out.println("받아온 p_code : " + map.get("p_code"));
       ProductDTO productDTO = categoryDAO.getProduct(Integer.parseInt(map.get("p_code")));         //대표가 되는 DTO 빼내어왔음
       System.out.println("대표 상품 DTO : " + productDTO);
+      System.out.println();
+      System.out.println(productDTO.getP_cost());
       
       //대표상품 대표 이미지 최대 5개 나누기
       String[] image_arr = productDTO.getP_image().split("/");
       for(String data : image_arr) {
-         System.out.println("대표이미지 배열 리스트 : " + data);
+         //System.out.println("대표이미지 배열 리스트 : " + data);
       }
       //대표이미지 나누기 끝
       int p_group = productDTO.getP_code();                              //대표 DTO p_code로 p_group 값 사용할 예정
@@ -89,7 +91,7 @@ public class DetailController {
       */
       if(productDTO.getP_option1() != null) {
          int option_length = productDTO.getP_option1().split("/").length;         // 구분자로 나눈 옵션1 의 길이 구함
-         System.out.println("option_length 의 길이 : " + option_length);
+         //System.out.println("option_length 의 길이 : " + option_length);
          
          ArrayList<ArrayList<String>> option_result_list = new ArrayList<ArrayList<String>>(); 
          
@@ -105,7 +107,7 @@ public class DetailController {
             }
             
             for(String data : option_list) {
-               System.out.println("option_list"+i+" : " + data);
+               //System.out.println("option_list"+i+" : " + data);
             }
             //List 를 배열로
             option_result_list.add(option_list);
@@ -113,12 +115,12 @@ public class DetailController {
          model.addAttribute("option_result_list", option_result_list);
       }
       
-      System.out.println("그룹들사이즈 : " + group_list.size());
+      //System.out.println("그룹들사이즈 : " + group_list.size());
       int[] amount_list = new int[group_list.size()];
       for(int i = 0; i < group_list.size(); i++) {
          amount_list[i] = group_list.get(i).getP_amount();
       }
-      System.out.println("amount_list : " + amount_list);
+      //System.out.println("amount_list : " + amount_list);
       
       model.addAttribute("product_boardDTO", product_boardDTO);
       model.addAttribute("amount_list", amount_list);
@@ -246,8 +248,6 @@ public class DetailController {
       System.out.println(map);
       System.out.println(amount);
       System.out.println(productCode);
-      /*model.addAttribute("color", color);
-      model.addAttribute("size", size);*/
       model.addAttribute("amount", amount);
       model.addAttribute("productCode", productCode);
       model.addAttribute("productName", productName);
@@ -258,21 +258,21 @@ public class DetailController {
    
    //결재화면 ajax로 불러오기
    @RequestMapping(value="getOrderPage", method=RequestMethod.POST)
-   public ModelAndView getOrderPage(@RequestParam String color,
-                              @RequestParam String size,
+   public ModelAndView getOrderPage(@RequestParam String option1,
+                              @RequestParam String option2,
                               @RequestParam String amount,
                               @RequestParam String productCode, 
                               @RequestParam String productName, HttpSession session) {
       
 	  String email = (String) session.getAttribute("session_email");
 	      
-	  System.out.println(email+"@@@@@@@@@@@@"); 
+	  System.out.println("getOrderController==시작==="+email+"@@@@@@@@@@@@"); 
 	  
-      System.out.println("@@"+color+size+amount+productCode+productName+"@@");
+      System.out.println("option1="+option1+"option2="+option2+"amount="+amount+"productCode="+productCode+"productName="+productName);
       
       
-      detailDTO.setP_option1(color);
-      detailDTO.setP_option2(size);
+      detailDTO.setP_option1(option1);
+      detailDTO.setP_option2(option2);
       detailDTO.setP_amount(Integer.parseInt(amount));
       detailDTO.setP_code(Integer.parseInt(productCode));
       detailDTO.setP_name(productName);
