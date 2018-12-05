@@ -104,21 +104,24 @@ $(document).ready(function(){
 function categoryList(pg, p_name){
 	//alert('페이지이동  : ' + $("#sortType").val());
 	if(p_name == undefined){
-		location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val();
+		location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val();
 	}else{
-		location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val()+'&p_name='+p_name;
+		location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val()+'&p_name='+p_name+'&cateNum='+$('#cateNum').val();
 	}
 }
 
 //정렬 호출
-function fn_sort(sortType) {			//sortType 제어 정렬누를시 pg 1로 설정
-	
+function fn_sort(sortType) {			//sortType 제어 정렬누를시 pg 1로 설정		//정렬 하고난뒤 페이징눌렀을떄...
+	alert($('#p_name').val());
 	$('#sortType').val(sortType);
 	$('#pg').val(1);
 	
 	//alert($("#sortType").val());
-	
-	location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val();
+	if($('#p_name').val() == ''){
+		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val();
+	}else {
+		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+'&p_name='+$('#p_name').val();
+	}
 	
 }
 

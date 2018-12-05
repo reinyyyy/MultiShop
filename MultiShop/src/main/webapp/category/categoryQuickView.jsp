@@ -11,7 +11,7 @@
    crossorigin="anonymous">
 <link href="../css/xzoom.css" rel="stylesheet">
    		<!-- 파라미터 -->
-   		<input type = "hidden" name = "p_code" id = "p_code" value = "${productDTO.p_code }">
+   		<input type = "hidden" name = "p_code" id = "p_code" value = "${productDTO.p_code}">
 		<div id="productView">
 			<div id="productPopup">
 				<div class="productPopupWrap">
@@ -19,10 +19,10 @@
 						<div class="popupSlide">
 							<div class="popupSlide">
 								<div class="mask">
-								<img class="xzoom" id="detailMain_image" src="../image/coat1.jpg" xoriginal="../image/coat1.jpg">
+								<img class="xzoom" id="detailMain_image" src="../image/product_ready.jpg" xoriginal="../image/product_ready.jpg">
                           	</div>
                        		<div class="pagerWrap xzoom-thumbs" id="gallery_01" style="text-align:center;">
-                          		<a href="#" class="">
+                          		<!-- <a href="#" class="">
                              		<img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub1_image" src="../image/coat1.jpg" xpreview="../image/coat1.jpg">
                          		 </a>      
                          		 <a href="#" class="">
@@ -33,7 +33,7 @@
                           		</a>
                           		<a href="#" class="">
                              		<img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub4_image" src="../image/coat4.jpg">
-                          		</a>
+                          		</a> -->
                     			</div>
 								</div>
 							</div>
@@ -41,7 +41,7 @@
 					</div>
 
 					<div class="popRight">
-						<span class="color_red fs24"></span> <span class="viewTitle">${clothesDTO.p_name}</span> <input
+						<span class="color_red fs24"></span> <span class="viewTitle">${productDTO.p_name}</span> <input
 							type="hidden" id="webItemNm" name="webItemNm"
 							value="00000 - 재우롱패딩">
 						<!-- 						<p class="sub">실 제본으로 책장이 넘기기 쉬운 노트</p> -->
@@ -51,7 +51,7 @@
 								<li>
 									<dl>
 										<dt>판매가</dt>
-										<dd id = "cost"><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /> ￦</dd>		<!-- 가격 -->
+										<dd id = "cost"><fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /> ￦</dd>		<!-- 가격 -->
 									</dl>
 								</li>
 								<input type="hidden" name="itemP" id="itemP" value="99000.0">

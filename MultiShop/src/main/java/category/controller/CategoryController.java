@@ -91,7 +91,8 @@ public class CategoryController {
 		List<Map<String, String>> list_map = null;
 		if(sortType_int == 2) {
 			System.out.println("인기순 들어옴");
-			list_map = categoryDAO.getProduct_Board_map_best(map);
+			map.put("order_type", "4");
+			list_map = categoryDAO.getProduct_Board_map(map);
 		}else if(sortType_int == 3){
 			System.out.println("낮은가격순 들어옴");
 			map.put("order_type", "1");
@@ -114,7 +115,7 @@ public class CategoryController {
 		
 		categoryPaging.setCurrentPage(Integer.parseInt(pg));
 		categoryPaging.setPageBlock(3);
-		categoryPaging.setPageSize(5);
+		categoryPaging.setPageSize(6);	//동적처리필요
 		categoryPaging.setTotalA(totalA);
 		if(p_name != null && p_name.equals("no")) {
 			System.out.println("검색 안한거임 " + p_name);

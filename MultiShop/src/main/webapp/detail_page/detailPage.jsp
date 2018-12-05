@@ -23,7 +23,7 @@
 </head>
 <body>
 	<input type = "hidden" id="session_email" value="${session_email }">
-	<input type = "hidden" id="p_code" value="${p_code }">
+	<input type = "hidden" id="p_code" value="${p_code}">
    <header>
       <div class="container">
          <div id="productView">
@@ -32,10 +32,10 @@
                   <div class="popLeft">
                      <div class="popupSlide">
                           <div class="mask">
-                          	<img class="xzoom" id="detailMain_image" src="../image/coat1.jpg" xoriginal="../image/coat1.jpg">
+                          	<img class="xzoom" id="detailMain_image" src="../image/product_ready.jpg" xoriginal="../image/product_ready.jpg">
                           </div>
                        <div class="pagerWrap xzoom-thumbs" id="gallery_01" style="text-align:center;">
-                          <a href="#" class="">
+                          <!-- <a href="#" class="">
                              <img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub1_image" src="../image/coat1.jpg" xpreview="../image/coat1.jpg">
                           </a>      
                           <a href="#" class="">
@@ -46,13 +46,13 @@
                           </a>
                           <a href="#" class="">
                              <img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub4_image" src="../image/coat4.jpg">
-                          </a>
+                          </a> -->
                        </div>
                   </div>
                </div>
             <form id ="detail_form" method="post" action="orderPage.do">
             <div class="popRight">
-               <span class="viewTitle">JCoat</span>
+               <span class="viewTitle">${productDTO.p_name}</span>
                <input type="hidden" id="productName" name="productName" value="JCoat">
 <!--                   <p class="sub">실 제본으로 책장이 넘기기 쉬운 노트</p> -->
                <p class="sub"></p>
@@ -155,7 +155,7 @@
                      <div class="conWrap">
                         <div class="totalWrap">
                            <span>총합계</span>
-                           <span id="totalPrice" class="totalPrice" totalp="99000.0">${p_ }</span>
+                           <span id="totalPrice" class="totalPrice" totalp="99000.0">${productDTO.p_cost }</span>
                         </div>
                      </div>
                      <div class="btnWrap">
@@ -467,14 +467,20 @@ $(document).ready(function(){
 	var result = test.split('/');
 	
 	//alert(result[1]);
-	var img_tag = '<img class="xzoom" id = "detailMain_image" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
-	$('.mask').children().attr('src', '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
-	
-	$.each(result, function(index, items){
-		if(index > 1){
-			img_tag += '<a href = "#" class = "sumImg"> <img style = "width: 100px; height : 100px;" id = "" src = "../upload/"'+items+'>';
-		}
-	});
+	var img_param = "${productDTO.p_image}";
+			var result = img_param.split('/');
+			//alert(result[1]);
+			//var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
+			$('.mask').children().attr('src',  '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
+			//$('.mask').html(img_tag);
+			var img_length = result.length-1;	//이미지 개수
+			var img_tag = '';
+			$.each(result, function(index, items){
+				if(index > 0 && items != undefined){
+					img_tag += '<a href = "#" class = "sumImg"> <img class="xzoom-gallery" style = "width: 100px; height : 100px;" id = "" src = "../upload/'+items+'">';
+				}
+			});
+			$('.pagerWrap').html(img_tag);
 	/*
 				EL로 받아오면 모두 string 타입으로 데려오기때문에 [ 지워줘야함 ]
 	*/			

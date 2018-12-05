@@ -169,7 +169,7 @@ a:visited {
 	margin: 0px 50px 0px 50px;
 }
 
-@media ( max-width : 570px ) {
+@media ( max-width : 800px ) {
 	#jb-container {padding 0px;
 		width: auto;
 	}

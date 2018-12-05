@@ -350,7 +350,7 @@
 		$(document).on('click','.card-img-top', function(){
 			var p_code = $(this).next().find('input').val();
 			var cateNum = $('#cateNum').val();
-			location.href = "../detail_page/detailPage.do?p_code="+p_code+"&cateNum="+cateNum;
+			location.href = "../detail_page/detailPage.do?p_code="+p_code+"&cateNum="+cateNum+'&p_name='+$('#p_name').val();
 		});
 		
 		//3자리수 콤마 제작 함수

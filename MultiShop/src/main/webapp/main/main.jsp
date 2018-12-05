@@ -239,7 +239,8 @@
 										<option value = "1"> Food </option>
 									</select>
 									
-									<input class="form-control" name = "search_value" id = "search_value" type="text" placeholder="검색어 입력"> 
+									<input class="form-control" name = "search_value" id = "search_value" type="text" placeholder="검색어 입력">
+									<input type = "text"  style="display:none">	<!--  엔터키 입력 방지 --> 
 									<button type="button" id = "search_btn" class="btn btn-primary" aria-label="left Align">
 										<i class="fa fa-search fa"></i>
 									</button>
@@ -261,6 +262,12 @@
      			
      			console.log('옵션 : ' + search_option + ' 검색어 : ' + search_value);
      			location.href = '../category/categoryItemList.do?cateNum='+search_option+'&p_name='+search_value;
+     		});
+     		
+     		$('#search_value').keypress(function(e){
+     			if(e.which == 13){
+     				$('#search_btn').trigger('click');
+     			}
      		});
      	});
      </script>

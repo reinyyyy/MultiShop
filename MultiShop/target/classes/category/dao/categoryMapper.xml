@@ -27,6 +27,23 @@
 	
 	<!-- 글 목록 P_CATENUM 기준 분류 -->
 	<select id = "getProduct_Board_map" parameterType = "java.util.Map" resultMap = "ResultMap">
+	
+		<!-- <if test = 'order_type eq 4'>		인기순 
+		{call
+			declare
+			begin
+			
+			create or replace VIEW sum_sales AS 
+        	select p_group as p_code, sum(p_sales) as sum from product group by p_group;
+        	
+        	select * from sum_sales;
+
+			end        	
+       	}
+		</if> -->
+		
+		
+		<if test = 'order_type != 4'>		<!-- 인기순  -->
 		select * from
 		(select rownum rn, tt.* from
 		(select PRODUCT_BOARD.*, PRODUCT.p_image"MAIN_IMG", PRODUCT.p_midcate from PRODUCT_BOARD, PRODUCT where 
@@ -49,8 +66,12 @@
 		<if test = "order_type eq 3">	<!-- 신상품순 -->
 			PRODUCT_BOARD.P_CODE DESC
 		</if>
+		
 		)tt
 		)where rn between #{startNum} and #{endNum}
+		</if>
+		
+		
 	</select>
 	
 	<select id = "getProduct_Board_map_best" parameterType = "java.util.Map" resultMap = "ResultMap">

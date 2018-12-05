@@ -120,6 +120,7 @@ public class DetailController {
       }
       System.out.println("amount_list : " + amount_list);
       
+      model.addAttribute("cateNum", cateNum);
       model.addAttribute("product_boardDTO", product_boardDTO);
       model.addAttribute("amount_list", amount_list);
       model.addAttribute("productDTO", productDTO);
