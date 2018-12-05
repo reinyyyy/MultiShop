@@ -1,0 +1,195 @@
+@charset "UTF-8";
+
+/* 각 카드 이미지크기를 300 x 300으로 고정 (익스플로러에서 깨짐방지) */
+.card-img-top {
+	width: 300px;
+	height: 300px;
+}
+
+#jb-container {
+	padding: 0px 20px 0px 20px;
+}
+
+#jb-header {
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #bcbcbc;
+}
+
+/* 컨테이너(100%) 속 사이드바(20%), 컨텐츠(80%) */
+#jb-content {
+	width: 80%;
+	height: auto;
+	margin-left: 250px;
+	margin-bottom: 20px;
+	/* padding-left 20px; */
+	float: left;
+	border: 1px solid #bcbcbc;
+	overflow: hidden;
+}
+
+#jb-sidebar {
+	position: absolute;
+	margin-bottom: 20px;
+	float: left;
+	border: 1px solid #bcbcbc;
+	width: 230px;
+	z-index: 1;
+}
+
+/* jb따라오게 fixed */
+#jb-fixed {
+	position: fixed;
+	top : 10px;
+	margin-bottom: 20px;
+	float: left;
+	border: 1px solid #bcbcbc;
+	width: 230px;
+	z-index: 1;
+}
+
+/* 컨텐츠의 (100%) */
+#jb-footer {
+	clear: both;
+	width: 100%;
+	padding: 20px;
+	border: 1px solid #bcbcbc;
+}
+
+.card {
+	width: 20rem;
+	float: left;
+	margin: 10px;
+}
+
+/* array 클래스는 인기순, 신상품순, ~ 10개보기 20개보기 부분 잡아줌 */
+.array {
+	background: #f8f8f8;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+}
+
+.array .arrayList {
+	float: left;
+}
+
+.array .arrayList li {
+	float: left;
+}
+
+.array .arrayList li a {
+	display: block;
+	padding: 0 20px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 14px;
+	color: #4d4d4d;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+}
+
+.array .arrayList li a:hover {
+	color: #42675d;
+}
+
+.array .arrayList li a:after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 13px;
+	width: 1px;
+	height: 14px;
+	background: #6c6c6c;
+}
+
+.array .arrayList li:last-child a:after {
+	display: none;
+}
+
+.array .select {
+	float: right;
+	font-size: 14px;
+	color: #4d4d4d;
+	line-height: 40px;
+}
+
+.array .select>span {
+	display: block;
+	float: left;
+	margin-left: 10px;
+}
+
+.array .select>span a {
+	display: inline-block;
+	padding: 0 10px;
+	position: relative;
+}
+
+.array .select>span a:hover {
+	color: #42675d;
+}
+
+.array .select a:after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 13px;
+	width: 1px;
+	height: 14px;
+	background: #6c6c6c;
+}
+
+.array .select a:last-child:after {
+	display: none;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+a {
+	color: black;
+}
+
+a:link {
+	color: black;
+}
+
+a:visited {
+	color: black;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+	content: ">";
+}
+
+#card_contents {
+	margin: 0px 50px 0px 50px;
+}
+
+@media ( max-width : 570px ) {
+	#jb-container {padding 0px;
+		width: auto;
+	}
+	#jb-content {
+		margin-left: 0px;
+		float: left;
+		width: auto;
+	}
+	#jb-sidebar, #jb-fixed, #jb-sidebar > * {
+		display: none; /* 모바일 크기에서 사이드바 사라지게함 영역까지 지움 */
+	}
+	.card {
+		padding: 1px;
+		margin: 10px;
+		float: none;
+		width: auto;
+		height: auto;
+	}
+	/* 카드의 board 는 상,하만 바꿔주면됨 */
+	#card_contents {
+		margin: 0px;
+	}
+}

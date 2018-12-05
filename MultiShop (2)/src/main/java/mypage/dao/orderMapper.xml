@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="orderSQL">
+	<select id="orderList" parameterType="Map" resultType="orderDTO">
+		select * from(select rownum rn, tt.* from 
+			(select * from order_table where m_email = #{email} 
+			order by 4)tt) 
+			where <![CDATA[rn>=#{startNum}]]> and <![CDATA[rn<=#{endNum}]]>
+	</select>
+	
+	<select id="totalA" resultType="Int">
+		select count(*)	from order_table
+	</select>
+	
+	<!-- 재우 -->
+	<insert id="insertOrder" parameterType="Map">
+		insert into order_table values(#{m_email},#{d_code},order_seq.nextval,sysdate,#{m_roadAddress}||#{m_jibunAddress},
+		#{o_status},#{p_code},#{p_cost},#{p_amount}) 
+	</insert>
+
+	<select id="orderAllList" parameterType="String" resultType="orderDTO">
+      select * from order_table where m_email = #{email} order by 4 desc
+   	</select>
+   	
+   	<select id="inquiryList" parameterType="String" resultType="inquiryDTO">
+   		select * from inquiry where m_email = #{email} order by 4 desc
+   	</select>
+   	
+</mapper>
