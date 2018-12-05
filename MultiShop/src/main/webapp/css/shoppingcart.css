@@ -2,7 +2,7 @@
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
 
-html,
+/* html,
 html a {
   -webkit-font-smoothing: antialiased;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
@@ -75,7 +75,7 @@ button,
   float: left;
 }
 
-.price:before,
+ */.price:before,
 .subtotal:before,
 .subtotal-value:before,
 .total-value:before,
@@ -147,7 +147,7 @@ label {
   margin-top: 1.625rem;
 }
 
-ul {
+/* ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -158,7 +158,7 @@ li {
   display: inline-block;
   padding: 0.625rem 0;
 }
-
+ */
 li.price:before,
 li.subtotal:before {
   content: '';

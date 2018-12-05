@@ -12,5 +12,6 @@
       	<typeAlias type="mypage.bean.OrderDTO" alias="orderDTO"/>
 		<typeAlias type="manage.bean.InquiryDTO" alias="inquiryDTO"/>
 		<typeAlias type="notice.bean.QnaDTO" alias="qnaDTO"/>
+		<typeAlias alias="cartDTO" type="cart.bean.CartDTO"/>
 	</typeAliases>
 </configuration>

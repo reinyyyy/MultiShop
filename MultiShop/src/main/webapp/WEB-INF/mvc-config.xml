@@ -35,7 +35,9 @@
    <context:component-scan base-package="manage.bean"/>
    <context:component-scan base-package="mypage.controller"/>
    <context:component-scan base-package="mypage.bean"/>
-
+	<context:component-scan base-package="cart.bean"/>
+	<context:component-scan base-package="cart.controller"/>
+    
     <mvc:annotation-driven />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
