@@ -32,10 +32,16 @@ public class CartController {
 			
 			String email = (String) session.getAttribute("session_email");
 			Map<String, Object> map = new HashMap<String, Object>();
-			List<CartDTO> list = cartDAO.cartList(email);
+			List<Map<String, String>> list = cartDAO.cartList(email);
 			
 			int sumMoney = cartDAO.sumMoney(email); //장바구니 total 금액
-	
+			
+			int i = 0;
+			for(Map<String, String> data_list : list) {
+				list.get(i).put("p_image", list.get(i).get("p_image").split("/")[1]);
+				i++;
+			}
+			
 			map.put("list", list);
 			map.put("count", list.size());//상품이 있는지 없는지	
 			map.put("sumMoney", sumMoney);
@@ -66,7 +72,7 @@ public class CartController {
 	@RequestMapping(value="delete.do", method=RequestMethod.GET)
 		public String delete(@RequestParam int c_seq) {
 		cartDAO.delete(c_seq);
-		return "redirect: /MultiShop/cart/list.do";
+		return "redirect: /MultiShop/cart/cart.do";
 	}
 	
 	@RequestMapping(value="update.do",method=RequestMethod.POST)
@@ -80,6 +86,6 @@ public class CartController {
 			cartDTO.setP_code(p_code[i]);
 			cartDAO.modifyCart(cartDTO);
 		}
-		return "redirect:/MultiShop/cart/list.do";	
+		return "redirect:/MultiShop/cart/cart.do";	
 	}
 }

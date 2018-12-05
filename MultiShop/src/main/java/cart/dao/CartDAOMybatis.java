@@ -37,7 +37,7 @@ public class CartDAOMybatis implements CartDAO{
 	}
 
 	@Override
-	public List<CartDTO> cartList(String email) {
+	public List<Map<String, String>>  cartList(String email) {
 		return sqlSession.selectList("cartSQL.cartList", email);
 	}
 
