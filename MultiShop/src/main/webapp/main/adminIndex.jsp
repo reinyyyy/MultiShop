@@ -9,24 +9,17 @@
     <!-- <link rel="icon" href="/mysoho_icon.png" type="image/x-icon"> -->
     <link rel="stylesheet" href="../css/admin.css">
     <!-- 달력 -->
-<<<<<<< HEAD
     <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
-<<<<<<< HEAD
     <!-- 데이터테이블 -->
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-=======
     <style type="text/css">
     	#memberTotalTable td{
     		text-align: center;
     	}
     </style>
->>>>>>> refs/remotes/origin/HyunGyuYang2
-    	
-=======
     <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" /> -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
->>>>>>> refs/remotes/origin/minu3
     <!--jQuery-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	
@@ -38,10 +31,8 @@
 	<!-- <script src="../js/manage/calendar.js"></script> -->
     <script src = "../js/manage/product.js"></script>
     <script src="../js/manage/member.js"></script>
-<<<<<<< HEAD
     <!-- <script src="../js/manage/calendar.js"></script> -->
-=======
->>>>>>> refs/remotes/origin/minu3
+    
     <script>
 	$(document).ready(function(){
 		
