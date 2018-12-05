@@ -32,6 +32,7 @@
 	<select id="cartList" parameterType="String" resultMap="ResultMap">
 		select c.*,
 		
+		p.p_cost as p_cost,
 		p.p_option1 as p_option1,
         p.p_option2 as p_option2,
 		p.p_name as p_name,
@@ -49,7 +50,7 @@
 	</select>
 	<!-- 장바구니 total 금액 -->
  	<select id="sumMoney" resultType="int">
-		select NVL(SUM(c.p_cost * c.p_amount),0) money 
+		select NVL(SUM(p.p_cost * c.p_amount),0) money 
 		from cart c, product p
 		where c.m_email=#{email}
 	</select>  

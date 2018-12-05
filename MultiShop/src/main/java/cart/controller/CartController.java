@@ -75,7 +75,7 @@ public class CartController {
 		return "redirect: /MultiShop/cart/cart.do";
 	}
 	
-	@RequestMapping(value="update.do",method=RequestMethod.GET)
+	@RequestMapping(value="update.do",method=RequestMethod.POST)
 		public String update(@RequestParam int[] p_amount, @RequestParam String[] p_code, HttpSession session) {
 		
 		String email = (String) session.getAttribute("session_email");
