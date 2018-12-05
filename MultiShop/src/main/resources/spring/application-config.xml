@@ -21,6 +21,7 @@
     <context:component-scan base-package="com.conf"/>
     <context:component-scan base-package="member.bean"/>
     <context:component-scan base-package="notice.bean"/>
+    <context:component-scan base-package="notice.dao"/>
     <context:component-scan base-package="category.bean"/>
     <context:component-scan base-package="category.dao"/>
     <context:component-scan base-package="detail.bean"/>
@@ -28,6 +29,8 @@
     <context:component-scan base-package="manage.bean"/>
     <context:component-scan base-package="manage.dao"/>
     <context:component-scan base-package="mypage.dao"/>
+    <context:component-scan base-package="cart.dao"/>
+	<context:component-scan base-package="cart.bean"/>
     
     <!-- mail -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 

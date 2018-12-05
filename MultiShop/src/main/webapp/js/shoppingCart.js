@@ -3,6 +3,14 @@ var promoCode;
 var promoPrice;
 var fadeTime = 300;
 
+$('#shoppingCartBtn').on('click',function(){
+	location.href="http://localhost:8080/MultiShop/cart/cart.do";
+});
+
+$('#wishShoppingCartBtn').on('click',function(){
+	location.href="http://localhost:8080/MultiShop/cart/cart.do";
+});
+
 /* Assign actions */
 $('.quantity input').change(function() {
   updateQuantity(this);

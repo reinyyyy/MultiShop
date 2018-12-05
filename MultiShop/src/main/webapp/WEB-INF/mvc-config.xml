@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="member.dao"/>
 	<context:component-scan base-package="notice.dao"/>
+	<context:component-scan base-package="notice.bean"/>
+	<context:component-scan base-package="notice.controller"/>
 	<context:component-scan base-package="category.controller"/>
 	<context:component-scan base-package="manage.controller"/>
 	<context:component-scan base-package="main.controller"/>
@@ -33,7 +35,9 @@
    <context:component-scan base-package="manage.bean"/>
    <context:component-scan base-package="mypage.controller"/>
    <context:component-scan base-package="mypage.bean"/>
-
+	<context:component-scan base-package="cart.bean"/>
+	<context:component-scan base-package="cart.controller"/>
+    
     <mvc:annotation-driven />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

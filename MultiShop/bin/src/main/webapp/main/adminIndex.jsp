@@ -7,7 +7,7 @@
     <!-- <link rel="shortcut icon" href="/mysoho_icon.png" type="image/x-icon"> -->
     <link rel="stylesheet" href="../css/calendar.css">
     <!-- <link rel="icon" href="/mysoho_icon.png" type="image/x-icon"> -->
-    <link rel="stylesheet" href="../css/admin.css">
+   <!--  <link rel="stylesheet" href="../css/admin.css"> -->
     <!-- 달력 -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
     	
@@ -17,7 +17,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
     <!--common-->
-    <script src = "../js/manage/product.js"></script>
+    <!--<script src = "../js/manage/product.js"></script>-->
     <script src="../js/manage/member.js"></script>
     <script src="../js/manage/calendar.js"></script>
     <script>

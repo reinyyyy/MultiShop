@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
 	var cateNum = $('#cateNum').val();
-	
+
 	//최초 글목록 sortType 으로 채워주기
 	//alert('수동적으로 : ' + $('#sortType').val());
 	//글목록 불러옴
@@ -16,20 +16,32 @@ $(document).ready(function(){
 		dataType : 'json',
 		success : function(data) { //data에는 리스트들
 			//alert(JSON.stringify(data));
+			//alert(data.list.length);
+			if(data.list.length == 0){
+				var temp = '<div style="width : 100%; height : 300px; margin-top : 300px" align="center">'+
+			    '<h4>상품이 없습니다</h4>'+
+			    '</div>';
+				$('#card_contents').html(temp);
+				return;
+			}
+			
 			var card_contents = '';
 			$.each(data.list, function(index, items) {
 				card_contents += card(items);
 			});
 			$('#card_contents').html(card_contents);
-			$('#categoryPaging').html(data.categoryPaging.pagingHTML);
+			$('.pagination').html(data.categoryPaging.pagingHTML);
 
 		}
 	});
 	
 	
 	//왼쪽목록 에서 선택한경우
+	
+	//페이징처리, sql문 새로 작성
+	//페이징처리해서 다른페이지 눌렀을경우 ?
 	$('.card-body p').click(function(){
-		
+		alert("");
 		var cateNum_param = $(this).parent().parent().prev().find('a').text();
 		
 		if(cateNum_param == ' Clothes '){
@@ -39,11 +51,16 @@ $(document).ready(function(){
 		}else if(cateNum_param == ' Food '){
 			$('#cateNum').val(1);
 		}
+		$('#midCate').val($(this).text());	//페이지 이동시 필요해서 넣음
+		
+		//alert($('#midCate').val());
 		
 		var p_midCate = $(this).text();
 		if(p_midCate == 'All'){
 			p_midCate = '';
-		}
+		}//학원에서 수정해야댐@@
+		
+		
 		
 		$.ajax({
 			type : 'POST',
@@ -57,13 +74,19 @@ $(document).ready(function(){
 			dataType : 'json',
 			success : function(data) { //data에는 리스트들
 				//alert(JSON.stringify(data));
+				if(data.list.length == 0){
+					var temp = '<div style="width : 100%; height : 300px; margin-top : 300px;" align="center">'+
+				    '<h4 style="">상품이 없습니다</h4>'+
+				    '</div>';
+					$('#card_contents').html(temp);
+					return;
+				}
 				var card_contents = '';
 				$.each(data.list, function(index, items) {
 					card_contents += card(items);
 				});
 				$('#card_contents').html(card_contents);
-				$('#categoryPaging').html(data.categoryPaging.pagingHTML);
-
+				$('.pagination').html(data.categoryPaging.pagingHTML);
 			}
 		});
 	});
@@ -95,35 +118,7 @@ function fn_sort(sortType) {			//sortType 제어 정렬누를시 pg 1로 설정
 	
 	//alert($("#sortType").val());
 	
-	location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val();
-	
-	/*
-	$.ajax({
-		type : 'POST',
-		url : '../category/getList.do',
-		data : {
-			'cateNum' :  $("#cateNum").val(),
-			'pg' : $("#pg").val(),
-			'sortType' : sortType
-		}, //따옴표치면 문자열, 안치면 숫자 
-		dataType : 'json',
-		success : function(data) { //data에는 리스트들
-			alert(JSON.stringify(data));
-			//alert(JSON.stringify(data));
-			var card_contents = '';
-			$.each(data.list, function(index, items) {
-				card_contents += card(items);
-			});
-			$('#card_contents').html(card_contents);
-			$('#categoryPaging').html(data.categoryPaging.pagingHTML);
-
-		},
-		error : function(){
-			alert('실패');
-		}
-	});
-	
-	*/
+	location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val();
 	
 }
 

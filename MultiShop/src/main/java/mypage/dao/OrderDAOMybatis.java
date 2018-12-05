@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import manage.bean.InquiryDTO;
 import mypage.bean.OrderDTO;
 
 @Transactional
@@ -28,8 +29,13 @@ public class OrderDAOMybatis implements OrderDAO{
 		sqlSession.insert("orderSQL.insertOrder",map);
 	}
 	
-	public List<OrderDTO> orderAllList(Map<String,String> map) {
-	      return sqlSession.selectList("orderSQL.orderAllList", map);
+	public List<OrderDTO> orderAllList(String email) {
+	      return sqlSession.selectList("orderSQL.orderAllList", email);
 	   }
+
+	@Override
+	public List<InquiryDTO> inquiryList(String email) {
+		return sqlSession.selectList("orderSQL.inquiryList", email);
+	}
 	
 }

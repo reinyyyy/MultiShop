@@ -1,6 +1,5 @@
 package mypage.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
-import mypage.bean.DeliveryPaging;
 import mypage.bean.OrderDTO;
 import mypage.dao.OrderDAO;
+import manage.bean.InquiryDTO;
 
 @Controller
 public class MypageController {
@@ -33,8 +32,10 @@ public class MypageController {
    private OrderDTO orderDTO;
    @Autowired
    private OrderDAO orderDAO;
+   @Autowired
+   private InquiryDTO inquiryDTO;
    
-    @RequestMapping(value="/mypage/mypage.do", method=RequestMethod.GET)
+   @RequestMapping(value="/mypage/mypage.do", method=RequestMethod.GET)
       public ModelAndView mypage(@ModelAttribute ModelAndView mav) {
          mav.addObject("section","/mypage/mypage.jsp");
          mav.setViewName("/main/main");
@@ -85,10 +86,22 @@ public class MypageController {
       @RequestMapping(value="/mypage/delivery.do",method=RequestMethod.POST)
       public ModelAndView delivery(HttpSession session) {
       String email = (String) session.getAttribute("session_email");
-      Map<String,String> map = new HashMap<String,String>();
-      map.put("email", email);
-      List<OrderDTO> list = orderDAO.orderAllList(map);
+      List<OrderDTO> list = orderDAO.orderAllList(email);
       ModelAndView mav = new ModelAndView("jsonView","data",list);
       return mav;
       }
+      
+	@RequestMapping(value="/mypage/inquiryPage.do",method=RequestMethod.GET)
+	public ModelAndView inquiryPage(@ModelAttribute ModelAndView mav, HttpSession session) {
+		mav.addObject("section","/mypage/inquiryPage.jsp");
+		mav.setViewName("/main/main");
+		return mav;
+	}
+	@RequestMapping(value="/mypage/inquiryList.do",method=RequestMethod.POST)
+	public ModelAndView inquiryList(HttpSession session) {
+		String email = (String) session.getAttribute("session_email");
+		List<InquiryDTO> list = orderDAO.inquiryList(email);
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
 }

@@ -105,7 +105,6 @@ public class CategoryController {
 		
 		System.out.println(list_map);
 		
-		
 		int totalA = categoryDAO.getProduct_BoardTotalA(Integer.parseInt(cateNum));
 		
 		categoryPaging.setCurrentPage(Integer.parseInt(pg));
@@ -126,28 +125,6 @@ public class CategoryController {
 	@RequestMapping(value="quickView", method=RequestMethod.POST)
 	public String quickView(@RequestParam Map<String, String> map,
 							Model model) {
-/*
-
-		대표이미지 최대 5개 가지고있음
-		
-		5개의 대표이미지를 구분자 / 기준으로 나눠줘야함
-		
-		
-		p_option1 에 구분자 / 기준으로 나눠야함			ex) 색상/사이즈 		
-		p_option2 에 구준자 / 기준으로 나눠야함			ex) red/m
-		
-		1번 상품
-		중량 : 1kg
-		형태 : 현미
-		
-		2번 상품
-		중량 : 2kg
-		형태 : 현미
-		
-		
-		
-		
-*/		
 		int cateNum = Integer.parseInt(map.get("cateNum"));		// 지울예정1
 		System.out.println("받아온 p_code : " + map.get("p_code"));
 		
@@ -170,7 +147,11 @@ public class CategoryController {
 		
 		//String[] option1_arr = new String[group_list.size()];
 		
-		
+		for(ProductDTO prdDTO : group_list) {
+			if(prdDTO.getP_status().equals("N")) {
+				System.out.println("판매중지");
+			}
+		}
 		/*
 			같은 그룹의 옵션 이름은 모두 같기때문에 대표상품의 option의 길이만큼 for 돌게만들자
 			
@@ -187,7 +168,7 @@ public class CategoryController {
 			for(int i = 0; i < option_length; i++) {			//
 				ArrayList<String> option_list = new ArrayList<String>();
 				option_list.add(option_name[i]);
-				
+
 				for(int j = 0; j < group_list.size(); j++) {
 					option_val = group_list.get(j).getP_option2().split("/");	//j == 1각 그룹마다 하나씩의 [{1kg}, {백미}]
 					option_list.add(option_val[i]);
@@ -202,6 +183,13 @@ public class CategoryController {
 			model.addAttribute("option_result_list", option_result_list);
 		}
 		
+		System.out.println("그룹들사이즈 : " + group_list.size());
+		int[] amount_list = new int[group_list.size()];
+		for(int i = 0; i < group_list.size(); i++) {
+			amount_list[i] = group_list.get(i).getP_amount();
+		}
+		System.out.println("amount_list : " + amount_list);
+		model.addAttribute("amount_list", amount_list);
 		model.addAttribute("productDTO", productDTO);
 		model.addAttribute("group_list", group_list);
 		

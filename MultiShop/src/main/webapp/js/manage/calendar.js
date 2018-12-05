@@ -1,4 +1,4 @@
-$.datepicker.setDefaults({
+/*$.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd',
     prevText: '이전 달',
     nextText: '다음 달',
@@ -101,3 +101,4 @@ $(document).ready(function(){
 	});
 	
 });
+*/
