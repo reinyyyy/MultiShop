@@ -18,13 +18,22 @@
 </c:if>
 
  <c:if test="${map.count!=0 }">
+ <div style= "text-align:center;">
+ <img src="../image/shoppingbasket.png" width="15%">
+ </div>
+ <div style="text-align:center;">
+ <img src="../image/for.jpg" width="10%">
+ <img src="../image/basketcozy.jpg" width="10%">
+ </div>
+ <i class="fas fa-cart-arrow-down fa-3x"></i>
+
  <form name="cartForm" id="cartForm" method="post" action="http://localhost:8080/MultiShop/cart/update.do">
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
-							<th style="width:65%">상품명</th>
-							<th style="width:10%">가격</th>
-							<th style="width:8%">수량</th>
+							<th style="width:65%; text-align:center;" >상품명</th>
+							<th style="width:10%; text-align:center;">가격</th>
+							<th style="width:8%; text-align:center;">수량</th>
 							<th style="width:22%" class="text-center">소계</th>
 							<th style="width:10%">변경사항</th>
 						</tr>
@@ -33,13 +42,22 @@
 					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
 						<td data-th="Product">
+						<div class="row"> 
 						<div class="col-sm-2 hidden-xs">
-							<img src="../upload/${row.p_image}" width="100%" class="img-responsive"/>
+							<img src="../upload/${row.p_image}" class="img-fluid"/>
 						</div>
-						<div class="col-sm-10">
-							<h4>${row.p_name}</h4>
-							<p><strong>${row.p_option1}
-							${row.p_option2}</strong></p>
+						<div class="col-sm-10"">
+							<div class="row">
+								<div class="col">
+								<h4>${row.p_name}</h4>
+								</div>
+								<div class="col">
+								<p><strong>${row.p_option1}</strong></p>
+								<p><strong>${row.p_option2}</strong></p>
+								</div>
+													
+								</div>
+							</div>
 						</div>
 						</td>
 						<td>

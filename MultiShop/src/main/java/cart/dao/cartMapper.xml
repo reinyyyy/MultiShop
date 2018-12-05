@@ -15,7 +15,7 @@
 	<result property="p_name" column="P_NAME" />
 	<result property="p_image" column="P_IMAGE" />
 	<result property="max_amount" column="MAX_AMOUNT" />
-</resultMap>
+</resultMap> 
 
 	<insert id="insertCart">
 		insert into cart values (cart_seq.NEXTVAL, #{m_email}, #{p_code}, #{p_cost}, #{p_amount}, #{p_option1}, #{p_option2})
@@ -32,21 +32,25 @@
 	<select id="cartList" parameterType="String" resultMap="ResultMap">
 		select c.*,
 		
+		p.p_cost as p_cost,
+		p.p_option1 as p_option1,
+        p.p_option2 as p_option2,
 		p.p_name as p_name,
 		p.p_image as p_image,
 		p.p_amount as max_amount
 		
 		from 
 		members m, product p, cart c
-		
-		where m.m_email = #{email} 
+			
+		where c.m_email = m.m_email
+		and m.m_email = #{email} 
 	
 		order by 
 		c_seq		
 	</select>
 	<!-- 장바구니 total 금액 -->
  	<select id="sumMoney" resultType="int">
-		select NVL(SUM(c.p_cost * c.p_amount),0) money 
+		select NVL(SUM(p.p_cost * c.p_amount),0) money 
 		from cart c, product p
 		where c.m_email=#{email}
 	</select>  
