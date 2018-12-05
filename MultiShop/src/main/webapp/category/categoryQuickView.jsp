@@ -71,7 +71,7 @@
 										<dt>${productDTO.p_code }</dt>
 									</dl>
 								</li>
-								<li>
+								<li>`
 									<dl>
 										<dt>제조국가</dt>
 										<dd>${productDTO.p_origin }</dd>
@@ -406,7 +406,7 @@
 					'<dl id = "amount_list">'+
 						'<dd>' +
 							'<div>' +
-							'<dt>수량</dt><input id = "amount_input" disabled="true" type="number" min="0" max="99"'+
+							'<dt>수량</dt><input name = "amount_input" id = "amount_input" disabled="true" type="number" min="0" max="99"'+
 									//'onkeydown="max_amount()"'+
    									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
 								'id="yourid">'+

@@ -1,7 +1,8 @@
 $(document).ready(function(){
 	
 	var cateNum = $('#cateNum').val();
-
+	alert($('#cateNum').val());
+	alert($('#p_midCate').val());
 	//최초 글목록 sortType 으로 채워주기
 	//alert('수동적으로 : ' + $('#sortType').val());
 	//글목록 불러옴
@@ -11,7 +12,8 @@ $(document).ready(function(){
 		data : {
 			'cateNum' :  $("#cateNum").val(),
 			'pg' : $("#pg").val(),
-			'sortType':$('#sortType').val()
+			'sortType':$('#sortType').val(),
+			'p_midCate' : $('#p_midCate').val() 
 		}, //따옴표치면 문자열, 안치면 숫자 
 		dataType : 'json',
 		success : function(data) { //data에는 리스트들
@@ -41,7 +43,6 @@ $(document).ready(function(){
 	//페이징처리, sql문 새로 작성
 	//페이징처리해서 다른페이지 눌렀을경우 ?
 	$('.card-body p').click(function(){
-		alert("");
 		var cateNum_param = $(this).parent().parent().prev().find('a').text();
 		
 		if(cateNum_param == ' Clothes '){
@@ -51,17 +52,22 @@ $(document).ready(function(){
 		}else if(cateNum_param == ' Food '){
 			$('#cateNum').val(1);
 		}
-		$('#midCate').val($(this).text());	//페이지 이동시 필요해서 넣음
+		$('#p_midCate').val($(this).text());	//페이지 이동시 필요해서 넣음
 		
 		//alert($('#midCate').val());
 		
 		var p_midCate = $(this).text();
+		
 		if(p_midCate == 'All'){
+			$('#p_midCate').val('');
 			p_midCate = '';
 		}//학원에서 수정해야댐@@
 		
+		location.href='../category/categoryItemList.do?cateNum='+$('#cateNum').val()+'&p_midCate='+$('#p_midCate').val();
+		//location.href='../category/categoryItemList.do?cateNum='+$('#cateNum').val()+'&p_midCate='+p_midCate;
 		
 		
+		/*
 		$.ajax({
 			type : 'POST',
 			url : '../category/getList.do',
@@ -88,7 +94,7 @@ $(document).ready(function(){
 				$('#card_contents').html(card_contents);
 				$('.pagination').html(data.categoryPaging.pagingHTML);
 			}
-		});
+		});*/
 	});
 })
 

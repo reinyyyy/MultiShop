@@ -76,7 +76,7 @@
 
 	<!-- 파라미터 값 -->
 	<input type = "hidden" name = "sortType" id = "sortType" value = "${sortType}">
-	<input type = "hidden" name = "midCate" id = "midCate" value = "">					
+	<input type = "hidden" name = "p_midCate" id = "p_midCate" value = "${p_midCate}">					
 
 		<div class="event_coupon">	
 			<a class="navbar-brand text-light">

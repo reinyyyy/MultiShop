@@ -39,6 +39,7 @@ public class CategoryController {
 	//카테고리 리스트	어떤것을 뿌려줄지 cateNum 정해줘야함
 	@RequestMapping(value="categoryItemList", method=RequestMethod.GET)
 	public ModelAndView categoryItemList(@RequestParam(defaultValue="1") int cateNum,
+										@RequestParam(defaultValue="") String p_midCate,
 										@RequestParam(defaultValue="1") int pg,
 										@RequestParam(defaultValue="1") String sortType) {
 		ModelAndView mav = new ModelAndView();
@@ -50,7 +51,7 @@ public class CategoryController {
 			mav.addObject("pageName", "Clothes");
 		}	
 		
-		
+		mav.addObject("p_midCate", p_midCate);
 		mav.addObject("pg", pg);
 		mav.addObject("sortType", sortType);
 		mav.addObject("section", "/category/categoryItemList.jsp");
@@ -138,6 +139,8 @@ public class CategoryController {
 		for(String data : image_arr) {
 			System.out.println("대표이미지 배열 리스트 : " + data);
 		}
+		System.out.println("이미지 첫번째 방 : " + image_arr[0]);
+		System.out.println("이미지 두번째 방 : " + image_arr[1]);
 		//대표이미지 나누기 끝
 		
 		
