@@ -22,8 +22,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<input type = "hidden" id="session_email" value="${session_email }">
-	<input type = "hidden" id="p_code" value="${p_code }">
+	<%-- <!-- 파라미터 -->
+    <input type = "hidden" name="p_code" id = "p_code" value = "${p_code}">
+	<input type = "hidden" id="session_email" value="${session_email }"> --%>
    <header>
       <div class="container">
          <div id="productView">
@@ -51,6 +52,8 @@
                   </div>
                </div>
             <form id ="detail_form" method="post" action="orderPage.do">
+            <input type = "hidden" name="p_code" id = "p_code" value = "${p_code}">
+			<input type = "hidden" id="session_email" value="${session_email }">
             <div class="popRight">
                <span class="viewTitle">JCoat</span>
                <input type="hidden" id="productName" name="productName" value="JCoat">
@@ -78,7 +81,7 @@
                         <dl>
                            <dt>상품코드</dt>
                            <dt id="product_code">${p_code}</dt>
-                           <input type="hidden" name="productCode" id="productCode" value="${p_code}">
+                           <%-- <input type="hidden" name="productCode" id="productCode" value="${p_code}"> --%>
                            <!-- <input type="hidden" name="p_midCate" id="p_midCate" value="">
                            <input type="hidden" name="p_smallCate" id="p_smallCate" value=""> -->
                            
@@ -502,6 +505,13 @@ $(document).ready(function(){
 	var amount_index;
 	//alert("${option_result_list}");		[[색상, 블랙, 블랙, 레드, 레드], [사이즈, 미디움, 라지, 미디움, 스몰]]  Type = String
 	var total_size = 1;
+	
+	var p_code_list = new Array();
+    <c:forEach items="${group_list}" var = "p_code" varStatus = "first_index">
+       p_code_list[Number("${first_index.count}")] = "${p_code.p_code}"; 
+    </c:forEach>
+    p_code_list.splice(0, 1);
+	
 	<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
 		var option_list = "${item1}";
 		//alert(option_list);		//index 0 : [색상, 블랙, 블랙, 레드, 레드], index 1 : [사이즈, 미디움, 라지, 미디움, 스몰]	Type = String //9:23
@@ -594,6 +604,7 @@ $(document).ready(function(){
 	//DTO 행열 바꿔주는 함수
 	function change_arr (arr){
 		//alert(arr.length);	//9:23
+		var j = 0;
 		var k = 1;
 		for(var i = 0; i < total_size-1; i++){
 			var temp_arr = new Array();
@@ -601,7 +612,9 @@ $(document).ready(function(){
 				temp_arr[index] = items[k];
 			});
 			k++;
+			temp_arr[temp_arr.length] = p_code_list[j];
 			result_DTO[i] = temp_arr;
+			j++;
 		}
 	}
 	/* alert(result_DTO[0]);
@@ -664,6 +677,7 @@ $(document).ready(function(){
 						$('#amount_input').val(0);			//과거 amount_op 엿음
 						$('#amount_input').attr('max', amount_op);
 						$('#amount_input').removeAttr('disabled');
+						$('#p_code').val(result_DTO[index][result_DTO[index].length-1]);
 					}
 					//alert(amount_op);	
 					

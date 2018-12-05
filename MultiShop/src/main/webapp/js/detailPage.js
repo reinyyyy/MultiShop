@@ -40,9 +40,6 @@ $(document).ready(function(){
    
    //장바구니 버튼(a태그)
    $('#basketBtn').on('click',function(){
-      //var select_color = $('#detail_colorSelect').val();
-      //var select_size = $('#detail_sizeSelect').val();
-      //var select_amount = $('#detail_amountSelect').val();
       var session_email = $('#session_email').val();
       var select_color = $('#option_select1').val();
       var select_size = $('#option_select2').val();
@@ -71,14 +68,10 @@ $(document).ready(function(){
    
    //바로구매 버튼(a태그)
    $('#buyNowBtn').on('click',function(){
-	  //alert($('#option_select1').val());
-	  //alert($('#option_select2').val());
-      //alert($('#amount_input').val());
 	  var select_color = $('#option_select1').val();
       var select_size = $('#option_select2').val();
       var select_amount = $('#amount_input').val();
       var session_email = $('#session_email').val();
-      //alert(session_email.length);
       
       if(session_email.length<=0){
     	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});

@@ -12,6 +12,8 @@ public interface DetailDAO {
    //-----------------재우
    public int getClothes(Map<String, String> map);
    
+   public DetailDTO getSelectProduct(int p_code);
+   
    public void updateOneClothes(Map<String, String> map);
    //상세페이지 옵션, 재고, 수량, 사이즈  모두 불러오기
    public List<DetailDTO> getDetailPageSource(int p_code);

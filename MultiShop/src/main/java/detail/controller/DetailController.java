@@ -121,6 +121,7 @@ public class DetailController {
          amount_list[i] = group_list.get(i).getP_amount();
       }
       //System.out.println("amount_list : " + amount_list);
+      System.out.println("p_code="+p_code);
       
       model.addAttribute("product_boardDTO", product_boardDTO);
       model.addAttribute("amount_list", amount_list);
@@ -238,18 +239,29 @@ public class DetailController {
    @RequestMapping(value="orderPage", method=RequestMethod.POST)
    public String orderPage(Model model, @RequestParam Map<String, String> map, 
                                @RequestParam(value="amount_input") String amount, 
-                               @RequestParam int productCode, 
+                               @RequestParam String p_code, 
                                @RequestParam String productName,
                                HttpSession session) {
       
-      String session_email = (String) session.getAttribute("session_email");
+	  String option1 = map.get("option_select1");
+	  String option2 = map.get("option_select2");
+	  
+	  String session_email = (String) session.getAttribute("session_email");
+	  
+	  MemberDTO memberDTO2 = memberDAO.getZipcode(session_email);
+	  int m_point =  memberDTO2.getM_point();
+	  
       System.out.println("@@"+session_email);
       System.out.println();
       System.out.println(map);
       System.out.println(amount);
-      System.out.println(productCode);
+      System.out.println(p_code);
+      
+      model.addAttribute("m_point", m_point);
+      model.addAttribute("option1", option1);
+      model.addAttribute("option2", option2);
       model.addAttribute("amount", amount);
-      model.addAttribute("productCode", productCode);
+      model.addAttribute("p_code", p_code);
       model.addAttribute("productName", productName);
       model.addAttribute("session_email", session_email);
       model.addAttribute("section", "/detail_page/orderPage.jsp");
@@ -261,23 +273,20 @@ public class DetailController {
    public ModelAndView getOrderPage(@RequestParam String option1,
                               @RequestParam String option2,
                               @RequestParam String amount,
-                              @RequestParam String productCode, 
-                              @RequestParam String productName, HttpSession session) {
+                              @RequestParam String p_code, 
+                              @RequestParam String productName,
+                              @RequestParam int m_point,
+                              HttpSession session) {
       
 	  String email = (String) session.getAttribute("session_email");
 	      
 	  System.out.println("getOrderController==시작==="+email+"@@@@@@@@@@@@"); 
 	  
-      System.out.println("option1="+option1+"option2="+option2+"amount="+amount+"productCode="+productCode+"productName="+productName);
+      System.out.println("option1="+option1+"option2="+option2+"amount="+amount+"p_code="+p_code+"productName="+productName+"m_point="+m_point);
       
-      
-      detailDTO.setP_option1(option1);
-      detailDTO.setP_option2(option2);
+      detailDTO = detailDAO.getSelectProduct(Integer.parseInt(p_code));
       detailDTO.setP_amount(Integer.parseInt(amount));
-      detailDTO.setP_code(Integer.parseInt(productCode));
-      detailDTO.setP_name(productName);
-      detailDTO.setP_cost(99000);
-      //detailDTO.getP_cost();
+      memberDTO = memberDAO.getZipcode(email);
       
       System.out.println(detailDTO);
       
@@ -296,26 +305,33 @@ public class DetailController {
    }
    
    //전재우 결재완료
-   @RequestMapping(value="orderOk", method=RequestMethod.POST)
-   public @ResponseBody String orderOk(@RequestParam Map<String,String> map, HttpSession session) {
-	   
+   @RequestMapping(value="orderSuccess", method=RequestMethod.POST)
+   public @ResponseBody String Success(@RequestParam Map<String,String> map, HttpSession session) {
 	   String email = (String) session.getAttribute("session_email");
-	      
 	   System.out.println(email+"@@@@@@@@@@@@");
 	   map.put("m_email", email);
-	   
+	   int Mymileage = Integer.parseInt(map.get("myMileageHid"));
+	   int useMileage = Integer.parseInt(map.get("useMileage"));
 	   //임의로 추가 한 것
 	   map.put("d_code", "임의배송번호");//나중에 seq로 바꿔서 하자!!
-	   map.put("o_status", "배송대기");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 배송준비중으로 한 것
-	   System.out.println(map);
-	   //재고확인 dao
+	   map.put("o_status", "배송준비중");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 배송준비중으로 한 것
+	   System.out.println();
+	   System.out.println("맵="+map);
+	   System.out.println("-------------");
+	   // 다시한번 재고확인
 	   if(detailDAO.getClothes(map)==1) {
-		   System.out.println("성공크!");
 		   //재고 update
 		   detailDAO.updateOneClothes(map);
 		   //orderDAO 에 추가
 		   orderDAO.insertOrder(map);
+		   if(useMileage==1) {
+			   //마일리지 사용
+			   memberDAO.useMpoint(map);
+		   }
+		   //마일리 적립 업데이트
+		   memberDAO.update_Mpoint(map);
 		   
+		   System.out.println("성공!!!!!");
 		   return "exist";
 	   }else {
 		   System.out.println("실패애애@");
