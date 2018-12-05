@@ -14,7 +14,7 @@
  <div class="container">
  
  <c:if test="${map.count==0 }">
- 	  장바구니가 비었습니다. 	
+ 	 <img src="../image/cartempty.gif" width="100%">
 </c:if>
 
  <c:if test="${map.count!=0 }">
@@ -25,7 +25,7 @@
 							<th style="width:65%">상품명</th>
 							<th style="width:10%">가격</th>
 							<th style="width:8%">수량</th>
-							<th style="width:22%" class="text-center">합계</th>
+							<th style="width:22%" class="text-center">소계</th>
 							<th style="width:10%">변경사항</th>
 						</tr>
 					</thead>
@@ -33,7 +33,10 @@
 					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
 						<td>
+							<img src="../upload/${row.p_image}" width="30%">
 							${row.p_name}
+							<strong><span style="color:green;">${row.p_option1}
+							${row.p_option2}</span><br></strong>
 						</td>
 						<td>
 							<fmt:formatNumber pattern="###,###,###" value = "${row.p_cost}"/>
@@ -46,7 +49,7 @@
 							<fmt:formatNumber pattern="###,###,###" value = "${row.p_cost * row.p_amount}"/>
 						</td>
 						<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fas fa-sync-alt fa-spin"></i></button>
+								<a href="update.do?c_seq=${row.c_seq}&p_amount=${row.p_amount}" class="btn btn-info btn-sm"><i class="fas fa-sync-alt fa-spin"></i></a>
 								<a href="delete.do?c_seq=${row.c_seq}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>								
 							</td>
 						</tr>
@@ -63,7 +66,7 @@
 								</div>
 							</td>
 							<td data-th="Price">$1.99</td>
-							<td data-th="Quantity">
+							<td data-th="Quantity">	
 								<input type="number" class="form-control text-center" value="1">
 							</td>
 							<td data-th="Total" class="text-center">1.99</td>

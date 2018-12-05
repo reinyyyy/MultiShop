@@ -32,14 +32,17 @@
 	<select id="cartList" parameterType="String" resultMap="ResultMap">
 		select c.*,
 		
+		p.p_option1 as p_option1,
+        p.p_option2 as p_option2,
 		p.p_name as p_name,
 		p.p_image as p_image,
 		p.p_amount as max_amount
 		
 		from 
 		members m, product p, cart c
-		
-		where m.m_email = #{email} 
+			
+		where c.m_email = m.m_email
+		and m.m_email = #{email} 
 	
 		order by 
 		c_seq		
