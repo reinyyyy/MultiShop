@@ -76,6 +76,15 @@
 .card-body p{
 	cursor : pointer;
 }
+
+.card-body p:hover{
+	color : yellow;
+}
+
+.mb-0 a:hover{
+	color : fuchsia;
+}
+
 </style>
 </head>
 <body style="width: 100%">
@@ -142,7 +151,7 @@
 						data-toggle="collapse" href="#collapseTwo" aria-expanded="false"
 						aria-controls="collapseTwo">
 						<h5 class="mb-0">
-							<a> Tech++ </a>
+							<a style = "cursor: pointer"> Tech++ </a>
 						</h5>
 					</div>
 					<div id="collapseTwo" class="collapse" role="tabpanel"
@@ -163,7 +172,7 @@
 						data-toggle="collapse" href="#collapseThree" aria-expanded="false"
 						aria-controls="collapseThree">
 						<h5 class="mb-0">
-							<a> Food </a>
+							<a style = "cursor: pointer"> Food </a>
 							
 						</h5>
 					</div>

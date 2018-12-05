@@ -149,7 +149,8 @@
                 <tbody>
                     <tr>
                         <th><strong>판매가격 <span class="fc-red">*</span></strong></th>
-                        <td><div class="base pr-20"><span class="fc-red">\</span> <input type="text" onKeyPress="return numkeyCheck(event)" style='width:300px;' id = "p_cost" name="p_cost" value="0" class="w20per num_only" placeholder = ",제외 숫자만 입력"></div>
+                        <td><div class="base pr-20"><span class="fc-red">\</span> 
+                        <input type="text" onKeyPress="return numkeyCheck(event)" style='width:300px;' id = "p_cost" name="p_cost" value="0" class="w20per num_only" placeholder = ",제외 숫자만 입력"></div>
 	                        <div id = "p_cost_div"></div>
                         </td>
                     </tr>

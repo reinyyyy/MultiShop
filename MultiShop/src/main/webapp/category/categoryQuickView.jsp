@@ -10,7 +10,8 @@
    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
    crossorigin="anonymous">
 <link href="../css/xzoom.css" rel="stylesheet">
-   
+   		<!-- 파라미터 -->
+   		<input type = "hidden" name = "p_code" id = "p_code" value = "${productDTO.p_code }">
 		<div id="productView">
 			<div id="productPopup">
 				<div class="productPopupWrap">
@@ -71,7 +72,7 @@
 										<dt>${productDTO.p_code }</dt>
 									</dl>
 								</li>
-								<li>
+								<li>`
 									<dl>
 										<dt>제조국가</dt>
 										<dd>${productDTO.p_origin }</dd>
@@ -184,7 +185,18 @@
 			var amount_index;
 			//alert("${option_result_list}");		[[색상, 블랙, 블랙, 레드, 레드], [사이즈, 미디움, 라지, 미디움, 스몰]]  Type = String
 			var total_size = 1;
+			
+			//옵션 없는경우 disabled 해제
+			
+			var p_code_list = new Array();
+			<c:forEach items="${group_list}" var = "p_code" varStatus = "first_index">
+				p_code_list[Number("${first_index.count}")] = "${p_code.p_code}"; 
+			</c:forEach>
+			p_code_list.splice(0, 1);
+			
 			<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
+			
+				
 				var option_list = "${item1}";
 				//alert(option_list);		//index 0 : [색상, 블랙, 블랙, 레드, 레드], index 1 : [사이즈, 미디움, 라지, 미디움, 스몰]	Type = String //9:23
 				
@@ -215,15 +227,6 @@
 					}
 					class_index = index;		//클래스명 지을때 씀
 				});
-				/*	중복제거 전 코드 				
-				$.each(split_result, function(index, item){
-					if(index == 0){
-						option_name = '<dt>'+item+'</dt>';
-					}else {
-						option_tag += '<option value = "'+item+'" >'+item+'</option>';
-					}
-					class_index = index;
-				}); */
 				
 				option_result +=
 				'<li>'+
@@ -241,9 +244,7 @@
 				'</li>';
 				option_tag = '<option>옵션선택</option>';
 			</c:forEach>
-			//option_DTO[amount_index] = [11, 22, 33, 44];
-			//alert(option_DTO);
-			//alert(option_DTO.length);
+			
 			var option_length = (option_DTO.length); //옵션 개수			
 			
 			<c:forEach items = "${amount_list}" var = "amount" varStatus = "amount_index">
@@ -272,10 +273,11 @@
 			
 			var result_DTO = new Array();
 			change_arr(option_DTO);
-			//
+			//p_code_list
 			//DTO 행열 바꿔주는 함수
 			function change_arr (arr){
 				//alert(arr.length);	//9:23
+				var j = 0;
 				var k = 1;
 				for(var i = 0; i < total_size-1; i++){
 					var temp_arr = new Array();
@@ -283,15 +285,11 @@
 						temp_arr[index] = items[k];
 					});
 					k++;
+					temp_arr[temp_arr.length] = p_code_list[j]; 
 					result_DTO[i] = temp_arr;
+					j++;
 				}
 			}
-			/* alert(result_DTO[0]);
-			alert(result_DTO[1]);
-			alert(result_DTO[2]);
-			alert(result_DTO[3]);
-			 */
-		
 			//option_list_maker(result_DTO);
 			 
 			//하위 옵션 판단함수
@@ -346,6 +344,7 @@
 								$('#amount_input').val(0);			//과거 amount_op 엿음
 								$('#amount_input').attr('max', amount_op);
 								$('#amount_input').removeAttr('disabled');
+								$('#p_code').val(result_DTO[index][result_DTO[index].length-1]);	//p_code 선택된거 넘겨줌
 							}
 							//alert(amount_op);	
 							
@@ -403,7 +402,7 @@
 					'<dl id = "amount_list">'+
 						'<dd>' +
 							'<div>' +
-							'<dt>수량</dt><input id = "amount_input" disabled="true" type="number" min="0" max="99"'+
+							'<dt>수량</dt><input name = "amount_input" id = "amount_input" disabled="true" type="number" min="0" max="99"'+
 									//'onkeydown="max_amount()"'+
    									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
 								'id="yourid">'+
@@ -464,7 +463,19 @@
 				$('#option_select'+i).html('<option>옵션선택</option>');
 			}	
 			
+			
+			if("${option_result_list}" == ''){
+				amount_op = Number("${amount_list[0]}");
+				$('#amount_input').attr('max', amount_op);
+				$('#amount_input').removeAttr('disabled');
+			}
+			
+			$('#buyNowBtn').click(function(){
+				alert($('#p_code').val());				
+			});
 		});
+		
+		
 		
 		
 	</script>

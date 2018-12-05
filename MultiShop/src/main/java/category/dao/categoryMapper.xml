@@ -35,7 +35,10 @@
 		<if test = "p_midCate != null and p_midCate != ''"> 
 			and P_MIDCATE = #{p_midCate}
 		</if>
-		
+		<!-- 검색어 있는경우 -->
+		<if test = 'p_name != null and p_name != "no"'>
+			and PRODUCT_BOARD.p_name like '%'||#{p_name}||'%'
+		</if>
 			order by 
 		<if test = "order_type eq 1">	<!-- 높은가겨순 -->
 			PRODUCT_BOARD.P_COST asc
@@ -60,9 +63,20 @@
 	</select>
 	
 	<!-- 각 카테고리별 총 글 수 가져오기 -->
-	<select id = "getProduct_BoardTotalA" parameterType = "int" resultType = "int">
-		select count(*) from PRODUCT_BOARD where p_cateNum = #{cateNum}
+	<select id = "getProduct_BoardTotalA" parameterType = "java.util.Map" resultType = "int">
+		select count(*) from PRODUCT_BOARD 
+		where p_cateNum = #{cateNum}
+		<if test = 'p_name != null and p_name != "no"'>
+			and p_name like '%'||#{p_name}||'%'
+		</if>
 	</select>
+<!-- 	<select id = "getProduct_BoardTotalA" parameterType = "int" resultType = "int">
+		select count(*) from PRODUCT_BOARD 
+		where p_cateNum = #{cateNum}
+		<if test = 'p_name != null and p_name != "no"'>
+			and p_name like '%'||#{p_name}||'%'
+		</if>
+	</select> -->
 	
 	<!-- 글 목록 P_CATENUM and P_MIDCATE 기준 정렬 -->
 	
