@@ -42,13 +42,6 @@
 	z-index:1300;
 }
 
-#wishList{
-	position: absolute;
- 	left: 1200px;
-	top: 200px;
-	z-index:1090;
-}
-
 .float_left {
 	float: left;
 }
@@ -125,10 +118,10 @@
                       <c:if test="${session_email != null}">
                         <button type="button" class="btn btn-dark" id="shoppingCartBtn"
                             aria-label="Left Align">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-shopping-cart"></i> 
                         </button>
                       </c:if>
-                    </li>
+                    </li> 
 				</ul>
 				<a href="http://localhost:8080/MultiShop/main/index.do">
 					<img src="../image/justcozy.png" width="380" height="50">
@@ -136,17 +129,11 @@
 					
 				<ul class="icon_list float_right">
 					<li>    
-					 <c:if test="${session_email != null}">
-						<button type="button" class="btn btn-danger" id="wishlist_login" aria-label="Left Align">
-						   <i class="far fa-heart"></i>
+					
+						<button type="button" class="btn btn-info" id="noticeBtn" aria-label="Left Align">
+						   <i class="fas fa-exclamation-circle"></i>
 						</button>
-					 </c:if>
 					 
-					 <c:if test="${session_email == null}">
-						<button type="button" class="btn btn-dark" data-backdrop="static" data-toggle="modal" data-target="#wishlist_nonmember" aria-label="Left Align">
-						   <i class="fas fa-heart"></i>
-						</button>
-					 </c:if>
 					</li>
 					<li>
 						<button type="button" class="btn btn-success" data-backdrop="static" data-toggle="modal" data-target="#send_email" aria-label="Left Align">
@@ -155,7 +142,7 @@
 						
 					</li>
 					<li>
-						<button type="button" id="qnaBtn" class="btn btn-info" aria-label="Left Align">
+						<button type="button" id="qnaBtn" class="btn btn-warning" aria-label="Left Align">
 						   <i class="fas fa-question"></i>
 						</button>
 					</li>
@@ -194,13 +181,10 @@
                                  <a class="dropdown-item" href="#">FAQ</a>
                               </ul>
                            </li>
-                          <li class="nav-item dropdown">
-                              <a class="text-sucess" style="cursor: pointer;" id="noticeBtn"> Notice</a>
-                           </li>
-							
+
 		                  <li class="nav-item dropdown">
                                <a class="dropdown-toggle dropdown-toggle-split text-secondary"
-		                        data-toggle="dropdown" href="#" aria-expanded="false" onclick = "location.href='../category/categoryItemList.do?catqeNum=3'">Clothes
+		                        data-toggle="dropdown" href="#" aria-expanded="false" onclick = "location.href='../category/categoryItemList.do?cateNum=3'">Clothes
 		                        </a>
 		                        <ul class="dropdown-menu" id="ClothMenu" role="menu">
 		                           <a class="dropdown-item" href="#">All</a>
@@ -262,8 +246,7 @@
 	<!-- <div id="floatMenu">
 		<audio src="../music/Arms.mp3"  autoplay controls style="z-index: 1300"></audio>
 	</div> -->
-	<div id="wishList">
-   	</div>
+
 	<div id='my-spinner' style="z-index: 1200">
       <div><span>
          <img src='//cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif'>
@@ -458,11 +441,6 @@
 <script type="text/javascript" src="../js/eventPopUp.js"></script>
 <script type="text/javascript" src="../js/followMenu.js"></script>
 <script type="text/javascript" src="../js/shoppingCart.js"></script>
-<script type="text/javascript">
-$('#wishlist_login').click(function(){
-	$('#wishList').load("../section/wishlist.jsp");
-});
-</script>
 <script>
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
