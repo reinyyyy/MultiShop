@@ -12,6 +12,7 @@
 <link href="../css/xzoom.css" rel="stylesheet">
    		<!-- 파라미터 -->
    		<input type = "hidden" name = "p_code" id = "p_code" value = "${productDTO.p_code}">
+   		<input type = "hidden" name = "p_status" id = "p_status" value = "">
 		<div id="productView">
 			<div id="productPopup">
 				<div class="productPopupWrap">
@@ -51,7 +52,7 @@
 								<li>
 									<dl>
 										<dt>판매가</dt>
-										<dd id = "cost"><fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /> ￦</dd>		<!-- 가격 -->
+										<dd id = "cost">￦&emsp;<fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /> </dd>		<!-- 가격 -->
 									</dl>
 								</li>
 								<input type="hidden" name="itemP" id="itemP" value="99000.0">
@@ -69,7 +70,7 @@
 								<li>
 									<dl>
 										<dt>상품코드</dt>
-										<dt>${productDTO.p_code }</dt>
+										<dt id = "product_code">${productDTO.p_code }</dt>
 									</dl>
 								</li>
 								<li>`
@@ -102,10 +103,10 @@
 							</div>
 						</div>
 						<div class="btnWrap">
-							<a href="#none" id="favoriteBtn" class="btnFavorite bookmark"
+							<!-- <a href="#none" id="favoriteBtn" class="btnFavorite bookmark"
 								itemid="224000105259"> <img
 								src="/images/contents/favoriteIcon.png" alt="">관심상품 등록
-							</a> <a href="#none" id="basketBtn" class="btnBasket cart_add"
+							</a> --> <a href="#none" id="basketBtn" class="btnBasket cart_add"
 								data-toggle="modal" href="#basketModal"> <img
 								src="/images/contents/basketIcon.png" alt="">장바구니 담기
 							</a> <a href="#none" id="buyNowBtn" class="btnBuyNow order_now"
@@ -144,7 +145,7 @@
 	<script type="text/javascript" src="../js/xzoom.js"></script>
 	<script>
 		$(document).ready(function(){
-			
+			var p_status = new Array();	//판매상태
 			
 			var img_param = "${productDTO.p_image}";
 			var result = img_param.split('/');
@@ -187,15 +188,23 @@
 			var total_size = 1;
 			
 			//옵션 없는경우 disabled 해제
-			
 			var p_code_list = new Array();
+			
+			var no_option_index = 0;
 			<c:forEach items="${group_list}" var = "p_code" varStatus = "first_index">
-				p_code_list[Number("${first_index.count}")] = "${p_code.p_code}"; 
+				p_code_list[Number("${first_index.count}")] = "${p_code.p_code}";
+				//alert("${p_code.p_code}" + "의 판매상태 : " + "${p_code.p_status}");
+				p_status[Number("${first_index.count}")] = "${p_code.p_status}";
+				no_option_index += 1;
 			</c:forEach>
 			p_code_list.splice(0, 1);
 			
-			<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
 			
+			p_status.splice(0, 1);
+			//alert(p_status);
+			
+			
+			<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
 				
 				var option_list = "${item1}";
 				//alert(option_list);		//index 0 : [색상, 블랙, 블랙, 레드, 레드], index 1 : [사이즈, 미디움, 라지, 미디움, 스몰]	Type = String //9:23
@@ -216,7 +225,6 @@
 				//중복제거 후 코드
 				
 				$.each(ovl_result, function(index, item){
-					
 					if(index == 0){
 						option_name = '<dt>'+item+'</dt>';
 					}else {
@@ -345,6 +353,17 @@
 								$('#amount_input').attr('max', amount_op);
 								$('#amount_input').removeAttr('disabled');
 								$('#p_code').val(result_DTO[index][result_DTO[index].length-1]);	//p_code 선택된거 넘겨줌
+								//alert(index);
+								//alert(p_status[index]);
+								if(p_status[index] == 'Y'){
+									$('#product_code').html($('#p_code').val()).css('color', 'black');
+								}else{
+									$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
+									$('#amount_input').prop('disabled', true);
+									
+									
+								}
+								
 							}
 							//alert(amount_op);	
 							
@@ -358,6 +377,8 @@
 				$('#option_select'+(Number(next_index)+1)).html('<option>옵션선택</option>'+op);
 				
 			}
+			
+		
 			
 			//선택한값 삭제 함수
 			function arr_clear(start_num){
@@ -439,6 +460,8 @@
 				console.log(price);
 			});
 			
+			
+			
 			/* $('#wr_2').on('keyup', function() {
 			    this.value = this.value.replace(/\D/g, '');
 			    if (this.value > 150) this.value = 150;
@@ -469,9 +492,28 @@
 				$('#amount_input').attr('max', amount_op);
 				$('#amount_input').removeAttr('disabled');
 			}
+			//품절체크
+			if(no_option_index == 1 && p_status[0] == 'N'){
+				$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
+				$('#amount_input').prop('disabled', true);
+			}
 			
+			alert(option_length);
 			$('#buyNowBtn').click(function(){
-				alert($('#p_code').val());				
+				var no_order = 0;
+				for(var i = 1; i < option_length+1; i++){
+					var temp = 'option_select'+i;
+					if($('#'+temp).val() == '옵션선택'){
+						no_order++;
+					}
+				}
+				if(no_order != 0 ){
+					alert("옵션을 선택해주세요");						
+				}else if($('#amount_input').val() == '' || $('#amount_input').val() == 0){
+					alert("수량을 선택해주세요");
+				}else{
+					alert($('#p_code').val() + "성공");
+				}
 			});
 		});
 		

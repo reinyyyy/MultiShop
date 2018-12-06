@@ -13,6 +13,8 @@
         <result property="p_main_img" column="MAIN_IMG" />
         <result property="p_midcate" column="P_MIDCATE" />
     </resultMap>
+    
+
 	
 	
 	<!-- 제품 테이블 전체 가져오기 이제 안쓸듯 -->
@@ -26,24 +28,42 @@
 	</select>
 	
 	<!-- 글 목록 P_CATENUM 기준 분류 -->
+	<select id = "getProduct_Board_map_best" parameterType = "java.util.Map" resultMap = "ResultMap">
+	
+		select * from 
+		(select rownum rn, rq.* from
+		(select product.p_image as MAIN_IMG, product.p_midcate, rr.* from 
+		(select product_board.*, tt.* from 
+		(select p_group, sum(p_sales)as sum from product group by p_group order by sum desc)tt, product_board   
+		where product_board.p_code = tt.p_group 
+		<if test = 'p_name != null and p_name != "no"'>
+			and product_board.p_name like '%'||#{p_name}||'%'
+		</if>
+		order by tt.sum desc)rr, product where product.p_code = rr.p_code and
+		product.p_cateNum = #{cateNum}
+		<if test = "p_midCate != null and p_midCate != ''"> 
+			and P_MIDCATE = #{p_midCate}
+		</if>
+			order by
+		<if test = "order_type eq 1">	<!-- 높은가겨순 -->
+			PRODUCT.P_COST asc
+		</if>
+		<if test = "order_type eq 2">	<!-- 낮은가격순 -->
+			PRODUCT.P_COST DESC
+		</if>
+		<if test = "order_type eq 3">	<!-- 신상품순 -->
+			PRODUCT.P_CODE DESC
+		</if>
+		<if test = "order_type eq 4">
+			sum desc
+		</if>
+		 )rq
+		 )where rn between #{startNum} and #{endNum}
+		
+	</select>
+	
 	<select id = "getProduct_Board_map" parameterType = "java.util.Map" resultMap = "ResultMap">
 	
-		<!-- <if test = 'order_type eq 4'>		인기순 
-		{call
-			declare
-			begin
-			
-			create or replace VIEW sum_sales AS 
-        	select p_group as p_code, sum(p_sales) as sum from product group by p_group;
-        	
-        	select * from sum_sales;
-
-			end        	
-       	}
-		</if> -->
-		
-		
-		<if test = 'order_type != 4'>		<!-- 인기순  -->
 		select * from
 		(select rownum rn, tt.* from
 		(select PRODUCT_BOARD.*, PRODUCT.p_image"MAIN_IMG", PRODUCT.p_midcate from PRODUCT_BOARD, PRODUCT where 
@@ -69,14 +89,10 @@
 		
 		)tt
 		)where rn between #{startNum} and #{endNum}
-		</if>
 		
 		
 	</select>
 	
-	<select id = "getProduct_Board_map_best" parameterType = "java.util.Map" resultMap = "ResultMap">
-		select * from PRODUCT
-	</select>
 	
 	<!-- 대표그룹 기준잡고 해당하는 모든 옵션 그룹들 가져오기 -->
 	<select id = "getGroup" parameterType = "int" resultType = "productDTO">

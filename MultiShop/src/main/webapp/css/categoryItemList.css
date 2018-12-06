@@ -1,6 +1,14 @@
 @charset "UTF-8";
 
 /* 각 카드 이미지크기를 300 x 300으로 고정 (익스플로러에서 깨짐방지) */
+.card-title{
+	text-overflow : ellipsis;
+	white-space : nowrap;
+	width : 100%;
+	overflow : hidden;
+}
+
+
 .card-img-top {
 	width: 300px;
 	height: 300px;

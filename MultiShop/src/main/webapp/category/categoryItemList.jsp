@@ -205,11 +205,10 @@
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
 					<ul>
-						<li class="active" onclick="fn_sort(2);"><a href="#link">인기순(공사중)</a></li>
+						<li class="active" onclick="fn_sort(2);"><a href="#link">인기순</a></li>
 						<li><a href="#link" onclick="fn_sort(1);">신상품순</a></li>
 						<li><a href="#link" onclick="fn_sort(3);">낮은가격순</a></li>
 						<li><a href="#link" onclick="fn_sort(4);">높은가격순</a></li>
-						<li><a href="../detail_page/detailPage.do?p_code=1" onclick="">상세정보</a></li>
 					</ul>
 				</div>
 				<!--  몇개씩 보여줄 것인지 -->
@@ -324,7 +323,7 @@
 			var src = '../upload/' + result[1];
 			console.log(result[1]);
 			var name = items.p_name;
-			var content = items.p_contents;
+			/* var content = items.p_contents; */
 			var price = items.p_COST;		//제품테이블에서 받아와함.
 			var p_code = items.p_code;
 			
@@ -333,7 +332,7 @@
 					+ '<div style="position : relative;">'
 					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap" style = "cursor : pointer;">'
 					+ '<div class="quick_menu" style="background : rgba(0,0,0,0.8)">'
-					+ '<a href="/product/view.asp?productNo=42046" class="btnl link" target="_blank" float="left"/>'
+					+ '<a href = "javascript:void(0)"onclick = "$(\'.card-img-top\').trigger(\'click\')" class="btnl link" target="_blank" float="left"/>'
 					+ '<input type = "hidden" name = "p_code" value = ' + p_code + '>'
 					+ '<a href="#;" class="quick" style="color : white;">QUICK VIEW</a>'
 					+ '<a href="javascript:loginChk();void(0);" class="btnl wish" float="right"/>'
@@ -341,7 +340,7 @@
 					+ '<li class="list-group-item">' + addComma(price) + ' ￦ </li>'
 					+ '</div>' + '<div class="card-body">'
 					+ '<h4 class="card-title">' + name + '</h4>'
-					+ '<p class="card-text">' + content + '</p>' + '</div>'
+					+ '<p class="card-text">' +''+ '</p>' + '</div>' /* + content + */ 
 					+ '</div>';
 			return card_html;
 		}
