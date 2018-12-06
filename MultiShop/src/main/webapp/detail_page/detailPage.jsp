@@ -27,7 +27,7 @@
     <input type = "hidden" name="p_code" id = "p_code" value = "${p_code}">
 	<input type = "hidden" id="session_email" value="${session_email }"> --%>
    <header>
-      <div class="container">
+      <div class="container" style="margin-bottom: 50px;">
          <div id="productView">
          <div id="productPopup" >
             <div class="productPopupWrap">
@@ -162,8 +162,8 @@
                            <span id="totalPrice" class="totalPrice"><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /> ￦</span>
                         </div>
                      </div>
-                     <div class="btnWrap" style="float : left; margin-left:100px" >
-                        <a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
+                     <div class="btnWrap" style="text-align: right;">
+                       	<a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
                            <i class="fas fa-shopping-cart"></i>&emsp;장바구니 담기
                         </a>
                         <a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">

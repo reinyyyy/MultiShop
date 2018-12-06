@@ -38,4 +38,8 @@ public class OrderDAOMybatis implements OrderDAO{
 		return sqlSession.selectList("orderSQL.inquiryList", email);
 	}
 	
+	@Override
+	public List<OrderDTO> recentlyOrderList(String email) {
+		return sqlSession.selectList("orderSQL.recentlyOrderList", email);
+	}	
 }

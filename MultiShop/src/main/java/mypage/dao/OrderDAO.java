@@ -22,5 +22,7 @@ public interface OrderDAO {
 	public List<OrderDTO> orderAllList(String email);
 
 	public List<InquiryDTO> inquiryList(String email);
+
+	public List<OrderDTO> recentlyOrderList(String email);
 	
 }

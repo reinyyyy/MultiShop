@@ -28,7 +28,8 @@
 	overflow: hidden;
 	zoom: 1;
 	position: relative;
-	z-index: 1
+	z-index: 1;
+	min-height: 500px;
 }
 
 #floatMenu {
