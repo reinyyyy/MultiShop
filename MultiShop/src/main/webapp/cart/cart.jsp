@@ -112,7 +112,7 @@
 $(document).ready(function(){
 	$('#cart_Btn').on('click',function(){
 		//폼에 액션에 값을 변경해줘라
-		$('#cartForm').attr('action','/MultiShop/detail_page/orderPage.do');
+		$('#cartForm').attr('action','/MultiShop/detail_page/cartOrderPage.do');
 		$('#cartForm').submit();
 		/* $.ajax({
   		  type : 'POST',

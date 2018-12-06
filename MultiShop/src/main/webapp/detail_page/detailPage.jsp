@@ -56,7 +56,7 @@
 			<input type = "hidden" id="session_email" value="${session_email }">
             <div class="popRight">
                <span class="viewTitle">JCoat</span>
-               <input type="hidden" id="productName" name="productName" value="JCoat">
+               <input type="hidden" id="productName" name="p_name" value="JCoat">
 <!--                   <p class="sub">실 제본으로 책장이 넘기기 쉬운 노트</p> -->
                <p class="sub"></p>
                <div class="aboutList">
@@ -68,7 +68,7 @@
                            <dd id="product_price"><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" />￦</dd>      <!-- 가격 -->
                         </dl>
                      </li>
-                     <input type="hidden" name="product_price" id="product_price" value="${productDTO.p_cost }">
+                     <input type="hidden" name="p_cost" id="product_price" value="${productDTO.p_cost }">
                      <li>
                         <dl>
                            <dt>배송비</dt>

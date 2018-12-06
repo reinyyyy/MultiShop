@@ -61,7 +61,7 @@ $(document).ready(function(){
                         ,'p_amount':p_amount},
                   success : function(data){
                   	//alert(JSON.stringify(data));
-                	  location.href="../cart/cart.do?p_code="+p_code+"&p_amount="+p_amount;
+                	  location.href="../cart/cart.do";
                   },error : function(data){
                 	  alert("에러발생!!");
                   }

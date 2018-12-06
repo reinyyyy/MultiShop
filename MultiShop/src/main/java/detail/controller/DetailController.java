@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cart.dao.CartDAO;
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import category.dao.CategoryDAO;
@@ -51,6 +52,8 @@ public class DetailController {
    private Product_boardDTO product_boardDTO;
    @Autowired 
    private CategoryDAO categoryDAO;
+   @Autowired
+   private CartDAO cartDAO;
    
    //배송번호 랜덤값 생성
    public String makeD_code() {   
@@ -244,34 +247,106 @@ public class DetailController {
    }*/
    
    
-   //결재화면
+   //장바구니결재시
+   @RequestMapping(value="cartOrderPage", method=RequestMethod.POST)
+   public ModelAndView cartOrderPage(Model model, @RequestParam Map<String, String> map, HttpSession session) {
+	   String session_email = (String) session.getAttribute("session_email");
+	   String email = session_email;
+	   
+	   System.out.println();
+	   System.out.println("cartOrderPage.do의맵==="+map);
+	   
+	   ModelAndView mav = new ModelAndView();
+	   
+	   memberDTO = memberDAO.getZipcode(email);
+	   if(email!=null&&email!="") {
+    	  //다시 DB가고
+          memberDTO = memberDAO.getZipcode(email);
+          System.out.println("@@memberDTO="+memberDTO+"@@@");
+          //model.addAttribute("memberDTO", memberDTO);
+          mav.addObject("memberDTO", memberDTO);
+	   }
+	   //장바구니결재시
+	   Map<String, Object> cartMap = new HashMap<String, Object>();
+		
+	   List<Map<String,String>> list = cartDAO.cartList(email);
+	   
+	   for(int i=0; i<list.size(); i++) {
+		   System.out.println(list.get(i));
+		   System.out.println(list.get(i).get("p_image"));
+		   System.out.println(list.get(i).get("p_name"));
+		   //p_code같은 인트형 은 내가위에 List<Map<String,String>으로 했기때문에 출력이안되서 String.valueOf를 사용했다 (안하면오류 겁나남)
+		   System.out.println(String.valueOf(list.get(i).get("p_code")));
+	   }
+	   cartMap.put("list", list);
+	   cartMap.put("count", list.size());
+	   
+	   MemberDTO memberDTO2 = memberDAO.getZipcode(session_email);
+	   int m_point =  memberDTO2.getM_point();
+	   //cartMap.put("m_point",m_point);
+	   //System.out.println(cartMap.get("count"));
+	   
+	   //model.addAttribute("session_email", session_email);
+	   //model.addAttribute("section", "/detail_page/orderPage.jsp");
+	   
+	   mav.addObject("m_point",m_point);
+	   mav.addObject("cartMap",cartMap);
+	   mav.addObject("section","/detail_page/orderPage.jsp");
+	   mav.setViewName("/main/main");
+	   return mav;
+   }
+   
+   
+   //바로결재 결재화면
    @RequestMapping(value="orderPage", method=RequestMethod.POST)
    public String orderPage(Model model, @RequestParam Map<String, String> map, 
-                               @RequestParam(value="amount_input") String amount, 
-                               @RequestParam String p_code, 
-                               @RequestParam String productName,
                                HttpSession session) {
       
 	  String option1 = map.get("option_select1");
 	  String option2 = map.get("option_select2");
 	  
 	  String session_email = (String) session.getAttribute("session_email");
+	  String email = session_email;
+	  
 	  
 	  MemberDTO memberDTO2 = memberDAO.getZipcode(session_email);
 	  int m_point =  memberDTO2.getM_point();
 	  
-      System.out.println("@@"+session_email);
       System.out.println();
-      System.out.println(map);
-      System.out.println(amount);
-      System.out.println(p_code);
+      System.out.println("orderPage.do의맵==="+map);
       
-      model.addAttribute("m_point", m_point);
+      memberDTO = memberDAO.getZipcode(email);
+      if(email!=null&&email!="") {
+    	  //다시 DB가고
+          memberDTO = memberDAO.getZipcode(email);
+          System.out.println("@@memberDTO="+memberDTO+"@@@");
+          model.addAttribute("memberDTO", memberDTO);
+      }
+      
+      Map<String,String> nomalMap = new HashMap<String,String>();
+      nomalMap.put("myMileage",String.valueOf(m_point));
+      nomalMap.put("p_code",map.get("p_code"));
+      nomalMap.put("p_name",map.get("p_name"));
+      nomalMap.put("p_cost",map.get("p_cost"));
+      nomalMap.put("p_option1",option1);
+      nomalMap.put("p_option2",option2);
+      nomalMap.put("p_amount",map.get("amount_input"));
+      //확인하는것
+      int count=0;
+      if(nomalMap.get("p_code")!=null) {
+    	  count=1;
+      }
+      nomalMap.put("count",String.valueOf(count));
+      System.out.println("노말맵!!@@@=="+nomalMap);
+      
+      
+      model.addAttribute("nomalMap", nomalMap);
+     /* model.addAttribute("myMileage", m_point);
       model.addAttribute("option1", option1);
       model.addAttribute("option2", option2);
-      model.addAttribute("amount", amount);
-      model.addAttribute("p_code", p_code);
-      model.addAttribute("productName", productName);
+      model.addAttribute("amount", map.get("amount_input"));
+      model.addAttribute("p_code", map.get("p_code"));
+      model.addAttribute("p_name", map.get("p_name"));*/
       model.addAttribute("session_email", session_email);
       model.addAttribute("section", "/detail_page/orderPage.jsp");
       return "/main/main";
@@ -289,15 +364,15 @@ public class DetailController {
       
 	  String email = (String) session.getAttribute("session_email");
 	      
-	  System.out.println("getOrderController==시작==="+email+"@@@@@@@@@@@@"); 
+	  System.out.println("@@@@@@@@@@@@@@@getOrderController==시작==="+email+"@@@@@@@@@@@@"); 
 	  
-      System.out.println("option1="+option1+"option2="+option2+"amount="+amount+"p_code="+p_code+"productName="+productName+"m_point="+m_point);
+      //System.out.println("option1="+option1+"option2="+option2+"amount="+amount+"p_code="+p_code+"productName="+productName+"m_point="+m_point);
       
       detailDTO = detailDAO.getSelectProduct(Integer.parseInt(p_code));
       detailDTO.setP_amount(Integer.parseInt(amount));
       memberDTO = memberDAO.getZipcode(email);
       
-      System.out.println(detailDTO);
+      //System.out.println(detailDTO);
       
       ModelAndView mav = new ModelAndView();
       mav.addObject("detailDTO", detailDTO);
@@ -306,7 +381,7 @@ public class DetailController {
       if(email!=null&&email!="") {
     	  //다시 DB가고
           memberDTO = memberDAO.getZipcode(email);
-          System.out.println("@@memberDTO="+memberDTO+"@@@");
+          //System.out.println("@@memberDTO="+memberDTO+"@@@");
           mav.addObject("memberDTO", memberDTO);
       }
       

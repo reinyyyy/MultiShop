@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,26 +54,27 @@
                <span class="text-muted">My order</span>
                <span class="badge badge-secondary badge-pill">3</span>
             </h4>
-
-            <!-- <form id="checkBoxForm" method="post" action="checkDelete.do"> -->
-            <ul class="list-group mb-3">
+			<ul class="list-group mb-3">
+			<!-- 장바구니에서 결재한 화면 -->
+            <c:if test="${cartMap.count!=0 }">
+            <c:forEach var="productRow" items="${cartMap.list}" varStatus="i">
                <li class="list-group-item d-flex justify-content-between lh-condensed">
                      <div>
                          <h6 class="my-0">상품코드 / 제품명</h6>
-                         <small class="text-muted" id="productCodeAndName" ></small>
-                         <input type="hidden" id="firstProductCodeHiddenVal" name="p_code" value="">
-                         <input type="hidden" id="firstProductNameHiddenVal" name="p_name" value="">
-                         <input type="hidden" id="firstProductCostHiddenVal" name="p_cost" value="">
+                         <small class="text-muted" id="productCodeAndName" >${productRow.p_code} &nbsp; / &nbsp; ${productRow.p_name} </small>
+                         <input type="hidden" id="firstProductCodeHiddenVal" name="p_code" value="${productRow.p_code}">
+                         <input type="hidden" id="firstProductNameHiddenVal" name="p_name" value="${productRow.p_name}">
+                         <input type="hidden" id="firstProductCostHiddenVal" name="p_cost" value="${productRow.p_cost}">
                      </div>
                      <span class="text-muted" id="firstProductPrice"></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                      <div>
                          <h6 class="my-0">선택옵션1  / 옵션2 / 수량</h6>
-                         <small class="text-muted" id="allOptionAndAmount"></small>
+                         <small class="text-muted" id="allOptionAndAmount">${productRow.p_option1}&nbsp;/&nbsp;${productRow.p_option2}&nbsp;/&nbsp;${productRow.p_amount}</small>
                          <!-- <input type="hidden" id="p_option1Val" name="p_option1" value=""> -->
-                         <input type="hidden" id="p_optionVal" name="p_option" value="">
-                         <input type="hidden" id="firstProductAmountHiddenVal" name="p_amount" value="">
+                         <!-- <input type="hidden" id="p_optionVal" name="p_option" value=""> -->
+                         <input type="hidden" id="firstProductAmountHiddenVal" name="p_amount" value="${productRow.p_amount}">
                        </div>
                        <span class="text-muted"></span>
                   </li>
@@ -79,18 +82,53 @@
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                      <div>
                          <h6 class="my-0">제품가격</h6>
-                         <small class="text-muted" id="pdtCost"></small>
+                         <small class="text-muted" id="pdtCost">${productRow.p_cost}</small>
                          <input type="hidden" id="" value="">
                        </div>
-                       <span class="text-muted" id="secondProductPrice"></span>
+                       <!-- <span class="text-muted" id="secondProductPrice"></span> -->
+                  </li>
+           	</c:forEach>
+           	</c:if>
+           	
+           	<!-- 장바구니 결재가 아니면 -->
+           	<c:if test="${cartMap.count==0||nomalMap.count==1}">
+           		<li class="list-group-item d-flex justify-content-between lh-condensed">
+                     <div>
+                         <h6 class="my-0">상품코드 / 제품명</h6>
+                         <small class="text-muted" id="productCodeAndName" >${nomalMap.p_code}&nbsp;/&nbsp;${nomalMap.p_name}</small>
+                         <input type="hidden" id="firstProductCodeHiddenVal" name="p_code" value="${nomalMap.p_code}">
+                         <input type="hidden" id="firstProductNameHiddenVal" name="p_name" value="${nomalMap.p_name}">
+                         <input type="hidden" id="firstProductCostHiddenVal" name="p_cost" value="${nomalMap.p_cost}">
+                     </div>
+                     <span class="text-muted" id="firstProductPrice"></span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                     <div>
+                         <h6 class="my-0">선택옵션1  / 옵션2 / 수량</h6>
+                         <small class="text-muted" id="allOptionAndAmount">${nomalMap.p_option1}&nbsp;/&nbsp;${nomalMap.p_option2}&nbsp;/&nbsp;${nomalMap.p_amount}</small>
+                         <!-- <input type="hidden" id="p_option1Val" name="p_option1" value=""> -->
+                         <input type="hidden" id="p_optionVal" name="p_option" value="">
+                         <input type="hidden" id="firstProductAmountHiddenVal" name="p_amount" value="${nomalMap.p_amount}">
+                       </div>
+                       <span class="text-muted"></span>
                   </li>
                   
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                     <div>
+                         <h6 class="my-0">제품가격</h6>
+                         <small class="text-muted" id="pdtCost">${nomalMap.p_cost}</small>
+                         <input type="hidden" id="pdtCost" value="${nomalMap.p_cost}">
+                       </div>
+                      <!--  <span class="text-muted" id="secondProductPrice"></span> -->
+                  </li>
+           	</c:if>
+           	
                   <li class="list-group-item d-flex justify-content-between bg-light">
                        <div class="text-success">
                          <h6 class="my-0">마일리지 적립</h6>
                          <small>예상 적립 금액</small>
                        </div>
-                       <span class="text-success" id="mileage"></span>
+                       <span class="text-success" id="guessMileage"></span>
                        <input type="hidden" id="m_point" name="m_point" value="">
                   </li>
                   <li class="list-group-item d-flex justify-content-between bg-light">
@@ -98,9 +136,9 @@
                          <h6 class="my-0">보유 마일리지 현황</h6>
                          <small style="color:black">보유금 전액만 사용가능</small>
                        </div>
-                       <span class="text-success" id="myMileage"></span>
+                       <span class="text-success" id="myMileage">${nomalMap.myMileage}</span>
                        <input type="hidden" id="useMileage" name="useMileage" value="0">
-                       <input type="hidden" id="myMileageHid" name="myMileageHid" value="">
+                       <input type="hidden" id="myMileageHid" name="myMileageHid" value="${nomalMap.myMileage}">
                        <input type="button" id="useM_pointBtn" value="사용하기">
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
@@ -156,14 +194,14 @@
                 
                 <div class="input-group" style="margin-bottom: 10px">
 					<span class="input-group-addon"><i class="fas fa-map-marked-alt -o fa-fw"></i></span>
-					<input type="text" class="form-control" id="join_modal_postcode" name="m_zipcode" placeholder="우편번호" required="required" readonly>
+					<input type="text" class="form-control" id="join_modal_postcode" name="m_zipcode" placeholder="우편번호" required="required" value="${memberDTO.m_zipcode}" readonly>
 					<input type="button" class="btn btn-dark" id="join_modal_postcodeBtn" value="우편번호찾기" onclick="execDaumPostcode()">
 				</div>
 				<div>
 				</div>
 				<div class="input-group" style="margin-bottom: 10px">
-					<input type="text" class="form-control" id="join_modal_roadAddress" name="m_roadAddress" placeholder="도로명주소" readonly>
-					<input type="text" class="form-control" id="join_modal_jibunAddress" name="m_jibunAddress" placeholder="상세 주소">
+					<input type="text" class="form-control" id="join_modal_roadAddress" name="m_roadAddress" placeholder="도로명주소" value="${memberDTO.m_roadAddress}" readonly>
+					<input type="text" class="form-control" id="join_modal_jibunAddress" name="m_jibunAddress" placeholder="상세 주소" value="${memberDTO.m_jibunAddress}">
 				</div>
                   
                 <hr class="mb-4">
@@ -238,7 +276,31 @@ function maxLengthCheck(object){
 }
 
 $(document).ready(function(){
-   $.ajax({
+	
+	//바로결재시
+	var price = $('#pdtCost').text();
+	var amount = $('#firstProductAmountHiddenVal').val();
+	
+	//최종가격
+    var totalPrice = (price*amount);
+    totalPrice = parseFloat(totalPrice);
+    
+    $('#order_totalPrice').text(totalPrice).toLocaleString();
+    //마일리지
+    var mileage = parseInt(totalPrice*0.02);
+	$('#guessMileage').text(mileage);
+    $('#m_point').val(mileage);
+	$('#useM_pointBtn').click(function(){
+         	//alert($('#myMileage').text());
+         //히든갑 체크용으로 val너줌	
+       	 $('#useMileage').val(1);
+       	 $('#ifUseMileage').text("-"+$('#myMileage').text());
+       	 $('#order_totalPrice').text((totalPrice-$('#myMileage').text()));
+    });
+	
+	
+   /*
+	$.ajax({
       type : 'POST',
       url : '/MultiShop/detail_page/getOrderPage.do',
       data : {'option1':'${option1}',
@@ -285,7 +347,7 @@ $(document).ready(function(){
         	 $('#ifUseMileage').text("-"+$('#myMileage').text());
         	 $('#order_totalPrice').text((totalPrice-$('#myMileage').text()));
           });
-         
+        */ 
        /*   var option1 = $('#p_option1Val').val();
          var option2 = "";
          
@@ -294,7 +356,7 @@ $(document).ready(function(){
          }else if(option1.length)
           */
          //alert(option2);
-         
+        /* 
        	//히든값 넣기
         $('#firstProductCodeHiddenVal').val(data.detailDTO.p_code);
         $('#firstProductNameHiddenVal').val(data.detailDTO.p_name);
@@ -312,7 +374,7 @@ $(document).ready(function(){
          //alert($('#firstProductColorHiddenVal').val());
          //alert($('#firstProductAmountHiddenVal').val());
          //alert($('#firstProductSizeHiddenVal').val());
-         
+         */
         /*  var firstProductPrice = $('#firstProductPrice').text();
          var secondProductPrice = $('#secondProductPrice').text();
          var thirdProductPrice = $('#thirdProductPrice').text(); */
@@ -324,11 +386,12 @@ $(document).ready(function(){
          
          
          //$('#order_totalPrice').text(totalPrice+"원");
+         /*
       },error : function(data){
          alert("실패랍니다~");
       }
    });
-   
+   */
    
 });
 </script>

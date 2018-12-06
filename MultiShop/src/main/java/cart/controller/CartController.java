@@ -35,7 +35,7 @@ public class CartController {
 			
 			List<Map<String, String>> list = cartDAO.cartList(email);
 			
-			System.out.println("갯수========"+list.size());
+			//System.out.println("개수========"+list.size());
 			int sumMoney = cartDAO.sumMoney(email); //장바구니 total 금액
 			
 			int i = 0;
@@ -47,7 +47,8 @@ public class CartController {
 			map.put("list", list);
 			map.put("count", list.size());//상품이 있는지 없는지	
 			map.put("sumMoney", sumMoney);
-			
+			System.out.println("맵은==="+map);
+			System.out.println();
 			mav.addObject("map",map);
 			
 			mav.addObject("section","/cart/cart.jsp");
