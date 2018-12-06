@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -50,6 +51,14 @@ public class DetailController {
    private Product_boardDTO product_boardDTO;
    @Autowired 
    private CategoryDAO categoryDAO;
+   
+   //배송번호 랜덤값 생성
+   public String makeD_code() {   
+       String uuid = UUID.randomUUID().toString().replaceAll("-", ""); // -를 제거해 주었다. 
+       uuid = uuid.substring(0, 7); //uuid를 앞에서부터 10자리 잘라줌. 
+       return uuid;
+    }
+   
    //상세페이지
    @RequestMapping(value="detailPage", method=RequestMethod.GET)
    public String detailPageView(@RequestParam Map<String, String> map, @RequestParam int p_code, Model model, HttpSession session) {
@@ -304,17 +313,23 @@ public class DetailController {
       return mav;
    }
    
+   
    //전재우 결재완료
    @RequestMapping(value="orderSuccess", method=RequestMethod.POST)
    public @ResponseBody String Success(@RequestParam Map<String,String> map, HttpSession session) {
 	   String email = (String) session.getAttribute("session_email");
 	   System.out.println(email+"@@@@@@@@@@@@");
 	   map.put("m_email", email);
+	   //내 마일리지
 	   int Mymileage = Integer.parseInt(map.get("myMileageHid"));
+	   //마일리지를 사용할 시 val = 1 사용안하면 val = 0
 	   int useMileage = Integer.parseInt(map.get("useMileage"));
-	   //임의로 추가 한 것
-	   map.put("d_code", "임의배송번호");//나중에 seq로 바꿔서 하자!!
-	   map.put("o_status", "배송준비중");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 배송준비중으로 한 것
+	   
+	   //임의 추가
+	   map.put("d_code", makeD_code());//배송번호 랜덤값으로 추가
+	   map.put("o_status", "배송대기");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 베송대기
+	   
+	   
 	   System.out.println();
 	   System.out.println("맵="+map);
 	   System.out.println("-------------");
@@ -324,6 +339,7 @@ public class DetailController {
 		   detailDAO.updateOneClothes(map);
 		   //orderDAO 에 추가
 		   orderDAO.insertOrder(map);
+		   //useMileage  = orderPage에서 히든값으로 벨류를 0잡아놔서 마일리지를 사용하면 벨류값을 1으로 변경하게 한것
 		   if(useMileage==1) {
 			   //마일리지 사용
 			   memberDAO.useMpoint(map);
