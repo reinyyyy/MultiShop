@@ -72,7 +72,12 @@
 .wish {
 	background: url(../image/btn_goods_wish.png) no-repeat 50% 50%;
 }
-
+.card-header {
+	background-color: #f3f3f3;
+}
+.card-body {
+	background-color: #ffffff;
+}
 .card-body p{
 	cursor : pointer;
 }
