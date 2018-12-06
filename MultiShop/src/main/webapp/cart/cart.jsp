@@ -19,7 +19,7 @@
 
  <c:if test="${map.count!=0 }">
  <div style= "text-align:center;">
- <img src="../image/shoppingbasket.png" width="15%">
+ <img src="../image/shoppingbasket.png" width="13%">
  </div>
  <div style="text-align:center;">
  <img src="../image/for.jpg" width="10%">
@@ -27,13 +27,13 @@
  </div>
  <i class="fas fa-cart-arrow-down fa-3x"></i>
 
- <form name="cartForm" id="cartForm" method="post" action="http://localhost:8080/MultiShop/cart/update.do">
+ <form name="cartForm" id="cartForm" method="post" action="update.do">
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
-							<th style="width:65%; text-align:center;" >상품명</th>
-							<th style="width:10%; text-align:center;">가격</th>
-							<th style="width:8%; text-align:center;">수량</th>
+							<th style="width:*;" class="text-center">상품명</th>
+							<th style="width:10%;">가격</th>
+							<th style="width:7%;" class="text-center">수량</th>
 							<th style="width:22%" class="text-center">소계</th>
 							<th style="width:10%">변경사항</th>
 						</tr>
@@ -49,7 +49,7 @@
 						<div class="col-sm-10"">
 							<div class="row">
 								<div class="col">
-								<h4>${row.p_name}</h4>
+								<h5>${row.p_name}</h5>
 								</div>
 								<div class="col">
 								<p><strong>${row.p_option1}</strong></p>
@@ -64,11 +64,20 @@
 							<fmt:formatNumber type="currency" currencySymbol="￦" value = "${row.p_cost}"/>
 						</td>
 						<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="${row.p_amount}">
-								<input type="hidden" name="p_code" value=" ${row.p_code}"/>
+								<div class="row">	
+								<div class="amount_change">
+									<input type="number" name="p_amount" id="p_amount" class="form-control text-center" value="${row.p_amount}" min="1">
+									<input type="hidden" name="p_code" value=" ${row.p_code}"/>
+							<!-- 	<div style="display: inline-block; width: 50%;">
+									<button type="button" id="up"class="btn btn-success" style="margin-left: 5px;"><i class="fas fa-caret-up"></i></button>
+									<button type="button" id="down" class="btn btn-danger"><i class="fas fa-caret-down"></i></button>													
+								</div> --></div>
+								</div>
 							</td>
 						<td data-th="Total" class="text-center">
+						<div class="cart-subtotal">
 							<fmt:formatNumber  type="currency" currencySymbol="￦" value = "${row.p_cost * row.p_amount}"/>
+						</div>	
 						</td>
 						<td class="actions" data-th="">
 								<button type="submit" class="btn btn-info btn-sm"><i class="fas fa-sync-alt fa-spin"></i></button>
@@ -79,8 +88,12 @@
 					</c:forEach>
 					</tbody>
 					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center"><strong>합계: <fmt:formatNumber  type="currency" currencySymbol="￦" value = "${map.sumMoney}"/></strong></td>
+						<tr class="visible-xs">				
+							<td class="text-center">
+							<div class="total">
+								<strong>합계: <fmt:formatNumber type="currency" currencySymbol="￦" value = "${map.sumMoney}"/></strong>
+							</div>
+							</td>
 						</tr>
 						<tr>
 							<td><a href= "../category/categoryItemList.do?cateNum=3" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑 계속하기</a></td>
@@ -94,7 +107,8 @@
 	</c:if>
 </div>
 
-     <script type="text/javascript" src="../js/cart.js"></script>
+ <script type="text/javascript" src="../js/cart.js"></script>
+
 </html>
 
 

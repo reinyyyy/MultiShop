@@ -184,7 +184,7 @@
 
 		                  <li class="nav-item dropdown">
                                <a class="dropdown-toggle dropdown-toggle-split text-secondary"
-		                        data-toggle="dropdown" href="#" aria-expanded="false" onclick = "location.href='../category/categoryItemList.do?catqeNum=3'">Clothes
+		                        data-toggle="dropdown" href="#" aria-expanded="false" onclick = "location.href='../category/categoryItemList.do?cateNum=3'">Clothes
 		                        </a>
 		                        <ul class="dropdown-menu" id="ClothMenu" role="menu">
 		                           <a class="dropdown-item" href="#">All</a>

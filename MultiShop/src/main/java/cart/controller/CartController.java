@@ -77,7 +77,6 @@ public class CartController {
 	
 	@RequestMapping(value="update.do",method=RequestMethod.POST)
 		public String update(@RequestParam int[] p_amount, @RequestParam String[] p_code, HttpSession session) {
-		
 		String email = (String) session.getAttribute("session_email");
 		for(int i= 0; i <p_code.length; i++) {
 			CartDTO cartDTO = new CartDTO();
@@ -86,6 +85,6 @@ public class CartController {
 			cartDTO.setP_code(p_code[i]);
 			cartDAO.modifyCart(cartDTO);
 		}
-		return "redirect:/MultiShop/cart/cart.do";	
+		return "redirect:cart.do";	
 	}
 }
