@@ -18,10 +18,10 @@ public class CartDAOMybatis implements CartDAO{
 	 private SqlSession sqlSession;
 		
 	@Override
-	public int countCart(String p_code, String email) {
+	public int countCart(int p_code, String email) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("p_code",p_code);
-		map.put("email",email);
+		map.put("m_email",email);
 		
 		return sqlSession.selectOne("cartSQL.countCart", map);
 	}
@@ -33,7 +33,7 @@ public class CartDAOMybatis implements CartDAO{
 
 	@Override
 	public void updateCart(CartDTO cartDTO) {
-		sqlSession.update("cartSQL.sumCart",cartDTO);
+		sqlSession.update("cartSQL.updateCart",cartDTO);
 	}
 
 	@Override

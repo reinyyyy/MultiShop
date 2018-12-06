@@ -32,8 +32,10 @@ public class CartController {
 			
 			String email = (String) session.getAttribute("session_email");
 			Map<String, Object> map = new HashMap<String, Object>();
+			
 			List<Map<String, String>> list = cartDAO.cartList(email);
 			
+			System.out.println("갯수========"+list.size());
 			int sumMoney = cartDAO.sumMoney(email); //장바구니 total 금액
 			
 			int i = 0;
@@ -58,15 +60,17 @@ public class CartController {
 		
 		String email = (String) session.getAttribute("session_email");
 		cartDTO.setM_email(email);
-		
+		System.out.println("cartDTO=="+cartDTO);
 		int count = cartDAO.countCart(cartDTO.getP_code(),email);
+		System.out.println("@@@count=="+count);
 		if(count==0) {
+			System.out.println("count==0먹음");
 			cartDAO.insert(cartDTO);
 			
 		}else {
 			cartDAO.updateCart(cartDTO);
 		}
-		return "redirect:/MultiShop/cart/cart.do";
+		return "redirect:cart.do";
 	}
 	
 	@RequestMapping(value="delete.do", method=RequestMethod.GET)
@@ -76,7 +80,7 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="update.do",method=RequestMethod.POST)
-		public String update(@RequestParam int[] p_amount, @RequestParam String[] p_code, HttpSession session) {
+		public String update(@RequestParam int[] p_amount, @RequestParam int[] p_code, HttpSession session) {
 		String email = (String) session.getAttribute("session_email");
 		for(int i= 0; i <p_code.length; i++) {
 			CartDTO cartDTO = new CartDTO();

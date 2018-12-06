@@ -7,7 +7,7 @@ import cart.bean.CartDTO;
 
 public interface CartDAO {
 
-	public int countCart(String p_code, String email);
+	public int countCart(int p_code, String email);
 
 	public void insert(CartDTO cartDTO);
 

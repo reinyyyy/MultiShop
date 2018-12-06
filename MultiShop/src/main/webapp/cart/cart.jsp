@@ -67,7 +67,7 @@
 								<div class="row">	
 								<div class="amount_change">
 									<input type="number" name="p_amount" id="p_amount" class="form-control text-center" value="${row.p_amount}" min="1">
-									<input type="hidden" name="p_code" value=" ${row.p_code}"/>
+									<input type="hidden" name="p_code" value="${row.p_code}"/>
 							<!-- 	<div style="display: inline-block; width: 50%;">
 									<button type="button" id="up"class="btn btn-success" style="margin-left: 5px;"><i class="fas fa-caret-up"></i></button>
 									<button type="button" id="down" class="btn btn-danger"><i class="fas fa-caret-down"></i></button>													
@@ -99,16 +99,39 @@
 							<td><a href= "../category/categoryItemList.do?cateNum=3" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑 계속하기</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong></strong></td>
-							<td><a href="#" class="btn btn-success btn-block">결제하기 <i class="fa fa-angle-right"></i></a></td>
+							<td><a href="#" class="btn btn-success btn-block" id="cart_Btn">결제하기 <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
 				</table>
 		</form>
 	</c:if>
 </div>
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
  <script type="text/javascript" src="../js/cart.js"></script>
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#cart_Btn').on('click',function(){
+		//폼에 액션에 값을 변경해줘라
+		$('#cartForm').attr('action','/MultiShop/detail_page/orderPage.do');
+		$('#cartForm').submit();
+		/* $.ajax({
+  		  type : 'POST',
+            url : '/MultiShop/detail_page/orderPage.do',
+            data : {'p_code': '${p_code}'
+                ,'p_amount':'${p_amount}'},
+            success : function(data){
+            	alert(JSON.stringify(data));
+          	  //location.href="../cart/cart.do?p_code="+p_code+"&p_amount="+p_amount;
+            },error : function(data){
+          	  alert("에러발생!!");
+            }
+         
+  	  });
+		 */
+	});
+	
+});
+</script>
 </html>
 
 

@@ -31,24 +31,20 @@ $(document).ready(function(){
       }
    });*/
    
-   //관심상품 버튼(a태그)
-   $('#favoriteBtn').on('click',function(){
-      var select_color = $('#detail_colorSelect').val();
-      var select_size = $('#detail_sizeSelect').val();
-      var select_amount = $('#detail_amountSelect').val();
-   });
    
    //장바구니 버튼(a태그)
    $('#basketBtn').on('click',function(){
       var session_email = $('#session_email').val();
-      var select_color = $('#option_select1').val();
-      var select_size = $('#option_select2').val();
-      var select_amount = $('#amount_input').val();
-      
+      var option_select1 = $('#option_select1').val();
+      var option_select2 = $('#option_select2').val();
+      var p_amount = $('#amount_input').val();
+      var p_code = $('#p_code').val();
+      //alert(p_code);
       $('#basketModal').modal({backdrop: 'static', keyboard: false});
       
       $('#goBasket').click(function(){
     	  if(session_email.length<=0){
+    		  
         	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
     	    	  
         	  //장바구니 비 로그인시
@@ -58,8 +54,19 @@ $(document).ready(function(){
         		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
     		  });
           }else if(session_email.length>0){
-        	  location.href="../mypage/mypage.do"
-        	  //나중에 장바구니 만들어지면 추가로 컨트롤러 만들어서 보내줄 것 지금은 임시로 마이페이지로 이동함
+        	  $.ajax({
+        		  type : 'POST',
+                  url : '/MultiShop/cart/insert.do',
+                  data : {'p_code': p_code
+                        ,'p_amount':p_amount},
+                  success : function(data){
+                  	//alert(JSON.stringify(data));
+                	  location.href="../cart/cart.do?p_code="+p_code+"&p_amount="+p_amount;
+                  },error : function(data){
+                	  alert("에러발생!!");
+                  }
+               
+        	  });
           }
     	  
       });
@@ -68,8 +75,8 @@ $(document).ready(function(){
    
    //바로구매 버튼(a태그)
    $('#buyNowBtn').on('click',function(){
-	  var select_color = $('#option_select1').val();
-      var select_size = $('#option_select2').val();
+	  var option_select1 = $('#option_select1').val();
+      var option_select2 = $('#option_select2').val();
       var select_amount = $('#amount_input').val();
       var session_email = $('#session_email').val();
       
