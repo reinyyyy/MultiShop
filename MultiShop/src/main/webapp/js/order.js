@@ -47,23 +47,20 @@ $(document).ready(function(){
       else 
     	  $.ajax({
          	 type :'POST',
-         	 url : '/MultiShop/detail_page/orderOk.do',
+         	 url : '/MultiShop/detail_page/orderSuccess.do',
          	 data : $('#orderPageForm').serialize(),
          	 dataType : 'text',
          	 success : function(data){
          		 if(data=="exist"){
          			$('#order_modal').modal({backdrop: 'static', keyboard: false});
-         			
          			//	  마이페이지로 이동하시겠습니까    에      예 Btn
          			$('#orderModalYesBtn').click(function(){
          				location.href="../mypage/mypage.do";
          			});
-         			
          			//   아니오 Btn
          			$('#orderModalNoBtn').click(function(){
          				location.href="../main/index.do";
          			});
-         			
          		 }else if(data=="non_exist"){
          			 alert("order.js 실패!!!!");
          		 }

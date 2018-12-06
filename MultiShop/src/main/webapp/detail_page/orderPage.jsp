@@ -44,7 +44,7 @@
          <h2>Check out</h2>
          <p class="lead">깰껌</p>
       </div>
-      <form id="orderPageForm" name="orderPageForm" class="needs-validation" method="post" action="orderOk.do">      <!-- novalidate은 유효성검사를 하지않겠다는 것 -->
+      <form id="orderPageForm" name="orderPageForm" class="needs-validation" method="post" action="orderSuccess.do">      <!-- novalidate은 유효성검사를 하지않겠다는 것 -->
       <input type="hidden" id="session_email" value="${session_email }">
       <div class="row mb30">
          <div class="col-md-4 order-md-2 mb-4" id="basketDiv">
@@ -67,10 +67,10 @@
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                      <div>
-                         <h6 class="my-0">색상  / 사이즈 / 수량</h6>
-                         <small class="text-muted" id="colorAndSizeAndAmount"></small>
-                         <input type="hidden" id="firstProductColorHiddenVal" name="p_color" value="">
-                         <input type="hidden" id="firstProductSizeHiddenVal" name="p_size" value="">
+                         <h6 class="my-0">선택옵션1  / 옵션2 / 수량</h6>
+                         <small class="text-muted" id="allOptionAndAmount"></small>
+                         <!-- <input type="hidden" id="p_option1Val" name="p_option1" value=""> -->
+                         <input type="hidden" id="p_optionVal" name="p_option" value="">
                          <input type="hidden" id="firstProductAmountHiddenVal" name="p_amount" value="">
                        </div>
                        <span class="text-muted"></span>
@@ -93,10 +93,24 @@
                        <span class="text-success" id="mileage"></span>
                        <input type="hidden" id="m_point" name="m_point" value="">
                   </li>
+                  <li class="list-group-item d-flex justify-content-between bg-light">
+                       <div class="text-success">
+                         <h6 class="my-0">보유 마일리지 현황</h6>
+                         <small style="color:black">보유금 전액만 사용가능</small>
+                       </div>
+                       <span class="text-success" id="myMileage"></span>
+                       <input type="hidden" id="useMileage" name="useMileage" value="0">
+                       <input type="hidden" id="myMileageHid" name="myMileageHid" value="">
+                       <input type="button" id="useM_pointBtn" value="사용하기">
+                  </li>
                   <li class="list-group-item d-flex justify-content-between">
-                       <span>최종 결재 금액</span>
+                       <div class="text-success">
+                         <h6 class="my-0" style="color:magenta">최종 결재 금액</h6>
+                         <small style="color:black" id="ifUseMileage"></small>
+                       </div>
+                       <!-- <span>최종 결재 금액</span> -->
                        <strong id="order_totalPrice"></strong>
-                       <input type="hidden" id="lastTotalPrice" value="">
+                       <input type="hidden" id="lastTotalPrice" name="" value="">
                   </li>
             </ul>
             <!-- </form> -->
@@ -203,7 +217,7 @@
                 </div>
                 
                 <hr class="mb-4">
-                <input type=submit id="orderPayBtn" class="btn btn-primary btn-lg btn-block" value="결재하기">
+                <input type=button id="orderPayBtn" class="btn btn-primary btn-lg btn-block" value="결재하기">
                
 	         </div>
 	      </div>
@@ -227,11 +241,12 @@ $(document).ready(function(){
    $.ajax({
       type : 'POST',
       url : '/MultiShop/detail_page/getOrderPage.do',
-      data : {'color':'${color}',
-            'size':'${size}',
+      data : {'option1':'${option1}',
+            'option2':'${option2}',
             'amount':'${amount}',
-            'productCode':'${productCode}',
-            'productName':'${productName}'},
+            'p_code':'${p_code}',
+            'productName':'${productName}',
+            'm_point' : '${m_point}'},
       dataType : 'json',
       success : function(data){
          //alert(JSON.stringify(data));
@@ -248,26 +263,48 @@ $(document).ready(function(){
          //상품 가격
          $('#pdtCost').append(data.detailDTO.p_cost);
          //상품색상,사이즈,수량
-         $('#colorAndSizeAndAmount').append(data.detailDTO.p_option1 + "  /  " + data.detailDTO.p_option2 + "  /  " + data.detailDTO.p_amount);
+         $('#allOptionAndAmount').append(data.detailDTO.p_option1 + "  /  " + data.detailDTO.p_option2 + "  /  " + data.detailDTO.p_amount);
          //최종가격
          $('#order_totalPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount)+"원");
+         
+         //나의 마일리지
+         $('#myMileage').text(data.memberDTO.m_point);
+         $('#myMileageHid').val(data.memberDTO.m_point);
          
          //최종가격 ~마일리지
          var totalPrice = (data.detailDTO.p_cost*data.detailDTO.p_amount);
          totalPrice = parseFloat(totalPrice);
-         var mileage = totalPrice*0.03;
-		 $('#mileage').text((totalPrice*0.03));
+         var mileage = totalPrice*0.02;
+		 $('#mileage').text((totalPrice*0.02));
          $('#m_point').val(mileage);
+         
+         //마일리지 사용하기버튼
+         $('#useM_pointBtn').click(function(){
+         	//alert($('#myMileage').text());
+         	 $('#useMileage').val(1);
+        	 $('#ifUseMileage').text("-"+$('#myMileage').text());
+        	 $('#order_totalPrice').text((totalPrice-$('#myMileage').text()));
+          });
+         
+       /*   var option1 = $('#p_option1Val').val();
+         var option2 = "";
+         
+         if(option1.length>0){
+        	 option2 = data.detailDTO.p_option1+"/"+data.detailDTO.p_option2;
+         }else if(option1.length)
+          */
+         //alert(option2);
          
        	//히든값 넣기
         $('#firstProductCodeHiddenVal').val(data.detailDTO.p_code);
         $('#firstProductNameHiddenVal').val(data.detailDTO.p_name);
-        $('#firstProductColorHiddenVal').val(data.detailDTO.p_option1);
-        $('#firstProductSizeHiddenVal').val(data.detailDTO.p_option2);
+        //$('#p_option1Val').val(data.detailDTO.p_option1);
+        $('#p_optionVal1').val(data.detailDTO.p_option1);
+        $('#p_optionVal2').val(data.detailDTO.p_option2);
         $('#firstProductAmountHiddenVal').val(data.detailDTO.p_amount);
         $('#firstProductCostHiddenVal').val(totalPrice);
         
-        alert($('#paypal').val());
+        //alert($('#paypal').val());
         
         
         //$('#firstProductPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount));
