@@ -28,19 +28,9 @@
 	<!-- 글 목록 P_CATENUM 기준 분류 -->
 	<select id = "getProduct_Board_map" parameterType = "java.util.Map" resultMap = "ResultMap">
 	
-		<!-- <if test = 'order_type eq 4'>		인기순 
-		{call
-			declare
-			begin
+		<if test = 'order_type eq 4'>		인기순 
 			
-			create or replace VIEW sum_sales AS 
-        	select p_group as p_code, sum(p_sales) as sum from product group by p_group;
-        	
-        	select * from sum_sales;
-
-			end        	
-       	}
-		</if> -->
+		</if>
 		
 		
 		<if test = 'order_type != 4'>		<!-- 인기순  -->

@@ -1,6 +1,34 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+#new_product {
+	position : fixed;
+	width : 200px; 
+	height : 100px; 
+	background-color : black; 
+	z-index : 9999; 
+	left : 50%; 
+	top : 30%
+}
+</style>
+<script>
+	$(document).ready(function(){
+		$('#new_product').hide();
+		<c:if test = "${new_product_ok == 1}">
+			$('#new_product').show();	
+			setTimeout(function(){
+				$('#new_product').hide();
+			}, 1000);
+		</c:if>
+		
+	});
+</script>
+<div id = "new_product" >
+	<h1> 상품이 등록되었습니다 </h1>
+</div>
     
 <div id="prdRegist" class="page-body rw">
     <form id="product_form" method="post" enctype="multipart/form-data" action="add.do">
