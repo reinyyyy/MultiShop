@@ -80,6 +80,19 @@ table.dataTable thead th {
 a.cursor:hover {
 	cursor: pointer;
 }
+
+td.details-control {
+    background: url('../image/on.png') no-repeat center center;
+    cursor: pointer;
+    background-size: 30px;
+}
+tr.shown td.details-control {
+    background: url('../image/off.png') no-repeat center center;
+    background-size: 30px;
+}
+/* .dataTable {width:100%; border:1px solid red;}
+.dataTables_scrollHeadInner {width:100%;}
+ */table.dataTable {margin:0px !important;}
 </style>
 </head>
 <body>
@@ -113,22 +126,20 @@ a.cursor:hover {
 			</div>
 			
 			<div id="delivery_table_div">
-			   <table id="delivery_table">
+			   <table id="delivery_table" style="width: 100%;">
 			       <thead>
 					<tr>
+						<th>상세보기</th>
 						<th>주문일시</th>
 						<th class="order_status">주문상태</th>
 						<th>주문번호</th>
-						<th>주문자</th>
-						<th>배송번호</th>
-						<th>배송지주소</th>
-						<th>상품코드</th>
+						<th>상품번호</th>
+						<th>상품명</th>
 						<th>수량</th>
 						<th>가격</th>
 						<th>총액</th>
 					</tr>
 				</thead>
-				
 			   </table>
 			</div>
 			<!--// 컨텐츠 내용 영역 -->		
@@ -138,21 +149,70 @@ a.cursor:hover {
 </body>
 <script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
+var status = '';
+var p_code = '';
+var p_amount = '';
+var o_status = '';
+function format ( data ) {
+	p_code = data.p_code;
+	p_amount = data.p_amount;
+	o_status = data.o_status;
+	 if(data.o_status=='배송대기'){
+	 	status = '<tr>'+
+	            	'<td>주문취소:</td>'+
+	           		'<td>'+'<input type="button" class="cancelBtn" value="주문취소"/>'+'</td>'+
+	      		 '</tr>';
+	 }else if(data.o_status=='배송완료'){
+		 status = '<tr>'+
+     	'<td>반품:</td>'+
+    		'<td>'+'<input type="button" class="cancelBtn" value="반품"/>'+'</td>'+
+		 '</tr>';
+	 }else{
+		 status = '';
+	 }
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>주문자:</td>'+
+            '<td>'+data.m_name+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>주문번호:</td>'+
+            '<td>'+data.o_num+'</td>'+
+        '</tr>'+
+        '<tr>'+
+	        '<td>배송번호:</td>'+
+	        '<td>'+data.d_code+'</td>'+
+	    '</tr>'+
+        '<tr>'+
+            '<td>배송지주소:</td>'+
+            '<td>'+data.o_addr+'</td>'+
+        '</tr>'+
+        '<tr>'+
+	        '<td>배송상태:</td>'+
+	        '<td>'+data.o_status+'&emsp;'+status+'</td>'+
+		'</tr>'+
+    '</table>';
+}
+</script>
+
+<script type="text/javascript">
 $(document).ready( function () {
 	
-	$('#delivery_table').DataTable({
+	var delivery = $('#delivery_table').DataTable({
        ajax: {
             'url':'/MultiShop/mypage/delivery.do',
             'type': 'POST'
          },
          columns: [
+        	 { "class":          "details-control",
+                 "orderable":      false,
+                 "data":           null,
+                 "defaultContent": ""},
              {"data": "o_date"},
              {"data": "o_status","class":"o_status"},
              {"data": "o_num"}, 
-             {"data": "m_email"},
-             {"data": "d_code"}, 
-             {"data": "o_addr"}, 
              {"data": "p_code"},
+             {"data": "p_name"},
              {"data": "p_amount"},
              {"data": "p_cost"},
              {"data": "p_cost"}
@@ -162,7 +222,13 @@ $(document).ready( function () {
                  "render": function ( data, type, row ) {
                      return data *row['p_amount'];
                  },
-                 "targets": 9
+                 "targets": 7
+             },{
+            	 "visible":false,
+            	 "targets": 3
+             },{
+            	 "visible":false,
+            	 "targets": 4
              }
          ],
          responsive: true,
@@ -186,6 +252,43 @@ $(document).ready( function () {
                  "previous": "이전"
              }
     }});
+	$('#delivery_table').on('click','td.details-control',function(){
+	  	var tr = $(this).closest('tr');
+        var row = delivery.row(tr);
+        
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+	});
+	$('#delivery_table').on('click','input.cancelBtn',function(){
+		var o_num = $(this).parent().parent().prev().prev().prev().prev().children().last().text();
+		$.post('/MultiShop/mypage/orderCancel.do',
+				{"o_num":o_num,"m_email":'${session_email}',"p_code":p_code,"p_amount":p_amount,"o_status":o_status},
+				function(data){
+					if(data=='true'){
+						if(o_status=='배송완료'){
+							alert('반품이 완료되었습니다.');
+							location.reload();
+						}else{
+							alert('주문이 취소되었습니다.');
+							location.reload();
+						}
+					}else{
+						alert(data);
+					}
+				},'text'
+		);
+	});
+	
+	
+	
 });
 </script>
 </html>
