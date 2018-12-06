@@ -16,6 +16,7 @@ $(document).ready(function(){
 		}
 		
 		var p_lastDate = $('#datepicker2').val().split('-');
+		
 		p_lastDate = p_lastDate[0]+p_lastDate[1]+p_lastDate[2];
 		
 		$.ajax({

@@ -33,6 +33,7 @@
             <div class="sect-hd mt-none">
                 <h3>운영현황</h3>
             </div><!-- .sect-hd -->
+            
             <div class="sect-cont">
                 <ul class="notice">
                     <li>

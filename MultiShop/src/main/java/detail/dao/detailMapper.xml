@@ -2,14 +2,26 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="detailSQL">
- 	<!-- 재우 -->
+ 	<!-- 재우  수량확인-->
    <select id="getClothes" parameterType="Map" resultType="int">
-      select count(*) from product where p_option1=#{p_color} and p_option2=#{p_size}  
+      select count(*) from product where p_code=#{p_code}  
+   </select>
+   <!-- 선택한 물건 확인 -->
+   <select id="getSelectProduct" parameterType="int" resultType="detailDTO">
+   		select * from product where p_code=#{p_code} 
    </select>
     
    <update id="updateOneClothes" parameterType="Map">
-      update product set p_amount=p_amount-#{p_amount}, p_sales=#{p_amount} where p_option1=#{p_color} and p_option2=#{p_size}
+      update product set p_amount = p_amount-#{p_amount}, p_sales = p_sales+#{p_amount} where p_code=#{p_code}
    </update>
+      
+   <select id="getDetailPageSource" parameterType="int" resultType="detailDTO">
+   		select * from product where p_group=#{p_code}
+   </select>
+   
+   <select id="getDetailPageInfo" parameterType="int" resultType="Product_boardDTO">
+   		select * from product_board where p_code=#{p_code}
+   </select>
    
     <!-- 양현규 -->
    <insert parameterType="java.util.Map" id="detail_userReview">

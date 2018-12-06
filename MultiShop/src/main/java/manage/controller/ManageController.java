@@ -3,6 +3,7 @@ package manage.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ import notice.bean.NoticeDTO;
 @RequestMapping("/manage")
 public class ManageController {
 	
-	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	private static final String UPLOAD_PATH = "C:\\Users\\jaewoo\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	
 	@Autowired
 	private ManageDAO manageDAO;

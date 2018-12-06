@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   //총합계 가격
+   /*//총합계 가격
    var totalPrice = parseFloat($('#totalPrice').text());
    $('#totalPrice').text(totalPrice.toLocaleString());
    
@@ -13,7 +13,7 @@ $(document).ready(function(){
       }else if(select_amount==2){
          $('#totalPrice').text((totalPrice*2).toLocaleString());
       }else if(select_amount==3){
-         $('#totalPrice').text((totalPrice*3).toLocaleString());
+         $('#totalPrice').text((totalPrice*3).toLocaleString());	
       }else if(select_amount==4){
          $('#totalPrice').text((totalPrice*4).toLocaleString());
       }else if(select_amount==5){
@@ -29,7 +29,7 @@ $(document).ready(function(){
       }else if(select_amount==10){
          $('#totalPrice').text((totalPrice*10).toLocaleString());
       }
-   });
+   });*/
    
    //관심상품 버튼(a태그)
    $('#favoriteBtn').on('click',function(){
@@ -40,10 +40,10 @@ $(document).ready(function(){
    
    //장바구니 버튼(a태그)
    $('#basketBtn').on('click',function(){
-      var select_color = $('#detail_colorSelect').val();
-      var select_size = $('#detail_sizeSelect').val();
-      var select_amount = $('#detail_amountSelect').val();
       var session_email = $('#session_email').val();
+      var select_color = $('#option_select1').val();
+      var select_size = $('#option_select2').val();
+      var select_amount = $('#amount_input').val();
       
       $('#basketModal').modal({backdrop: 'static', keyboard: false});
       
@@ -59,6 +59,7 @@ $(document).ready(function(){
     		  });
           }else if(session_email.length>0){
         	  location.href="../mypage/mypage.do"
+        	  //나중에 장바구니 만들어지면 추가로 컨트롤러 만들어서 보내줄 것 지금은 임시로 마이페이지로 이동함
           }
     	  
       });
@@ -67,11 +68,10 @@ $(document).ready(function(){
    
    //바로구매 버튼(a태그)
    $('#buyNowBtn').on('click',function(){
-      var select_color = $('#detail_colorSelect').val();
-      var select_size = $('#detail_sizeSelect').val();
-      var select_amount = $('#detail_amountSelect').val();
+	  var select_color = $('#option_select1').val();
+      var select_size = $('#option_select2').val();
+      var select_amount = $('#amount_input').val();
       var session_email = $('#session_email').val();
-      //alert(session_email.length);
       
       if(session_email.length<=0){
     	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});

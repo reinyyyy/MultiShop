@@ -72,6 +72,10 @@
 .wish {
 	background: url(../image/btn_goods_wish.png) no-repeat 50% 50%;
 }
+
+.card-body p{
+	cursor : pointer;
+}
 </style>
 </head>
 <body style="width: 100%">
@@ -124,12 +128,12 @@
 					<div id="collapseOne" class="collapse show" role="tabpanel"
 						aria-labelledby="headingOne" data-parent="#accordion">
 						<div class="card-body">
-							<a>All</a>
-							<a>Outer</a>
-							<a>Top</p>
-							<a>Bottom</p>
-							<a>Shoes</p>
-							<a>Inner</p>
+							<p>All</p>
+							<p>Outer</p>
+							<p>Top</p>
+							<p>Bottom</p>
+							<p>Shoes</p>
+							<p>Inner</p>
 						</div>
 					</div>
 				</div>
@@ -180,30 +184,29 @@
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content">
 		<!-- 상단 히스토리 바 -->
-			<nav aria-label="breadcrumb" role="navigation">
+		<%-- 	<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb">
 					<!-- 사용자 클릭히스토리로 동적 처리필요 -->
 					<li class="breadcrumb-item"><a href="../main/index.do">HOME</a></li>
 					<li class="breadcrumb-item"><a onclick="goPage('${cateNum}')" href = "javascript:void(0)">${pageName }</a></li>
 					<li class="breadcrumb-item active" aria-current="page">데이터</li>
 				</ol>
-			</nav>
+			</nav> --%>
 		
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
 					<ul>
-						<li class="active" onclick="fn_sort('6');"><a href="#link">인기순</a></li>
-						<li><a href="#link" onclick="fn_sort('1');">신상품순</a></li>
-						<li><a href="#link" onclick="javascript:fn_sort('3');">낮은가격순</a></li>
-						<li><a href="#link" onclick="javascript:fn_sort('4');">높은가격순</a></li>
-						<li><a href="../detail_page/detailPage.do" onclick="">상세정보</a></li>
+						<li class="active" onclick="fn_sort(2);"><a href="#link">인기순(공사중)</a></li>
+						<li><a href="#link" onclick="fn_sort(1);">신상품순</a></li>
+						<li><a href="#link" onclick="fn_sort(3);">낮은가격순</a></li>
+						<li><a href="#link" onclick="fn_sort(4);">높은가격순</a></li>
+						<li><a href="../detail_page/detailPage.do?p_code=1" onclick="">상세정보</a></li>
 					</ul>
 				</div>
 				<!--  몇개씩 보여줄 것인지 -->
 				<div class="select">
 					<span>DISPLAY</span> <span class="selectRecordCount"> <a
-						href="#link" val="10">10</a> <a href="#link" val="20">20</a> <a
-						href="#link" val="100">ALL</a>
+						onclick = "javascript:void(0)" val="10">10</a> <a onclick = "javascript:void(0)" val="20">20</a>
 					</span>
 				</div>
 			</div>
@@ -222,6 +225,11 @@
 					<button type="button" class="btn btn-secondary">2</button>
 					<button type="button" class="btn btn-secondary">3</button>
 					<button type="button" class="btn btn-secondary">다음</button> -->
+					<nav aria-label="...">
+						<ul class="pagination justify-content-center">
+							
+						</ul>
+					</nav>
 				</div>
 
 				<!-- <div class="input-group">	여기에서 검색만들꺼면 이거쓰면됨
@@ -229,6 +237,8 @@
 						<input type="text" class="form-control" placeholder="넣을 수도 뺄수도 있습니다"
 						aria-label="입력그룹 예제" aria-describedby="btnGroupAddon2">
 					</div> -->
+					<div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -236,7 +246,7 @@
 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="../js/categoryItemList.js"></script>
+	
 	<script type="text/javascript" src="../js/detailPage.js"></script>
 	<script>
 	//카테고리 값으로 받아옴	
@@ -295,38 +305,15 @@
 				$('.quickViewBody').empty();
 			});
 			
-
-			//글목록 불러옴
-			$.ajax({
-				type : 'POST',
-				url : '../category/getList.do',
-				data : {
-					'cateNum' :  $("#cateNum").val(),
-					'pg' : $("#pg").val()
-				}, //따옴표치면 문자열, 안치면 숫자 
-				dataType : 'json',
-				success : function(data) { //data에는 리스트들
-					//alert(JSON.stringify(data));
-					var card_contents = '';
-					$.each(data.list, function(index, items) {
-						card_contents += card(items);
-					});
-					$('#card_contents').html(card_contents);
-					$('#categoryPaging').html(data.categoryPaging.pagingHTML);
-
-				}
-			});
-			/* $.postJSON('../category/getList.do', '${cateNum}', function(data){
-				alert(data);
-			}); */
+			
 		});
 	
 		
 		//제품 내용물 생성
 		function card(items) { //DB컬럼명을 가져다 써야함 banana.jpg			//받아오는거 DTO 에서 boardLIST 로 변경해야댐
-			var result = items.p_main_img.replace('/', '');
-			var src = '../upload/' + result;
-			console.log(result);
+			var result = items.p_main_img.split('/');
+			var src = '../upload/' + result[1];
+			console.log(result[1]);
 			var name = items.p_name;
 			var content = items.p_contents;
 			var price = items.p_COST;		//제품테이블에서 받아와함.
@@ -353,7 +340,8 @@
 		//상세 페이지 이동 이벤트
 		$(document).on('click','.card-img-top', function(){
 			var p_code = $(this).next().find('input').val();
-			location.href = "../detail_page/detailPage.do?p_code="+p_code;
+			var cateNum = $('#cateNum').val();
+			location.href = "../detail_page/detailPage.do?p_code="+p_code+"&cateNum="+cateNum;
 		});
 		
 		//3자리수 콤마 제작 함수
@@ -361,7 +349,10 @@
 			  var regexp = /\B(?=(\d{3})+(?!\d))/g;
 			  return num.toString().replace(regexp, ',');
 		}
+		
+		
 	</script>
+	<script src="../js/categoryItemList.js"></script>
 </body>
 </html>
 

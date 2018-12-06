@@ -39,20 +39,30 @@ public class MemberDAOMybatis implements MemberDAO{
 	}
 	public MemberDTO findEmail(Map<String,String> map) {
 	      return sqlSession.selectOne("memberSQL.member_findEmail", map);
-	   }
+	}
 
-	   public MemberDTO findPwd(Map<String, String> map) {
-	      return sqlSession.selectOne("memberSQL.member_findPwd", map);
-	   }
+	public MemberDTO findPwd(Map<String, String> map) {
+		return sqlSession.selectOne("memberSQL.member_findPwd", map);
+	}
 
-	   public int findPwd2(Map<String,String> map) {
-	      return sqlSession.update("memberSQL.member_findPwd2", map);
-	   }
+	public int findPwd2(Map<String,String> map) {
+		return sqlSession.update("memberSQL.member_findPwd2", map);
+	}
+	
 	public int membermodify(Map<String,String> map) {
 		    return sqlSession.update("memberSQL.member_modify", map);
 	}
 
 	public MemberDTO getZipcode(String email) {
 		return sqlSession.selectOne("memberSQL.member_getZipcode",email);
+	}
+	
+	public void update_Mpoint(Map<String,String> map) {
+		 sqlSession.update("memberSQL.update_Mpoint",map);
+	}
+
+	@Override
+	public void useMpoint(Map<String, String> map) {
+		sqlSession.update("memberSQL.useMpoint",map);
 	}
 }
