@@ -90,7 +90,7 @@
 					<tfoot>
 						<tr class="visible-xs">				
 							<td class="text-center">
-							<div class="total">
+							<div class="total" style="text-align:left;">
 								<strong>합계: <fmt:formatNumber type="currency" currencySymbol="￦" value = "${map.sumMoney}"/></strong>
 							</div>
 							</td>

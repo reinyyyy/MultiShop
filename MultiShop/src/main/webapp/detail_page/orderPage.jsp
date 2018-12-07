@@ -57,6 +57,7 @@
 			<ul class="list-group mb-3">
 			<!-- 장바구니에서 결재한 화면 -->
             <c:if test="${cartMap.count!=0 }">
+            <c:set var="k" value="0"    />
             <c:forEach var="productRow" items="${cartMap.list}" varStatus="i">
                <li class="list-group-item d-flex justify-content-between lh-condensed">
                      <div>
@@ -64,7 +65,7 @@
                          <small class="text-muted" id="productCodeAndName" >${productRow.p_code} &nbsp; / &nbsp; ${productRow.p_name} </small>
                          <input type="hidden" id="firstProductCodeHiddenVal" name="p_code" value="${productRow.p_code}">
                          <input type="hidden" id="firstProductNameHiddenVal" name="p_name" value="${productRow.p_name}">
-                         <input type="hidden" id="firstProductCostHiddenVal" name="p_cost" value="${productRow.p_cost}">
+                         <input type="hidden" class="p_costHid" id="firstProductCostHiddenVal" name="p_cost" value="${productRow.p_cost}">
                      </div>
                      <span class="text-muted" id="firstProductPrice"></span>
                   </li>
@@ -74,7 +75,7 @@
                          <small class="text-muted" id="allOptionAndAmount">${productRow.p_option1}&nbsp;/&nbsp;${productRow.p_option2}&nbsp;/&nbsp;${productRow.p_amount}</small>
                          <!-- <input type="hidden" id="p_option1Val" name="p_option1" value=""> -->
                          <!-- <input type="hidden" id="p_optionVal" name="p_option" value=""> -->
-                         <input type="hidden" id="firstProductAmountHiddenVal" name="p_amount" value="${productRow.p_amount}">
+                         <input type="hidden" id="firstProductAmountHiddenVal" class="p_amountHid" name="p_amount" value="${productRow.p_amount}">
                        </div>
                        <span class="text-muted"></span>
                   </li>
@@ -87,9 +88,10 @@
                        </div>
                        <!-- <span class="text-muted" id="secondProductPrice"></span> -->
                   </li>
+                  <c:set var="k" value="${k+ productRow.p_cost*productRow.p_amount}"/>
+                  
            	</c:forEach>
            	</c:if>
-           	
            	<!-- 장바구니 결재가 아니면 -->
            	<c:if test="${cartMap.count==0||nomalMap.count==1}">
            		<li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -98,7 +100,7 @@
                          <small class="text-muted" id="productCodeAndName" >${nomalMap.p_code}&nbsp;/&nbsp;${nomalMap.p_name}</small>
                          <input type="hidden" id="firstProductCodeHiddenVal" name="p_code" value="${nomalMap.p_code}">
                          <input type="hidden" id="firstProductNameHiddenVal" name="p_name" value="${nomalMap.p_name}">
-                         <input type="hidden" id="firstProductCostHiddenVal" name="p_cost" value="${nomalMap.p_cost}">
+                         <input type="hidden" id="firstProductCostHiddenVal" class="p_costHid" name="p_cost" value="${nomalMap.p_cost}">
                      </div>
                      <span class="text-muted" id="firstProductPrice"></span>
                   </li>
@@ -108,7 +110,7 @@
                          <small class="text-muted" id="allOptionAndAmount">${nomalMap.p_option1}&nbsp;/&nbsp;${nomalMap.p_option2}&nbsp;/&nbsp;${nomalMap.p_amount}</small>
                          <!-- <input type="hidden" id="p_option1Val" name="p_option1" value=""> -->
                          <input type="hidden" id="p_optionVal" name="p_option" value="">
-                         <input type="hidden" id="firstProductAmountHiddenVal" name="p_amount" value="${nomalMap.p_amount}">
+                         <input type="hidden" id="firstProductAmountHiddenVal" class="p_amountHid" name="p_amount" value="${nomalMap.p_amount}">
                        </div>
                        <span class="text-muted"></span>
                   </li>
@@ -121,6 +123,7 @@
                        </div>
                       <!--  <span class="text-muted" id="secondProductPrice"></span> -->
                   </li>
+                  <c:set var="k" value="${k+ nomalMap.p_cost*nomalMap.p_amount}"/>
            	</c:if>
            	
                   <li class="list-group-item d-flex justify-content-between bg-light">
@@ -136,7 +139,12 @@
                          <h6 class="my-0">보유 마일리지 현황</h6>
                          <small style="color:black">보유금 전액만 사용가능</small>
                        </div>
+                       <c:if test="${nomalMap.count==1}">
                        <span class="text-success" id="myMileage">${nomalMap.myMileage}</span>
+                       </c:if>
+                       <c:if test="${cartMap.count!=0 }">
+                       <span class="text-success" id="myMileage">${m_point}</span>
+                       </c:if>
                        <input type="hidden" id="useMileage" name="useMileage" value="0">
                        <input type="hidden" id="myMileageHid" name="myMileageHid" value="${nomalMap.myMileage}">
                        <input type="button" id="useM_pointBtn" value="사용하기">
@@ -147,7 +155,7 @@
                          <small style="color:black" id="ifUseMileage"></small>
                        </div>
                        <!-- <span>최종 결재 금액</span> -->
-                       <strong id="order_totalPrice"></strong>
+                       <strong id="order_totalPrice">${k}</strong>
                        <input type="hidden" id="lastTotalPrice" name="" value="">
                   </li>
             </ul>
@@ -278,15 +286,17 @@ function maxLengthCheck(object){
 $(document).ready(function(){
 	
 	//바로결재시
-	var price = $('#pdtCost').text();
+	/* var price = $('#pdtCost').text();
 	var amount = $('#firstProductAmountHiddenVal').val();
 	
 	//최종가격
     var totalPrice = (price*amount);
     totalPrice = parseFloat(totalPrice);
     
-    $('#order_totalPrice').text(totalPrice).toLocaleString();
+    $('#order_totalPrice').text(totalPrice).toLocaleString(); */
     //마일리지
+    var totalPrice = $('#order_totalPrice').text();
+    totalPrice = parseFloat(totalPrice);
     var mileage = parseInt(totalPrice*0.02);
 	$('#guessMileage').text(mileage);
     $('#m_point').val(mileage);
@@ -297,7 +307,7 @@ $(document).ready(function(){
        	 $('#ifUseMileage').text("-"+$('#myMileage').text());
        	 $('#order_totalPrice').text((totalPrice-$('#myMileage').text()));
     });
-	
+	 
 	
    /*
 	$.ajax({

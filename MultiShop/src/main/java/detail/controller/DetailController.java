@@ -353,7 +353,7 @@ public class DetailController {
    }
    
    //결재화면 ajax로 불러오기
-   @RequestMapping(value="getOrderPage", method=RequestMethod.POST)
+  /* @RequestMapping(value="getOrderPage", method=RequestMethod.POST)
    public ModelAndView getOrderPage(@RequestParam String option1,
                               @RequestParam String option2,
                               @RequestParam String amount,
@@ -386,7 +386,7 @@ public class DetailController {
       }
       
       return mav;
-   }
+   }*/
    
    
    //전재우 결재완료
