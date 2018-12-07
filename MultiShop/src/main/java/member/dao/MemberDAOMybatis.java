@@ -1,6 +1,7 @@
 package member.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -39,15 +40,16 @@ public class MemberDAOMybatis implements MemberDAO{
 	}
 	public MemberDTO findEmail(Map<String,String> map) {
 	      return sqlSession.selectOne("memberSQL.member_findEmail", map);
-	   }
+	}
 
-	   public MemberDTO findPwd(Map<String, String> map) {
-	      return sqlSession.selectOne("memberSQL.member_findPwd", map);
-	   }
+	public MemberDTO findPwd(Map<String, String> map) {
+		return sqlSession.selectOne("memberSQL.member_findPwd", map);
+	}
 
-	   public int findPwd2(Map<String,String> map) {
-	      return sqlSession.update("memberSQL.member_findPwd2", map);
-	   }
+	public int findPwd2(Map<String,String> map) {
+		return sqlSession.update("memberSQL.member_findPwd2", map);
+	}
+	
 	public int membermodify(Map<String,String> map) {
 		    return sqlSession.update("memberSQL.member_modify", map);
 	}
@@ -55,4 +57,28 @@ public class MemberDAOMybatis implements MemberDAO{
 	public MemberDTO getZipcode(String email) {
 		return sqlSession.selectOne("memberSQL.member_getZipcode",email);
 	}
+	
+	public void update_Mpoint(Map<String,String> map) {
+		 sqlSession.update("memberSQL.update_Mpoint",map);
+	}
+
+	@Override
+	public void useMpoint(Map<String, String> map) {
+		sqlSession.update("memberSQL.useMpoint",map);
+	}
+
+	@Override
+	public void updateCoupon(String coupon, String m_email) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("coupon", coupon);
+		map.put("m_email", m_email);
+		sqlSession.update("memberSQL.insertCoupon",map);
+	}
+
+	@Override
+	public List<MemberDTO> selectCoupon(String m_email) {
+		
+		return sqlSession.selectList("memberSQL.selectCoupon",m_email);
+	}
+
 }

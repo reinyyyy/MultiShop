@@ -5,7 +5,7 @@
 <table class="detail_hoogiTable" id="detail_hoogiTable" style="width : 100%;">
 	<thead>
 		<tr>
-			<th width="40" height="20">번호</th>
+			<th width="40" height="20"></th>
 			<th width="150">만족도</th>
 			<th width="700">상품평</th>
 			<th width="100">작성자</th>
@@ -26,6 +26,12 @@ $(document).ready(function(){
 			{"data":"id"},
 			{"data":"logtime"}
 		],
+		"columnDefs": [{
+			"render":function(data,type,row){
+					return "";
+			},
+			"targets":0
+			}],
 		"searching" : false,
 		responsive : true,
 		"ordering": false,

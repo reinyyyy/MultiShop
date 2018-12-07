@@ -375,22 +375,3 @@ legend {visibility: hidden;font-size: 0;width: 0;height: 0;overflow: hidden;}
 }
 /* 폰트 색 */
 .color_red {color:#f24949 !important;}
-
-/* a태그 커서 */
-a.cursor{
-	cursor: pointer;
-}
-
-/* 테이블 레이아웃 */
-.table_layout_fixed {table-layout: fixed;}
-
-/* 말줄임표. */
-a.ellipsis{
-	width: 100%;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    word-wrap: normal !important;
-    display: block;
-}

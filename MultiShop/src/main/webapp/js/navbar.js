@@ -122,7 +122,7 @@ $(document).ready(function(){
       /*location.href="http://localhost:8080/MultiShop/main/index.do";*/
    });
    $('#logout_complete_modal_Btn').on('click',function(){
-	   location.href='/MultiShop/main/index.do';
+      location.href='/MultiShop/main/index.do';
    });
    
    /*join modal*/
@@ -366,7 +366,7 @@ $(document).ready(function(){
    
    /*delivery page*/
    $('#mypage_deleveryBtn').on('click',function(){
-	   location.href='/MultiShop/mypage/deliveryPage.do';
+      location.href='/MultiShop/mypage/deliveryPage.do';
    });
    
    
@@ -416,8 +416,8 @@ $(document).ready(function(){
             if(data=='false'){
                $('#find_pwd_modal_statusDiv').text('정보가 맞지 않습니다').css('color','red');
             }else if(data=='true'){
-            	 $('#find_pwd_modal').modal('hide');
-               $.post('/MultiShop/member/sendMail.do',	 
+                $('#find_pwd_modal').modal('hide');
+               $.post('/MultiShop/member/sendMail.do',    
                      $('#find_pwd_modal_form').serialize(),
                      function(data){
                         if(data=='true'){            
@@ -447,14 +447,14 @@ $(document).ready(function(){
       $('#login_modal_statusDiv').empty();
       $('#find_email_modal_statusDiv').empty();
       $('#find_pwd_modal_statusDiv').empty();
-   	});
+      });
    $('#find_email_complete_model').on('hidden.bs.modal',function(){
       $('#find_email_complete_email').text('');
       
-   	});
+      });
    $('#find_pwd_modal').on('hidden.bs.modal',function(){
-	      $('#find_pwd_modal_statusDiv').text('');
-	   });
+         $('#find_pwd_modal_statusDiv').text('');
+      });
    
    /*modal-show*/
    $('.modal').on('show.bs.modal', function () {
@@ -467,38 +467,38 @@ $(document).ready(function(){
    });
    
    $('#noticeBtn').on('click',function(){
-	   location.href="/MultiShop/notice/notice.do?pg=1"
+      location.href="/MultiShop/notice/notice.do?pg=1"
    });
    
    /* 1:1답변 */
    $('#send_mailBtn').on('click',function(){
-	   var inputEmail = $('#inputEmail');
-	   var inputTitle = $('#inputTitle');
-	   var emailTextarea = $('#emailTextarea');
-	   if(inputEmail.val()==''){
-		   $('#inputEmail').attr('placeholder','이메일을 입력해주세요.');
-	   }else if(inputTitle.val()==''){
-		   $('#inputTitle').attr('placeholder','제목을 입력해주세요.');
-	   }else if(emailTextarea.val()==''){
-		   $('#emailTextarea').attr('placeholder','내용을 입력해주세요.');
-	   }else{
+      var inputEmail = $('#inputEmail');
+      var inputTitle = $('#inputTitle');
+      var emailTextarea = $('#emailTextarea');
+      if(inputEmail.val()==''){
+         $('#inputEmail').attr('placeholder','이메일을 입력해주세요.');
+      }else if(inputTitle.val()==''){
+         $('#inputTitle').attr('placeholder','제목을 입력해주세요.');
+      }else if(emailTextarea.val()==''){
+         $('#emailTextarea').attr('placeholder','내용을 입력해주세요.');
+      }else{
          $.post('/MultiShop/manage/inquiryInsert.do',
-        		 	{"m_email":inputEmail.val(),"i_title":inputTitle.val(),"i_content":emailTextarea.val()},
-        		 	function(data){
-						if(data==1){
-							alert("답변등록이 완료되었습니다.");
-							$('#send_email').modal('hide');
-						}else{
-							alert("실패");
-						}
-         			},'text'
-           		);
-        	}
-	});
-   	
-   	/* Q&A */
+                  {"m_email":inputEmail.val(),"i_title":inputTitle.val(),"i_content":emailTextarea.val()},
+                  function(data){
+                  if(data==1){
+                     alert("답변등록이 완료되었습니다.");
+                     $('#send_email').modal('hide');
+                  }else{
+                     alert("실패");
+                  }
+                  },'text'
+                 );
+           }
+   });
+      
+      /* Q&A */
    $('#qnaBtn').on('click',function(){
-	   location.href="/MultiShop/qna/qna.do";
+      location.href="/MultiShop/qna/qna.do";
    });
    
    

@@ -7,10 +7,13 @@ import category.bean.Product_boardDTO;
 import detail.bean.DetailDTO;
 import detail.bean.DetailQnADTO;
 import detail.bean.DetailhoogiDTO;
+import member.bean.MemberDTO;
 
 public interface DetailDAO {
    //-----------------재우
    public int getClothes(Map<String, String> map);
+   
+   public DetailDTO getSelectProduct(int p_code);
    
    public void updateOneClothes(Map<String, String> map);
    //상세페이지 옵션, 재고, 수량, 사이즈  모두 불러오기
@@ -33,6 +36,10 @@ public interface DetailDAO {
 
    public List<DetailQnADTO> detail_GetQnATableList(int p_code);
 
+   public MemberDTO getCoupon(String session_email);
+   
+   public void couponDelete(String email);
+   
 
 
 }

@@ -5,6 +5,8 @@
      <tr>
         <th>상품코드</th>
         <th>상품명</th>
+        <th>옵션1</th>
+        <th>옵션2</th>
         <th>수량</th>
         <th>가격</th>
         <th>등록일</th>
@@ -24,6 +26,8 @@ $(document).ready(function(){
 	      "columns" : [
 	         {"data":"p_code","class":"p_code modify"},
 	         {"data":"p_name","class":"p_name modify"},
+	         {"data":"p_option1","class":"p_option1 modify"},
+	         {"data":"p_option2","class":"p_option2 modify"},
 	         {"data":"p_amount","class":"p_amount modify"},
 	         {"data":"p_cost","class":"p_cost modify"},
 	         {"data":"p_date","class":"p_date modify"},

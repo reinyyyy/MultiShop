@@ -276,19 +276,25 @@
                      <div class="conWrap">
                         <div class="totalWrap">
                            <span>총합계</span>
-                           <span id="totalPrice" class="totalPrice" ><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /> ￦</span>
+                           <span id="totalPrice" class="totalPrice" ></span>
                         </div>
                      </div>
-                     <div class="btnWrap">
-                       <!--  <a href="#none" id="favoriteBtn" class="btnFavorite bookmark" itemid="224000105259">
-                           <i class="far fa-heart"></i>&emsp;관심상품 등록
-                        </a> -->
-                        <a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
+                     <div class="btnWrap row">
+                        <div class = "col">
+                        	<!-- <a href="#none" id="favoriteBtn" class="btnFavorite bookmark" itemid="224000105259">
+                           	<i class="far fa-heart"></i>&emsp;관심상품 등록
+                        	</a> -->
+                        </div>
+                        <div class = "col">
+                        	<a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
                            <i class="fas fa-shopping-cart"></i>&emsp;장바구니 담기
-                        </a>
-                        <a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">
-                           <i class="fas fa-credit-card"></i>&emsp;바로구매
-                        </a>
+                        	</a>
+                        </div>
+                        <div class = "col">
+                       		<a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">
+                        	<i class="fas fa-credit-card"></i>&emsp;바로구매
+                        	</a>
+                        </div>
                      </div>
                   </div>
                </form>
@@ -526,7 +532,7 @@
 							if(cnt == user_selected.length+1){		//두 배열이 완전 똑같을경우
 								amount_op = items[cnt-1];
 								//alert("완전똑같음"+ items);			12/3 7:53
-								$('#amount_input').val(0);			//과거 amount_op 엿음
+								$('#amount_input').val(1);			//과거 amount_op 엿음
 								$('#amount_input').attr('max', amount_op);
 								$('#amount_input').removeAttr('disabled');
 								$('#p_code').val(result_DTO[index][result_DTO[index].length-1]);	//p_code 선택된거 넘겨줌
@@ -537,6 +543,7 @@
 								}else{
 									$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
 									$('#amount_input').prop('disabled', true);
+									$('#amount_input').val('0');
 									
 									
 								}
@@ -555,7 +562,7 @@
 				
 			}
 			
-		
+
 			
 			//선택한값 삭제 함수
 			function arr_clear(start_num){
@@ -600,10 +607,10 @@
 					'<dl id = "amount_list">'+
 						'<dd>' +
 							'<div>' +
-							'<dt>수량</dt><input name = "amount_input" id = "amount_input" disabled="true" type="number" min="0" max="99"'+
-									//'onkeydown="max_amount()"'+
-   									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
-								'id="yourid">'+
+								'<dt>수량</dt>' +
+								'<dd style = "width : 12%;">' +
+									'<input name = "amount_input" class = "form-control text-center" id = "amount_input" disabled="true" type="number" min="1" max="99"id="yourid">'+
+								'</dd>' +
 							'</div>'+
 						'</dd>'+
 					'</dl>'+
@@ -611,13 +618,17 @@
 			
 			var total_price = Number("${productDTO.p_cost}");
 				
+			
+			
 			//수량 체인지 이벤트
 			$(document).on('keypress','#amount_input', function () {
 				
 				if(Number($(this).val()) > amount_op){
 					$('#amount_input').val(amount_op);
 					price = total_price * $(this).val();
-					$('#totalPrice').html((price.toLocaleString()) + '￦');
+					$('#totalPrice').html('￦ ' + (price.toLocaleString()));
+				}else if(Number($(this).val()) < 0){
+					$('#amount_input').val(0);	
 				};
 			});
 			
@@ -626,14 +637,17 @@
 				if(Number($(this).val()) > amount_op){
 					$('#amount_input').val(amount_op);
 					price = total_price * $(this).val();
-					$('#totalPrice').html((price.toLocaleString()) + '￦');
+					$('#totalPrice').html('￦ ' + (price.toLocaleString()));
+				}else if(Number($(this).val()) < 0 ){
+					$('#amount_input').val(0);
+					$('#totalPrice').html('￦ 0');
 				};
 			});
 			
 			$(document).on('change', '#amount_input', function(){
 				
 				var price = total_price * Number($(this).val());
-				$('#totalPrice').html((price.toLocaleString()) + '￦');
+				$('#totalPrice').html('￦ ' + (price.toLocaleString()));
 				console.log(price);
 			});
 			
@@ -671,94 +685,59 @@
 			}
 			//품절체크
 			if(no_option_index == 1 && p_status[0] == 'N'){
-				$('#productCode').html($('#p_code').val() + ' (품절)').css('color', 'red');
+				$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
 				$('#amount_input').prop('disabled', true);
 			}
 			
-			alert(option_length);
+			//alert(option_length);
+			//구배버튼
 			$('#buyNowBtn').click(function(){
-				var session_email = $('#session_email').val();
-				if(session_email.length<=0){
-			    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+					var session_email = $('#session_email').val();
+					if(session_email.length<=0){
+				    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+					    	  
+				    	  //바로구매 비 로그인시
+				    	  $('#detail_loginBtn').click(function(){
+				    		  $('#non_loginCloseBtn').trigger('click');
+				    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
+						  });
 				    	  
-			    	  //바로구매 비 로그인시
-			    	  $('#detail_loginBtn').click(function(){
-			    		  alert("비로그인구매임");
-			    		  $('#non_loginCloseBtn').trigger('click');
-			    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
-					  });
-			    	  
-			    	  return;
-			    }else if(session_email.length>0){
-			    	
-			    	var no_order = 0;
-					for(var i = 1; i < option_length+1; i++){
-						var temp = 'option_select'+i;
-						if($('#'+temp).val() == '옵션선택'){
-							no_order++;
+				    	  return;
+				    }else if(session_email.length>0){
+				    	
+				    	var no_order = 0;
+						for(var i = 1; i < option_length+1; i++){
+							var temp = 'option_select'+i;
+							if($('#'+temp).val() == '옵션선택'){
+								no_order++;
+							}
 						}
-					}
+						
+				    	if(no_order != 0 ){
+							alert("옵션을 선택해주세요");						
+						}else if($('#amount_input').val() == '' || $('#amount_input').val() < 0){
+							alert("수량을 선택해주세요");
+						}else if($('#amount_input').val() == '0'){
+							alert("품절된 상품입니다");
+						}else{
+						//	alert("p_code : " + $('#p_code').val() + "성공");
+							$('#detail_form').submit();
+						}
+				    }
 					
-			    	if(no_order != 0 ){
-						alert("옵션을 선택해주세요");						
-					}else if($('#amount_input').val() == '' || $('#amount_input').val() == 0){
-						alert("수량을 선택해주세요");
-					}else{
-						alert($('#p_code').val() + "성공");
-						$('#detail_form').submit();
-					}
-			    }
-				
-				
-				
-				
-			});
+				});
+			$('#totalPrice').html('￦ ' + (Number("${productDTO.p_cost}").toLocaleString()));
 			
 			$('#detail_nonLoginModal').on('show.bs.modal', function(event) {
-				alert("비로그인 모달열림");
+				//alert("비로그인 모달열림");
 			    $('#quick_view').css('z-index', 1050);
 			    $(this).css('display', 'block');
 			    $(this).css('z-index', 9999);
 			    //$(".modal-backdrop").removeClass('show').attr('class', 'fade').attr('class', 'in');
 			});
-			/* $('.modal').on('shown.bs.modal', function(event) {
-				alert("!!!");
-			    var idx = ($('.modal:visible').length) -1; // raise backdrop after animation.
-			    $('.modal-backdrop').not('.stacked').css('z-index', 1039 + (10 * idx));
-			    $('.modal-backdrop').not('.stacked').addClass('stacked');
-			}); */
-			
-			//바로구매 버튼(a태그)
-			/*    $('#buyNowBtn').on('click',function(){
-				  //alert($('#option_select1').val());
-				  //alert($('#option_select2').val());
-			      //alert($('#amount_input').val());
-				  var select_color = $('#option_select1').val();
-			      var select_size = $('#option_select2').val();
-			      var select_amount = $('#amount_input').val();
-			      var session_email = $('#session_email').val();
-			      //alert(session_email.length);
-			      
-			      if(session_email.length<=0){
-			    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
-				    	  
-			    	  //바로구매 비 로그인시
-			    	  $('#detail_loginBtn').click(function(){
-			    		  alert("비로그인구매임");
-			    		  $('#non_loginCloseBtn').trigger('click');
-			    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
-					  });
-			      }else if(session_email.length>0){
-			    	  $('#detail_form').submit();
-			      }
-			      
-			      
-			   }); */
 			
 		});
 		
 		
 		
-		
 	</script>
-	

@@ -28,7 +28,8 @@
 	overflow: hidden;
 	zoom: 1;
 	position: relative;
-	z-index: 1
+	z-index: 1;
+	min-height: 500px;
 }
 
 #floatMenu {
@@ -37,16 +38,6 @@
 	height: 55px;
 	left: 20px;
 	top: 220px;
-	background-color: #E6E6E6;
-	color: #fff; 
-	z-index:1300;
-}
-#wishList{
-	position: absolute;
-	width: 2500px;
-	height: 200px;
-	left: 1000px;
-	top: 800px;
 	background-color: #E6E6E6;
 	color: #fff; 
 	z-index:1300;
@@ -79,13 +70,13 @@
 	<input type = "hidden" name = "p_midCate" id = "p_midCate" value = "${p_midCate}">				
 	<input type = "hidden" name = "p_name" id = "p_name" value = "${p_name}">
 	<input type = "hidden" name = "pageSize" id = "pageSize" value = "${pageSize}">
-	<%-- <input type = "hidden" name = "search_option" id = "search_option" value = "${search_option}"> --%>
 
 		<div class="event_coupon">	
 			<a class="navbar-brand text-light">
 				<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>
 		</a>
-		<button class="btn btn-primary btn-sm" aria-label="right Align">쿠폰 받기</button>
+		<button class="btn btn-primary btn-sm" aria-label="right Align" id="couponBtn">쿠폰 받기</button>
+		<input type="hidden" id="couponSession_email" value="${session_email }">
 	</div>
 	
 	<div class="top_nav">	
@@ -119,13 +110,22 @@
                                 aria-label="Left Align">
                                 <i class="fas fa-user-circle"></i>
                             </button>
-                        </c:if></li>
+                        </c:if>
+                       </li>
                     <li>
-                        <button type="button" class="btn btn-light"
+                    <c:if test="${session_email == null}">
+                        <button type="button" class="btn btn-light" data-backdrop="static" data-toggle="modal" data-target="#cart_nonmember" aria-label="Left Align">
+						   <i class="fas fa-shopping-cart"></i>
+						</button>
+                      </c:if>
+                      
+                      <c:if test="${session_email != null}">
+                        <button type="button" class="btn btn-dark" id="shoppingCartBtn"
                             aria-label="Left Align">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-shopping-cart"></i> 
                         </button>
-                    </li>
+                      </c:if>
+                    </li> 
 				</ul>
 				<a href="http://localhost:8080/MultiShop/main/index.do">
 					<img src="../image/justcozy.png" width="380" height="50">
@@ -133,17 +133,11 @@
 					
 				<ul class="icon_list float_right">
 					<li>    
-					 <c:if test="${session_email != null}">
-						<button type="button" class="btn btn-danger" id="wishlist" onclick="document.getElementById('summary').style.display='none';" aria-label="Left Align">
-						   <i class="far fa-heart"></i>
+					
+						<button type="button" class="btn btn-info" id="noticeBtn" aria-label="Left Align">
+						   <i class="fas fa-exclamation-circle"></i>
 						</button>
-					 </c:if>
 					 
-					 <c:if test="${session_email == null}">
-						<button type="button" class="btn btn-dark" data-backdrop="static" data-toggle="modal" data-target="#wishlist_nonmember" aria-label="Left Align">
-						   <i class="fas fa-heart"></i>
-						</button>
-					 </c:if>
 					</li>
 					<li>
 						<button type="button" class="btn btn-success" data-backdrop="static" data-toggle="modal" data-target="#send_email" aria-label="Left Align">
@@ -152,7 +146,7 @@
 						
 					</li>
 					<li>
-						<button type="button" class="btn btn-info" aria-label="Left Align">
+						<button type="button" id="qnaBtn" class="btn btn-warning" aria-label="Left Align">
 						   <i class="fas fa-question"></i>
 						</button>
 					</li>
@@ -191,44 +185,42 @@
                                  <a class="dropdown-item" href="#">FAQ</a>
                               </ul>
                            </li>
-                          <li class="nav-item dropdown">
-                              <a class="text-sucess" style="cursor: pointer;" id="noticeBtn"> Notice</a>
-                           </li>
-							
+
 		                  <li class="nav-item dropdown">
                                <a class="dropdown-toggle dropdown-toggle-split text-secondary"
 		                        data-toggle="dropdown" href="#" aria-expanded="false" onclick = "location.href='../category/categoryItemList.do?cateNum=3'">Clothes
 		                        </a>
 		                        <ul class="dropdown-menu" id="ClothMenu" role="menu">
-		                           <a class="dropdown-item" href="#">All</a>
-		                           <a class="dropdown-item" href="#">Outer</a>
-		                           <a class="dropdown-item" href="#">Top</a>
-		                           <a class="dropdown-item" href="#">Bottom</a>
-		                           <a class="dropdown-item" href="#">Shoes</a>
-		                           <a class="dropdown-item" href="#">Inner</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=">All</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Outer">Outer</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Top">Top</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Bottom">Bottom</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Shoes">Shoes</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Inner">Inner</a>
 		                        </ul>
 		                     </li>
 		                     <li class="nav-item dropdown"><a
 		                        class="dropdown-toggle text-secondary" data-toggle="dropdown"
 		                        href="#" aria-expanded="false"  onclick = "location.href='../category/categoryItemList.do?cateNum=2'"> Tech++ </a>
 		                        <ul class="dropdown-menu" id="TechMenu" role="menu">
-		                           <a class="dropdown-item" href="#">Audio/Video</a>
-		                           <a class="dropdown-item" href="#">Game</a>
-		                           <a class="dropdown-item" href="#">Smart Watch</a>
-		                           <a class="dropdown-item" href="#">Drone</a>
-		                           <a class="dropdown-item" href="#">TV</a>
-		                           <a class="dropdown-item" href="#">Laptop/Computer HardWare</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=">All</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Audio/Video">Audio/Video</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Game">Game</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Smart%20Watch">Smart Watch</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Drone">Drone</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=TV">TV</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Laptop/Computer%20HardWare">Laptop/Computer HardWare</a>
 		                        </ul></li>
 		                     <li class="nav-item dropdown"><a
 		                        class="dropdown-toggle text-secondary" data-toggle="dropdown"
 		                        href="#" aria-expanded="false"  onclick = "location.href='../category/categoryItemList.do?cateNum=1'"> Food </a>
 		                        <ul class="dropdown-menu" id="FoodMenu" role="menu">
-		                           <a class="dropdown-item" href="#">All</a>
-		                           <a class="dropdown-item" href="#">Carbohydrate</a>
-		                           <a class="dropdown-item" href="#">Protein</a>
-		                           <a class="dropdown-item" href="#">Fat</a>
-		                           <a class="dropdown-item" href="#">Vitamin</a>
-		                           <a class="dropdown-item" href="#">Spice</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=">All</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Carbohydrate">Carbohydrate</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Protein">Protein</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Fat">Fat</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Fruit">Fruit</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Spice">Spice</a>
 		                        </ul></li>	                     
 		                  </ul>                	                    
 			            </div>					
@@ -254,24 +246,7 @@
 	      </div>	
      </div>
      
-     <script src = "http://code.jquery.com//jquery-3.3.1.min.js"></script>
-     <script>
-     	$(document).ready(function(){
-     		$('#search_btn').click(function(){
-     			var search_option = $('#search_option').val()
-     			var search_value = $('#search_value').val();
-     			
-     			console.log('옵션 : ' + search_option + ' 검색어 : ' + search_value);
-     			location.href = '../category/categoryItemList.do?cateNum='+search_option+'&p_name='+search_value;
-     		});
-     		
-     		$('#search_value').keypress(function(e){
-     			if(e.which == 13){
-     				$('#search_btn').trigger('click');
-     			}
-     		});
-     	});
-     </script>
+    
    <div class="container">
      
    </div>
@@ -479,12 +454,39 @@
 <script type="text/javascript" src="../js/scrollTop.js"></script>
 <script type="text/javascript" src="../js/eventPopUp.js"></script>
 <script type="text/javascript" src="../js/followMenu.js"></script>
+<script type="text/javascript" src="../js/shoppingCart.js"></script>
 <script>
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 </script>
-
+<script type="text/javascript">
+$('#couponBtn').on('click',function(){
+	if($('#couponSession_email').val()==""){
+		alert("로그인이 필요합니다.");
+	}
+	else{
+		var coupon = '1';
+		var m_email = $('#couponSession_email').val();
+		$.ajax({
+			type : 'POST',
+			url : '/MultiShop/member/coupon.do',
+			data : {'coupon':coupon,
+					'm_email':m_email},
+			dataType : 'text',
+			success: function(data){
+				if(data=="true"){
+					alert('쿠폰 받기 성공');
+				}
+				else if(data=="false"){
+					alert("이미 쿠폰이 존재합니다.");
+				}
+				location.reload();
+			}
+		});
+	}
+});
+</script>
 <script type="text/javascript">
 $(document)
 .ajaxStart(function () {
@@ -497,6 +499,23 @@ $(document)
 
 <script>
 	$(document).ready(function(){
-		$('#search_option').val("${cateNum}").prop('selected', true);
+		$('#search_btn').click(function(){
+ 			var search_option = $('#search_option').val()
+ 			var search_value = $('#search_value').val();
+ 			
+ 			console.log('옵션 : ' + search_option + ' 검색어 : ' + search_value);
+ 			location.href = '../category/categoryItemList.do?cateNum='+search_option+'&p_name='+search_value;
+ 		});
+ 		
+ 		$('#search_value').keypress(function(e){
+ 			if(e.which == 13){
+ 				$('#search_btn').trigger('click');
+ 			}
+ 		});
+ 		
+		if("${cateNum}" != ""){
+			$('#search_option').val("${cateNum}").prop('selected', true);
+		}
 	});
 </script>
+     

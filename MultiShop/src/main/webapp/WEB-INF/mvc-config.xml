@@ -19,7 +19,7 @@
 	<bean id="indexController" class="main.controller.IndexController"></bean>
 	<bean id="noticeController" class="notice.controller.NoticeController"></bean>
 	<bean id="manageController" class="manage.controller.ManageController"></bean>
-	<bean id="mypageController" class="mypage.controller.MypageController"></bean>  
+	<bean id="mypageController" class="mypage.controller.MypageController"></bean>
 	
 	<context:component-scan base-package="member.dao"/>
 	<context:component-scan base-package="notice.dao"/>

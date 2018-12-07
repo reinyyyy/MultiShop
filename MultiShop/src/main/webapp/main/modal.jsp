@@ -156,6 +156,7 @@
 						</div>
 						<div class="float_center">			
 							<button type="button" class="btn btn-success" id="join_modal_joinBtn"><i class="fas fa-check fa-2x"></i></button>
+							<input type="hidden" value="" id="coupon_Hidden" name="m_coupon">
 						</div>		
 					</form>
 				</div>
@@ -238,29 +239,6 @@
 				</div>
             <div class="modal-body" style="text-align: center;">
               <i class="fas fa-sync-alt fa-spin fa-4x"></i>
-              <br><br>
-               <div class="container">
-                  	<strong>회원전용입니다! 로그인 해주세요!</strong>
-               </div>   
-               <div>
-               	<br>
-                  <button type="button" class="btn btn-warning" id="login_navbar" data-toggle="modal" data-target="#login_modal" data-dismiss="modal">로그인창으로 이동</button>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   
-   <!-- WishList nonmember -->
-   <div class="modal fade animated flip" id="wishlist_nonmember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-        	 <div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">WishList</h4>
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>					
-				</div>
-            <div class="modal-body" style="text-align: center;">
-              <i class="fas  fa-sync-alt fa-spin fa-4x"></i>
               <br><br>
                <div class="container">
                   	<strong>회원전용입니다! 로그인 해주세요!</strong>

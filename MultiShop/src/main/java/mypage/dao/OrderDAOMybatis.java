@@ -33,9 +33,18 @@ public class OrderDAOMybatis implements OrderDAO{
 	      return sqlSession.selectList("orderSQL.orderAllList", email);
 	   }
 
-	@Override
 	public List<InquiryDTO> inquiryList(String email) {
 		return sqlSession.selectList("orderSQL.inquiryList", email);
 	}
 	
+	@Override
+	public List<OrderDTO> recentlyOrderList(String email) {
+		return sqlSession.selectList("orderSQL.recentlyOrderList", email);
+	}
+
+	@Override
+	public int orderCancel(Map<String, String> map) {
+		sqlSession.update("orderSQL.orderCancel1", map);
+		return sqlSession.delete("orderSQL.orderCancel2", map);
+	}	
 }

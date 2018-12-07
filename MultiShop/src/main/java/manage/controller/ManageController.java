@@ -339,6 +339,14 @@ public class ManageController {
 	public @ResponseBody int inquiryUpdate(int i_seq,String i_inquiry) {
 		return manageDAO.inquiryUpdate(i_seq, i_inquiry);
 	}
+	
+	/*1:1문의*/
+	@RequestMapping(value="inquiryInsert", method=RequestMethod.POST)
+	public @ResponseBody int inquiryInsert(@ModelAttribute InquiryDTO inquiryDTO) {
+		return manageDAO.inquiryInsert(inquiryDTO);
+	}
+	
+	
 	//공지사항페이지
 	@RequestMapping(value="noticePage", method=RequestMethod.GET)
 	public ModelAndView noticePage(@ModelAttribute ModelAndView mav) {
@@ -405,12 +413,12 @@ public class ManageController {
    }
    
    //제품관리페이지
- 	@RequestMapping(value="productManagePage", method=RequestMethod.GET)
- 	public ModelAndView productManagePage(@ModelAttribute ModelAndView mav) {
- 		mav.addObject("display", "/manage/productManagePage.jsp");
- 		mav.setViewName("/main/adminIndex");
- 		return mav;
- 	}
+   @RequestMapping(value="productManagePage", method=RequestMethod.GET)
+   public ModelAndView productManagePage(@ModelAttribute ModelAndView mav) {
+	   mav.addObject("display", "/manage/productManagePage.jsp");
+	   mav.setViewName("/main/adminIndex");
+	   return mav;
+   }
    //제품관리 리스트
    @RequestMapping(value="productManageList", method=RequestMethod.POST)
    public ModelAndView productManageList() {

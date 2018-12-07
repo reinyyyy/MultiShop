@@ -4,7 +4,7 @@
 <mapper namespace="memberSQL"><!--매퍼의 이름  -->
 	<insert id="member_signup" parameterType="memberDTO">
 		insert into members values(#{m_email},#{m_pwd},#{m_name},#{m_tel_phone},
-		#{m_zipcode},#{m_roadAddress},#{m_jibunAddress},0,sysdate)
+		#{m_zipcode},#{m_roadAddress},#{m_jibunAddress},0,#{m_coupon},sysdate)
 	</insert>
 	
 	<select id="member_view" parameterType="Map" resultType="memberDTO">
@@ -42,5 +42,24 @@
 	<select id="member_getZipcode" parameterType="String" resultType="memberDTO">
 		select * from members where m_email=#{email}	
 	</select>
+	
+	<!-- 마일리지 사용 업데이트 -->
+	<update id="useMpoint" parameterType="Map">
+		update members set m_point = m_point-#{myMileageHid} where m_email=#{m_email}
+	</update>
+	
+	<!-- 마일리지 적립 업데이트 -->
+	<update id="update_Mpoint" parameterType="Map">
+		update members set m_point = m_point+#{m_point} where m_email=#{m_email}
+	</update>
+	
+	<select id="selectCoupon" parameterType="String" resultType="memberDTO">
+		select * from members where m_email = #{m_email}
+	</select>
+	
+	<update id="insertCoupon" parameterType="java.util.Map">
+		update members set m_coupon = #{coupon} where m_email = #{m_email} 
+	</update>
+	
    
 </mapper>

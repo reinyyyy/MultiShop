@@ -1,18 +1,19 @@
 package cart.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import cart.bean.CartDTO;
 
 public interface CartDAO {
 
-	public int countCart(String p_code, String email);
+	public int countCart(int p_code, String email);
 
 	public void insert(CartDTO cartDTO);
 
 	public void updateCart(CartDTO cartDTO); //장바구니 수량 변경
 
-	public List<CartDTO> cartList(String email);
+	public List<Map<String, String>> cartList(String email);
 
 	public int sumMoney(String email);
 
@@ -20,4 +21,5 @@ public interface CartDAO {
 
 	public void modifyCart(CartDTO cartDTO);
 
+	public void delete(String email);
 }

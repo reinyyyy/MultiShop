@@ -3,7 +3,6 @@ $(document).ready(function(){
 	var cateNum = $('#cateNum').val();
 	//alert($('#cateNum').val());
 	//alert($('#p_midCate').val());
-	
 	//글 목록 불러오기
 	$.ajax({
 		type : 'POST',
@@ -44,6 +43,7 @@ $(document).ready(function(){
 	//페이징처리, sql문 새로 작성
 	//페이징처리해서 다른페이지 눌렀을경우 ?
 	$('.card-body p').click(function(){
+		
 		var cateNum_param = $(this).parent().parent().prev().find('a').text();
 		
 		if(cateNum_param == ' Clothes '){
@@ -65,37 +65,17 @@ $(document).ready(function(){
 		}//학원에서 수정해야댐@@
 		
 		location.href='../category/categoryItemList.do?cateNum='+$('#cateNum').val()+'&p_midCate='+$('#p_midCate').val();
-		//location.href='../category/categoryItemList.do?cateNum='+$('#cateNum').val()+'&p_midCate='+p_midCate;
 		
 		
-		/*
-		$.ajax({
-			type : 'POST',
-			url : '../category/getList.do',
-			data : {
-				'cateNum' :  $("#cateNum").val(),
-				'pg' : $("#pg").val(),
-				'sortType' : $('#sortType').val(),
-				'p_midCate' : p_midCate
-			}, //따옴표치면 문자열, 안치면 숫자 
-			dataType : 'json',
-			success : function(data) { //data에는 리스트들
-				//alert(JSON.stringify(data));
-				if(data.list.length == 0){
-					var temp = '<div style="width : 100%; height : 300px; margin-top : 300px;" align="center">'+
-				    '<h4 style="">상품이 없습니다</h4>'+
-				    '</div>';
-					$('#card_contents').html(temp);
-					return;
-				}
-				var card_contents = '';
-				$.each(data.list, function(index, items) {
-					card_contents += card(items);
-				});
-				$('#card_contents').html(card_contents);
-				$('.pagination').html(data.categoryPaging.pagingHTML);
-			}
-		});*/
+		
+	});
+	
+	$('.selectRecordCount').click(function(pg){
+		if($('#p_name').val() == ''){
+			location.href = 'categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+'&pageSize='+$('#pageSize').val()+'&p_midCate='+$('#p_midCate').val();
+		}else{
+			location.href = 'categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&p_name='+p_name+'&cateNum='+$('#cateNum').val()+'&pageSize='+$('#pageSize').val()+'&p_midCate='+$('#p_midCate').val();
+		}
 	});
 })
 
@@ -119,9 +99,9 @@ function fn_sort(sortType) {			//sortType 제어 정렬누를시 pg 1로 설정	
 	
 	//alert($("#sortType").val());
 	if($('#p_name').val() == ''){
-		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+"&p_midCate="+$('#p_midCate').val();;
+		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+'&pageSize='+$('#pageSize').val()+'&p_midCate='+$('#p_midCate').val();
 	}else {
-		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+'&p_name='+$('#p_name').val()+"&p_midCate="+$('#p_midCate').val();
+		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+'&p_name='+$('#p_name').val()+'&pageSize='+$('#pageSize').val()+'&p_midCate='+$('#p_midCate').val();
 	}
 	
 }
