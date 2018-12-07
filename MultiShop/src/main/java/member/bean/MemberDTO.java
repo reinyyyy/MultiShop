@@ -19,6 +19,7 @@ public class MemberDTO {
 	private String m_roadAddress;
 	private String m_jibunAddress;
 	private int m_point;
+	private String m_coupon;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date m_date;
 }
