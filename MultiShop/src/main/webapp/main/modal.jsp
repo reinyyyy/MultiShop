@@ -156,6 +156,7 @@
 						</div>
 						<div class="float_center">			
 							<button type="button" class="btn btn-success" id="join_modal_joinBtn"><i class="fas fa-check fa-2x"></i></button>
+							<input type="hidden" value="" id="coupon_Hidden" name="m_coupon">
 						</div>		
 					</form>
 				</div>

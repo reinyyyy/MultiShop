@@ -7,6 +7,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -199,7 +200,24 @@ public class IndexController {
 	         return "false"; 
 	      }
 	   }
-	   
+	   //쿠폰 받기
+	   @RequestMapping(value="/member/coupon.do",method=RequestMethod.POST)
+	   public @ResponseBody String coupon(@RequestParam String coupon, 
+			   							  @RequestParam String m_email) {
+		   
+		   List<MemberDTO> memberlist =  memberDAO.selectCoupon(m_email);
+		   String check="";
+		   for(MemberDTO memberDTO : memberlist) {
+			   if(memberDTO.getM_coupon() == null) {
+				   memberDAO.updateCoupon(coupon,m_email);
+				   check = "true";
+			   }
+			   else {
+				   check = "false";
+			   }
+		   }
+		   	return check;
+	   }
 	   /*임시비밀번호*/
 	   public String getPassword() {   
 	      String uuid = UUID.randomUUID().toString().replaceAll("-", ""); // -를 제거해 주었다. 
@@ -207,7 +225,8 @@ public class IndexController {
 	      return uuid;
 	   }
 	   
-	   /*마이페이지*/
+	   
+	  
 	  
 	   
 	 

@@ -339,6 +339,10 @@ public class DetailController {
       nomalMap.put("count",String.valueOf(count));
       System.out.println("노말맵!!@@@=="+nomalMap);
       
+      //쿠폰 유무 확인
+      memberDTO = detailDAO.getCoupon(session_email);
+	  
+      model.addAttribute("coupon", memberDTO.getM_coupon());
       
       model.addAttribute("nomalMap", nomalMap);
      /* model.addAttribute("myMileage", m_point);

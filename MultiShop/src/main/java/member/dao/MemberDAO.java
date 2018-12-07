@@ -1,5 +1,6 @@
 package member.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -29,5 +30,10 @@ public interface MemberDAO {
 	public void update_Mpoint(Map<String,String> map);
 	
 	public void useMpoint(Map<String,String> map);
+
+	public void updateCoupon(String coupon, String m_email);
+
+	public List<MemberDTO> selectCoupon(String m_email);
+
 	
 }

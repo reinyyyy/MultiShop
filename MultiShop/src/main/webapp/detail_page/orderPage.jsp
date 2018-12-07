@@ -149,6 +149,23 @@
                        <input type="hidden" id="myMileageHid" name="myMileageHid" value="${nomalMap.myMileage}">
                        <input type="button" id="useM_pointBtn" value="사용하기">
                   </li>
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                     <div>
+                         <h6 class="my-0">쿠폰</h6>
+                         <c:if test="${coupon == null}">
+                         	<select id="couponSelect">
+                         	<option>선택하기</option>
+                         </select>
+                         </c:if>
+                         <c:if test="${coupon != null}">
+	                         <select id="couponSelect">
+	                         	<option value="0">선택하기</option>
+	                         	<option value="1">10% 할인권</option>
+	                         </select>
+                         </c:if>
+                      </div>
+                      <input type ="button" value="사용하기" id="use_Coupon" style="margin : 0 0px;">
+                  </li>
                   <li class="list-group-item d-flex justify-content-between">
                        <div class="text-success">
                          <h6 class="my-0" style="color:magenta">최종 결재 금액</h6>
@@ -309,6 +326,15 @@ $(document).ready(function(){
     });
 	 
 	
+	//쿠폰 사용
+         $('#use_Coupon').on('click',function(){
+		 	var couponValue = $('#couponSelect option:selected').val();
+		 	if(couponValue=="1"){
+		 		$('#order_totalPrice').text(totalPrice-(totalPrice/10));
+		 	}
+         });
+	
+	
    /*
 	$.ajax({
       type : 'POST',
@@ -357,6 +383,8 @@ $(document).ready(function(){
         	 $('#ifUseMileage').text("-"+$('#myMileage').text());
         	 $('#order_totalPrice').text((totalPrice-$('#myMileage').text()));
           });
+          
+          
         */ 
        /*   var option1 = $('#p_option1Val').val();
          var option2 = "";

@@ -13,6 +13,7 @@ import category.bean.Product_boardDTO;
 import detail.bean.DetailDTO;
 import detail.bean.DetailQnADTO;
 import detail.bean.DetailhoogiDTO;
+import member.bean.MemberDTO;
 
 @Transactional   //commit , close
 @Component
@@ -76,6 +77,14 @@ public class DetailDAOMybatis implements DetailDAO {
 	@Override
 	public List<DetailQnADTO> detail_GetQnATableList(int p_code) {
 		return sqlSession.selectList("detailSQL.detail_GetQnATableList",p_code);
+	}
+	@Override
+	public MemberDTO getCoupon(String session_email) {
+		return sqlSession.selectOne("detailSQL.getCoupon",session_email);
+	}
+	@Override
+	public void couponDelete(String email) {
+		sqlSession.update("detailSQL.couponDelete",email);
 	}
    
 }
