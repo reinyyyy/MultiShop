@@ -39,7 +39,7 @@ $(document).ready(function(){
    });
    
    //장바구니 버튼(a태그)
-   $('#basketBtn').on('click',function(){
+  /* $('#basketBtn').on('click',function(){
       //var select_color = $('#detail_colorSelect').val();
       //var select_size = $('#detail_sizeSelect').val();
       //var select_amount = $('#detail_amountSelect').val();
@@ -67,10 +67,10 @@ $(document).ready(function(){
     	  
       });
       
-   });
+   });*/
    
    //바로구매 버튼(a태그)
-   $('#buyNowBtn').on('click',function(){
+   /*$('#buyNowBtn').on('click',function(){
 	  //alert($('#option_select1').val());
 	  //alert($('#option_select2').val());
       //alert($('#amount_input').val());
@@ -93,7 +93,8 @@ $(document).ready(function(){
       }
       
       
-   });
+   });*/
+   //바로구매 이사감..
    
    //-----------------------------------------------------------------------
    //양현규

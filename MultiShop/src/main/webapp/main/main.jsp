@@ -78,6 +78,7 @@
 	<input type = "hidden" name = "sortType" id = "sortType" value = "${sortType}">
 	<input type = "hidden" name = "p_midCate" id = "p_midCate" value = "${p_midCate}">				
 	<input type = "hidden" name = "p_name" id = "p_name" value = "${p_name}">
+	<input type = "hidden" name = "pageSize" id = "pageSize" value = "${pageSize}">
 	<%-- <input type = "hidden" name = "search_option" id = "search_option" value = "${search_option}"> --%>
 
 		<div class="event_coupon">	
@@ -239,7 +240,7 @@
 										<option value = "1"> Food </option>
 									</select>
 									
-									<input class="form-control" name = "search_value" id = "search_value" type="text" placeholder="검색어 입력">
+									<input class="form-control" name = "search_value" id = "search_value" type="text" value="${p_name}" placeholder="검색어 입력">
 									<input type = "text"  style="display:none">	<!--  엔터키 입력 방지 --> 
 									<button type="button" id = "search_btn" class="btn btn-primary" aria-label="left Align">
 										<i class="fa fa-search fa"></i>
@@ -448,7 +449,7 @@
    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
    crossorigin="anonymous"></script>
-<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.js"></script>
 <script type="text/javascript" src="../js/navbar.js"></script>
 <script type="text/javascript" src="../js/mypage.js"></script>
 <script type="text/javascript" src="../js/post.js"></script>

@@ -95,7 +95,7 @@
 
 
 	<!-- The Modal -->
-	<div class="modal fade" id="myModal" data-backdrop="false">
+	<div class="modal fade" id="quick_view" data-backdrop="false">
 		<div class="modal-dialog"  style="max-width: 80%; width: auto;">
 			<div class="modal-content">
 
@@ -213,8 +213,9 @@
 				</div>
 				<!--  몇개씩 보여줄 것인지 -->
 				<div class="select">
-					<span>DISPLAY</span> <span class="selectRecordCount"> <a
-						onclick = "javascript:void(0)" val="10">10</a> <a onclick = "javascript:void(0)" val="20">20</a>
+					<span>DISPLAY</span> <span class="selectRecordCount"> 
+						<a href = "#" onclick = "$('#pageSize').val(12)">12</a> 
+						<a href = "#" onclick = "$('#pageSize').val(16)">16</a>
 					</span>
 				</div>
 			</div>
@@ -251,7 +252,8 @@
 		</div>
 	</div>
 	<!-- jb-contents 끝 -->
-
+<jsp:include page="../detail_Modal/detail_Modal.jsp"/>
+   <jsp:include page="../detail_Modal/detail_nonLogin.jsp"/>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	
@@ -263,18 +265,18 @@
 			
 			$(document).on('click', '.quick', function(){
 				p_code = $(this).prev().val();
-				$('#myModal').modal();
+				$('#quick_view').modal();
 			});
 			
 			
 
 			//모달 클릭이벤트 QUICK VIEW 클릭 이벤트
 			$("#myBtn").click(function() {
-				$("#myModal").modal();
+				$("#quick_view").modal();
 			});
 			
 			//QUICK VIEW 모달 로딩완료 이벤트
-			$('#myModal').on('shown.bs.modal', function(){
+			$('#quick_view').on('shown.bs.modal', function(){
 				$.ajax({
 					type : "POST",
 					url : "quickView.do",
@@ -309,7 +311,7 @@
 			}
 			
 			//모달 닫힘이벤트
-			$('#myModal').on('hide.bs.modal', function(e){
+			$('#quick_view').on('hide.bs.modal', function(e){
 				$('.quickViewBody').empty();
 			});
 			

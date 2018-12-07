@@ -57,7 +57,7 @@ public class DetailController {
     String session_email = (String) session.getAttribute("session_email");
 	  System.out.println("아이디값="+session_email);
 	  
-	  if(session_email==null && session_email=="") {
+	  if(session_email==null || session_email=="") {
 		  model.addAttribute("session_email", null);
 	  }else {
 		  model.addAttribute("session_email", session_email);

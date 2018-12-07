@@ -11,9 +11,9 @@
    crossorigin="anonymous">
 <link href="../css/xzoom.css" rel="stylesheet">
    		<!-- 파라미터 -->
-   		<input type = "hidden" name = "p_code" id = "p_code" value = "${productDTO.p_code}">
-   		<input type = "hidden" name = "p_status" id = "p_status" value = "">
-		<div id="productView">
+   		<input type = "hidden" id="session_email" value="${session_email}">
+   		
+		<%-- <div id="productView">
 			<div id="productPopup">
 				<div class="productPopupWrap">
 					<div class="popLeft">
@@ -38,9 +38,11 @@
                     			</div>
 								</div>
 							</div>
+								<form id ="detail_form" method="post" action="orderPage.do">
+							
 						</div>
 					</div>
-
+					
 					<div class="popRight">
 						<span class="color_red fs24"></span> <span class="viewTitle">${productDTO.p_name}</span> <input
 							type="hidden" id="webItemNm" name="webItemNm"
@@ -71,6 +73,7 @@
 									<dl>
 										<dt>상품코드</dt>
 										<dt id = "product_code">${productDTO.p_code }</dt>
+										<input type="hidden" name="productCode" id="productCode" value="${p_code}">
 									</dl>
 								</li>
 								<li>`
@@ -118,6 +121,7 @@
 				</div>
 			</div>
 		</div>
+	
 	<div id="basketModal" class="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -138,8 +142,181 @@
 				</div>
 			</div>
 		</div>
-	</div>
-		
+	</div> --%>
+	<div class="container">
+         <div id="productView">
+         <div id="productPopup" >
+            <div class="productPopupWrap">
+                  <div class="popLeft">
+                     <div class="popupSlide">
+                          <div class="mask">
+                          	<img class="xzoom" id="detailMain_image" src="../image/product_ready.jpg" xoriginal="../image/product_ready.jpg">
+                          </div>
+                       <div class="pagerWrap xzoom-thumbs" id="gallery_01" style="text-align:center;">
+                          <!-- <a href="#" class="">
+                             <img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub1_image" src="../image/coat1.jpg" xpreview="../image/coat1.jpg">
+                          </a>      
+                          <a href="#" class="">
+                             <img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub2_image" src="../image/coat2.jpg">
+                          </a>
+                          <a href="#" class="">
+                             <img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub3_image" src="../image/coat3.jpg">
+                          </a>
+                          <a href="#" class="">
+                             <img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub4_image" src="../image/coat4.jpg">
+                          </a> -->
+                       </div>
+                  </div>
+               </div>
+            <form id ="detail_form" method="post" action="../detail_page/orderPage.do">
+            <!--파라미터-->
+            <input type = "hidden" name = "productCode" id = "p_code" value = "${productDTO.p_code}">
+   			<input type = "hidden" name = "p_status" id = "p_status" value = "">
+            <div class="popRight">
+               <span class="viewTitle">${productDTO.p_name}</span>
+               <input type="hidden" id="productName" name="productName" value="${product_DTO.p_name}">
+<!--                   <p class="sub">실 제본으로 책장이 넘기기 쉬운 노트</p> -->
+               <p class="sub"></p>
+               <div class="aboutList">
+               
+                  <ul class="aboutListTop">
+                     <li>
+                        <dl>
+                           <dt>판매가</dt>
+                           <dd id="product_price">￦&emsp;<fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /></dd>      <!-- 가격 -->
+                        </dl>
+                     </li>
+                     <input type="hidden" name="product_price" id="product_price" value="99000.0">
+                     <li>
+                        <dl>
+                           <dt>배송비</dt>
+                           <dd>배송비무료</dd>
+                        </dl>
+                     </li>
+                  </ul>
+                  <ul class="aboutListBottom">
+                     <li>
+                        <dl>
+                           <dt>상품코드</dt>
+                           <dt id="product_code">${productDTO.p_code}</dt>
+                           <%-- <input type="hidden" name="productCode" id="productCode" value="${p_code}"> --%>
+                           <!-- <input type="hidden" name="p_midCate" id="p_midCate" value="">
+                           <input type="hidden" name="p_smallCate" id="p_smallCate" value=""> -->
+                           
+                        </dl>
+                     </li>
+                     <li>
+                        <dl>
+                           <dt>제조국가</dt>
+                           <dd>${productDTO.p_origin }</dd>
+                        </dl>
+                     </li>
+                    <!--  <li>
+                        <dl>
+                           <dt>발송예정일</dt>
+                           <dd>12월 25일 이내</dd>
+                        </dl>
+                     </li> -->
+                     <!-- <li>
+                        <dl>
+                           <dt>색상</dt>
+                           <dd>
+                              <div class="detail_color">
+                                 <select name="detail_colorSelect" id="detail_colorSelect" onchange="changeColor(this.value)">
+                                    <option value="black" selected="selected">black</option>
+                                    <option value="green">green</option>
+                                    <option value="begie">begie</option>
+                                    <option value="white">white</option>
+                                 </select>
+                              </div>
+                           </dd>
+                        </dl>
+                     </li>
+                     <li>
+                        <dl>
+                           <dt>사이즈</dt>
+                           <dd>
+                              <div class="detail_size">
+                                 <select name="detail_sizeSelect" id="detail_sizeSelect">
+                                    <option value="S" selected="selected">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                 </select>
+                              </div>
+                           </dd>
+                        </dl>
+                     </li>
+                     <li>
+                        <dl>
+                           <dt>수량</dt>
+                           <dd>
+                              <div class="detail_amount">
+                                 <select name="detail_amountSelect" id="detail_amountSelect">
+                                    <option value="1" selected="selected">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                 </select>
+                              </div>
+                           </dd>
+                        </dl>
+                     </li> -->
+                  </ul>
+                  </div>
+                     <div class="productCon02">
+                        
+                     </div>
+                     <div class="conWrap">
+                        <div class="totalWrap">
+                           <span>총합계</span>
+                           <span id="totalPrice" class="totalPrice" ><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /> ￦</span>
+                        </div>
+                     </div>
+                     <div class="btnWrap">
+                       <!--  <a href="#none" id="favoriteBtn" class="btnFavorite bookmark" itemid="224000105259">
+                           <i class="far fa-heart"></i>&emsp;관심상품 등록
+                        </a> -->
+                        <a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
+                           <i class="fas fa-shopping-cart"></i>&emsp;장바구니 담기
+                        </a>
+                        <a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">
+                           <i class="fas fa-credit-card"></i>&emsp;바로구매
+                        </a>
+                     </div>
+                  </div>
+               </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      <div id="basketModal" class="modal" tabindex="-1" role="dialog">
+         <div class="modal-dialog" role="document">
+             <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">MultiShop&nbsp;: </h5>
+                    <button type="button" id="basketModal_xBtn" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>장바구니로 이동하시겠습니까?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="goBasket" class="btn btn-primary">예</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">아니오</button>
+                  </div>
+             </div>
+         </div>
+      </div>
+	
 	
 	<!-- Jquery src 금지 -->
 	<script type="text/javascript" src="../js/xzoom.js"></script>
@@ -494,27 +671,90 @@
 			}
 			//품절체크
 			if(no_option_index == 1 && p_status[0] == 'N'){
-				$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
+				$('#productCode').html($('#p_code').val() + ' (품절)').css('color', 'red');
 				$('#amount_input').prop('disabled', true);
 			}
 			
 			alert(option_length);
 			$('#buyNowBtn').click(function(){
-				var no_order = 0;
-				for(var i = 1; i < option_length+1; i++){
-					var temp = 'option_select'+i;
-					if($('#'+temp).val() == '옵션선택'){
-						no_order++;
+				var session_email = $('#session_email').val();
+				if(session_email.length<=0){
+			    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+				    	  
+			    	  //바로구매 비 로그인시
+			    	  $('#detail_loginBtn').click(function(){
+			    		  alert("비로그인구매임");
+			    		  $('#non_loginCloseBtn').trigger('click');
+			    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
+					  });
+			    	  
+			    	  return;
+			    }else if(session_email.length>0){
+			    	
+			    	var no_order = 0;
+					for(var i = 1; i < option_length+1; i++){
+						var temp = 'option_select'+i;
+						if($('#'+temp).val() == '옵션선택'){
+							no_order++;
+						}
 					}
-				}
-				if(no_order != 0 ){
-					alert("옵션을 선택해주세요");						
-				}else if($('#amount_input').val() == '' || $('#amount_input').val() == 0){
-					alert("수량을 선택해주세요");
-				}else{
-					alert($('#p_code').val() + "성공");
-				}
+					
+			    	if(no_order != 0 ){
+						alert("옵션을 선택해주세요");						
+					}else if($('#amount_input').val() == '' || $('#amount_input').val() == 0){
+						alert("수량을 선택해주세요");
+					}else{
+						alert($('#p_code').val() + "성공");
+						$('#detail_form').submit();
+					}
+			    }
+				
+				
+				
+				
 			});
+			
+			$('#detail_nonLoginModal').on('show.bs.modal', function(event) {
+				alert("비로그인 모달열림");
+			    $('#quick_view').css('z-index', 1050);
+			    $(this).css('display', 'block');
+			    $(this).css('z-index', 9999);
+			    //$(".modal-backdrop").removeClass('show').attr('class', 'fade').attr('class', 'in');
+			});
+			/* $('.modal').on('shown.bs.modal', function(event) {
+				alert("!!!");
+			    var idx = ($('.modal:visible').length) -1; // raise backdrop after animation.
+			    $('.modal-backdrop').not('.stacked').css('z-index', 1039 + (10 * idx));
+			    $('.modal-backdrop').not('.stacked').addClass('stacked');
+			}); */
+			
+			//바로구매 버튼(a태그)
+			/*    $('#buyNowBtn').on('click',function(){
+				  //alert($('#option_select1').val());
+				  //alert($('#option_select2').val());
+			      //alert($('#amount_input').val());
+				  var select_color = $('#option_select1').val();
+			      var select_size = $('#option_select2').val();
+			      var select_amount = $('#amount_input').val();
+			      var session_email = $('#session_email').val();
+			      //alert(session_email.length);
+			      
+			      if(session_email.length<=0){
+			    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+				    	  
+			    	  //바로구매 비 로그인시
+			    	  $('#detail_loginBtn').click(function(){
+			    		  alert("비로그인구매임");
+			    		  $('#non_loginCloseBtn').trigger('click');
+			    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
+					  });
+			      }else if(session_email.length>0){
+			    	  $('#detail_form').submit();
+			      }
+			      
+			      
+			   }); */
+			
 		});
 		
 		

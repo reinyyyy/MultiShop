@@ -14,7 +14,8 @@ $(document).ready(function(){
 			'sortType':$('#sortType').val(),
 			'p_midCate' : $('#p_midCate').val(),
 			'p_name' : $('#p_name').val(),
-			'search_option' : $('#search_option').val()
+			'search_option' : $('#search_option').val(),
+			'pageSize' : $('#pageSize').val()
 		}, //따옴표치면 문자열, 안치면 숫자 
 		dataType : 'json',
 		success : function(data) { //data에는 리스트들
@@ -112,15 +113,15 @@ function categoryList(pg, p_name){
 
 //정렬 호출
 function fn_sort(sortType) {			//sortType 제어 정렬누를시 pg 1로 설정		//정렬 하고난뒤 페이징눌렀을떄...
-	alert($('#p_name').val());
+	//alert($('#p_name').val());
 	$('#sortType').val(sortType);
 	$('#pg').val(1);
 	
 	//alert($("#sortType").val());
 	if($('#p_name').val() == ''){
-		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val();
+		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+"&p_midCate="+$('#p_midCate').val();;
 	}else {
-		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+'&p_name='+$('#p_name').val();
+		location.href='categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+'&p_name='+$('#p_name').val()+"&p_midCate="+$('#p_midCate').val();
 	}
 	
 }
