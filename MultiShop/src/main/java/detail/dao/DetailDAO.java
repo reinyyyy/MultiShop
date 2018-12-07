@@ -7,6 +7,7 @@ import category.bean.Product_boardDTO;
 import detail.bean.DetailDTO;
 import detail.bean.DetailQnADTO;
 import detail.bean.DetailhoogiDTO;
+import member.bean.MemberDTO;
 
 public interface DetailDAO {
    //-----------------재우
@@ -35,6 +36,10 @@ public interface DetailDAO {
 
    public List<DetailQnADTO> detail_GetQnATableList(int p_code);
 
+   public MemberDTO getCoupon(String session_email);
+   
+   public void couponDelete(String email);
+   
 
 
 }

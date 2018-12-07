@@ -52,6 +52,8 @@
                   </div>
                </div>
             <form id ="detail_form" method="post" action="orderPage.do">
+            <input type = "hidden" name="p_code" id = "p_code" value = "${p_code}">
+			
             <div class="popRight">
                <span class="viewTitle">${productDTO.p_name}</span>
                <input type="hidden" id="productName" name="productName" value="JCoat">
@@ -67,11 +69,13 @@
                            <dd id = "cost">￦&emsp;<fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /> </dd>		<!-- 가격 -->
                         </dl>
                      </li>
-                     <input type="hidden" name="product_price" id="product_price" value="99000.0">
+                   
+                   
+                     <input type="hidden" name="p_cost" id="product_price" value="${productDTO.p_cost }">
                      <li>
                         <dl>
                            <dt>배송비</dt>
-                           <dd>배송비무료</dd>
+                           <dd>무료</dd>
                         </dl>
                      </li>
                   </ul>
@@ -80,7 +84,7 @@
                         <dl>
                            <dt>상품코드</dt>
                            <dt id="product_code">${p_code}</dt>
-                           <input type="hidden" name="productCode" id="p_code" value="${p_code}">
+                          
                            <!-- <input type="hidden" name="p_midCate" id="p_midCate" value="">
                            <input type="hidden" name="p_smallCate" id="p_smallCate" value=""> -->
                            
@@ -402,7 +406,7 @@
 } */
 
 $(document).ready(function(){
-	//이미지 확대 기능
+	/* //이미지 확대 기능
 	$(".xzoom").xzoom();
 	
 	//이미지 변경
@@ -424,7 +428,7 @@ $(document).ready(function(){
 	$('#detailSub4_image').click(function(){
 	   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
 	   $('#detailMain_image').attr('src', '../image/coat4.jpg');
-	});
+	}); */
 	
 	
 	

@@ -42,12 +42,6 @@
 	color: #fff; 
 	z-index:1300;
 }
-#wishList{
-	position: absolute;
-	left: 1200px;
-	top: 200px;
-	z-index:1090;
-}
 
 .float_left {
 	float: left;
@@ -81,7 +75,8 @@
 			<a class="navbar-brand text-light">
 				<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>
 		</a>
-		<button class="btn btn-primary btn-sm" aria-label="right Align">쿠폰 받기</button>
+		<button class="btn btn-primary btn-sm" aria-label="right Align" id="couponBtn">쿠폰 받기</button>
+		<input type="hidden" id="couponSession_email" value="${session_email }">
 	</div>
 	
 	<div class="top_nav">	
@@ -115,13 +110,22 @@
                                 aria-label="Left Align">
                                 <i class="fas fa-user-circle"></i>
                             </button>
-                        </c:if></li>
+                        </c:if>
+                       </li>
                     <li>
-                        <button type="button" class="btn btn-light"
+                    <c:if test="${session_email == null}">
+                        <button type="button" class="btn btn-light" data-backdrop="static" data-toggle="modal" data-target="#cart_nonmember" aria-label="Left Align">
+						   <i class="fas fa-shopping-cart"></i>
+						</button>
+                      </c:if>
+                      
+                      <c:if test="${session_email != null}">
+                        <button type="button" class="btn btn-dark" id="shoppingCartBtn"
                             aria-label="Left Align">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-shopping-cart"></i> 
                         </button>
-                    </li>
+                      </c:if>
+                    </li> 
 				</ul>
 				<a href="http://localhost:8080/MultiShop/main/index.do">
 					<img src="../image/justcozy.png" width="380" height="50">
@@ -129,17 +133,11 @@
 					
 				<ul class="icon_list float_right">
 					<li>    
-					 <c:if test="${session_email != null}">
-						<button type="button" class="btn btn-danger" id="wishlist" onclick="document.getElementById('summary').style.display='none';" aria-label="Left Align">
-						   <i class="far fa-heart"></i>
+					
+						<button type="button" class="btn btn-info" id="noticeBtn" aria-label="Left Align">
+						   <i class="fas fa-exclamation-circle"></i>
 						</button>
-					 </c:if>
 					 
-					 <c:if test="${session_email == null}">
-						<button type="button" class="btn btn-dark" data-backdrop="static" data-toggle="modal" data-target="#wishlist_nonmember" aria-label="Left Align">
-						   <i class="fas fa-heart"></i>
-						</button>
-					 </c:if>
 					</li>
 					<li>
 						<button type="button" class="btn btn-success" data-backdrop="static" data-toggle="modal" data-target="#send_email" aria-label="Left Align">
@@ -148,7 +146,7 @@
 						
 					</li>
 					<li>
-						<button type="button" class="btn btn-info" id = "qnaBtn" aria-label="Left Align">
+						<button type="button" id="qnaBtn" class="btn btn-warning" aria-label="Left Align">
 						   <i class="fas fa-question"></i>
 						</button>
 					</li>
@@ -187,10 +185,7 @@
                                  <a class="dropdown-item" href="#">FAQ</a>
                               </ul>
                            </li>
-                          <li class="nav-item dropdown">
-                              <a class="text-sucess" style="cursor: pointer;" id="noticeBtn"> Notice</a>
-                           </li>
-							
+
 		                  <li class="nav-item dropdown">
                                <a class="dropdown-toggle dropdown-toggle-split text-secondary"
 		                        data-toggle="dropdown" href="#" aria-expanded="false" onclick = "location.href='../category/categoryItemList.do?cateNum=3'">Clothes
@@ -459,12 +454,39 @@
 <script type="text/javascript" src="../js/scrollTop.js"></script>
 <script type="text/javascript" src="../js/eventPopUp.js"></script>
 <script type="text/javascript" src="../js/followMenu.js"></script>
+<script type="text/javascript" src="../js/shoppingCart.js"></script>
 <script>
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 </script>
-
+<script type="text/javascript">
+$('#couponBtn').on('click',function(){
+	if($('#couponSession_email').val()==""){
+		alert("로그인이 필요합니다.");
+	}
+	else{
+		var coupon = '1';
+		var m_email = $('#couponSession_email').val();
+		$.ajax({
+			type : 'POST',
+			url : '/MultiShop/member/coupon.do',
+			data : {'coupon':coupon,
+					'm_email':m_email},
+			dataType : 'text',
+			success: function(data){
+				if(data=="true"){
+					alert('쿠폰 받기 성공');
+				}
+				else if(data=="false"){
+					alert("이미 쿠폰이 존재합니다.");
+				}
+				location.reload();
+			}
+		});
+	}
+});
+</script>
 <script type="text/javascript">
 $(document)
 .ajaxStart(function () {

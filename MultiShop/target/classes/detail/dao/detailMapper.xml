@@ -61,5 +61,11 @@
    <select id="detail_detail_GetTotalQnA" resultType="int">
    		select count(*) from detail_QnA
    </select>
+   <select id="getCoupon" parameterType="String" resultType="memberDTO">
+   		select * from members where m_email = #{session_email}
+   </select>
+   <update id="couponDelete" parameterType="String">
+   		update members set m_coupon = '' where m_email = #{email}
+   </update>
    
 </mapper>
