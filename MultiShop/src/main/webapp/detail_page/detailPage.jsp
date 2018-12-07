@@ -63,7 +63,8 @@
                      <li>
                         <dl>
                            <dt>판매가</dt>
-                           <dd id="product_price">￦&emsp;<fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /></dd>      <!-- 가격 -->
+                           <%-- <dd id="product_price">￦&emsp;<fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /></dd>      <!-- 가격 --> --%>
+                           <dd id = "cost">￦&emsp;<fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /> </dd>		<!-- 가격 -->
                         </dl>
                      </li>
                      <input type="hidden" name="product_price" id="product_price" value="99000.0">
@@ -156,19 +157,26 @@
                      <div class="conWrap">
                         <div class="totalWrap">
                            <span>총합계 </span>
-                           <span class = "totalPrice">￦&emsp;</span><span id="totalPrice" class="totalPrice" ><fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /></span>
+                           <%-- <span id="totalPrice" class="totalPrice" ><fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /></span> --%>
+                           <span id="totalPrice" class="totalPrice" ></span>
                         </div>
                      </div>
-                     <div class="btnWrap">
-                       <!--  <a href="#none" id="favoriteBtn" class="btnFavorite bookmark" itemid="224000105259">
-                           <i class="far fa-heart"></i>&emsp;관심상품 등록
-                        </a> -->
-                        <a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
+                     <div class="btnWrap row">
+                        <div class = "col">
+                        	<!-- <a href="#none" id="favoriteBtn" class="btnFavorite bookmark" itemid="224000105259">
+                           	<i class="far fa-heart"></i>&emsp;관심상품 등록
+                        	</a> -->
+                        </div>
+                        <div class = "col">
+                        	<a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
                            <i class="fas fa-shopping-cart"></i>&emsp;장바구니 담기
-                        </a>
-                        <a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">
-                           <i class="fas fa-credit-card"></i>&emsp;바로구매
-                        </a>
+                        	</a>
+                        </div>
+                        <div class = "col">
+                       		<a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">
+                        	<i class="fas fa-credit-card"></i>&emsp;바로구매
+                        	</a>
+                        </div>
                      </div>
                   </div>
                </form>
@@ -221,11 +229,18 @@
          </div>
             <br><br>
             <%-- <h5>${product_boardDTO.p_image}</h5> --%>
-            <c:if test = "${product_boardDTO != null}">
+            <c:if test = "${detail_image_arr != null}">
+            	<c:forEach var="img" items="${detail_image_arr}" varStatus = "index">
+            		<c:if test = "${index.count != 1}">
+            			<img src="../upload/${img}"><br>
+            		</c:if>
+            	</c:forEach>
+            </c:if>
+<%--             <c:if test = "${product_boardDTO != null}">
             	<c:forEach var="img" items="${product_boardDTO.p_image }">
             		<img src="../upload/${product_boardDTO.p_image }">
             	</c:forEach>
-            </c:if>
+            </c:if> --%>
            <!-- <img style="width : 100%;" src="../image/makeup.jpg"><br> -->
            <!-- <img style="width : 100%;" src="../image/makeup1.jpg"> -->
        </section>
@@ -494,6 +509,7 @@ $(document).ready(function(){
 	
 	
 	
+	
 	var amount = [];//수량
 	amount[0] = '수량';
 	
@@ -668,7 +684,7 @@ $(document).ready(function(){
 					if(cnt == user_selected.length+1){		//두 배열이 완전 똑같을경우
 						amount_op = items[cnt-1];
 						//alert("완전똑같음"+ items);			12/3 7:53
-						$('#amount_input').val(0);			//과거 amount_op 엿음
+						$('#amount_input').val(1);			//과거 amount_op 엿음
 						$('#amount_input').attr('max', amount_op);
 						$('#amount_input').removeAttr('disabled');
 						$('#p_code').val(result_DTO[index][result_DTO[index].length-1]);	//p_code 선택된거 넘겨줌
@@ -679,6 +695,7 @@ $(document).ready(function(){
 						}else{
 							$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
 							$('#amount_input').prop('disabled', true);
+							$('#amount_input').val('0');
 							
 							
 						}
@@ -742,10 +759,10 @@ $(document).ready(function(){
 			'<dl id = "amount_list">'+
 				'<dd>' +
 					'<div>' +
-					'<dt>수량</dt><input name = "amount_input" id = "amount_input" disabled="true" type="number" min="0" max="99"'+
-							//'onkeydown="max_amount()"'+
-								///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
-						'id="yourid">'+
+						'<dt>수량</dt>' +
+						'<dd style = "width : 12%;">' +
+							'<input name = "amount_input" class = "form-control text-center" id = "amount_input" disabled="true" type="number" min="1" max="99"id="yourid">'+
+						'</dd>' +
 					'</div>'+
 				'</dd>'+
 			'</dl>'+
@@ -753,13 +770,17 @@ $(document).ready(function(){
 	
 	var total_price = Number("${productDTO.p_cost}");
 		
+	
+	
 	//수량 체인지 이벤트
 	$(document).on('keypress','#amount_input', function () {
 		
 		if(Number($(this).val()) > amount_op){
 			$('#amount_input').val(amount_op);
 			price = total_price * $(this).val();
-			$('#totalPrice').html((price.toLocaleString()) + '￦');
+			$('#totalPrice').html('￦ ' + (price.toLocaleString()));
+		}else if(Number($(this).val()) < 0){
+			$('#amount_input').val(0);	
 		};
 	});
 	
@@ -768,14 +789,17 @@ $(document).ready(function(){
 		if(Number($(this).val()) > amount_op){
 			$('#amount_input').val(amount_op);
 			price = total_price * $(this).val();
-			$('#totalPrice').html((price.toLocaleString()) + '￦');
+			$('#totalPrice').html('￦ ' + (price.toLocaleString()));
+		}else if(Number($(this).val()) < 0 ){
+			$('#amount_input').val(0);
+			$('#totalPrice').html('￦ 0');
 		};
 	});
 	
 	$(document).on('change', '#amount_input', function(){
 		
 		var price = total_price * Number($(this).val());
-		$('#totalPrice').html((price.toLocaleString()) + '￦');
+		$('#totalPrice').html('￦ ' + (price.toLocaleString()));
 		console.log(price);
 	});
 	
@@ -844,8 +868,10 @@ $(document).ready(function(){
 				
 		    	if(no_order != 0 ){
 					alert("옵션을 선택해주세요");						
-				}else if($('#amount_input').val() == '' || $('#amount_input').val() == 0){
+				}else if($('#amount_input').val() == '' || $('#amount_input').val() < 0){
 					alert("수량을 선택해주세요");
+				}else if($('#amount_input').val() == '0'){
+					alert("품절된 상품입니다");
 				}else{
 					alert("p_code : " + $('#p_code').val() + "성공");
 					$('#detail_form').submit();
@@ -853,6 +879,8 @@ $(document).ready(function(){
 		    }
 			
 		});
+	$('#totalPrice').html('￦ ' + (Number("${productDTO.p_cost}").toLocaleString()));
+	
 });
 
 </script>

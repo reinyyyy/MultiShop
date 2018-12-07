@@ -79,9 +79,14 @@ public class DetailController {
       for(String data : image_arr) {
          System.out.println("대표이미지 배열 리스트 : " + data);
       }
+      
+      String[] detail_image_arr = product_boardDTO.getP_image().split("/");
+      
       //대표이미지 나누기 끝
       int p_group = productDTO.getP_code();                              //대표 DTO p_code로 p_group 값 사용할 예정
       List<ProductDTO> group_list = categoryDAO.getGroup(p_group);            //대표 DTO p_code 에 얽힌 모든 p_group 들 불러다 리스트에 담음
+      
+      
       //String[] option1_arr = new String[group_list.size()];
       /*
          같은 그룹의 옵션 이름은 모두 같기때문에 대표상품의 option의 길이만큼 for 돌게만들자
@@ -120,8 +125,9 @@ public class DetailController {
       }
       System.out.println("amount_list : " + amount_list);
       
+      model.addAttribute("detail_image_arr", detail_image_arr);
       model.addAttribute("cateNum", cateNum);
-      model.addAttribute("product_boardDTO", product_boardDTO);
+      //model.addAttribute("product_boardDTO", product_boardDTO);
       model.addAttribute("amount_list", amount_list);
       model.addAttribute("productDTO", productDTO);
       model.addAttribute("group_list", group_list);

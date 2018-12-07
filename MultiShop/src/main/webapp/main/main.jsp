@@ -79,7 +79,6 @@
 	<input type = "hidden" name = "p_midCate" id = "p_midCate" value = "${p_midCate}">				
 	<input type = "hidden" name = "p_name" id = "p_name" value = "${p_name}">
 	<input type = "hidden" name = "pageSize" id = "pageSize" value = "${pageSize}">
-	<%-- <input type = "hidden" name = "search_option" id = "search_option" value = "${search_option}"> --%>
 
 		<div class="event_coupon">	
 			<a class="navbar-brand text-light">
@@ -200,35 +199,36 @@
 		                        data-toggle="dropdown" href="#" aria-expanded="false" onclick = "location.href='../category/categoryItemList.do?cateNum=3'">Clothes
 		                        </a>
 		                        <ul class="dropdown-menu" id="ClothMenu" role="menu">
-		                           <a class="dropdown-item" href="#">All</a>
-		                           <a class="dropdown-item" href="#">Outer</a>
-		                           <a class="dropdown-item" href="#">Top</a>
-		                           <a class="dropdown-item" href="#">Bottom</a>
-		                           <a class="dropdown-item" href="#">Shoes</a>
-		                           <a class="dropdown-item" href="#">Inner</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=">All</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Outer">Outer</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Top">Top</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Bottom">Bottom</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Shoes">Shoes</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Inner">Inner</a>
 		                        </ul>
 		                     </li>
 		                     <li class="nav-item dropdown"><a
 		                        class="dropdown-toggle text-secondary" data-toggle="dropdown"
 		                        href="#" aria-expanded="false"  onclick = "location.href='../category/categoryItemList.do?cateNum=2'"> Tech++ </a>
 		                        <ul class="dropdown-menu" id="TechMenu" role="menu">
-		                           <a class="dropdown-item" href="#">Audio/Video</a>
-		                           <a class="dropdown-item" href="#">Game</a>
-		                           <a class="dropdown-item" href="#">Smart Watch</a>
-		                           <a class="dropdown-item" href="#">Drone</a>
-		                           <a class="dropdown-item" href="#">TV</a>
-		                           <a class="dropdown-item" href="#">Laptop/Computer HardWare</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=">All</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Audio/Video">Audio/Video</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Game">Game</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Smart%20Watch">Smart Watch</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Drone">Drone</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=TV">TV</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Laptop/Computer%20HardWare">Laptop/Computer HardWare</a>
 		                        </ul></li>
 		                     <li class="nav-item dropdown"><a
 		                        class="dropdown-toggle text-secondary" data-toggle="dropdown"
 		                        href="#" aria-expanded="false"  onclick = "location.href='../category/categoryItemList.do?cateNum=1'"> Food </a>
 		                        <ul class="dropdown-menu" id="FoodMenu" role="menu">
-		                           <a class="dropdown-item" href="#">All</a>
-		                           <a class="dropdown-item" href="#">Carbohydrate</a>
-		                           <a class="dropdown-item" href="#">Protein</a>
-		                           <a class="dropdown-item" href="#">Fat</a>
-		                           <a class="dropdown-item" href="#">Vitamin</a>
-		                           <a class="dropdown-item" href="#">Spice</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=">All</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Carbohydrate">Carbohydrate</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Protein">Protein</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Fat">Fat</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Fruit">Fruit</a>
+		                           <a class="dropdown-item" href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Spice">Spice</a>
 		                        </ul></li>	                     
 		                  </ul>                	                    
 			            </div>					
@@ -254,24 +254,7 @@
 	      </div>	
      </div>
      
-     <script src = "http://code.jquery.com//jquery-3.3.1.min.js"></script>
-     <script>
-     	$(document).ready(function(){
-     		$('#search_btn').click(function(){
-     			var search_option = $('#search_option').val()
-     			var search_value = $('#search_value').val();
-     			
-     			console.log('옵션 : ' + search_option + ' 검색어 : ' + search_value);
-     			location.href = '../category/categoryItemList.do?cateNum='+search_option+'&p_name='+search_value;
-     		});
-     		
-     		$('#search_value').keypress(function(e){
-     			if(e.which == 13){
-     				$('#search_btn').trigger('click');
-     			}
-     		});
-     	});
-     </script>
+    
    <div class="container">
      
    </div>
@@ -497,6 +480,23 @@ $(document)
 
 <script>
 	$(document).ready(function(){
-		$('#search_option').val("${cateNum}").prop('selected', true);
+		$('#search_btn').click(function(){
+ 			var search_option = $('#search_option').val()
+ 			var search_value = $('#search_value').val();
+ 			
+ 			console.log('옵션 : ' + search_option + ' 검색어 : ' + search_value);
+ 			location.href = '../category/categoryItemList.do?cateNum='+search_option+'&p_name='+search_value;
+ 		});
+ 		
+ 		$('#search_value').keypress(function(e){
+ 			if(e.which == 13){
+ 				$('#search_btn').trigger('click');
+ 			}
+ 		});
+ 		
+		if("${cateNum}" != ""){
+			$('#search_option').val("${cateNum}").prop('selected', true);
+		}
 	});
 </script>
+     

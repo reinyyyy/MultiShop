@@ -101,11 +101,23 @@
 	
 	<!-- 각 카테고리별 총 글 수 가져오기 -->
 	<select id = "getProduct_BoardTotalA" parameterType = "java.util.Map" resultType = "int">
-		select count(*) from PRODUCT_BOARD 
+		<!-- select count(*) from PRODUCT_BOARD 
 		where p_cateNum = #{cateNum}
 		<if test = 'p_name != null and p_name != "no"'>
 			and p_name like '%'||#{p_name}||'%'
-		</if>
+		</if> -->
+		
+		select count(*) from product p , product_board pb
+		where p.p_code = pb.p_code
+        and p.p_cateNum = #{cateNum}
+        <if test = 'p_midCate != null and p_midCate != ""'>
+        	and p.p_midCate = #{p_midCate}
+        </if>
+        <if test = 'p_name != null and p_name != "no"'>
+        	and pb.p_name like '%'||#{p_name}||'%'
+        </if>
+		
+		
 	</select>
 <!-- 	<select id = "getProduct_BoardTotalA" parameterType = "int" resultType = "int">
 		select count(*) from PRODUCT_BOARD 

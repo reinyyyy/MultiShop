@@ -101,7 +101,7 @@
 
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">Modal Heading</h4>
+					<h4 class="modal-title">Quick View</h4>
 					<button type="button" class="close" data-dismiss="modal">×</button>
 				</div>
 
@@ -125,7 +125,7 @@
 		<!-- 좌측 사이드 메뉴바 -->
 		<div id="jb-sidebar">
 			<div id="accordion" role="tablist">
-				<div class="card_">
+				<div class="card_ 3">
 					<div class="card-header" role="tab" id="headingOne"
 						data-toggle="collapse" href="#collapseOne" aria-expanded="true"
 						aria-controls="collapseOne">
@@ -146,7 +146,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card_">
+				<div class="card_ 2">
 					<div class="card-header collapsed" role="tab" id="headingTwo"
 						data-toggle="collapse" href="#collapseTwo" aria-expanded="false"
 						aria-controls="collapseTwo">
@@ -167,7 +167,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card_">
+				<div class="card_ 1">
 					<div class="card-header collapsed" role="tab" id="headingThree"
 						data-toggle="collapse" href="#collapseThree" aria-expanded="false"
 						aria-controls="collapseThree">
@@ -183,7 +183,7 @@
 							<p>Carbohydrate</p>
 							<p>Protein</p>
 							<p>Fat</p>
-							<p>Vitamin</p>
+							<p>Fruit</p>
 							<p>Spice</p>
 						</div>
 					</div>
@@ -214,6 +214,7 @@
 				<!--  몇개씩 보여줄 것인지 -->
 				<div class="select">
 					<span>DISPLAY</span> <span class="selectRecordCount"> 
+						<a href = "#" onclick = "$('#pageSize').val(8)">8</a> 
 						<a href = "#" onclick = "$('#pageSize').val(12)">12</a> 
 						<a href = "#" onclick = "$('#pageSize').val(16)">16</a>
 					</span>
@@ -315,6 +316,13 @@
 				$('.quickViewBody').empty();
 			});
 			
+			//네비바 손가락 마킹
+			if("${p_midCate}" == '' ){
+				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("All")')).before('<i class="fas fa-hand-point-down"></i>')
+			}else{
+				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("${p_midCate}")')).before('<i class="fas fa-hand-point-down"></i>')
+			}
+			
 			
 		});
 	
@@ -334,18 +342,24 @@
 					+ '<div style="position : relative;">'
 					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap" style = "cursor : pointer;">'
 					+ '<div class="quick_menu" style="background : rgba(0,0,0,0.8)">'
-					+ '<a href = "javascript:void(0)"onclick = "$(\'.card-img-top\').trigger(\'click\')" class="btnl link" target="_blank" float="left"/>'
+					/* + '<a  class="btnl link" target="_blank" float="left"/>' */
 					+ '<input type = "hidden" name = "p_code" value = ' + p_code + '>'
 					+ '<a href="#;" class="quick" style="color : white;">QUICK VIEW</a>'
-					+ '<a href="javascript:loginChk();void(0);" class="btnl wish" float="right"/>'
+					+ '<span id = "product_email" style="color:white; cursor:pointer;"><i style="padding: 8px" class="fas fa-envelope fa-2x"  data-backdrop="static" data-toggle="modal" data-target="#send_email" aria-label="Left Align"></i></span>'
+					/* + '<a href="javascript:loginChk();void(0);" class="btnl wish" float="right"/>' */
 					+ '</div>' + '</div>' + '<div class="card-event">'
-					+ '<li class="list-group-item">' + addComma(price) + ' ￦ </li>'
+					+ '<li class="list-group-item">'+ '￦ '+ addComma(price)+'</li>'
 					+ '</div>' + '<div class="card-body">'
 					+ '<h4 class="card-title">' + name + '</h4>'
 					+ '<p class="card-text">' +''+ '</p>' + '</div>' /* + content + */ 
 					+ '</div>';
 			return card_html;
 		}
+		//상품 문의 모달창 
+		$(document).on('click', '#product_email', function(){
+			var product_name = $(this).parents().next().next().find('.card-title').html();
+			$('#inputTitle').val(product_name);
+		});
 		
 		//상세 페이지 이동 이벤트
 		$(document).on('click','.card-img-top', function(){

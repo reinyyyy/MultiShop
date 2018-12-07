@@ -44,7 +44,8 @@ public class CategoryController {
 										@RequestParam(defaultValue="") String p_midCate,
 										@RequestParam(defaultValue="1") int pg,
 										@RequestParam(defaultValue="") String p_name,
-										@RequestParam(defaultValue="1") String sortType) {
+										@RequestParam(defaultValue="1") String sortType,
+										@RequestParam(required=false, defaultValue = "8") Integer pageSize) {
 		ModelAndView mav = new ModelAndView();
 		if(cateNum == 1) {
 			mav.addObject("pageName", "Food");
@@ -54,6 +55,7 @@ public class CategoryController {
 			mav.addObject("pageName", "Clothes");
 		}	
 		
+		mav.addObject("pageSize", pageSize);
 		mav.addObject("p_name", p_name);
 		mav.addObject("p_midCate", p_midCate);
 		mav.addObject("pg", pg);
@@ -76,6 +78,7 @@ public class CategoryController {
 		int sortType_int = Integer.parseInt(sortType);
 		System.out.println("p_midCate = " + p_midCate + " p_cateNum = " + cateNum);
 		
+		System.out.println(pageSize);
 		// list_num 에 따라서 12개씩~ 현재는 5개씩보여주는 상태임
 		int endNum = Integer.parseInt(pg)*pageSize;
 		int startNum = endNum-(pageSize-1);
