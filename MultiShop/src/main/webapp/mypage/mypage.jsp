@@ -86,6 +86,7 @@
 a.cursor:hover {
 	cursor: pointer;
 }
+
 </style>
 </head>
 <body>
@@ -190,4 +191,4 @@ $(document).ready( function () {
     }});
 });
 </script>
-</html>
+</html>   

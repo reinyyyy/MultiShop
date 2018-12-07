@@ -28,7 +28,8 @@
 	overflow: hidden;
 	zoom: 1;
 	position: relative;
-	z-index: 1
+	z-index: 1;
+	min-height: 500px;
 }
 
 #floatMenu {
@@ -43,13 +44,9 @@
 }
 #wishList{
 	position: absolute;
-	width: 2500px;
-	height: 200px;
-	left: 1000px;
-	top: 800px;
-	background-color: #E6E6E6;
-	color: #fff; 
-	z-index:1300;
+	left: 1200px;
+	top: 200px;
+	z-index:1090;
 }
 
 .float_left {
@@ -151,7 +148,7 @@
 						
 					</li>
 					<li>
-						<button type="button" class="btn btn-info" aria-label="Left Align">
+						<button type="button" class="btn btn-info" id = "qnaBtn" aria-label="Left Align">
 						   <i class="fas fa-question"></i>
 						</button>
 					</li>
