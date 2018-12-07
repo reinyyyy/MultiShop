@@ -63,4 +63,10 @@
 	<delete id="deleteCart">
 		delete from cart where c_seq = #{c_seq}
 	</delete>
+	
+	<!-- 재우  결재 후 삭제 -->
+	<delete id="delete">
+		delete from cart where m_email = #{email}
+	</delete>
+	
 </mapper>

@@ -56,4 +56,9 @@ public class CartDAOMybatis implements CartDAO{
 		sqlSession.update("cartSQL.modifyCart",cartDTO);
 	}
 
+	@Override
+	public void delete(String email) {
+		sqlSession.delete("cartSQL.delete",email);
+	}
+
 }

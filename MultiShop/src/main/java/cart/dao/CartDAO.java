@@ -21,4 +21,5 @@ public interface CartDAO {
 
 	public void modifyCart(CartDTO cartDTO);
 
+	public void delete(String email);
 }
