@@ -86,6 +86,7 @@
 a.cursor:hover {
 	cursor: pointer;
 }
+
 </style>
 </head>
 <body>

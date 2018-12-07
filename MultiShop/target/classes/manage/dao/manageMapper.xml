@@ -109,7 +109,7 @@
 	 	select count(*) from order_table where o_status= #{status}
 	 </select>
 	 <select id="totalSales" resultType="String">
-	 	select to_char(sum(p_cost*p_amount),'9,999,999') from order_table
+	 	select nvl(to_char(sum(p_cost*p_amount),'9,999,999'),0) from order_table where o_status = '배송완료'
 	 </select>
 	 
 	 <select id="memberList" resultType="memberDTO">

@@ -112,4 +112,13 @@ public class MypageController {
       ModelAndView mav = new ModelAndView("jsonView","data",list);
       return mav;
 	}
+	@RequestMapping(value="/mypage/orderCancel.do",method=RequestMethod.POST)
+	public @ResponseBody String orderCancel(@RequestParam Map<String,String> map) {
+		int su = orderDAO.orderCancel(map);
+		if(su==1) {
+			return "true";
+		}else {
+			return "false";
+		}
+	}
 }

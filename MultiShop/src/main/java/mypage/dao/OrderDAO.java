@@ -25,4 +25,6 @@ public interface OrderDAO {
 
 	public List<OrderDTO> recentlyOrderList(String email);
 	
+	public int orderCancel(Map<String,String> map);
+	
 }

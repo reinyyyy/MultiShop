@@ -193,6 +193,7 @@ public class IndexController {
 	      mailSender.send(preparator);
 	      map.put("m_pwd", password);
 	      int su = memberDAO.findPwd2(map);
+	      System.out.println(su);
 	      if(su==1) {
 	         return "true"; 
 	      }else {
