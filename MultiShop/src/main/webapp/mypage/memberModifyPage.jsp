@@ -72,6 +72,16 @@
 .wish {
    background: url(../image/btn_goods_wish.png) no-repeat 50% 50%;
 }
+#member_modify_form {
+	margin: 0 auto;
+	
+}
+.table_btn_area {
+	text-align: center;
+}
+a.cursor:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -100,7 +110,9 @@
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content" class="border-0">
 			<!-- 컨텐츠 내용 영역 -->
-		
+			<div>
+			   <h3 style="text-align: center;">회원정보수정</h3>
+			</div>
 			<div class="row modify_table mt30">
 		         <form id="member_modify_form" role="form">
 		            <div class="col-md-12">

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   //총합계 가격
+   /*//총합계 가격
    var totalPrice = parseFloat($('#totalPrice').text());
    $('#totalPrice').text(totalPrice.toLocaleString());
    
@@ -29,7 +29,7 @@ $(document).ready(function(){
       }else if(select_amount==10){
          $('#totalPrice').text((totalPrice*10).toLocaleString());
       }
-   });
+   });*/
    
    //관심상품 버튼(a태그)
    $('#favoriteBtn').on('click',function(){

@@ -13,6 +13,8 @@
 	               <tr>
 	                  <th>상품코드</th>
 	                  <th>상품명</th>
+	                  <th>옵션1</th>
+                      <th>옵션2</th>
 	                  <th>수량</th>
 	                  <th>가격</th>
 	                  <th>등록일</th>
@@ -23,6 +25,8 @@
 	               <tr>
 	                  <td class="p_code1" align="center"></td>
 	                  <td class="p_name1" align="center"><input type="text" id="p_name2" value=""></td>
+	                  <td class="p_option1_1" align="center"><input type="text" id="p_option1_1" value=""></td>
+                  	  <td class="p_option2_1" align="center"><input type="text" id="p_option2_1" value=""></td>
 	                  <td class="p_amount1" align="center"><input type="text" id="p_amount2" value=""></td>
 	                  <td class="p_cost1" align="center"><input type="text" id="p_cost2" value=""></td>
 	                  <td class="p_date1" align="center"></td>
@@ -30,8 +34,8 @@
 	                  <td class="p_status1" align="center"><a id="" href='#'><span id="p_status2"></span></a></td>
 	               </tr>
 	               <tr>
-	               		<td colspan="7">
-	               			<div style="float:right; margin-right : 100px">
+	               		<td colspan="9">
+	               			<div style="float:right;">
 				            <input type="button" id="p_modify" value="수정하기">
 				            <input type="button" id="p_delete" value="삭제하기">
 				            </div>
@@ -65,14 +69,18 @@ $(document).ready(function(){
       
       var p_code = td.eq(0).text();
       var p_name = td.eq(1).text();
-      var p_amount = td.eq(2).text();
-      var p_cost = td.eq(3).text();
-      var p_date = td.eq(4).text();
-      var p_sales = td.eq(5).text();
-      var p_status = td.eq(6).text();
+      var p_option1 = td.eq(2).text();
+      var p_option2 = td.eq(3).text();
+      var p_amount = td.eq(4).text();
+      var p_cost = td.eq(5).text();
+      var p_date = td.eq(6).text();
+      var p_sales = td.eq(7).text();
+      var p_status = td.eq(8).text();
       
       $(".p_code1").text(p_code);
       $('#p_name2').val(p_name);
+      $("#p_option1_1").val(p_option1);
+      $("#p_option2_1").val(p_option2);
       $('#p_amount2').val(p_amount);
       $('#p_cost2').val(p_cost);
       $(".p_date1").text(p_date);
@@ -93,6 +101,8 @@ $(document).ready(function(){
       
       p_code = $(".p_code1").text();
       p_name = $('#p_name2').val();
+      p_option1 = $("#p_option1_1").val();
+      p_option2 = $("#p_option2_1").val();
       p_amount = $('#p_amount2').val();
       p_cost = $('#p_cost2').val();
       p_date = $(".p_date1").text();
@@ -105,7 +115,7 @@ $(document).ready(function(){
          $.ajax({
             url : './productModifyJson.do',
             type : 'POST',
-            data : {'p_code':p_code,'p_name':p_name,'p_amount':p_amount,'p_cost':p_cost,'p_date':p_date,'p_sales':p_sales, 'p_status':p_status},
+            data : {'p_code':p_code,'p_name':p_name,'p_option1':p_option1,'p_option2':p_option2,'p_amount':p_amount,'p_cost':p_cost,'p_date':p_date,'p_sales':p_sales, 'p_status':p_status},
             dataType : 'json',
             success : function(data){
                location.reload();

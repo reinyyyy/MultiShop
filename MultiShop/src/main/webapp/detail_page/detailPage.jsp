@@ -161,22 +161,13 @@
                            <span id="totalPrice" class="totalPrice" ></span>
                         </div>
                      </div>
-                     <div class="btnWrap row">
-                        <div class = "col">
-                        	<!-- <a href="#none" id="favoriteBtn" class="btnFavorite bookmark" itemid="224000105259">
-                           	<i class="far fa-heart"></i>&emsp;관심상품 등록
-                        	</a> -->
-                        </div>
-                        <div class = "col">
-                        	<a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
+                     <div class="btnWrap" style="text-align: right;">
+                       	<a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
                            <i class="fas fa-shopping-cart"></i>&emsp;장바구니 담기
-                        	</a>
-                        </div>
-                        <div class = "col">
-                       		<a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">
-                        	<i class="fas fa-credit-card"></i>&emsp;바로구매
-                        	</a>
-                        </div>
+                        </a>
+                        <a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">
+                           <i class="fas fa-credit-card"></i>&emsp;바로구매
+                        </a>
                      </div>
                   </div>
                </form>

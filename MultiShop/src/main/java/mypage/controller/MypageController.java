@@ -104,4 +104,12 @@ public class MypageController {
 		ModelAndView mav = new ModelAndView("jsonView","data",list);
 		return mav;
 	}
+	
+	@RequestMapping(value="/mypage/recentlyOrder.do",method=RequestMethod.POST)
+   public ModelAndView recentlyOrder(HttpSession session) {
+      String email = (String) session.getAttribute("session_email");
+      List<OrderDTO> list = orderDAO.recentlyOrderList(email);
+      ModelAndView mav = new ModelAndView("jsonView","data",list);
+      return mav;
+	}
 }

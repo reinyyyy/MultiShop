@@ -27,4 +27,8 @@
    		select * from inquiry where m_email = #{email} order by 4 desc
    	</select>
    	
+	<select id="recentlyOrderList" parameterType="String" resultType="orderDTO">
+		select * from(select * from order_table where m_email = #{email} order by 4 desc) where <![CDATA[rownum <=3]]>
+	</select>
+   	
 </mapper>
