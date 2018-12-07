@@ -25,8 +25,8 @@
 	               <tr>
 	                  <td class="p_code1" align="center"></td>
 	                  <td class="p_name1" align="center"><input type="text" id="p_name2" value=""></td>
-	                  <td class="p_option1_1" align="center"></td>
-                  	  <td class="p_option2_1" align="center"></td>
+	                  <td class="p_option1_1" align="center"><input type="text" id="p_option1_1" value=""></td>
+                  	  <td class="p_option2_1" align="center"><input type="text" id="p_option2_1" value=""></td>
 	                  <td class="p_amount1" align="center"><input type="text" id="p_amount2" value=""></td>
 	                  <td class="p_cost1" align="center"><input type="text" id="p_cost2" value=""></td>
 	                  <td class="p_date1" align="center"></td>
@@ -79,8 +79,8 @@ $(document).ready(function(){
       
       $(".p_code1").text(p_code);
       $('#p_name2').val(p_name);
-      $(".p_option1_1").text(p_option1);
-      $(".p_option2_1").text(p_option2);
+      $("#p_option1_1").val(p_option1);
+      $("#p_option2_1").val(p_option2);
       $('#p_amount2').val(p_amount);
       $('#p_cost2').val(p_cost);
       $(".p_date1").text(p_date);
@@ -101,8 +101,8 @@ $(document).ready(function(){
       
       p_code = $(".p_code1").text();
       p_name = $('#p_name2').val();
-      p_option1 = $(".p_option1_1").text();
-      p_option2 = $(".p_option2_1").text();
+      p_option1 = $("#p_option1_1").val();
+      p_option2 = $("#p_option2_1").val();
       p_amount = $('#p_amount2').val();
       p_cost = $('#p_cost2').val();
       p_date = $(".p_date1").text();

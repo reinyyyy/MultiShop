@@ -13,6 +13,8 @@
       update product set
       p_name=#{p_name},
       p_amount=#{p_amount},
+      p_option1=#{p_option1},
+      p_option2=#{p_option2},
       p_cost=#{p_cost},
       p_date=sysdate,
       p_status=#{p_status}
