@@ -698,7 +698,6 @@
 					    	  
 				    	  //바로구매 비 로그인시
 				    	  $('#detail_loginBtn').click(function(){
-				    		  alert("비로그인구매임");
 				    		  $('#non_loginCloseBtn').trigger('click');
 				    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
 						  });
@@ -721,7 +720,7 @@
 						}else if($('#amount_input').val() == '0'){
 							alert("품절된 상품입니다");
 						}else{
-							alert("p_code : " + $('#p_code').val() + "성공");
+						//	alert("p_code : " + $('#p_code').val() + "성공");
 							$('#detail_form').submit();
 						}
 				    }
@@ -730,7 +729,7 @@
 			$('#totalPrice').html('￦ ' + (Number("${productDTO.p_cost}").toLocaleString()));
 			
 			$('#detail_nonLoginModal').on('show.bs.modal', function(event) {
-				alert("비로그인 모달열림");
+				//alert("비로그인 모달열림");
 			    $('#quick_view').css('z-index', 1050);
 			    $(this).css('display', 'block');
 			    $(this).css('z-index', 9999);
