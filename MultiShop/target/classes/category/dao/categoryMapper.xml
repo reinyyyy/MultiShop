@@ -106,6 +106,10 @@
 		<if test = 'p_name != null and p_name != "no"'>
 			and p_name like '%'||#{p_name}||'%'
 		</if>
+		<!-- <if test = 'p_name != null and p_name != "no"'>
+			and p_mideCate like '%'||#{p_name}||'%'
+		</if> -->
+		
 	</select>
 <!-- 	<select id = "getProduct_BoardTotalA" parameterType = "int" resultType = "int">
 		select count(*) from PRODUCT_BOARD 
