@@ -1,6 +1,7 @@
 package member.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -65,4 +66,19 @@ public class MemberDAOMybatis implements MemberDAO{
 	public void useMpoint(Map<String, String> map) {
 		sqlSession.update("memberSQL.useMpoint",map);
 	}
+
+	@Override
+	public void updateCoupon(String coupon, String m_email) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("coupon", coupon);
+		map.put("m_email", m_email);
+		sqlSession.update("memberSQL.insertCoupon",map);
+	}
+
+	@Override
+	public List<MemberDTO> selectCoupon(String m_email) {
+		
+		return sqlSession.selectList("memberSQL.selectCoupon",m_email);
+	}
+
 }

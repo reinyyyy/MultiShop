@@ -79,7 +79,8 @@
 			<a class="navbar-brand text-light">
 				<h6><i class="fas fa-info-circle"></i>&emsp; just COZY 첫 구매 시 15% Discount</h6>
 		</a>
-		<button class="btn btn-primary btn-sm" aria-label="right Align">쿠폰 받기</button>
+		<button class="btn btn-primary btn-sm" aria-label="right Align" id="couponBtn">쿠폰 받기</button>
+		<input type="hidden" id="couponSession_email" value="${session_email }">
 	</div>
 	
 	<div class="top_nav">	
@@ -468,7 +469,33 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 </script>
-
+<script type="text/javascript">
+$('#couponBtn').on('click',function(){
+	if($('#couponSession_email').val()==""){
+		alert("로그인이 필요합니다.");
+	}
+	else{
+		var coupon = '1';
+		var m_email = $('#couponSession_email').val();
+		$.ajax({
+			type : 'POST',
+			url : '/MultiShop/member/coupon.do',
+			data : {'coupon':coupon,
+					'm_email':m_email},
+			dataType : 'text',
+			success: function(data){
+				if(data=="true"){
+					alert('쿠폰 받기 성공');
+				}
+				else if(data=="false"){
+					alert("이미 쿠폰이 존재합니다.");
+				}
+				location.reload();
+			}
+		});
+	}
+});
+</script>
 <script type="text/javascript">
 $(document)
 .ajaxStart(function () {

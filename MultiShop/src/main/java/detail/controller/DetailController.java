@@ -251,12 +251,10 @@ public class DetailController {
 	  MemberDTO memberDTO2 = memberDAO.getZipcode(session_email);
 	  int m_point =  memberDTO2.getM_point();
 	  
-      System.out.println("@@"+session_email);
-      System.out.println();
-      System.out.println(map);
-      System.out.println(amount);
-      System.out.println(p_code);
-      
+	  //쿠폰 유무 확인
+      memberDTO = detailDAO.getCoupon(session_email);
+	  
+      model.addAttribute("coupon", memberDTO.getM_coupon());
       model.addAttribute("m_point", m_point);
       model.addAttribute("option1", option1);
       model.addAttribute("option2", option2);
@@ -279,16 +277,13 @@ public class DetailController {
                               HttpSession session) {
       
 	  String email = (String) session.getAttribute("session_email");
-	      
-	  System.out.println("getOrderController==시작==="+email+"@@@@@@@@@@@@"); 
 	  
-      System.out.println("option1="+option1+"option2="+option2+"amount="+amount+"p_code="+p_code+"productName="+productName+"m_point="+m_point);
-      
       detailDTO = detailDAO.getSelectProduct(Integer.parseInt(p_code));
       detailDTO.setP_amount(Integer.parseInt(amount));
       memberDTO = memberDAO.getZipcode(email);
       
-      System.out.println(detailDTO);
+      
+      //System.out.println(detailDTO);
       
       ModelAndView mav = new ModelAndView();
       mav.addObject("detailDTO", detailDTO);
@@ -324,6 +319,7 @@ public class DetailController {
 		   detailDAO.updateOneClothes(map);
 		   //orderDAO 에 추가
 		   orderDAO.insertOrder(map);
+		   
 		   if(useMileage==1) {
 			   //마일리지 사용
 			   memberDAO.useMpoint(map);
@@ -415,6 +411,11 @@ public class DetailController {
 	   modelAndView.addObject("section", "/detail_page/detailPage.jsp");
 	   modelAndView.setViewName("jsonView");
 	   return modelAndView;
+   }
+   @RequestMapping(value="couponDelete", method=RequestMethod.POST)
+   public @ResponseBody void couponDelete (HttpSession session) {
+	   String email = (String) session.getAttribute("session_email");
+	   detailDAO.couponDelete(email);
    }
    
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,6 +103,23 @@
                        <input type="hidden" id="useMileage" name="useMileage" value="0">
                        <input type="hidden" id="myMileageHid" name="myMileageHid" value="">
                        <input type="button" id="useM_pointBtn" value="사용하기">
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                     <div>
+                         <h6 class="my-0">쿠폰</h6>
+                         <c:if test="${coupon == null}">
+                         	<select id="couponSelect">
+                         	<option>선택하기</option>
+                         </select>
+                         </c:if>
+                         <c:if test="${coupon != null}">
+	                         <select id="couponSelect">
+	                         	<option value="0">선택하기</option>
+	                         	<option value="1">10% 할인권</option>
+	                         </select>
+                         </c:if>
+                      </div>
+                      <input type ="button" value="사용하기" id="use_Coupon" style="margin : 0 0px;">
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
                        <div class="text-success">
@@ -286,15 +304,13 @@ $(document).ready(function(){
         	 $('#order_totalPrice').text((totalPrice-$('#myMileage').text()));
           });
          
-       /*   var option1 = $('#p_option1Val').val();
-         var option2 = "";
-         
-         if(option1.length>0){
-        	 option2 = data.detailDTO.p_option1+"/"+data.detailDTO.p_option2;
-         }else if(option1.length)
-          */
-         //alert(option2);
-         
+          //쿠폰 사용
+         $('#use_Coupon').on('click',function(){
+		 	var couponValue = $('#couponSelect option:selected').val();
+		 	if(couponValue=="1"){
+		 		$('#order_totalPrice').text(totalPrice-(totalPrice/10));
+		 	}
+         });
        	//히든값 넣기
         $('#firstProductCodeHiddenVal').val(data.detailDTO.p_code);
         $('#firstProductNameHiddenVal').val(data.detailDTO.p_name);
@@ -304,26 +320,7 @@ $(document).ready(function(){
         $('#firstProductAmountHiddenVal').val(data.detailDTO.p_amount);
         $('#firstProductCostHiddenVal').val(totalPrice);
         
-        //alert($('#paypal').val());
-        
-        
-        //$('#firstProductPrice').text((data.detailDTO.p_cost*data.detailDTO.p_amount));
-         //alert($('#firstProductCodeHiddenVal').val());
-         //alert($('#firstProductColorHiddenVal').val());
-         //alert($('#firstProductAmountHiddenVal').val());
-         //alert($('#firstProductSizeHiddenVal').val());
-         
-        /*  var firstProductPrice = $('#firstProductPrice').text();
-         var secondProductPrice = $('#secondProductPrice').text();
-         var thirdProductPrice = $('#thirdProductPrice').text(); */
-         
-         
-         //firstProductPrice = parseFloat(firstProductPrice);
-        // secondProductPrice = parseFloat(secondProductPrice);
-        // thirdProductPrice = parseFloat(thirdProductPrice);
-         
-         
-         //$('#order_totalPrice').text(totalPrice+"원");
+       
       },error : function(data){
          alert("실패랍니다~");
       }
