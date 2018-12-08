@@ -49,6 +49,8 @@ $(document).ready(function(){
     	  if(couponValue == '1'){
     		  $.post('/MultiShop/detail_page/couponDelete.do');
     	  }
+    	  //console.log($('#orderPageForm').serializeArray());
+    	  //console.log($('#orderPageForm').serialize());
     	  $.ajax({
          	 type :'POST',
          	 url : '/MultiShop/detail_page/orderSuccess.do',

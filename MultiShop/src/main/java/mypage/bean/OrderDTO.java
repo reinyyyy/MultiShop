@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 public class OrderDTO {
 	public String m_email;
+	public String m_name;
 	public String d_code; 
 	public int o_num;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+9")
@@ -19,6 +20,7 @@ public class OrderDTO {
 	public String o_addr;
 	public String o_status;
 	public String p_code;
+	public String p_name;
 	public int p_cost;
 	public int p_amount;
 	//재우  수정

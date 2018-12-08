@@ -28,7 +28,7 @@
     <script type="text/javascript" src="/assets/admin/js/vendor/jquery-migrate-1.4.1.min.js"></script>
     <script type="text/javascript" src="/assets/admin/js/vendor/jquery-ui.js"></script>
     <!--common-->
-    <script src = "../js/manage/product.js"></script>
+    <!-- <script src = "../js/manage/product.js"></script> -->
 <!--     <script type="text/javascript" src="/assets/common/js/vendor/jquery.popupoverlay.js"></script>
     <script type="text/javascript" src="/assets/common/js/vendor/clipboard.min.js"></script>
     <script type="text/javascript" src="/assets/common/js/mysoho.js?ver=1.0.0"></script>

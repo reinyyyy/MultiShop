@@ -72,10 +72,24 @@
 .wish {
 	background: url(../image/btn_goods_wish.png) no-repeat 50% 50%;
 }
-
+.card-header {
+	background-color: #f3f3f3;
+}
+.card-body {
+	background-color: #ffffff;
+}
 .card-body p{
 	cursor : pointer;
 }
+
+.card-body p:hover{
+	color : yellow;
+}
+
+.mb-0 a:hover{
+	color : fuchsia;
+}
+
 </style>
 </head>
 <body style="width: 100%">
@@ -86,13 +100,13 @@
 
 
 	<!-- The Modal -->
-	<div class="modal fade" id="myModal" data-backdrop="false">
+	<div class="modal fade" id="quick_view" data-backdrop="false">
 		<div class="modal-dialog"  style="max-width: 80%; width: auto;">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">Modal Heading</h4>
+					<h4 class="modal-title">Quick View</h4>
 					<button type="button" class="close" data-dismiss="modal">×</button>
 				</div>
 
@@ -116,7 +130,7 @@
 		<!-- 좌측 사이드 메뉴바 -->
 		<div id="jb-sidebar">
 			<div id="accordion" role="tablist">
-				<div class="card_">
+				<div class="card_ 3">
 					<div class="card-header" role="tab" id="headingOne"
 						data-toggle="collapse" href="#collapseOne" aria-expanded="true"
 						aria-controls="collapseOne">
@@ -137,12 +151,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="card_">
+				<div class="card_ 2">
 					<div class="card-header collapsed" role="tab" id="headingTwo"
 						data-toggle="collapse" href="#collapseTwo" aria-expanded="false"
 						aria-controls="collapseTwo">
 						<h5 class="mb-0">
-							<a> Tech++ </a>
+							<a style = "cursor: pointer"> Tech++ </a>
 						</h5>
 					</div>
 					<div id="collapseTwo" class="collapse" role="tabpanel"
@@ -158,12 +172,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="card_">
+				<div class="card_ 1">
 					<div class="card-header collapsed" role="tab" id="headingThree"
 						data-toggle="collapse" href="#collapseThree" aria-expanded="false"
 						aria-controls="collapseThree">
 						<h5 class="mb-0">
-							<a> Food </a>
+							<a style = "cursor: pointer"> Food </a>
 							
 						</h5>
 					</div>
@@ -174,7 +188,7 @@
 							<p>Carbohydrate</p>
 							<p>Protein</p>
 							<p>Fat</p>
-							<p>Vitamin</p>
+							<p>Fruit</p>
 							<p>Spice</p>
 						</div>
 					</div>
@@ -196,17 +210,18 @@
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
 					<ul>
-						<li class="active" onclick="fn_sort(2);"><a href="#link">인기순(공사중)</a></li>
-						<li><a href="#link" onclick="fn_sort(1);">신상품순</a></li>
-						<li><a href="#link" onclick="fn_sort(3);">낮은가격순</a></li>
-						<li><a href="#link" onclick="fn_sort(4);">높은가격순</a></li>
-						<li><a href="../detail_page/detailPage.do?p_code=1" onclick="">상세정보</a></li>
+						<li class="active" onclick="fn_sort(2);"><a href="#link"><i class="fas fa-star">&emsp;</i>인기순</a></li>
+						<li><a href="#link" onclick="fn_sort(1);"><i class="fas fa-plus-square"></i>&emsp;신상품순</a></li>
+						<li><a href="#link" onclick="fn_sort(3);"><i class="fas fa-arrow-down"></i>&emsp;낮은가격순</a></li>
+						<li><a href="#link" onclick="fn_sort(4);"><i class="fas fa-arrow-up"></i>&emsp;높은가격순</a></li>
 					</ul>
 				</div>
 				<!--  몇개씩 보여줄 것인지 -->
 				<div class="select">
-					<span>DISPLAY</span> <span class="selectRecordCount"> <a
-						onclick = "javascript:void(0)" val="10">10</a> <a onclick = "javascript:void(0)" val="20">20</a>
+					<span>DISPLAY</span> <span class="selectRecordCount"> 
+						<a href = "#" onclick = "$('#pageSize').val(8)">8</a> 
+						<a href = "#" onclick = "$('#pageSize').val(12)">12</a> 
+						<a href = "#" onclick = "$('#pageSize').val(16)">16</a>
 					</span>
 				</div>
 			</div>
@@ -243,7 +258,8 @@
 		</div>
 	</div>
 	<!-- jb-contents 끝 -->
-
+<jsp:include page="../detail_Modal/detail_Modal.jsp"/>
+   <jsp:include page="../detail_Modal/detail_nonLogin.jsp"/>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	
@@ -255,18 +271,18 @@
 			
 			$(document).on('click', '.quick', function(){
 				p_code = $(this).prev().val();
-				$('#myModal').modal();
+				$('#quick_view').modal();
 			});
 			
 			
 
 			//모달 클릭이벤트 QUICK VIEW 클릭 이벤트
 			$("#myBtn").click(function() {
-				$("#myModal").modal();
+				$("#quick_view").modal();
 			});
 			
 			//QUICK VIEW 모달 로딩완료 이벤트
-			$('#myModal').on('shown.bs.modal', function(){
+			$('#quick_view').on('shown.bs.modal', function(){
 				$.ajax({
 					type : "POST",
 					url : "quickView.do",
@@ -301,21 +317,27 @@
 			}
 			
 			//모달 닫힘이벤트
-			$('#myModal').on('hide.bs.modal', function(e){
+			$('#quick_view').on('hide.bs.modal', function(e){
 				$('.quickViewBody').empty();
 			});
+			
+			//네비바 손가락 마킹
+			if("${p_midCate}" == '' ){
+				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("All")')).before('<i class="fas fa-hand-point-down"></i>').css('font-weight', 'bold');
+			}else{
+				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("${p_midCate}")')).before('<i class="fas fa-hand-point-down"></i>').css('font-weight', 'bold');
+			}
 			
 			
 		});
 	
-		
 		//제품 내용물 생성
 		function card(items) { //DB컬럼명을 가져다 써야함 banana.jpg			//받아오는거 DTO 에서 boardLIST 로 변경해야댐
 			var result = items.p_main_img.split('/');
 			var src = '../upload/' + result[1];
 			console.log(result[1]);
 			var name = items.p_name;
-			var content = items.p_contents;
+			/* var content = items.p_contents; */
 			var price = items.p_COST;		//제품테이블에서 받아와함.
 			var p_code = items.p_code;
 			
@@ -324,24 +346,31 @@
 					+ '<div style="position : relative;">'
 					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap" style = "cursor : pointer;">'
 					+ '<div class="quick_menu" style="background : rgba(0,0,0,0.8)">'
-					+ '<a href="/product/view.asp?productNo=42046" class="btnl link" target="_blank" float="left"/>'
+					/* + '<a  class="btnl link" target="_blank" float="left"/>' */
 					+ '<input type = "hidden" name = "p_code" value = ' + p_code + '>'
 					+ '<a href="#;" class="quick" style="color : white;">QUICK VIEW</a>'
-					+ '<a href="javascript:loginChk();void(0);" class="btnl wish" float="right"/>'
+					+ '<span id = "product_email" style="color:white; cursor:pointer;"><i style="padding: 8px" class="fas fa-envelope fa-2x"  data-backdrop="static" data-toggle="modal" data-target="#send_email" aria-label="Left Align"></i></span>'
+					/* + '<a href="javascript:loginChk();void(0);" class="btnl wish" float="right"/>' */
 					+ '</div>' + '</div>' + '<div class="card-event">'
-					+ '<li class="list-group-item">' + addComma(price) + ' ￦ </li>'
+					+ '<li class="list-group-item">'+ '￦ '+ addComma(price)+'</li>'
 					+ '</div>' + '<div class="card-body">'
 					+ '<h4 class="card-title">' + name + '</h4>'
-					+ '<p class="card-text">' + content + '</p>' + '</div>'
+					+ '<p class="card-text">' +''+ '</p>' + '</div>' /* + content + */ 
 					+ '</div>';
 			return card_html;
 		}
+		
+		//상품 문의 모달창 
+		$(document).on('click', '#product_email', function(){
+			var product_name = $(this).parents().next().next().find('.card-title').html();
+			$('#inputTitle').val(product_name);
+		});
 		
 		//상세 페이지 이동 이벤트
 		$(document).on('click','.card-img-top', function(){
 			var p_code = $(this).next().find('input').val();
 			var cateNum = $('#cateNum').val();
-			location.href = "../detail_page/detailPage.do?p_code="+p_code+"&cateNum="+cateNum;
+			location.href = "../detail_page/detailPage.do?p_code="+p_code+"&cateNum="+cateNum+'&p_name='+$('#p_name').val();
 		});
 		
 		//3자리수 콤마 제작 함수

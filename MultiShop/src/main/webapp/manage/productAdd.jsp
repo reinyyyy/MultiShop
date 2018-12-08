@@ -1,6 +1,34 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+#new_product {
+	position : fixed;
+	width : 200px; 
+	height : 100px; 
+	background-color : black; 
+	z-index : 9999; 
+	left : 50%; 
+	top : 30%
+}
+</style>
+<script>
+	$(document).ready(function(){
+		$('#new_product').hide();
+		<c:if test = "${new_product_ok == 1}">
+			$('#new_product').show();	
+			setTimeout(function(){
+				$('#new_product').hide();
+			}, 1000);
+		</c:if>
+		
+	});
+</script>
+<div id = "new_product" >
+	<h1> 상품이 등록되었습니다 </h1>
+</div>
     
 <div id="prdRegist" class="page-body rw">
     <form id="product_form" method="post" enctype="multipart/form-data" action="add.do">
@@ -149,7 +177,8 @@
                 <tbody>
                     <tr>
                         <th><strong>판매가격 <span class="fc-red">*</span></strong></th>
-                        <td><div class="base pr-20"><span class="fc-red">\</span> <input type="text" onKeyPress="return numkeyCheck(event)" style='width:300px;' id = "p_cost" name="p_cost" value="0" class="w20per num_only" placeholder = ",제외 숫자만 입력"></div>
+                        <td><div class="base pr-20"><span class="fc-red">\</span> 
+                        <input type="text"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" style="width:300px; IME-MODE : disabled;" id = "p_cost" name="p_cost" value="0" class="w20per num_only" placeholder = ",제외 숫자만 입력"></div>
 	                        <div id = "p_cost_div"></div>
                         </td>
                     </tr>
@@ -181,7 +210,7 @@
                     <tr class="bg-yellow thumb-box" style="">
                         <th class="th-align">
                             <span id="upload_img_txt">대표이미지</span><span class="fc-red">*</span><br>
-                            <span class="fc-gray fs-15">(<span class="MSH-txt-img-cnt">0</span>/10)</span>
+                            <span class="fc-gray fs-15">(<span class="main_img_cnt">0</span>/5)</span>
                             <div id = "img_div"></div>
                         </th>
                         <td>			<!--  td 시작 -->
@@ -267,7 +296,7 @@
 					<tr id = "option_no_tr">
 					 	<th>재고<span class="fc-red">*</span></th>
 					 	<td>
-							<input class = "need_check_input only_number"  type="text" id = "no_p_amount" name="p_amount[]" placeholder="재고 " value="">
+							<input class = "need_check_input only_number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" type="text" id = "no_p_amount" name="p_amount[]" placeholder="재고 " value="" maxlength = "7">
 							<div id = "no_p_amount_div"></div>
 						</td>
 						<td>
@@ -313,7 +342,7 @@
 										<div id = "p_option2_div"></div>
 									</td>
 									<td>
-										<input class = "need_check_input num_only"  type="text" id = "p_amount" name="p_amount[]_list" placeholder="재고 " value="">
+										<input class = "need_check_input num_only" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" type="text" id = "p_amount" name="p_amount[]_list" placeholder="재고 " value="" maxlength = "7">
 										<div id = "ok_p_amount_div"></div>
 									</td>
 									<td style="width : 10%">
@@ -357,7 +386,7 @@
                     <tr class="bg-yellow thumb-box" style="">
                         <th class="th-align">
                             <span id="upload_img_txt">상세이미지</span><span class="fc-red">*</span><br>
-                            <span class="fc-gray fs-15">(<span class="MSH-txt-img-cnt">0</span>/10)</span>
+                            <span class="fc-gray fs-15">(<span class="detail_img_cnt">0</span>/5)</span>
                             <div id = "img_detail_div"></div>
                         </th>
                         <td>
@@ -368,7 +397,7 @@
 											<p>
 												<span class="btn-prd-upload">
 													<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
-													<input type="file" class = "img_detail" name="img_detail[]">
+													<input type="file" class = "img_detail" name="img_detail[]" id = "1">
 												</span>
 											</p>
 										</li>
@@ -376,7 +405,7 @@
 											<p>
 												<span class="btn-prd-upload">
 													<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
-													<input type="file" class = "img_detail" name="img_detail[]">
+													<input type="file" class = "img_detail" name="img_detail[]" id = "2">
 												</span>
 											</p>
 										</li>
@@ -384,7 +413,7 @@
 											<p>
 												<span class="btn-prd-upload">
 													<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
-													<input type="file" class = "img_detail" name="img_detail[]">
+													<input type="file" class = "img_detail" name="img_detail[]" id = "3">
 												</span>
 											</p>
 										</li>
@@ -392,7 +421,7 @@
 											<p>
 												<span class="btn-prd-upload">
 													<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
-													<input type="file" class = "img_detail" name="img_detail[]">
+													<input type="file" class = "img_detail" name="img_detail[]" id = "4">
 												</span>
 											</p>
 										</li>
@@ -400,7 +429,7 @@
 											<p>
 												<span class="btn-prd-upload">
 													<img src="https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif" alt="image"> 
-													<input type="file" class = "img_detail" name="img_detail[]">
+													<input type="file" class = "img_detail" name="img_detail[]" id = "5">
 												</span>
 											</p>
 										</li>
@@ -462,8 +491,8 @@
 <script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-//상세 내용에 이미지 미리보기
-function readURL(input) {
+//상세 내용에 이미지 미리보기 구현함수
+function readURL(input, index) {
 	 
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -471,7 +500,7 @@ function readURL(input) {
         reader.onload = function (e) {
             //$('#image_section').attr('src', e.target.result);
             //$('#default_iframe').contents().find('#contents_div').html().append($('#image_section'));
-            var img = "<img src = \""+e.target.result+"\" /><br>";
+            var img = "<img id = "+index+" src = \""+e.target.result+"\" /><br>";
             $('#default_iframe').contents().find('#contents_div').append(img);
         }
  
@@ -490,7 +519,7 @@ function readURL_input(input, tag) {
     }
 }
  
-//상세 내용에 이미지 미리보기
+//상세 내용에 이미지 미리보기 이벤트
 $("#imgInput").change(function(){
     readURL(this);
 });
@@ -586,7 +615,6 @@ $(document).ready(function(){
 	});
 		
 		
-		
 	$('#check_img').click(function(){
 		var data = 	$('#default_iframe').contents().find('#contents_div').html();
 		var result = data.replace(/<div>/gi, '').replace(/<\/div>/gi, '\n');
@@ -634,19 +662,49 @@ $(document).ready(function(){
 			}
 			bytesHandler(this, $(this));
 		});
-		//파일업로드이벤트 유효성검사 해줘야댐
+		
+		//상세이미지 업로드
 		$('input[name="img_detail[]"]').change(function(){
+			var id = $(this).attr('id');
+			var cnt = 0;
+			$.each($('input[name="img_detail[]"]'), function(index, items){
+				if(items.value != ''){
+					cnt++;
+				}
+			});
+			$('.detail_img_cnt').html(cnt);
+			
+			if($(this)[0].files.length < 1){
+				$(this).prev().attr('src', 'https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif');
+				//alert($('#default_iframe').contents().find('#contents_div').find('#'+id).remove());
+				$('#default_iframe').contents().find('#contents_div').find('#'+id).next('br').remove();
+				$('#default_iframe').contents().find('#contents_div').find('#'+id).remove();
+				return;
+			}
 			if(!CheckUploadFileSize(this, $(this)) || !CheckuploadFileExt(this)){
 				return;
 			}
 			
-			readURL(this);
+			readURL(this, id);
 			readURL_input(this, $(this));
 		});
+		//대표이미지 업로드
 		$('input[name="img[]"]').change(function(){
+			var cnt = 0;
+			$.each($('input[name="img[]"]'), function(index, items){
+				if(items.value != ''){
+					cnt++;
+				}
+			});
+			$('.main_img_cnt').html(cnt);
+			if($(this)[0].files.length < 1){
+				$(this).prev().attr('src', 'https://image.makeshop.co.kr/mysoho/assets/admin/images/btn/h32_plus.gif');
+				return;
+			}
 			if(!CheckUploadFileSize(this, $(this)) || !CheckuploadFileExt(this)){
 				return;
 			}
+			//alert($('input[name="img[]"]:value').length);
 			
 			readURL_input(this, $(this));
 		});
@@ -786,7 +844,7 @@ $(document).ready(function(){
 			$('#p_origin_div').text('원산지를 입력하세요').css('color', 'red').css('font-size', '9pt');
 		}else if($('#p_cost').val() == 0 || $('p_cost').val() < 0){
 			$('#p_cost_div').text('판매가격을 입력하세요').css('color', 'red').css('font-size', '9pt');
-		}else if($('input:file[name="img[]"]').val() == ''){															//맨앞 하나만 체크해줌
+		}else if($('.main_img_cnt').text() == 0){															//맨앞 하나만 체크해줌
 			$('#img_div').text('대표이미지 선택하세요').css('color', 'red').css('font-size', '9pt');
 		}else if($('#p_option1').val() == '' && $('input:radio[name=option_check]:checked').val() == 'Y'){
 			$('#p_option1_div').text('옵션명을 입력하세요').css('color', 'red').css('font-size', '9pt');
@@ -796,7 +854,7 @@ $(document).ready(function(){
 			$('#ok_p_amount_div').text('재고를 입력하세요').css('color', 'red').css('font-size', '9pt');	
 		}else if($('#no_p_amount').val() == '' && $('input:radio[name=option_check]:checked').val() == 'N'){
 			$('#no_p_amount_div').text('재고를 입력하세요').css('color', 'red').css('font-size', '9pt');
-		}else if($('input:file[name="img_detail[]"]').val() == ''){															//맨앞 하나만 체크해줌
+		}else if($('.detail_img_cnt').text() == 0){															//맨앞 하나만 체크해줌
 			$('#img_detail_div').text('상세이미지를 선택하세요').css('color', 'red').css('font-size', '9pt');
 		}else{
     		$('#product_form').submit();

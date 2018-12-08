@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +41,11 @@ public class CategoryController {
 	//카테고리 리스트	어떤것을 뿌려줄지 cateNum 정해줘야함
 	@RequestMapping(value="categoryItemList", method=RequestMethod.GET)
 	public ModelAndView categoryItemList(@RequestParam(defaultValue="1") int cateNum,
+										@RequestParam(defaultValue="") String p_midCate,
 										@RequestParam(defaultValue="1") int pg,
-										@RequestParam(defaultValue="1") String sortType) {
+										@RequestParam(defaultValue="") String p_name,
+										@RequestParam(defaultValue="1") String sortType,
+										@RequestParam(required=false, defaultValue = "8") Integer pageSize) {
 		ModelAndView mav = new ModelAndView();
 		if(cateNum == 1) {
 			mav.addObject("pageName", "Food");
@@ -50,7 +55,9 @@ public class CategoryController {
 			mav.addObject("pageName", "Clothes");
 		}	
 		
-		
+		mav.addObject("pageSize", pageSize);
+		mav.addObject("p_name", p_name);
+		mav.addObject("p_midCate", p_midCate);
 		mav.addObject("pg", pg);
 		mav.addObject("sortType", sortType);
 		mav.addObject("section", "/category/categoryItemList.jsp");
@@ -64,18 +71,17 @@ public class CategoryController {
 	public ModelAndView getList(@RequestParam String cateNum,
 								@RequestParam(defaultValue="1") String pg,
 								@RequestParam(defaultValue="1") String sortType,
-								@RequestParam(required=false) String p_midCate) {
+								@RequestParam(required=false, defaultValue = "no") String p_name,
+								@RequestParam(required=false, defaultValue = "") String p_midCate,
+								@RequestParam(required=false, defaultValue = "8") Integer pageSize){
 		
 		int sortType_int = Integer.parseInt(sortType);
-		//sortType 1 : 신상품순
-		//sortType 2 : 인기순
-		//sortType 3 : 낮은가격순
-		//sortType 4 : 높은가격순
 		System.out.println("p_midCate = " + p_midCate + " p_cateNum = " + cateNum);
 		
+		System.out.println(pageSize);
 		// list_num 에 따라서 12개씩~ 현재는 5개씩보여주는 상태임
-		int endNum = Integer.parseInt(pg)*5;
-		int startNum = endNum-4;
+		int endNum = Integer.parseInt(pg)*pageSize;
+		int startNum = endNum-(pageSize-1);
 		
 		System.out.println("리스트 생성 pg : " + pg + " endNum = " + endNum + " startNum = " + startNum + " sortType = " + sortType);
 		Map<String, String> map = new HashMap<String, String>();
@@ -83,38 +89,52 @@ public class CategoryController {
 		map.put("startNum", startNum+"");
 		map.put("endNum", endNum+"");
 		map.put("p_midCate", p_midCate);
+		
+		map.put("p_name", p_name);
+		
 		//List<Product_boardDTO> list = categoryDAO.getProduct_Board_list(map);
 		
 		List<Map<String, String>> list_map = null;
 		if(sortType_int == 2) {
 			System.out.println("인기순 들어옴");
-			list_map = categoryDAO.getProduct_Board_map_best(map);
+			map.put("order_type", "4");
 		}else if(sortType_int == 3){
 			System.out.println("낮은가격순 들어옴");
 			map.put("order_type", "1");
-			list_map = categoryDAO.getProduct_Board_map(map);
+			//list_map = categoryDAO.getProduct_Board_map(map);
 		}else if(sortType_int == 4){
 			System.out.println("높은가격순 들어옴");
 			map.put("order_type", "2");
-			list_map = categoryDAO.getProduct_Board_map(map);
+			//list_map = categoryDAO.getProduct_Board_map(map);
 		}else {
 			System.out.println("신상품순 들어옴");
 			map.put("order_type", "3");
-			list_map = categoryDAO.getProduct_Board_map(map);
+			//list_map = categoryDAO.getProduct_Board_map(map);
 		}
+		list_map = categoryDAO.getProduct_Board_map(map);
 		
 		System.out.println(list_map);
 		
-		int totalA = categoryDAO.getProduct_BoardTotalA(Integer.parseInt(cateNum));
+		//페이징 처리 검색어 구분해줘야함
+		
+		int totalA = categoryDAO.getProduct_BoardTotalA(map);
 		
 		categoryPaging.setCurrentPage(Integer.parseInt(pg));
 		categoryPaging.setPageBlock(3);
-		categoryPaging.setPageSize(5);
+		categoryPaging.setPageSize(pageSize);	//동적처리필요
 		categoryPaging.setTotalA(totalA);
-		categoryPaging.makePagingHTML();
-		
+		if(p_name != null && p_name.equals("no")) {
+			System.out.println("검색 안한거임 " + p_name);
+			categoryPaging.makePagingHTML();
+		}else {
+			System.out.println("검색 한거임 " + p_name);
+			categoryPaging.setP_name(p_name);
+			categoryPaging.makeSearchPagingHTML();
+		}
+		System.out.println("검색속성 정리 : " + "검색어 p_name : " + p_name + " 정렬방법 : " + sortType_int + " 현재페이지 : " + pg + " 시작페이지 : " + startNum + "끝페이지 : " + endNum + " 중분류 : " + p_midCate);
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("p_name", p_name);
 		mav.addObject("categoryPaging", categoryPaging);	//div 속에 넣어줘야함
 		mav.addObject("list", list_map);
 		mav.setViewName("jsonView");
@@ -124,7 +144,16 @@ public class CategoryController {
 	//모달창 데이터 채워서 반환해주는 메소드  		실행시점 : Quick View 클릭			컬러리스트와 사이즈리스트를 만들어서 반환해줘야할듯??
 	@RequestMapping(value="quickView", method=RequestMethod.POST)
 	public String quickView(@RequestParam Map<String, String> map,
+							HttpSession session,
 							Model model) {
+		
+		String session_email = (String) session.getAttribute("session_email");
+		if(session_email==null || session_email=="") {
+			  model.addAttribute("session_email", null);
+		  }else {
+			  model.addAttribute("session_email", session_email);
+		  }
+		
 		int cateNum = Integer.parseInt(map.get("cateNum"));		// 지울예정1
 		System.out.println("받아온 p_code : " + map.get("p_code"));
 		
@@ -138,6 +167,8 @@ public class CategoryController {
 		for(String data : image_arr) {
 			System.out.println("대표이미지 배열 리스트 : " + data);
 		}
+		System.out.println("이미지 첫번째 방 : " + image_arr[0]);
+		System.out.println("이미지 두번째 방 : " + image_arr[1]);
 		//대표이미지 나누기 끝
 		
 		

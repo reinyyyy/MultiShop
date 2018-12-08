@@ -66,7 +66,7 @@
 						<p class="card-text">Price: $320</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-dark">Outer 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Outer" class="btn btn-dark">Outer 이동</a>
 					</div>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 						<p class="card-text">price: $220</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-dark">Shoes 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Shoes" class="btn btn-dark">Shoes 이동</a>
 					</div>
 				</div>
 			</div>
@@ -90,7 +90,7 @@
 						<p class="card-text"> Price : $200</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-dark">Bottom 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Bottom" class="btn btn-dark">Bottom 이동</a>
 					</div>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 						<p class="card-text">Price: $240</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-dark">Top 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=3&p_midCate=Top" class="btn btn-dark">Top 이동</a>
 					</div>
 				</div>
 			</div>
@@ -181,7 +181,7 @@
 						<p class="card-text">Price : $1,998</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-primary">Computer/HW 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Laptop/Computer%20HardWare" class="btn btn-primary">Computer/HW 이동</a>
 					</div>
 				</div>
 			</div>
@@ -193,7 +193,7 @@
 						<p class="card-text">Price : $4,499</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-primary">Game 카테고리 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Game" class="btn btn-primary">Game 카테고리 이동</a>
 					</div>
 				</div>
 			</div>
@@ -205,7 +205,7 @@
 						<p class="card-text"> Price: $14,799</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-primary">Drone 카테고리 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Drone" class="btn btn-primary">Drone 카테고리 이동</a>
 					</div>
 				</div>
 			</div>
@@ -217,7 +217,7 @@
 						<p class="card-text">Price : $159</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-primary">Audio/Video 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=2&p_midCate=Audio/Video" class="btn btn-primary">Audio/Video 이동</a>
 					</div>
 				</div>
 			</div>
@@ -371,7 +371,7 @@
 						<p class="card-text">Price : $20</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-success">Fruit 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Vitamin" class="btn btn-success">Fruit 이동</a>
 					</div>
 				</div>
 			</div>
@@ -383,7 +383,7 @@
 						<p class="card-text">Price : $49</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-success">Carbohydrate 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Carbohydrate" class="btn btn-success">Carbohydrate 이동</a>
 					</div>
 				</div>
 			</div>
@@ -395,7 +395,7 @@
 						<p class="card-text"> Price: $39</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-success">Protein 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Protein" class="btn btn-success">Protein 이동</a>
 					</div>
 				</div>
 			</div>
@@ -407,7 +407,7 @@
 						<p class="card-text">Price : $9.99</p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-success">Spice 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Spice" class="btn btn-success">Spice 이동</a>
 					</div>
 				</div>
 			</div>

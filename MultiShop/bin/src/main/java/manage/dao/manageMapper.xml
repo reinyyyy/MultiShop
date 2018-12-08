@@ -79,13 +79,6 @@
 	<select id = "getSeq" resultType = "int">
 		select LAST_NUMBER-1 FROM user_sequences where sequence_name = 'PRODUCT_SEQ'
 	</select>
-	
-	<!-- 
-		p_status : A
-		p_name : 철원오대쌀
-		p_startDate : 2018/11/27
-		p_lastDate : 2018/11/28
-	 -->
 </mapper>  
 
 

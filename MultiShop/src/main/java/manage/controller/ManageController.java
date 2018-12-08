@@ -32,7 +32,7 @@ import notice.bean.NoticeDTO;
 @RequestMapping("/manage")
 public class ManageController {
 	
-	private static final String UPLOAD_PATH = "C:\\Users\\hyungyu\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	
 	@Autowired
 	private ManageDAO manageDAO;
@@ -145,7 +145,7 @@ public class ManageController {
 	                     //@ModelAttribute ProductDTO productDTO,
 	                     @RequestParam Map<String, String> map,
 	                     @RequestParam(value="p_option1[]") String[] p_option1_list,
-	                     @RequestParam(value="p_option2[]") String[] p_option2_list,
+	                     @RequestParam(value="p_option2[]", required=false) String[] p_option2_list,
 	                     @RequestParam(value="p_amount[]", required=false) String p_amount,      //재고  옵션선택 x
 	                     @RequestParam(value="p_amount[]_list", required=false) String[] p_amount_list,    //재고 옵션선택 o 
 	                     @RequestParam(value="p_contents") String p_contents){                  //jsp의 name 속성이름과 Product_DTO , Product_boardDTO 의 이름이 동일해야함..
@@ -159,7 +159,7 @@ public class ManageController {
 	      
 	      for(int i = 0; i < p_option1_list.length; i++) {
 	         System.out.println(p_option1_list[i]);
-	         System.out.println(p_option2_list[i]);
+	         //System.out.println(p_option2_list[i]);
 	         //System.out.println(p_amount_list[i]);
 	      }
 	      
@@ -202,14 +202,14 @@ public class ManageController {
 	         productDTO.setP_smallCate(map.get("p_smallCate"));
 	         productDTO.setP_name(map.get("p_name"));
 	         
-	         if(p_option1_list.length == 0) {         //option 선택안한경우   
-	            productDTO.setP_option1("");
-	            productDTO.setP_option2("");
-	            productDTO.setP_amount(Integer.parseInt(p_amount));
+	         if(p_option1_list.length == 0 || p_option2_list.length == 0) {         //option 선택안한경우   
+	        	 productDTO.setP_option1("");
+	        	 productDTO.setP_option2("");
+	        	 productDTO.setP_amount(Integer.parseInt(p_amount));
 	         }else {                              //option 선택한경우
-	            productDTO.setP_option1(p_option1_list[i]);
-	            productDTO.setP_option2(p_option2_list[i]);
-	            productDTO.setP_amount(Integer.parseInt(p_amount_list[i]));
+	        	 productDTO.setP_option1(p_option1_list[i]);
+	        	 productDTO.setP_option2(p_option2_list[i]);
+	        	 productDTO.setP_amount(Integer.parseInt(p_amount_list[i]));
 	         }
 	         
 	         productDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
@@ -295,9 +295,9 @@ public class ManageController {
 	      
 	      //MAV 시작
 	      ModelAndView mav = new ModelAndView();
-	      mav.addObject("detail_image", detail_image);
-	      mav.addObject("display", "/manage/test.jsp");
-	      mav.setViewName("/section/adminIndex");
+	     // mav.addObject("detail_image", detail_image);
+	      //mav.addObject("display", "/manage/test.jsp");
+	      mav.setViewName("redirect:/manage/productAdd.do");
 	      return mav;
 	   }
 	
@@ -339,6 +339,14 @@ public class ManageController {
 	public @ResponseBody int inquiryUpdate(int i_seq,String i_inquiry) {
 		return manageDAO.inquiryUpdate(i_seq, i_inquiry);
 	}
+	
+	/*1:1문의*/
+	@RequestMapping(value="inquiryInsert", method=RequestMethod.POST)
+	public @ResponseBody int inquiryInsert(@ModelAttribute InquiryDTO inquiryDTO) {
+		return manageDAO.inquiryInsert(inquiryDTO);
+	}
+	
+	
 	//공지사항페이지
 	@RequestMapping(value="noticePage", method=RequestMethod.GET)
 	public ModelAndView noticePage(@ModelAttribute ModelAndView mav) {
@@ -405,12 +413,12 @@ public class ManageController {
    }
    
    //제품관리페이지
- 	@RequestMapping(value="productManagePage", method=RequestMethod.GET)
- 	public ModelAndView productManagePage(@ModelAttribute ModelAndView mav) {
- 		mav.addObject("display", "/manage/productManagePage.jsp");
- 		mav.setViewName("/main/adminIndex");
- 		return mav;
- 	}
+   @RequestMapping(value="productManagePage", method=RequestMethod.GET)
+   public ModelAndView productManagePage(@ModelAttribute ModelAndView mav) {
+	   mav.addObject("display", "/manage/productManagePage.jsp");
+	   mav.setViewName("/main/adminIndex");
+	   return mav;
+   }
    //제품관리 리스트
    @RequestMapping(value="productManageList", method=RequestMethod.POST)
    public ModelAndView productManageList() {

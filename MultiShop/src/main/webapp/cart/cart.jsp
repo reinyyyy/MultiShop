@@ -14,82 +14,124 @@
  <div class="container">
  
  <c:if test="${map.count==0 }">
- 	  장바구니가 비었습니다. 	
+ 	 <img src="../image/cartempty.gif" width="100%">
 </c:if>
 
  <c:if test="${map.count!=0 }">
- <form name="cartForm" id="cartForm" method="post" action="http://localhost:8080/MultiShop/cart/update.do">
+ <div style= "text-align:center;">
+ <img src="../image/shoppingbasket.png" width="13%">
+ </div>
+ <div style="text-align:center;">
+ <img src="../image/for.jpg" width="10%">
+ <img src="../image/basketcozy.jpg" width="10%">
+ </div>
+ <i class="fas fa-cart-arrow-down fa-3x"></i>
+
+ <form name="cartForm" id="cartForm" method="post" action="update.do">
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
-							<th style="width:65%">상품명</th>
-							<th style="width:10%">가격</th>
-							<th style="width:8%">수량</th>
-							<th style="width:22%" class="text-center">합계</th>
+							<th style="width:*;" class="text-center">상품명</th>
+							<th style="width:10%;">가격</th>
+							<th style="width:7%;" class="text-center">수량</th>
+							<th style="width:22%" class="text-center">소계</th>
 							<th style="width:10%">변경사항</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
-						<td>
-							${row.p_name}
+						<td data-th="Product">
+						<div class="row"> 
+						<div class="col-sm-2 hidden-xs">
+							<img src="../upload/${row.p_image}" class="img-fluid"/>
+						</div>
+						<div class="col-sm-10"">
+							<div class="row">
+								<div class="col">
+								<h5>${row.p_name}</h5>
+								</div>
+								<div class="col">
+								<p><strong>${row.p_option1}</strong></p>
+								<p><strong>${row.p_option2}</strong></p>
+								</div>
+													
+								</div>
+							</div>
+						</div>
 						</td>
 						<td>
-							<fmt:formatNumber pattern="###,###,###" value = "${row.p_cost}"/>
+							<fmt:formatNumber type="currency" currencySymbol="￦" value = "${row.p_cost}"/>
 						</td>
 						<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="${row.p_amount}">
-								<input type="hidden" name="p_code" value=" ${row.p_code}"/>
+								<div class="row">	
+								<div class="amount_change">
+									<input type="number" name="p_amount" id="p_amount" class="form-control text-center" value="${row.p_amount}" min="1">
+									<input type="hidden" name="p_code" value="${row.p_code}"/>
+							<!-- 	<div style="display: inline-block; width: 50%;">
+									<button type="button" id="up"class="btn btn-success" style="margin-left: 5px;"><i class="fas fa-caret-up"></i></button>
+									<button type="button" id="down" class="btn btn-danger"><i class="fas fa-caret-down"></i></button>													
+								</div> --></div>
+								</div>
 							</td>
 						<td data-th="Total" class="text-center">
-							<fmt:formatNumber pattern="###,###,###" value = "${row.p_cost * row.p_amount}"/>
+						<div class="cart-subtotal">
+							<fmt:formatNumber  type="currency" currencySymbol="￦" value = "${row.p_cost * row.p_amount}"/>
+						</div>	
 						</td>
 						<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fas fa-sync-alt fa-spin"></i></button>
+								<button type="submit" class="btn btn-info btn-sm"><i class="fas fa-sync-alt fa-spin"></i></button>
 								<a href="delete.do?c_seq=${row.c_seq}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>								
 							</td>
 						</tr>
 					
 					</c:forEach>
-						<!-- <tr>
-							<td data-th="Product">
-								<div class="row">
-									<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
-									<div class="col-sm-10">
-										<h4 class="nomargin">상품 1</h4>
-										<p>설명1</p>
-									</div>
-								</div>
-							</td>
-							<td data-th="Price">$1.99</td>
-							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="1">
-							</td>
-							<td data-th="Total" class="text-center">1.99</td>
-							<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fas fa-sync-alt fa-spin"></i></button>
-								<button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>								
-							</td>
-						</tr> -->
 					</tbody>
 					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center"><strong>합계: <fmt:formatNumber pattern="###,###,###" value = "${map.sumMoney}"/></strong></td>
+						<tr class="visible-xs">				
+							<td class="text-center">
+							<div class="total" style="text-align:left;">
+								<strong>합계: <fmt:formatNumber type="currency" currencySymbol="￦" value = "${map.sumMoney}"/></strong>
+							</div>
+							</td>
 						</tr>
 						<tr>
 							<td><a href= "../category/categoryItemList.do?cateNum=3" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑 계속하기</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong></strong></td>
-							<td><a href="#" class="btn btn-success btn-block">결제하기 <i class="fa fa-angle-right"></i></a></td>
+							<td><a href="#" class="btn btn-success btn-block" id="cart_Btn">결제하기 <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
 				</table>
 		</form>
 	</c:if>
 </div>
-
-     <script type="text/javascript" src="../js/cart.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <script type="text/javascript" src="../js/cart.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#cart_Btn').on('click',function(){
+		//폼에 액션에 값을 변경해줘라
+		$('#cartForm').attr('action','/MultiShop/detail_page/cartOrderPage.do');
+		$('#cartForm').submit();
+		/* $.ajax({
+  		  type : 'POST',
+            url : '/MultiShop/detail_page/orderPage.do',
+            data : {'p_code': '${p_code}'
+                ,'p_amount':'${p_amount}'},
+            success : function(data){
+            	alert(JSON.stringify(data));
+          	  //location.href="../cart/cart.do?p_code="+p_code+"&p_amount="+p_amount;
+            },error : function(data){
+          	  alert("에러발생!!");
+            }
+         
+  	  });
+		 */
+	});
+	
+});
+</script>
 </html>
 
 

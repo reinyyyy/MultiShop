@@ -23,5 +23,4 @@ public interface NoticeDAO {
 
 	public List<QnaDTO> qnaList();
 
-
 }

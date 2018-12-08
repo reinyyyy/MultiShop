@@ -13,6 +13,8 @@
       update product set
       p_name=#{p_name},
       p_amount=#{p_amount},
+      p_option1=#{p_option1},
+      p_option2=#{p_option2},
       p_cost=#{p_cost},
       p_date=sysdate,
       p_status=#{p_status}
@@ -109,7 +111,7 @@
 	 	select count(*) from order_table where o_status= #{status}
 	 </select>
 	 <select id="totalSales" resultType="String">
-	 	select to_char(sum(p_cost*p_amount),'9,999,999') from order_table
+	 	select nvl(to_char(sum(p_cost*p_amount),'9,999,999'),0) from order_table where o_status = '배송완료'
 	 </select>
 	 
 	 <select id="memberList" resultType="memberDTO">
