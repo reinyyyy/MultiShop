@@ -33,7 +33,8 @@ import notice.bean.QnaDTO;
 @RequestMapping("/manage")
 public class ManageController {
 	
-	private static final String UPLOAD_PATH = "C:\Users\minggul\git\MultiShop\MultiShop\src\main\webapp\upload";
+	private static final String UPLOAD_PATH = "C:\\Users\\Jonghun\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	//private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	//private static final String UPLOAD_PATH = "C:\\Users\\jaewoo\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	//private static final String UPLOAD_PATH = "D:\\Spring\\workspace\\1\\MultiShop\\src\\main\\webapp\\upload";
 	
