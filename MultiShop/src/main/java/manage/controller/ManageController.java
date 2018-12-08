@@ -32,7 +32,7 @@ import notice.bean.NoticeDTO;
 @RequestMapping("/manage")
 public class ManageController {
 	
-	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	private static final String UPLOAD_PATH = "C:\\Users\\hyungyu\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	
 	@Autowired
 	private ManageDAO manageDAO;

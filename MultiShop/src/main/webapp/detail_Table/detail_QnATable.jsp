@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
-<table class="detail_QnATable" id="detail_QnATable" style ="width : 100%;">
+<table class="detail_QnATable" id="detail_QnATable" style ="width : 100%; text-align: center;">
 	<thead>
 		<tr>
 			<th width="70">답변상태</th>
@@ -23,15 +23,15 @@ function format ( d ) {
     // `d` is the original data object for the row
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
         '<tr>'+
-            '<td>사용자:</td>'+
+            '<td align="center">사용자:</td>'+
             '<td>'+d.id+'</td>'+
         '</tr>'+
         '<tr>'+
-            '<td>내용:</td>'+
+            '<td align="center">내용:</td>'+
             '<td>'+d.detail_QnAContent+'</td>'+
         '</tr>'+
         '<tr>'+
-            '<td>답변:</td>'+
+            '<td align="center">답변:</td>'+
             '<td>'+d.replyContent+'</td>'+
         '</tr>'+
     '</table>';
@@ -53,6 +53,12 @@ $(document).ready(function(){
 			{"data":"id"},
 			{"data":"logtime"}
 		],
+		"columnDefs": [{
+			"render":function(data,type,row){
+					return "";
+			},
+			"targets":0
+			}],
 		"order": [[1, 'asc']],
 		"searching" : true,
 		responsive : true,

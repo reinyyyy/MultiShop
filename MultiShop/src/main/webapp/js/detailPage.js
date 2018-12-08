@@ -1,37 +1,5 @@
 $(document).ready(function(){
-   /*//총합계 가격
-   var totalPrice = parseFloat($('#totalPrice').text());
-   $('#totalPrice').text(totalPrice.toLocaleString());
-   
-   //수량이 변경 할 때
-   $(document).on('change',"#detail_amountSelect",function(){
-      // 선택된 개수 값
-      var select_amount = $('#detail_amountSelect').val();
-      
-      if(select_amount==1){
-         $('#totalPrice').text((totalPrice).toLocaleString());
-      }else if(select_amount==2){
-         $('#totalPrice').text((totalPrice*2).toLocaleString());
-      }else if(select_amount==3){
-         $('#totalPrice').text((totalPrice*3).toLocaleString());	
-      }else if(select_amount==4){
-         $('#totalPrice').text((totalPrice*4).toLocaleString());
-      }else if(select_amount==5){
-         $('#totalPrice').text((totalPrice*5).toLocaleString());
-      }else if(select_amount==6){
-         $('#totalPrice').text((totalPrice*6).toLocaleString());
-      }else if(select_amount==7){
-         $('#totalPrice').text((totalPrice*7).toLocaleString());
-      }else if(select_amount==8){
-         $('#totalPrice').text((totalPrice*8).toLocaleString());
-      }else if(select_amount==9){
-         $('#totalPrice').text((totalPrice*9).toLocaleString());
-      }else if(select_amount==10){
-         $('#totalPrice').text((totalPrice*10).toLocaleString());
-      }
-   });*/
-   
-   
+  
    //장바구니 버튼(a태그)
    $('#basketBtn').on('click',function(){
       var session_email = $('#session_email').val();
@@ -72,29 +40,7 @@ $(document).ready(function(){
       });
       
    });
-   
-   //바로구매 버튼(a태그)
-   /*
-   $('#buyNowBtn').on('click',function(){
-	  var option_select1 = $('#option_select1').val();
-      var option_select2 = $('#option_select2').val();
-      var select_amount = $('#amount_input').val();
-      var session_email = $('#session_email').val();
-      
-      if(session_email.length<=0){
-    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
-	    	  
-    	  //바로구매 비 로그인시
-    	  $('#detail_loginBtn').click(function(){
-    		  $('#non_loginCloseBtn').trigger('click');
-    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
-		  });
-      }else if(session_email.length>0){
-    	  $('#detail_form').submit();
-      }
-      
-      
-   });*/
+  
    
    //-----------------------------------------------------------------------
    //양현규
@@ -117,8 +63,7 @@ $(document).ready(function(){
          var detail_hoogiModalContent = $('#detail_hoogiModalContent').val();
          var id = $('#session_email').val();
          alert(id);
-         /*var p_code = $('#p_code').val();*/
-         var p_code = 1;
+         var p_code = $('#p_code').val();
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_hoogi.do',
@@ -159,8 +104,7 @@ $(document).ready(function(){
       }
       else{
          var id = $('#session_email').val();
-    	  /*var p_code = $('#p_code').val();*/
-    	  var p_code = 1;
+    	  var p_code = $('#p_code').val();
          var condition = $('input[name="detail_QnACondition"]:checked').val();
          var detail_QnASubject = $('#detail_QnASubject').val();
          var detail_QnAContent = $('#detail_QnAContent').val();

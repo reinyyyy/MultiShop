@@ -126,7 +126,7 @@
        update DETAIL_QNA SET REPLYCONTENT = #{replyContent}, reply=#{reply} where p_code = #{p_code} and seq = #{seq}
     </update>
     
-    <select id="productQnaproductQnaAnswerListAnswerList" parameterType="java.util.Map" resultType="detail_QnADTO">
+    <select id="productQnaAnswerList" parameterType="java.util.Map" resultType="detail_QnADTO">
        select * from detail_QnA where p_code = #{p_code} and seq=#{seq}
     </select>
     

@@ -140,6 +140,7 @@ public class DetailController {
       //System.out.println("amount_list : " + amount_list);
       System.out.println("p_code="+p_code);
       
+      session.setAttribute("p_code", map.get("p_code"));
       model.addAttribute("detail_image_arr", detail_image_arr);
       model.addAttribute("cateNum", cateNum);
       //model.addAttribute("product_boardDTO", product_boardDTO);
@@ -361,8 +362,8 @@ public class DetailController {
    
  //후기 테이블 보여지게 하는 코드
    @RequestMapping(value="detail_hoogiPage", method=RequestMethod.GET)
-   public ModelAndView detail_hoogiPage(/*@RequestParam int p_code*/) {
-	   int p_code = 1;
+   public ModelAndView detail_hoogiPage(HttpSession session) {
+	   int p_code = Integer.parseInt((String)session.getAttribute("p_code"));
 	   List<DetailhoogiDTO> detail_hoogiTableList = detailDAO.detail_GetReViewTableList(p_code);
 	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_hoogiTableList);
 	   
@@ -370,8 +371,8 @@ public class DetailController {
    }
    //Q&A 테이블 보여지게 하는 코드
    @RequestMapping(value="detail_QnAPage", method=RequestMethod.GET)
-   public ModelAndView detail_QnAPage(/*@RequestParam int p_code*/) {
-	   int p_code = 1;
+   public ModelAndView detail_QnAPage(HttpSession session) {
+	   int p_code = Integer.parseInt((String)session.getAttribute("p_code"));
 	   List<DetailQnADTO> detail_QnATableList = detailDAO.detail_GetQnATableList(p_code);
 	   ModelAndView modelAndView = new ModelAndView("jsonView","data",detail_QnATableList);
 	   
