@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cart.dao.CartDAO;
 import category.bean.ProductDTO;
 import category.bean.Product_boardDTO;
 import category.dao.CategoryDAO;
@@ -50,6 +52,16 @@ public class DetailController {
    private Product_boardDTO product_boardDTO;
    @Autowired 
    private CategoryDAO categoryDAO;
+   @Autowired
+   private CartDAO cartDAO;
+   
+   //배송번호 랜덤값 생성
+   public String makeD_code() {   
+       String uuid = UUID.randomUUID().toString().replaceAll("-", ""); // -를 제거해 주었다. 
+       uuid = uuid.substring(0, 7); //uuid를 앞에서부터 10자리 잘라줌. 
+       return uuid;
+    }
+   
    //상세페이지
    @RequestMapping(value="detailPage", method=RequestMethod.GET)
    public String detailPageView(@RequestParam Map<String, String> map, @RequestParam int p_code, Model model, HttpSession session) {
@@ -57,7 +69,7 @@ public class DetailController {
     String session_email = (String) session.getAttribute("session_email");
 	  System.out.println("아이디값="+session_email);
 	  
-	  if(session_email==null && session_email=="") {
+	  if(session_email==null || session_email=="") {
 		  model.addAttribute("session_email", null);
 	  }else {
 		  model.addAttribute("session_email", session_email);
@@ -73,15 +85,22 @@ public class DetailController {
       System.out.println("받아온 p_code : " + map.get("p_code"));
       ProductDTO productDTO = categoryDAO.getProduct(Integer.parseInt(map.get("p_code")));         //대표가 되는 DTO 빼내어왔음
       System.out.println("대표 상품 DTO : " + productDTO);
+      System.out.println();
+      System.out.println(productDTO.getP_cost());
       
       //대표상품 대표 이미지 최대 5개 나누기
       String[] image_arr = productDTO.getP_image().split("/");
       for(String data : image_arr) {
-         System.out.println("대표이미지 배열 리스트 : " + data);
+         //System.out.println("대표이미지 배열 리스트 : " + data);
       }
+      
+      String[] detail_image_arr = product_boardDTO.getP_image().split("/");
+      
       //대표이미지 나누기 끝
       int p_group = productDTO.getP_code();                              //대표 DTO p_code로 p_group 값 사용할 예정
       List<ProductDTO> group_list = categoryDAO.getGroup(p_group);            //대표 DTO p_code 에 얽힌 모든 p_group 들 불러다 리스트에 담음
+      
+      
       //String[] option1_arr = new String[group_list.size()];
       /*
          같은 그룹의 옵션 이름은 모두 같기때문에 대표상품의 option의 길이만큼 for 돌게만들자
@@ -89,7 +108,7 @@ public class DetailController {
       */
       if(productDTO.getP_option1() != null) {
          int option_length = productDTO.getP_option1().split("/").length;         // 구분자로 나눈 옵션1 의 길이 구함
-         System.out.println("option_length 의 길이 : " + option_length);
+         //System.out.println("option_length 의 길이 : " + option_length);
          
          ArrayList<ArrayList<String>> option_result_list = new ArrayList<ArrayList<String>>(); 
          
@@ -105,7 +124,7 @@ public class DetailController {
             }
             
             for(String data : option_list) {
-               System.out.println("option_list"+i+" : " + data);
+               //System.out.println("option_list"+i+" : " + data);
             }
             //List 를 배열로
             option_result_list.add(option_list);
@@ -113,14 +132,17 @@ public class DetailController {
          model.addAttribute("option_result_list", option_result_list);
       }
       
-      System.out.println("그룹들사이즈 : " + group_list.size());
+      //System.out.println("그룹들사이즈 : " + group_list.size());
       int[] amount_list = new int[group_list.size()];
       for(int i = 0; i < group_list.size(); i++) {
          amount_list[i] = group_list.get(i).getP_amount();
       }
-      System.out.println("amount_list : " + amount_list);
+      //System.out.println("amount_list : " + amount_list);
+      System.out.println("p_code="+p_code);
       
-      model.addAttribute("product_boardDTO", product_boardDTO);
+      model.addAttribute("detail_image_arr", detail_image_arr);
+      model.addAttribute("cateNum", cateNum);
+      //model.addAttribute("product_boardDTO", product_boardDTO);
       model.addAttribute("amount_list", amount_list);
       model.addAttribute("productDTO", productDTO);
       model.addAttribute("group_list", group_list);
@@ -130,198 +152,209 @@ public class DetailController {
       return "/main/main";
    }
    
-   //재우 임시 ㅁㄴㅇ
-   /*@RequestMapping(value="getDetailPage", method=RequestMethod.POST)
-   public ModelAndView getDetailPage(@RequestParam int p_code, HttpSession session) {
+   //장바구니결재시
+   @RequestMapping(value="cartOrderPage", method=RequestMethod.POST)
+   public ModelAndView cartOrderPage(Model model, @RequestParam Map<String, String> map, HttpSession session) {
+	   String session_email = (String) session.getAttribute("session_email");
+	   String email = session_email;
 	   
-	   List<DetailDTO> detail_list = detailDAO.getDetailPageSource(p_code);
-	   System.out.println(detail_list);
 	   System.out.println();
-	   System.out.println(detail_list.size());
-	   System.out.println("-----------------");
-  
-	   for(int i=0; i<=detail_list.size()-1; i++) {
-		   System.out.println(detail_list.get(i).getP_option1()+"\t"+" "+detail_list.get(i).getP_option2()+"\t"+detail_list.get(i).getP_amount());
-	   }
+	   System.out.println("cartOrderPage.do의맵==="+map);
 	   
 	   ModelAndView mav = new ModelAndView();
-	   //mav.addObject("detail_list", detail_list);
-	   mav.addObject("product_boardDTO", product_boardDTO);
-	   mav.addObject("p_code", p_code);
-	   mav.setViewName("jsonView");
+	   
+	   memberDTO = memberDAO.getZipcode(email);
+	   if(email!=null&&email!="") {
+    	  //다시 DB가고
+          memberDTO = memberDAO.getZipcode(email);
+          System.out.println("@@memberDTO="+memberDTO+"@@@");
+          //model.addAttribute("memberDTO", memberDTO);
+          mav.addObject("memberDTO", memberDTO);
+	   }
+	   //장바구니결재시
+	   Map<String, Object> cartMap = new HashMap<String, Object>();
+		
+	   List<Map<String,String>> list = cartDAO.cartList(email);
+	   
+	   for(int i=0; i<list.size(); i++) {
+		   System.out.println(list.get(i));
+		   System.out.println(list.get(i).get("p_image"));
+		   System.out.println(list.get(i).get("p_name"));
+		   //p_code같은 인트형 은 내가위에 List<Map<String,String>으로 했기때문에 출력이안되서 String.valueOf를 사용했다 (안하면오류 겁나남)
+		   System.out.println(String.valueOf(list.get(i).get("p_code")));
+	   }
+	   cartMap.put("list", list);
+	   cartMap.put("count", list.size());
+	   
+	   MemberDTO memberDTO2 = memberDAO.getZipcode(session_email);
+	   int m_point =  memberDTO2.getM_point();
+	   //장바구니비우기
+	   cartDAO.delete(email);
+	   
+	   
+	   //쿠폰 유무 확인
+	   memberDTO = detailDAO.getCoupon(session_email);
+	   mav.addObject("coupon", memberDTO.getM_coupon());
+	   mav.addObject("m_point",m_point);
+	   mav.addObject("cartMap",cartMap);
+	   mav.addObject("section","/detail_page/orderPage.jsp");
+	   mav.setViewName("/main/main");
 	   return mav;
-   }*/
-   
-   //재우 DB에서 재고 확인 후 살 수 있는 사이즈만 동적으로 추가 해 주는 것
-   /*
-   @RequestMapping(value="getSelectBox", method=RequestMethod.POST)
-   public ModelAndView getSelectBox(@RequestParam String selectColor) {
-	   //System.out.println("선택된 값 : "+selectColor);
-	   
-	   //임시
-	   int p_code = 3;
-	   List<DetailDTO> dtoList = detailDAO.getDetailPageSource(p_code);
-	   System.out.println("dtoList = " + dtoList);
-	   
-	   String option1="";
-	   String option2 ="";
-	   String[] option2_arr = new String[dtoList.size()];
-	   for(int i=0; i<dtoList.size(); i++) {
-		   System.out.println(dtoList.get(i).getP_amount());
-		   //System.out.println(dtoList.get(i).getP_option1()+"\t"+" "+dtoList.get(i).getP_option2());
-		   option1 = (String) dtoList.get(i).getP_option1();
-		   option2_arr[i] = dtoList.get(i).getP_option2()+"/"+dtoList.get(i).getP_amount();
-		   System.out.println("option1===="+option1);
-		   System.out.println("option2===="+option2);
-		   System.out.println("**************************");
-		   System.out.println("option1="+option1.split("/"));
-		   String[] color_size1 = option1.split("/");
-		   System.out.println(color_size1[0]);
-		   System.out.println(color_size1[1]);
-		   System.out.println("@@@@@@@@@");
-		   
-		   System.out.println("option2="+option2.split("/"));
-		   String[] color_size2 = option2.split("/");
-		   System.out.println(color_size2[0]);
-		   System.out.println(color_size2[1]);
-	   }
-	   //System.out.println("for문밖 option1="+option1);
-	   
-	   
-	   for(String data : option2_arr) {
-		   System.out.println(data);
-		   System.out.println("--------");
-		   String option2_arrSplit[] = data.split("/");
-		   
-		   for(String data2 : option2_arrSplit) {
-			   System.out.println("split=="+data2);
-			   System.out.println("====end====");
-		   }
-		   
-	   }
-	   
-	   String arr2[] = arr[0].split("/");
-	   
-	   for(String data2 : arr2) {
-		   System.out.println(data2);
-	   }
-	   
-	   List<String> sizeList = new ArrayList();
-	   
-	   if(selectColor.equals("black")) {
-		   sizeList.add("S");
-		   sizeList.add("M");
-		   sizeList.add("L");
-		   sizeList.add("XL");
-	   }else if(selectColor.equals("green")) {
-		   sizeList.add("XS");
-		   sizeList.add("S");
-		   sizeList.add("M");
-	   }else if(selectColor.equals("white")) {
-		   sizeList.add("L");
-		   sizeList.add("XL");
-	   }else if(selectColor.equals("begie")) {
-		   sizeList.add("XXL");
-	   }
-	   //System.out.println(sizeList+"갯수=="+sizeList.size());
-	   
-	   ModelAndView mav = new ModelAndView();
-	   mav.addObject("sizeList", sizeList);
-	   mav.setViewName("jsonView");
-	   return mav;
-   }*/
-   
-   
-   //결재화면
-   @RequestMapping(value="orderPage", method=RequestMethod.POST)
-   public String orderPage(Model model, @RequestParam Map<String, String> map, 
-                               @RequestParam(value="amount_input") String amount, 
-                               @RequestParam int productCode, 
-                               @RequestParam String productName,
-                               HttpSession session) {
-      
-      String session_email = (String) session.getAttribute("session_email");
-      System.out.println("@@"+session_email);
-      System.out.println();
-      System.out.println(map);
-      System.out.println(amount);
-      System.out.println(productCode);
-      /*model.addAttribute("color", color);
-      model.addAttribute("size", size);*/
-      model.addAttribute("amount", amount);
-      model.addAttribute("productCode", productCode);
-      model.addAttribute("productName", productName);
-      model.addAttribute("session_email", session_email);
-      model.addAttribute("section", "/detail_page/orderPage.jsp");
-      return "/main/main";
    }
    
-   //결재화면 ajax로 불러오기
-   @RequestMapping(value="getOrderPage", method=RequestMethod.POST)
-   public ModelAndView getOrderPage(@RequestParam String color,
-                              @RequestParam String size,
-                              @RequestParam String amount,
-                              @RequestParam String productCode, 
-                              @RequestParam String productName, HttpSession session) {
+   
+   //바로결재 결재화면
+   @RequestMapping(value="orderPage", method=RequestMethod.POST)
+   public String orderPage(Model model, @RequestParam Map<String, String> map, 
+                               HttpSession session) {
       
-	  String email = (String) session.getAttribute("session_email");
-	      
-	  System.out.println(email+"@@@@@@@@@@@@"); 
+	  String option1 = map.get("option_select1");
+	  String option2 = map.get("option_select2");
 	  
-      System.out.println("@@"+color+size+amount+productCode+productName+"@@");
+	  String session_email = (String) session.getAttribute("session_email");
+	  String email = session_email;
+	  
+	  
+	  MemberDTO memberDTO2 = memberDAO.getZipcode(session_email);
+	  int m_point =  memberDTO2.getM_point();
+	  
+      System.out.println();
+      System.out.println("orderPage.do의맵==="+map);
       
-      
-      detailDTO.setP_option1(color);
-      detailDTO.setP_option2(size);
-      detailDTO.setP_amount(Integer.parseInt(amount));
-      detailDTO.setP_code(Integer.parseInt(productCode));
-      detailDTO.setP_name(productName);
-      detailDTO.setP_cost(99000);
-      //detailDTO.getP_cost();
-      
-      System.out.println(detailDTO);
-      
-      ModelAndView mav = new ModelAndView();
-      mav.addObject("detailDTO", detailDTO);
-      mav.setViewName("jsonView");
-      
+      memberDTO = memberDAO.getZipcode(email);
       if(email!=null&&email!="") {
     	  //다시 DB가고
           memberDTO = memberDAO.getZipcode(email);
           System.out.println("@@memberDTO="+memberDTO+"@@@");
-          mav.addObject("memberDTO", memberDTO);
+          model.addAttribute("memberDTO", memberDTO);
       }
       
-      return mav;
+      Map<String,String> nomalMap = new HashMap<String,String>();
+      nomalMap.put("myMileage",String.valueOf(m_point));
+      nomalMap.put("p_code",map.get("p_code"));
+      nomalMap.put("p_name",map.get("p_name"));
+      nomalMap.put("p_cost",map.get("p_cost"));
+      nomalMap.put("p_option1",option1);
+      nomalMap.put("p_option2",option2);
+      nomalMap.put("p_amount",map.get("amount_input"));
+      //확인하는것
+      int count=0;
+      if(nomalMap.get("p_code")!=null) {
+    	  count=1;
+      }
+      nomalMap.put("count",String.valueOf(count));
+      System.out.println("노말맵!!@@@=="+nomalMap);
+      
+      //쿠폰 유무 확인
+      memberDTO = detailDAO.getCoupon(session_email);
+	  
+      model.addAttribute("coupon", memberDTO.getM_coupon());
+      
+      model.addAttribute("nomalMap", nomalMap);
+      model.addAttribute("session_email", session_email);
+      model.addAttribute("section", "/detail_page/orderPage.jsp");
+      return "/main/main";
    }
-   
+      
    //전재우 결재완료
-   @RequestMapping(value="orderOk", method=RequestMethod.POST)
-   public @ResponseBody String orderOk(@RequestParam Map<String,String> map, HttpSession session) {
-	   
+   @RequestMapping(value="orderSuccess", method=RequestMethod.POST)
+   public @ResponseBody String Success(@RequestParam Map<String,String> map, @RequestParam String[] p_code, @RequestParam String[] p_amount,@RequestParam String[] p_cost, HttpSession session) {
 	   String email = (String) session.getAttribute("session_email");
-	      
 	   System.out.println(email+"@@@@@@@@@@@@");
 	   map.put("m_email", email);
+	   System.out.println("Mapppppp"+map);
+	   //System.out.println("길이피코드"+p_code.length);
 	   
-	   //임의로 추가 한 것
-	   map.put("d_code", "임의배송번호");//나중에 seq로 바꿔서 하자!!
-	   map.put("o_status", "배송대기");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 배송준비중으로 한 것
-	   System.out.println(map);
-	   //재고확인 dao
-	   if(detailDAO.getClothes(map)==1) {
-		   System.out.println("성공크!");
-		   //재고 update
-		   detailDAO.updateOneClothes(map);
-		   //orderDAO 에 추가
-		   orderDAO.insertOrder(map);
-		   
-		   return "exist";
-	   }else {
-		   System.out.println("실패애애@");
-		   return "non_exist";
+	   //마일리지를 사용할 시 val = 1 사용안하면 val = 0
+	   int useMileage = Integer.parseInt(map.get("useMileage"));
+
+	   //사용자의 마일리지가 없이 시작하는 경우
+	   if(map.get("myMileageHid")=="") {
+		   map.put("myMileageHid", "0");
 	   }
+	   //내 마일리지
+	   String Mymileage = map.get("myMileageHid");
+	   System.out.println("마아아아이릴ㄹ"+Mymileage);
+	   if(p_code.length>1 && p_code!=null) {
+		   System.out.println("다중결재");
+		   HashMap<String, String> multiMap = new HashMap();
+		   multiMap.put("m_email", email);
+		   multiMap.put("m_zipcode", map.get("m_zipcode"));
+		   multiMap.put("m_roadAddress", map.get("m_roadAddress"));
+		   multiMap.put("m_jibunAddress", map.get("m_jibunAddress"));
+		   multiMap.put("m_point", map.get("m_point"));
+		   multiMap.put("myMileageHid", Mymileage);
+		   System.out.println();
+		   //임의 추가
+		   multiMap.put("d_code", makeD_code());//배송번호 랜덤값으로 추가
+		   multiMap.put("o_status", "배송대기");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 베송대기
+		   
+		   for(int i=0; i<p_code.length; i++) {
+			   multiMap.put("p_code",p_code[i]);
+			   multiMap.put("p_amount",p_amount[i]);
+			   multiMap.put("p_cost",p_cost[i]);
+			   System.out.println(multiMap+"====asd");
+			   if(detailDAO.getClothes(multiMap)==1) {
+				   //재고 update
+				   detailDAO.updateOneClothes(multiMap);
+				   //orderDAO 에 추가
+				   orderDAO.insertOrder(multiMap);
+				   //useMileage  = orderPage에서 히든값으로 벨류를 0잡아놔서 마일리지를 사용하면 벨류값을 1으로 변경하게 한것
+				   System.out.println("성공!!!!!");
+			   }else {
+				   return "non_exist";
+			   }
+		   }//for
+		   
+		   if(useMileage==1) {
+			   //마일리지 사용
+			   memberDAO.useMpoint(multiMap);
+		   }
+		   //마일리 적립 업데이트
+		   memberDAO.update_Mpoint(multiMap);
+		   return "exist";
+		   
+	   } else{
+		   System.out.println("--단일결재--");
+		   //임의 추가
+		   map.put("d_code", makeD_code());//배송번호 랜덤값으로 추가
+		   map.put("o_status", "배송대기");// 나중에 판매자가 변경하는 것이기에 처음엔 무조건 베송대기
+		   
+		   System.out.println();
+		   System.out.println("맵="+map);
+		   System.out.println("-------------");
+		   // 다시한번 재고확인
+		   if(detailDAO.getClothes(map)==1) {
+			   //재고 update
+			   detailDAO.updateOneClothes(map);
+			   //orderDAO 에 추가
+			   orderDAO.insertOrder(map);
+			   //useMileage  = orderPage에서 히든값으로 벨류를 0잡아놔서 마일리지를 사용하면 벨류값을 1으로 변경하게 한것
+			   if(useMileage==1) {
+				   //마일리지 사용
+				   memberDAO.useMpoint(map);
+			   }
+			   //마일리 적립 업데이트
+			   memberDAO.update_Mpoint(map);
+			   
+			   System.out.println("성공!!!!!");
+			   return "exist";
+		   }else {
+			   System.out.println("실패애애@");
+			   return "non_exist";
+		   }
+		   
+	   }//단일 주문시 
 	   
+	   
+	   
+   }
+   
+   //현규형 쿠폰 
+   @RequestMapping(value="couponDelete", method=RequestMethod.POST)
+   public @ResponseBody void couponDelete (HttpSession session) {
+      String email = (String) session.getAttribute("session_email");
+      detailDAO.couponDelete(email);
    }
    
    //양현규--------------------

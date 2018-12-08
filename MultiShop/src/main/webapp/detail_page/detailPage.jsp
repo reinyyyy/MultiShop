@@ -22,20 +22,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<input type = "hidden" id="session_email" value="${session_email }">
-	<input type = "hidden" id="p_code" value="${p_code }">
+	<input type = "hidden" id="session_email" value="${session_email}">
+	<input type = "hidden" id="p_code" value="${p_code}">
+	<input type = "hidden" name = "p_status" id = "p_status" value = "">
    <header>
-      <div class="container" style="margin-bottom: 50px;">
+      <div class="container">
          <div id="productView">
          <div id="productPopup" >
             <div class="productPopupWrap">
                   <div class="popLeft">
                      <div class="popupSlide">
                           <div class="mask">
-                          	<img class="xzoom" id="detailMain_image" src="../image/coat1.jpg" xoriginal="../image/coat1.jpg">
+                          	<img class="xzoom" id="detailMain_image" src="../image/product_ready.jpg" xoriginal="../image/product_ready.jpg">
                           </div>
                        <div class="pagerWrap xzoom-thumbs" id="gallery_01" style="text-align:center;">
-                          <a href="#" class="">
+                          <!-- <a href="#" class="">
                              <img style="width:100px; height:100px;" class="xzoom-gallery" id="detailSub1_image" src="../image/coat1.jpg" xpreview="../image/coat1.jpg">
                           </a>      
                           <a href="#" class="">
@@ -46,13 +47,15 @@
                           </a>
                           <a href="#" class="">
                              <img style="width:100px; height:100px; " class="xzoom-gallery" id="detailSub4_image" src="../image/coat4.jpg">
-                          </a>
+                          </a> -->
                        </div>
                   </div>
                </div>
             <form id ="detail_form" method="post" action="orderPage.do">
+            <input type = "hidden" name="p_code" id = "p_code" value = "${p_code}">
+			
             <div class="popRight">
-               <span class="viewTitle">JCoat</span>
+               <span class="viewTitle">${productDTO.p_name}</span>
                <input type="hidden" id="productName" name="productName" value="JCoat">
 <!--                   <p class="sub">실 제본으로 책장이 넘기기 쉬운 노트</p> -->
                <p class="sub"></p>
@@ -62,14 +65,17 @@
                      <li>
                         <dl>
                            <dt>판매가</dt>
-                           <dd id="product_price"><fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" />￦</dd>      <!-- 가격 -->
+                           <%-- <dd id="product_price">￦&emsp;<fmt:formatNumber value="${productDTO.p_cost }" pattern="#,###" /></dd>      <!-- 가격 --> --%>
+                           <dd id = "cost">￦&emsp;<fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /> </dd>		<!-- 가격 -->
                         </dl>
                      </li>
-                     <input type="hidden" name="product_price" id="product_price" value="99000.0">
+                   
+                   
+                     <input type="hidden" name="p_cost" id="product_price" value="${productDTO.p_cost }">
                      <li>
                         <dl>
                            <dt>배송비</dt>
-                           <dd>2,500원 </dd>
+                           <dd>무료</dd>
                         </dl>
                      </li>
                   </ul>
@@ -78,7 +84,7 @@
                         <dl>
                            <dt>상품코드</dt>
                            <dt id="product_code">${p_code}</dt>
-                           <input type="hidden" name="productCode" id="productCode" value="${p_code}">
+                          
                            <!-- <input type="hidden" name="p_midCate" id="p_midCate" value="">
                            <input type="hidden" name="p_smallCate" id="p_smallCate" value=""> -->
                            
@@ -90,12 +96,12 @@
                            <dd>${productDTO.p_origin }</dd>
                         </dl>
                      </li>
-                     <li>
+                    <!--  <li>
                         <dl>
                            <dt>발송예정일</dt>
                            <dd>12월 25일 이내</dd>
                         </dl>
-                     </li>
+                     </li> -->
                      <!-- <li>
                         <dl>
                            <dt>색상</dt>
@@ -154,8 +160,9 @@
                      </div>
                      <div class="conWrap">
                         <div class="totalWrap">
-                           <span>총합계</span>
-                           <span id="totalPrice" class="totalPrice" totalp="99000.0">${p_ }</span>
+                           <span>총합계 </span>
+                           <%-- <span id="totalPrice" class="totalPrice" ><fmt:formatNumber value="${productDTO.p_cost}" pattern="#,###" /></span> --%>
+                           <span id="totalPrice" class="totalPrice" ></span>
                         </div>
                      </div>
                      <div class="btnWrap" style="text-align: right;">
@@ -217,11 +224,18 @@
          </div>
             <br><br>
             <%-- <h5>${product_boardDTO.p_image}</h5> --%>
-            <c:if test = "${product_boardDTO != null}">
+            <c:if test = "${detail_image_arr != null}">
+            	<c:forEach var="img" items="${detail_image_arr}" varStatus = "index">
+            		<c:if test = "${index.count != 1}">
+            			<img src="../upload/${img}"><br>
+            		</c:if>
+            	</c:forEach>
+            </c:if>
+<%--             <c:if test = "${product_boardDTO != null}">
             	<c:forEach var="img" items="${product_boardDTO.p_image }">
             		<img src="../upload/${product_boardDTO.p_image }">
             	</c:forEach>
-            </c:if>
+            </c:if> --%>
            <!-- <img style="width : 100%;" src="../image/makeup.jpg"><br> -->
            <!-- <img style="width : 100%;" src="../image/makeup1.jpg"> -->
        </section>
@@ -392,7 +406,7 @@
 } */
 
 $(document).ready(function(){
-	//이미지 확대 기능
+	/* //이미지 확대 기능
 	$(".xzoom").xzoom();
 	
 	//이미지 변경
@@ -414,7 +428,7 @@ $(document).ready(function(){
 	$('#detailSub4_image').click(function(){
 	   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
 	   $('#detailMain_image').attr('src', '../image/coat4.jpg');
-	});
+	}); */
 	
 	
 	
@@ -460,24 +474,36 @@ $(document).ready(function(){
 		
 	}); */
 	
-	var test = "${productDTO.p_image}";
-	var result = test.split('/');
+	var p_status = new Array();	//판매상태
 	
+	var img_param = "${productDTO.p_image}";
+	var result = img_param.split('/');
 	//alert(result[1]);
-	var img_tag = '<img class="xzoom" id = "detailMain_image" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
-	$('.mask').children().attr('src', '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
-	
+	//var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
+	$('.mask').children().attr('src',  '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
+	//$('.mask').html(img_tag);
+	var img_length = result.length-1;	//이미지 개수
+	var img_tag = '';
 	$.each(result, function(index, items){
-		if(index > 1){
-			img_tag += '<a href = "#" class = "sumImg"> <img style = "width: 100px; height : 100px;" id = "" src = "../upload/"'+items+'>';
+		if(index > 0 && items != undefined){
+			img_tag += '<a href = "#" class = "sumImg"> <img class="xzoom-gallery" style = "width: 100px; height : 100px;" id = "" src = "../upload/'+items+'">';
 		}
 	});
+	$('.pagerWrap').html(img_tag);
+	
+	
+	
 	/*
 				EL로 받아오면 모두 string 타입으로 데려오기때문에 [ 지워줘야함 ]
 	*/			
+	
+	
 	// 1. select 레이아웃 생성
 	// 2. option_DTO 생성
 	// 3. 상위 select 하나만 중복제거해서 보여주고, 그 아래 하위들은 동적으로 생성되게 만들기
+	
+	
+	
 	
 	var amount = [];//수량
 	amount[0] = '수량';
@@ -490,19 +516,44 @@ $(document).ready(function(){
 	var amount_index;
 	//alert("${option_result_list}");		[[색상, 블랙, 블랙, 레드, 레드], [사이즈, 미디움, 라지, 미디움, 스몰]]  Type = String
 	var total_size = 1;
+	
+	//옵션 없는경우 disabled 해제
+	var p_code_list = new Array();
+	
+	var no_option_index = 0;
+	<c:forEach items="${group_list}" var = "p_code" varStatus = "first_index">
+		p_code_list[Number("${first_index.count}")] = "${p_code.p_code}";
+		//alert("${p_code.p_code}" + "의 판매상태 : " + "${p_code.p_status}");
+		p_status[Number("${first_index.count}")] = "${p_code.p_status}";
+		no_option_index += 1;
+	</c:forEach>
+	p_code_list.splice(0, 1);
+	
+	
+	p_status.splice(0, 1);
+	//alert(p_status);
+	
+	
 	<c:forEach items="${option_result_list}" var="item1" varStatus = "first_index">
+		
 		var option_list = "${item1}";
 		//alert(option_list);		//index 0 : [색상, 블랙, 블랙, 레드, 레드], index 1 : [사이즈, 미디움, 라지, 미디움, 스몰]	Type = String //9:23
+		
+		
 		var split_result = option_list.replace('[', '').replace(']', '').split(/[\s,]+/);		
 		//inedx 0 : 색상,블랙,블랙,레드,레드	index 1 : 사이즈,미디움,라지,미디움,스몰	Type = 배열
+		
 		option_DTO["${first_index.count-1}"] = split_result;
 		amount_index = "${first_index.count}";
+		
 		//중복제거
 		var ovl_result = [];
 		$.each(split_result, function(i, el){
 			if($.inArray(el, ovl_result) === -1) ovl_result.push(el);
 		});
+		
 		//중복제거 후 코드
+		
 		$.each(ovl_result, function(index, item){
 			if(index == 0){
 				option_name = '<dt>'+item+'</dt>';
@@ -514,15 +565,7 @@ $(document).ready(function(){
 			}
 			class_index = index;		//클래스명 지을때 씀
 		});
-		/*	중복제거 전 코드 				
-		$.each(split_result, function(index, item){
-			if(index == 0){
-				option_name = '<dt>'+item+'</dt>';
-			}else {
-				option_tag += '<option value = "'+item+'" >'+item+'</option>';
-			}
-			class_index = index;
-		}); */
+		
 		option_result +=
 		'<li>'+
 			'<dl id = "option_'+class_index+'">'+
@@ -539,9 +582,7 @@ $(document).ready(function(){
 		'</li>';
 		option_tag = '<option>옵션선택</option>';
 	</c:forEach>
-	//option_DTO[amount_index] = [11, 22, 33, 44];
-	//alert(option_DTO);
-	//alert(option_DTO.length);
+	
 	var option_length = (option_DTO.length); //옵션 개수			
 	
 	<c:forEach items = "${amount_list}" var = "amount" varStatus = "amount_index">
@@ -551,13 +592,17 @@ $(document).ready(function(){
 	//alert(amount);
 	
 	option_DTO[amount_index] = amount; 
+	$.each(option_DTO, function(index, items){
+		//alert('완성본 option_DTO['+index+'] : ' + option_DTO[index]);		////9:23
+	});
+	
 	//[amount_index] 재고 인덱스
 	//{색상, 블랙, 블랙, 레드, 레드},
 	//{사이즈, 미디움, 라지, 미디움, 스몰},
 	//{사이즈, 11, 22, 33 , 42}
 	
 	// {블랙, 미디움, 11},
-	// {블랙, 라지, 22},
+	// {블랙, 미디움, 11},
 	// {블랙, 미디움, 11},
 	// {블랙, 미디움, 11},
 	
@@ -566,10 +611,11 @@ $(document).ready(function(){
 	
 	var result_DTO = new Array();
 	change_arr(option_DTO);
-	//
+	//p_code_list
 	//DTO 행열 바꿔주는 함수
 	function change_arr (arr){
 		//alert(arr.length);	//9:23
+		var j = 0;
 		var k = 1;
 		for(var i = 0; i < total_size-1; i++){
 			var temp_arr = new Array();
@@ -577,15 +623,11 @@ $(document).ready(function(){
 				temp_arr[index] = items[k];
 			});
 			k++;
+			temp_arr[temp_arr.length] = p_code_list[j]; 
 			result_DTO[i] = temp_arr;
+			j++;
 		}
 	}
-	/* alert(result_DTO[0]);
-	alert(result_DTO[1]);
-	alert(result_DTO[2]);
-	alert(result_DTO[3]);
-	 */
-	
 	//option_list_maker(result_DTO);
 	 
 	//하위 옵션 판단함수
@@ -597,7 +639,8 @@ $(document).ready(function(){
 		if(next_index == 1){	//첫옵션 선택시 초기화
 			//user_selected = new Array();
 			arr_clear(next_index);	
-			$('#amount_input').val(0);
+			$('#amount_input').val('');
+			$('#amount_input').attr('disabled', 'true');
 		}else{
 			arr_clear(next_index);	
 		}
@@ -614,7 +657,12 @@ $(document).ready(function(){
 				//alert('t : ' + items[next_index-1] + ' 같음');
 				if(option_length == next_index){		// 마지막 옵션 선택했을 경우
 					
-						//판단 필요한 거 : result_DTO[] 와  user_selected 에 비교해서 수량 빼내와야댐  
+					/*
+					
+						판단 필요한 거 : result_DTO[] 와  user_selected 에 비교해서 수량 빼내와야댐  
+						
+						
+					*/
 					
 					var cnt = 1;
 					//alert("포문돌기전 유저선택값 " + user_selected);			12/3 7:53
@@ -624,14 +672,29 @@ $(document).ready(function(){
 							//alert("같음!! " + items[j]);	
 							cnt += 1;
 						}else{
-							alert("다름!! " + items[j]);
+							//alert("다름!! " + items[j]);
 							cnt = 1;
 						}
 					}
 					if(cnt == user_selected.length+1){		//두 배열이 완전 똑같을경우
 						amount_op = items[cnt-1];
 						//alert("완전똑같음"+ items);			12/3 7:53
-						$('#amount_input').val(amount_op);								
+						$('#amount_input').val(1);			//과거 amount_op 엿음
+						$('#amount_input').attr('max', amount_op);
+						$('#amount_input').removeAttr('disabled');
+						$('#p_code').val(result_DTO[index][result_DTO[index].length-1]);	//p_code 선택된거 넘겨줌
+						//alert(index);
+						//alert(p_status[index]);
+						if(p_status[index] == 'Y'){
+							$('#product_code').html($('#p_code').val()).css('color', 'black');
+						}else{
+							$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
+							$('#amount_input').prop('disabled', true);
+							$('#amount_input').val('0');
+							
+							
+						}
+						
 					}
 					//alert(amount_op);	
 					
@@ -645,6 +708,8 @@ $(document).ready(function(){
 		$('#option_select'+(Number(next_index)+1)).html('<option>옵션선택</option>'+op);
 		
 	}
+	
+
 	
 	//선택한값 삭제 함수
 	function arr_clear(start_num){
@@ -679,40 +744,137 @@ $(document).ready(function(){
 			val += 1;
 		}
 	} 
-	//수량 생성
+	
+	
+	
+	
+	//사이즈 생성
 	var amount_input =
-				'<li>'+
-					'<dl id = "amount_list">'+
-						'<dd>' +
-							'<div>' +
-							'<dt>수량</dt><input id = "amount_input" type="number" min="0" max="99"'+
-									//'onkeydown="max_amount()"'+
-   									///'onKeyUp="if(this.value>99){this.value="99";}else if(this.value<0){this.value="0";}"'+
-								'id="yourid">'+
-							'</div>'+
-						'</dd>'+
-					'</dl>'+
-				'</li>';
-	$(document).on('keyup','#amount_input', function () {
-		alert("change");
-		this.value = this.value.replace(/\D/g, '');
-		if(this.value > test){
-			this.value = test;	
-		}
+		'<li>'+
+			'<dl id = "amount_list">'+
+				'<dd>' +
+					'<div>' +
+						'<dt>수량</dt>' +
+						'<dd style = "width : 12%;">' +
+							'<input name = "amount_input" class = "form-control text-center" id = "amount_input" disabled="true" type="number" min="1" max="99"id="yourid">'+
+						'</dd>' +
+					'</div>'+
+				'</dd>'+
+			'</dl>'+
+		'</li>';
+	
+	var total_price = Number("${productDTO.p_cost}");
+		
+	
+	
+	//수량 체인지 이벤트
+	$(document).on('keypress','#amount_input', function () {
+		
+		if(Number($(this).val()) > amount_op){
+			$('#amount_input').val(amount_op);
+			price = total_price * $(this).val();
+			$('#totalPrice').html('￦ ' + (price.toLocaleString()));
+		}else if(Number($(this).val()) < 0){
+			$('#amount_input').val(0);	
+		};
 	});
 	
-	$('#wr_2').on('keyup', function() {
-
-	    this.value = this.value.replace(/\D/g, '');
-
-	    if (this.value > 150) this.value = 150;
-
-	});
+	$(document).on('blur','#amount_input', function(){
 		
+		if(Number($(this).val()) > amount_op){
+			$('#amount_input').val(amount_op);
+			price = total_price * $(this).val();
+			$('#totalPrice').html('￦ ' + (price.toLocaleString()));
+		}else if(Number($(this).val()) < 0 ){
+			$('#amount_input').val(0);
+			$('#totalPrice').html('￦ 0');
+		};
+	});
+	
+	$(document).on('change', '#amount_input', function(){
+		
+		var price = total_price * Number($(this).val());
+		$('#totalPrice').html('￦ ' + (price.toLocaleString()));
+		console.log(price);
+	});
+	
+	
+	
+	/* $('#wr_2').on('keyup', function() {
+	    this.value = this.value.replace(/\D/g, '');
+	    if (this.value > 150) this.value = 150;
+	}); */
+	
+	//옵션 생성 해서 집어넣음
 	var temp = $('.aboutListBottom').html() + option_result + amount_input;
 	$('.aboutListBottom').html(temp);
+	
+	//이미지 확대 기능
+	$(".xzoom").xzoom();
+	
 
+	 //이미지 변경
+	 $(document).on('click', '.xzoom-gallery', function(){
+		var src = $(this).attr('src');
+		$('.mask').children().attr('src', src).attr('xoriginal', src);
+	 });
+	
 	 
+	for(var i = 2; i < option_DTO.length; i++){
+		$('#option_select'+i).html('<option>옵션선택</option>');
+	}	
+	
+	
+	if("${option_result_list}" == ''){
+		amount_op = Number("${amount_list[0]}");
+		$('#amount_input').attr('max', amount_op);
+		$('#amount_input').removeAttr('disabled');
+	}
+	//품절체크
+	if(no_option_index == 1 && p_status[0] == 'N'){
+		$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
+		$('#amount_input').prop('disabled', true);
+	}
+	
+	//alert(option_length);
+	//구배버튼
+	$('#buyNowBtn').click(function(){
+			var session_email = $('#session_email').val();
+			if(session_email.length<=0){
+		    	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+			    	  
+		    	  //바로구매 비 로그인시
+		    	  $('#detail_loginBtn').click(function(){
+		    		  $('#non_loginCloseBtn').trigger('click');
+		    		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
+				  });
+		    	  
+		    	  return;
+		    }else if(session_email.length>0){
+		    	
+		    	var no_order = 0;
+				for(var i = 1; i < option_length+1; i++){
+					var temp = 'option_select'+i;
+					if($('#'+temp).val() == '옵션선택'){
+						no_order++;
+					}
+				}
+				
+		    	if(no_order != 0 ){
+					alert("옵션을 선택해주세요");						
+				}else if($('#amount_input').val() == '' || $('#amount_input').val() < 0){
+					alert("수량을 선택해주세요");
+				}else if($('#amount_input').val() == '0'){
+					alert("품절된 상품입니다");
+				}else{
+					//alert("p_code : " + $('#p_code').val() + "성공");
+					$('#detail_form').submit();
+				}
+		    }
+			
+		});
+	$('#totalPrice').html('￦ ' + (Number("${productDTO.p_cost}").toLocaleString()));
+	
 });
 
 </script>

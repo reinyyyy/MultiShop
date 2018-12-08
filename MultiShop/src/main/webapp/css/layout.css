@@ -195,7 +195,6 @@ div.event_coupon button {
 		max-width: 100%;
 	}
 	div.top_bg_area {
-		overflow: hidden;
 		text-align: center;
 		border-bottom: 1px solid #dddddd;
 		background: #ffffff;
@@ -238,7 +237,7 @@ div.event_coupon button {
 	.top_nav {
 		width: 100%;
 		z-index: 999;
-		min-height: 115px;
+		height: 115px;
 		transition: top 0.7s ease-in-out;
 	}
 	.top_nav_hover {

@@ -13,13 +13,7 @@
         <result property="p_main_img" column="MAIN_IMG" />
         <result property="p_midcate" column="P_MIDCATE" />
     </resultMap>
-	
-	
-	<!-- 제품 테이블 전체 가져오기 이제 안쓸듯 -->
-	<select id = "getProductList" resultType = "productDTO">
-		select * from PRODUCT
-	</select>
-	
+    
 	<!-- QUICK VIEW 모달에서 사용할 제품 하나 가져오기 -->
 	<select id = "getProduct" parameterType = "int"	resultType = "productDTO">
 		select * from PRODUCT where p_code = #{p_code}
@@ -27,31 +21,37 @@
 	
 	<!-- 글 목록 P_CATENUM 기준 분류 -->
 	<select id = "getProduct_Board_map" parameterType = "java.util.Map" resultMap = "ResultMap">
-		select * from
-		(select rownum rn, tt.* from
-		(select PRODUCT_BOARD.*, PRODUCT.p_image"MAIN_IMG", PRODUCT.p_midcate from PRODUCT_BOARD, PRODUCT where 
-		PRODUCT_BOARD.p_code = PRODUCT.p_code 
-		and PRODUCT_BOARD.p_cateNum = #{cateNum} 
+	
+		select * from 
+		(select rownum rn, rq.* from
+		(select product.p_image as MAIN_IMG, product.p_midcate, rr.* from 
+		(select product_board.*, tt.* from 
+		(select p_group, sum(p_sales)as sum from product group by p_group order by sum desc)tt, product_board   
+		where product_board.p_code = tt.p_group 
+		<if test = 'p_name != null and p_name != "no"'>
+			and product_board.p_name like '%'||#{p_name}||'%'
+		</if>
+		order by tt.sum desc)rr, product where product.p_code = rr.p_code and
+		product.p_cateNum = #{cateNum}
 		<if test = "p_midCate != null and p_midCate != ''"> 
 			and P_MIDCATE = #{p_midCate}
 		</if>
-		
-			order by 
-		<if test = "order_type eq 1">	<!-- 높은가겨순 -->
-			PRODUCT_BOARD.P_COST asc
+			order by
+		<if test = "order_type eq 1">	<!-- 높은가격순 -->
+			PRODUCT.P_COST asc
 		</if>
 		<if test = "order_type eq 2">	<!-- 낮은가격순 -->
-			PRODUCT_BOARD.P_COST DESC
+			PRODUCT.P_COST DESC
 		</if>
 		<if test = "order_type eq 3">	<!-- 신상품순 -->
-			PRODUCT_BOARD.P_CODE DESC
+			PRODUCT.P_CODE DESC
 		</if>
-		)tt
-		)where rn between #{startNum} and #{endNum}
-	</select>
-	
-	<select id = "getProduct_Board_map_best" parameterType = "java.util.Map" resultMap = "ResultMap">
-		select * from PRODUCT
+		<if test = "order_type eq 4">	<!-- 인기순 -->
+			sum desc
+		</if>
+		 )rq
+		 )where rn between #{startNum} and #{endNum}
+		
 	</select>
 	
 	<!-- 대표그룹 기준잡고 해당하는 모든 옵션 그룹들 가져오기 -->
@@ -60,11 +60,18 @@
 	</select>
 	
 	<!-- 각 카테고리별 총 글 수 가져오기 -->
-	<select id = "getProduct_BoardTotalA" parameterType = "int" resultType = "int">
-		select count(*) from PRODUCT_BOARD where p_cateNum = #{cateNum}
-	</select>
+	<select id = "getProduct_BoardTotalA" parameterType = "java.util.Map" resultType = "int">
 	
-	<!-- 글 목록 P_CATENUM and P_MIDCATE 기준 정렬 -->
+		select count(*) from product p , product_board pb
+		where p.p_code = pb.p_code
+        and p.p_cateNum = #{cateNum}
+        <if test = 'p_midCate != null and p_midCate != ""'>		<!-- 중분류에서 들어온경우 -->
+        	and p.p_midCate = #{p_midCate}
+        </if>
+        <if test = 'p_name != null and p_name != "no"'>			<!-- 검색으로 들어온경우 -->
+        	and pb.p_name like '%'||#{p_name}||'%'
+        </if>
+	</select>
 	
 	
 </mapper>  

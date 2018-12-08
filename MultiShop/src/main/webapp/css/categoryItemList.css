@@ -64,6 +64,7 @@
 
 /* array 클래스는 인기순, 신상품순, ~ 10개보기 20개보기 부분 잡아줌 */
 .array {
+	margin-top: 40px;
 	background: #f8f8f8;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
@@ -192,4 +193,3 @@ a:visited {
 	#card_contents {
 		margin: 0px;
 	}
-}

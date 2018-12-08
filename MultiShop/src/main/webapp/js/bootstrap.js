@@ -1877,7 +1877,7 @@ var Modal = function ($) {
 
   var ClassName = {
     SCROLLBAR_MEASURER: 'modal-scrollbar-measure',
-    BACKDROP: 'modal-backdrop',
+    BACKDROP: 'no_background',
     OPEN: 'modal-open',
     FADE: 'fade',
     SHOW: 'show'
@@ -2743,7 +2743,7 @@ var Tab = function ($) {
     ACTIVE: 'active',
     DISABLED: 'disabled',
     FADE: 'fade',
-    SHOW: 'show'
+    SHOW: 'fade'
   };
 
   var Selector = {

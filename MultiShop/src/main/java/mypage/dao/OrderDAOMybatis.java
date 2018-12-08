@@ -33,7 +33,6 @@ public class OrderDAOMybatis implements OrderDAO{
 	      return sqlSession.selectList("orderSQL.orderAllList", email);
 	   }
 
-	@Override
 	public List<InquiryDTO> inquiryList(String email) {
 		return sqlSession.selectList("orderSQL.inquiryList", email);
 	}

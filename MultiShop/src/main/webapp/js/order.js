@@ -2,6 +2,7 @@ $(document).ready(function(){
    //결재하기
    $('#orderPayBtn').click(function(){
       
+	  var couponValue = $('#couponSelect option:selected').val();
 	  var firstName = $('#firstName').val();
       var lastName = $('#lastName').val();
       var userName = $('#userName').val();
@@ -44,26 +45,28 @@ $(document).ready(function(){
          $('#cc_expirationDiv').html('<strong style="color:red;font-size:8pt">올바른 유효기간을 입력하세요.</strong>')
       else if(cc_cvv.length==0)
          $('#cc_cvvDiv').html('<strong style="color:red;font-size:8pt">CVV/CVC번호를 입력하세요.</strong>')
-      else 
+      else {
+    	  if(couponValue == '1'){
+    		  $.post('/MultiShop/detail_page/couponDelete.do');
+    	  }
+    	  //console.log($('#orderPageForm').serializeArray());
+    	  //console.log($('#orderPageForm').serialize());
     	  $.ajax({
          	 type :'POST',
-         	 url : '/MultiShop/detail_page/orderOk.do',
+         	 url : '/MultiShop/detail_page/orderSuccess.do',
          	 data : $('#orderPageForm').serialize(),
          	 dataType : 'text',
          	 success : function(data){
          		 if(data=="exist"){
          			$('#order_modal').modal({backdrop: 'static', keyboard: false});
-         			
          			//	  마이페이지로 이동하시겠습니까    에      예 Btn
          			$('#orderModalYesBtn').click(function(){
          				location.href="../mypage/mypage.do";
          			});
-         			
          			//   아니오 Btn
          			$('#orderModalNoBtn').click(function(){
          				location.href="../main/index.do";
          			});
-         			
          		 }else if(data=="non_exist"){
          			 alert("order.js 실패!!!!");
          		 }
@@ -72,7 +75,7 @@ $(document).ready(function(){
          		 alert("에러발생!!!!");
          	 }
           });
-      
+      }
    });
    
    //우편번호
