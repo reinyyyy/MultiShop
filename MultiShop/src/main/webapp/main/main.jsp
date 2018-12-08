@@ -60,7 +60,12 @@
 .modal-backdrop {
 	z-index: 1;
 }
-
+select.search_optionClass {
+	height: 38px;
+    min-width: 90px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -89,9 +94,12 @@
                                 aria-label="Left Align">
                                 <i class="fas fa-sign-in-alt"></i>
                             </button>
-						<button type = "button" class = "btn btn-success" onclick = "location.href='../manage/main.do'">M</button>	<!--  임시 -->
- 
-                        </c:if> 
+                        </c:if>
+                         
+						 <c:if test="${session_email == 'admin@cozy.com'}" >
+                           <button type = "button" class = "btn btn-warning" onclick = "location.href='../manage/main.do'">M</button>                        
+                        </c:if>
+                        
                         <c:if test="${session_email != null}">
                             <button type="button" id="logout_navbar" class="btn btn-danger"
                                 aria-label="Left Align">
@@ -226,7 +234,7 @@
 			            </div>					
 			               <div class="search_area col-md-5" id="navbarResponsive">
 								<form class="form-inline float_right" action="#">
-									<select name = "search_option" id = "search_option">
+									<select name = "search_option" class="search_optionClass" id = "search_option">
 										<option value = "3"> Clothes </option>
 										<option value = "2"> Tech++ </option>
 										<option value = "1"> Food </option>

@@ -110,9 +110,10 @@ a.cursor:hover {
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content" class="border-0">
 			<!-- 컨텐츠 내용 영역 -->
-			<div>
-			   <h3 style="text-align: center;">회원정보수정</h3>
-			</div>
+			<div style="text-align: center;">
+            	<h3 style="text-align: center;">회원정보수정</h3>
+            	<i class="fas fa-user-edit fa-4x"></i>
+        	 </div>
 			<div class="row modify_table mt30">
 		         <form id="member_modify_form" role="form">
 		            <div class="col-md-12">

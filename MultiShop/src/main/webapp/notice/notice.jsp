@@ -27,16 +27,10 @@ div#noticePagingDiv > a:hover {
 <body>
 	<div id="jb-container">
 		<!-- 상단 히스토리 바 -->
-		<div id="jb-header">
-			<nav aria-label="breadcrumb" role="navigation">
-				<ol class="breadcrumb">
-					<!-- 사용자 클릭히스토리로 동적 처리필요 -->
-					<li class="breadcrumb-item"><a href="../main/index.do">HOME</a></li>
-					<li class="breadcrumb-item"><a onclick="goPage('${cateNum}')" href = "javascript:void(0)">${pageName }</a></li>
-				</ol>
-			</nav>
-		</div>
 		<div class="container" style="margin: 20px auto;">
+			<div>
+	            <img src="../image/noticeMain.png" width="100%">
+	        </div>
 			<div class="row">
 				<table class="table table-hover table_layout_fixed" id="notice_table">
 					<colgroup>

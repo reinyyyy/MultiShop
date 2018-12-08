@@ -829,6 +829,7 @@ $(document).ready(function(){
 		amount_op = Number("${amount_list[0]}");
 		$('#amount_input').attr('max', amount_op);
 		$('#amount_input').removeAttr('disabled');
+		$('#amount_input').val(1);
 	}
 	//품절체크
 	if(no_option_index == 1 && p_status[0] == 'N'){
@@ -874,7 +875,7 @@ $(document).ready(function(){
 			
 		});
 	$('#totalPrice').html('￦ ' + (Number("${productDTO.p_cost}").toLocaleString()));
-	
+	$('title').text("${productDTO.p_name}");
 });
 
 </script>

@@ -236,19 +236,6 @@ $(document).ready(function(){
          }
       }
    });
-   /* member modify */
-   $('#member_modifyBtn').on('click',function(){
-      $.post('/MultiShop/member/membermodify.do',
-         $('#member_modify_form').serialize(),
-         function(data){
-            if(data=='true'){
-               alert("수정성공");
-            }else 
-               alert("수정실패");
-         },'text'
-      );
-   });
-   
    
    
    /*logout modal*/
@@ -260,6 +247,11 @@ $(document).ready(function(){
    $('#mypageBtn').on('click',function(){
       location.href="../mypage/mypage.do";      
    });
+   
+   $('#mypage_member_modifyBtn').on('click',function(){
+		location.href="../mypage/membermodifyconfirmForm.do";
+	});
+   
    /* member modify */
    
    $('#member_modify_confirm_Btn').on('click',function(){
@@ -501,5 +493,9 @@ $(document).ready(function(){
       location.href="/MultiShop/qna/qna.do";
    });
    
+   /* 1:1문의 */
+   $('#mypage_inquiryBtn').on('click',function(){
+      location.href='/MultiShop/mypage/inquiryPage.do'
+   });
    
 });

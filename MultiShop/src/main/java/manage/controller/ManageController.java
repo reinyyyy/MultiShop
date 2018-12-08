@@ -27,12 +27,16 @@ import member.bean.MemberDTO;
 import member.dao.MemberDAO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
+import notice.bean.QnaDTO;
 
 @Controller
 @RequestMapping("/manage")
 public class ManageController {
 	
-	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	private static final String UPLOAD_PATH = "C:\\Users\\Jonghun\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	//private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	//private static final String UPLOAD_PATH = "C:\\Users\\jaewoo\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	//private static final String UPLOAD_PATH = "D:\\Spring\\workspace\\1\\MultiShop\\src\\main\\webapp\\upload";
 	
 	@Autowired
 	private ManageDAO manageDAO;
@@ -366,6 +370,26 @@ public class ManageController {
 	@RequestMapping(value="noticeInsert", method=RequestMethod.POST)
 	public @ResponseBody int noticeInsert(@RequestParam Map<String,String> map) {
 		return manageDAO.noticeInsert(map);
+	}
+	//faq페이지
+	@RequestMapping(value="faqPage", method=RequestMethod.GET)
+	public ModelAndView faqPage(@ModelAttribute ModelAndView mav) {
+		mav.addObject("display", "/manage/faqManagePage.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	
+	//faq json 받기
+	@RequestMapping(value="faqList", method=RequestMethod.POST)
+	public ModelAndView faqList() {
+		List<QnaDTO> list = manageDAO.faqList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//faq 쓰기
+	@RequestMapping(value="faqInsert", method=RequestMethod.POST)
+	public @ResponseBody int faqInsert(@RequestParam Map<String,String> map) {
+		return manageDAO.faqInsert(map);
 	}
 	
 	//고객관리페이지

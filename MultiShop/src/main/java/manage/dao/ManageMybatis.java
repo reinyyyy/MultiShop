@@ -16,6 +16,7 @@ import manage.bean.InquiryDTO;
 import member.bean.MemberDTO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
+import notice.bean.QnaDTO;
 
 @Component
 @Transactional
@@ -155,5 +156,15 @@ public class ManageMybatis implements ManageDAO {
 	@Override
 	public List<ProductDTO> getProductListsJson(Map<String, String> map) {
 		return null;
+	}
+
+	@Override
+	public List<QnaDTO> faqList() {
+		return sqlSession.selectList("manageSQL.faqList");
+	}
+
+	@Override
+	public int faqInsert(Map<String, String> map) {
+		return sqlSession.insert("manageSQL.faqInsert",map);
 	}
 }

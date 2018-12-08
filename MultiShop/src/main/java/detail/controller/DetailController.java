@@ -168,7 +168,6 @@ public class DetailController {
     	  //다시 DB가고
           memberDTO = memberDAO.getZipcode(email);
           System.out.println("@@memberDTO="+memberDTO+"@@@");
-          //model.addAttribute("memberDTO", memberDTO);
           mav.addObject("memberDTO", memberDTO);
 	   }
 	   //장바구니결재시
@@ -188,12 +187,11 @@ public class DetailController {
 	   
 	   MemberDTO memberDTO2 = memberDAO.getZipcode(session_email);
 	   int m_point =  memberDTO2.getM_point();
-	   //장바구니비우기
-	   cartDAO.delete(email);
-	   
 	   
 	   //쿠폰 유무 확인
 	   memberDTO = detailDAO.getCoupon(session_email);
+	   
+	   mav.addObject("cartCount", map.get("cartCount"));
 	   mav.addObject("coupon", memberDTO.getM_coupon());
 	   mav.addObject("m_point",m_point);
 	   mav.addObject("cartMap",cartMap);
@@ -312,6 +310,9 @@ public class DetailController {
 		   }
 		   //마일리 적립 업데이트
 		   memberDAO.update_Mpoint(multiMap);
+		   //장바구니비우기
+		   cartDAO.delete(email);
+		   
 		   return "exist";
 		   
 	   } else{
@@ -336,8 +337,14 @@ public class DetailController {
 			   }
 			   //마일리 적립 업데이트
 			   memberDAO.update_Mpoint(map);
-			   
+			   if(map.get("cartCount")!=null) {
+				   //장바구니비우기
+				   cartDAO.delete(email);
+			   }
 			   System.out.println("성공!!!!!");
+			   
+			   
+			   
 			   return "exist";
 		   }else {
 			   System.out.println("실패애애@");

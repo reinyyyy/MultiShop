@@ -33,6 +33,7 @@ $(document).ready(function(){
 				card_contents += card(items);
 			});
 			$('#card_contents').html(card_contents);
+			content_bottom = 100 + $('.jb-content').height;
 			$('.pagination').html(data.categoryPaging.pagingHTML);
 		}
 	});
@@ -74,6 +75,8 @@ $(document).ready(function(){
 			location.href = 'categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&p_name='+$('#p_name').val()+'&cateNum='+$('#cateNum').val()+'&pageSize='+$('#pageSize').val()+'&p_midCate='+$('#p_midCate').val();
 		}
 	});
+	
+	
 })
 
 
@@ -106,3 +109,5 @@ function fn_sort(sortType) {			//sortType 제어 정렬누를시 pg 1로 설정	
 function goPage(cateNum){
 	location.href = "../category/categoryItemList.do?cateNum="+cateNum;
 }
+
+

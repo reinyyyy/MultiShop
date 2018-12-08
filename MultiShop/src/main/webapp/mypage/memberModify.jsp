@@ -111,9 +111,10 @@ a.cursor:hover {
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content" class="border-0">
 			<!-- 컨텐츠 내용 영역 -->
-			<div>
-			   <h3 style="text-align: center;">회원정보수정</h3>
-			</div>
+			<div style="text-align:center;">
+            	<i class="far fa-id-card fa-3x"></i>
+            	<h3 style="text-align: center;">회원정보수정</h3>
+        	 </div>
 			
 			<div id="member_modify_confirm" class="row modify_table mt30">
 				<form id="member_modify_confirm_form" method="post" action="/MultShop/">

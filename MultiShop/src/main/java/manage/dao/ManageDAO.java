@@ -10,6 +10,7 @@ import manage.bean.InquiryDTO;
 import member.bean.MemberDTO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
+import notice.bean.QnaDTO;
 
 public interface ManageDAO {
 
@@ -77,5 +78,11 @@ public interface ManageDAO {
 	public void detail_AnswerUpdate(Map<String, String> map);
 
 	public List<DetailQnADTO> getDetail_AnswerList(int p_code,int seq);
+	
+	//faq리스트
+	public List<QnaDTO> faqList();
+	
+	//faq입력
+	public int faqInsert(Map<String,String> map);
 	
 }
