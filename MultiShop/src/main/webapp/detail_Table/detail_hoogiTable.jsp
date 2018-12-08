@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
-<table class="detail_hoogiTable" id="detail_hoogiTable" style="width : 100%;">
+<table class="detail_hoogiTable" id="detail_hoogiTable" style="width : 100%; text-align: center;">
 	<thead>
 		<tr>
 			<th width="40" height="20"></th>

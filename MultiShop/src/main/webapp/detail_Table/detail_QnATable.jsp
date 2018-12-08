@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
-<table class="detail_QnATable" id="detail_QnATable" style ="width : 100%;">
+<table class="detail_QnATable" id="detail_QnATable" style ="width : 100%; text-align: center;">
 	<thead>
 		<tr>
 			<th width="70">답변상태</th>
