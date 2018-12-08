@@ -111,7 +111,7 @@ public class CategoryController {
 			map.put("order_type", "3");
 			//list_map = categoryDAO.getProduct_Board_map(map);
 		}
-		list_map = categoryDAO.getProduct_Board_map_best(map);
+		list_map = categoryDAO.getProduct_Board_map(map);
 		
 		System.out.println(list_map);
 		

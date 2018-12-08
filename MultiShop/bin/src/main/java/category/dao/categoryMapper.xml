@@ -13,12 +13,6 @@
         <result property="p_main_img" column="MAIN_IMG" />
     </resultMap>
 	
-	
-	<!-- 제품 테이블 전체 가져오기 이제 안쓸듯 -->
-	<select id = "getProductList" resultType = "productDTO">
-		select * from PRODUCT
-	</select>
-	
 	<!-- QUICK VIEW 모달에서 사용할 제품 하나 가져오기 -->
 	<select id = "getProduct" parameterType = "int"	resultType = "productDTO">
 		select * from PRODUCT where p_code = #{p_code}

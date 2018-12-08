@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-@font-face { font-family:ng; src:url('../../font/NanumGothic.eot'); src:local(※), url('../../font/NanumGothic.woff') format('woff'); }
+/* @font-face { font-family:ng; src:url('../../font/NanumGothic.eot'); src:local(※), url('../../font/NanumGothic.woff') format('woff'); } */
 
 html, body { min-width:1280px; min-width:1280px; height:100%; background:#eef1f4; }
 body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {/* color:#333; *//* font-size:17px; *//* font-family:ng, 'malgun gothic', sans-serif; *//* line-height:1.5; *//* letter-spacing:-0.5px; */}
