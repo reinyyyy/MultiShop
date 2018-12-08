@@ -38,9 +38,6 @@ $(document).ready(function(){
 	});
 	
 	
-	//왼쪽목록 에서 선택한경우
-	
-	//페이징처리, sql문 새로 작성
 	//페이징처리해서 다른페이지 눌렀을경우 ?
 	$('.card-body p').click(function(){
 		
@@ -74,7 +71,7 @@ $(document).ready(function(){
 		if($('#p_name').val() == ''){
 			location.href = 'categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+'&pageSize='+$('#pageSize').val()+'&p_midCate='+$('#p_midCate').val();
 		}else{
-			location.href = 'categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&p_name='+p_name+'&cateNum='+$('#cateNum').val()+'&pageSize='+$('#pageSize').val()+'&p_midCate='+$('#p_midCate').val();
+			location.href = 'categoryItemList.do?pg='+1+'&sortType='+$('#sortType').val()+'&p_name='+$('#p_name').val()+'&cateNum='+$('#cateNum').val()+'&pageSize='+$('#pageSize').val()+'&p_midCate='+$('#p_midCate').val();
 		}
 	});
 })

@@ -210,10 +210,10 @@
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
 					<ul>
-						<li class="active" onclick="fn_sort(2);"><a href="#link">인기순</a></li>
-						<li><a href="#link" onclick="fn_sort(1);">신상품순</a></li>
-						<li><a href="#link" onclick="fn_sort(3);">낮은가격순</a></li>
-						<li><a href="#link" onclick="fn_sort(4);">높은가격순</a></li>
+						<li class="active" onclick="fn_sort(2);"><a href="#link"><i class="fas fa-star">&emsp;</i>인기순</a></li>
+						<li><a href="#link" onclick="fn_sort(1);"><i class="fas fa-plus-square"></i>&emsp;신상품순</a></li>
+						<li><a href="#link" onclick="fn_sort(3);"><i class="fas fa-arrow-down"></i>&emsp;낮은가격순</a></li>
+						<li><a href="#link" onclick="fn_sort(4);"><i class="fas fa-arrow-up"></i>&emsp;높은가격순</a></li>
 					</ul>
 				</div>
 				<!--  몇개씩 보여줄 것인지 -->
@@ -323,15 +323,14 @@
 			
 			//네비바 손가락 마킹
 			if("${p_midCate}" == '' ){
-				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("All")')).before('<i class="fas fa-hand-point-down"></i>')
+				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("All")')).before('<i class="fas fa-hand-point-down"></i>').css('font-weight', 'bold');
 			}else{
-				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("${p_midCate}")')).before('<i class="fas fa-hand-point-down"></i>')
+				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("${p_midCate}")')).before('<i class="fas fa-hand-point-down"></i>').css('font-weight', 'bold');
 			}
 			
 			
 		});
 	
-		
 		//제품 내용물 생성
 		function card(items) { //DB컬럼명을 가져다 써야함 banana.jpg			//받아오는거 DTO 에서 boardLIST 로 변경해야댐
 			var result = items.p_main_img.split('/');
@@ -360,6 +359,7 @@
 					+ '</div>';
 			return card_html;
 		}
+		
 		//상품 문의 모달창 
 		$(document).on('click', '#product_email', function(){
 			var product_name = $(this).parents().next().next().find('.card-title').html();

@@ -18,9 +18,6 @@ public class CategoryDAOMybatis implements CategoryDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	//각 카테고리 전체 리스트불러오기 
-	public List<ProductDTO> getProductList(int code) {
-		return sqlSession.selectList("categorySQL.getProductList", code); 
-	}
 	
 	//퀵뷰에 데이터 넣을때 쓸거
 	public ProductDTO getProduct(int p_code) {
@@ -47,8 +44,4 @@ public class CategoryDAOMybatis implements CategoryDAO{
 		return sqlSession.selectList("categorySQL.getProduct_Board_map", map);
 	}
 
-	@Override
-	public List<Map<String, String>> getProduct_Board_map_best(Map<String, String> map) {
-		return sqlSession.selectList("categorySQL.getProduct_Board_map_best", map);
-	}
 }
