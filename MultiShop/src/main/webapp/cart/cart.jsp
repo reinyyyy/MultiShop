@@ -39,7 +39,8 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach var="row" items="${map.list}" varStatus="i">
+					<c:set var="cartCount" value="0"/>
+					<c:forEach var="row" items="${map.list}" varStatus="status" >
 						<tr>
 						<td data-th="Product">
 						<div class="row"> 
@@ -84,8 +85,9 @@
 								<a href="delete.do?c_seq=${row.c_seq}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>								
 							</td>
 						</tr>
-					
+					<c:set var="cartCount" value="${cartCount +1}" />
 					</c:forEach>
+					<input type="hidden" name="cartCount" id="cartCount" value="${cartCount}">
 					</tbody>
 					<tfoot>
 						<tr class="visible-xs">				

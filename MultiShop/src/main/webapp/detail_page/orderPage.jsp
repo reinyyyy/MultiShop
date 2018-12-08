@@ -36,6 +36,17 @@
 	position : unset;
 }
 
+.orderPageJwBtn{
+	display: inline-block;
+    width: 45px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 5px;
+    background-color: #d9d2d2;
+    border: 1px solid #868e96;
+    cursor: pointer;
+}
+
 </style>
 </head>
 <body class="bg-light">
@@ -48,6 +59,7 @@
       </div>
       <form id="orderPageForm" name="orderPageForm" class="needs-validation" method="post" action="orderSuccess.do">      <!-- novalidate은 유효성검사를 하지않겠다는 것 -->
       <input type="hidden" id="session_email" value="${session_email }">
+      <input type="hidden" id="cartCount" name="cartCount" value="${cartCount}">
       <div class="row mb30">
          <div class="col-md-4 order-md-2 mb-4" id="basketDiv">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -148,7 +160,10 @@
                        <input type="hidden" id="myMileageHid" name="myMileageHid" value="${m_point}">
                        </c:if>
                        <input type="hidden" id="useMileage" name="useMileage" value="0">
-                       <input type="button" id="useM_pointBtn" value="사용하기">
+                       <div class="mt05">
+                       		<input type="button" class="orderPageJwBtn" id="useM_pointBtn" value="사용">
+                       		<input type="button" class="orderPageJwBtn" id="resetM_pointBtn" value="취소">
+                       </div>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                      <div>
@@ -183,7 +198,10 @@
 	                         </c:if>
                          </c:if>
                       </div>
-                      <input type ="button" value="사용하기" id="use_Coupon" style="margin : 0 0px;">
+                      <div class="mt05">
+                      	<input type ="button" class="orderPageJwBtn" value="사용" id="use_Coupon">
+                      	<input type ="reset" class="orderPageJwBtn" value="취소" id="reset_Coupon">
+                      </div>
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
                        <div class="text-success">
@@ -324,16 +342,26 @@ $(document).ready(function(){
     var totalPrice = $('#order_totalPrice').text();
     totalPrice = parseFloat(totalPrice);
     var mileage = parseInt(totalPrice*0.02);
-	$('#guessMileage').text(mileage);
+	//예상적립금액
+    $('#guessMileage').text(mileage);
     $('#m_point').val(mileage);
-	$('#useM_pointBtn').click(function(){
-         	//alert($('#myMileage').text());
-         //히든갑 체크용으로 val너줌	
-       	 $('#useMileage').val(1);
-       	 $('#ifUseMileage').text("-"+$('#myMileage').text());
-       	 $('#order_totalPrice').text((totalPrice-$('#myMileage').text()));
+	
+    //포인트 사용버튼
+    $('#useM_pointBtn').on('click',function(){
+        //alert($('#myMileage').text());
+        //alert($('#useMileage').val()); 
+        //히든갑 체크용으로 val너줌	
+       	$('#useMileage').val(1);
+       	$('#ifUseMileage').text("-"+$('#myMileage').text());
+       	$('#order_totalPrice').text((totalPrice-$('#myMileage').text()));
     });
-	 
+	
+    //포인트 취소버튼
+    $('#resetM_pointBtn').on('click',function(){
+    	$('#useMileage').val(0);
+    	$('#ifUseMileage').text("");
+    	$('#order_totalPrice').text(totalPrice);
+    });
 	
 	//쿠폰 사용 (현규)
     $('#use_Coupon').on('click',function(){
@@ -341,7 +369,14 @@ $(document).ready(function(){
 		if(couponValue=="1"){
 			$('#order_totalPrice').text(totalPrice-(totalPrice/10));
 		}
+		//alert($('#couponSelect option:selected').val());
     });
+	
+	//쿠폰 취소(재우)
+	$('#reset_Coupon').on('click',function(){
+		$('#order_totalPrice').text(totalPrice);
+		//alert($('#couponSelect option:selected').val());
+	});
    
 });
 </script>
