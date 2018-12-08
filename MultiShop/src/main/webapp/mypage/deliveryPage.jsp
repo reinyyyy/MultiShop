@@ -121,9 +121,10 @@ tr.shown td.details-control {
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content" class="border-0">
 			<!-- 컨텐츠 내용 영역 -->
-			<div>
-				<h3 style="text-align: center;">나의 주문</h3>
-			</div>
+			<div style="text-align:center;">
+            	<i class="fab fa-accessible-icon fa-3x"></i>
+           	 	<h3 style="text-align: center;">나의 주문</h3>
+        	</div>
 			
 			<div id="delivery_table_div">
 			   <table id="delivery_table" style="width: 100%;">

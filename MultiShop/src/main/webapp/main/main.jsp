@@ -89,9 +89,12 @@
                                 aria-label="Left Align">
                                 <i class="fas fa-sign-in-alt"></i>
                             </button>
-						<button type = "button" class = "btn btn-success" onclick = "location.href='../manage/main.do'">M</button>	<!--  임시 -->
- 
-                        </c:if> 
+                        </c:if>
+                         
+						 <c:if test="${session_email == 'admin@cozy.com'}" >
+                           <button type = "button" class = "btn btn-warning" onclick = "location.href='../manage/main.do'">M</button>                        
+                        </c:if>
+                        
                         <c:if test="${session_email != null}">
                             <button type="button" id="logout_navbar" class="btn btn-danger"
                                 aria-label="Left Align">

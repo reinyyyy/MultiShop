@@ -493,5 +493,9 @@ $(document).ready(function(){
       location.href="/MultiShop/qna/qna.do";
    });
    
+   /* 1:1문의 */
+   $('#mypage_inquiryBtn').on('click',function(){
+      location.href='/MultiShop/mypage/inquiryPage.do'
+   });
    
 });

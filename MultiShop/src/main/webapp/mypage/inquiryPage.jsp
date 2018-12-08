@@ -108,9 +108,10 @@ a.cursor:hover {
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content" class="border-0">
 			<!-- 컨텐츠 내용 영역 -->
-			<div>
-			   <h3 style="text-align: center;">나의 1:1문의</h3>
-			</div>
+			<div style="text-align:center;">
+            	<i class="fas fa-user-clock fa-3x"></i>
+           	 	<h3 style="text-align: center;">나의 1:1문의</h3>
+        	</div>
 			<div id="inquiry_table_div">
 			   <table id="inquiry_table">
 				   <thead>

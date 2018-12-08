@@ -10,7 +10,7 @@
 </head>
 <style>
 .qna_container {width: 80%; display: block; overflow: hidden; margin: 10px auto 30px;}
-ul.qna_list {overflow: hidden;}
+ul.qna_list {overflow: hidden; padding : 0px;}
 ul.qna_list li:nth-child(odd) {background-color:#b1b8c0; border-radius: 5px;}
 ul.qna_list li:nth-child(odd) .qna_content {border:1px solid #b1b8c0;}
 ul.qna_list li:nth-child(even) {background-color:#636d79; border-radius: 5px;}
@@ -40,6 +40,9 @@ ul.qna_list li:nth-child(even) .qna_content {border:1px solid #636d79;}
 </style>
 <body>
 <div class="qna_container">
+	<div>
+      <img src="../image/faq.png" width="100%">
+   </div>
 	<c:if test="${qnalist=='[]'}">
 		<p>내용이 존재하지않습니다.</p>
 	</c:if>
