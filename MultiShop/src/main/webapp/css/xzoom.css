@@ -7,7 +7,7 @@
   -moz-transition: none;
   -o-transition: none;
   transition: none;
-  z-index : 9999;
+  z-index : 980;
 }
 /* --------------- */
 
@@ -21,7 +21,7 @@
 .xzoom-thumbs {
   text-align: center;
   margin-bottom: 10px;
-  z-index : 9999;
+  z-index : 980;
 }
 
 .xzoom { 

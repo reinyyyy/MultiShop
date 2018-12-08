@@ -104,4 +104,21 @@ public class MypageController {
 		ModelAndView mav = new ModelAndView("jsonView","data",list);
 		return mav;
 	}
+	
+	@RequestMapping(value="/mypage/recentlyOrder.do",method=RequestMethod.POST)
+   public ModelAndView recentlyOrder(HttpSession session) {
+      String email = (String) session.getAttribute("session_email");
+      List<OrderDTO> list = orderDAO.recentlyOrderList(email);
+      ModelAndView mav = new ModelAndView("jsonView","data",list);
+      return mav;
+	}
+	@RequestMapping(value="/mypage/orderCancel.do",method=RequestMethod.POST)
+	public @ResponseBody String orderCancel(@RequestParam Map<String,String> map) {
+		int su = orderDAO.orderCancel(map);
+		if(su==1) {
+			return "true";
+		}else {
+			return "false";
+		}
+	}
 }

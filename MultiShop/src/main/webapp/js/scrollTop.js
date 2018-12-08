@@ -1,7 +1,7 @@
 
 $( document ).ready(function() {
-   $('.top_bg_area').css("position","initial");
    $('.hidden_btn').css("top","60px");
+   $('.top_bg_area').css("position","initial");
 });
 var didScroll; 
 var lastScrollTop = 0; 
@@ -15,7 +15,7 @@ $(window).scroll(function(event){ didScroll = true; });
          hasScrolled(); 
          didScroll = false; 
       } 
-   }, 250);
+   }, 10);
 function hasScrolled() { 
    var st = $(this).scrollTop(); 
    // Make sure they scroll more than delta 

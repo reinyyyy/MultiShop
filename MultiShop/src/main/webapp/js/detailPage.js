@@ -74,6 +74,7 @@ $(document).ready(function(){
    });
    
    //바로구매 버튼(a태그)
+   /*
    $('#buyNowBtn').on('click',function(){
 	  var option_select1 = $('#option_select1').val();
       var option_select2 = $('#option_select2').val();
@@ -93,7 +94,7 @@ $(document).ready(function(){
       }
       
       
-   });
+   });*/
    
    //-----------------------------------------------------------------------
    //양현규

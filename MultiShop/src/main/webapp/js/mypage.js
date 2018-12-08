@@ -131,8 +131,8 @@
    
    
    
-   
-   /*find email*/
+  /* 
+   find email
    $('#find_email_modal_findBtn').on('click',function(){
       var name = $('#find_email_modal_name');
       var phone = $('#find_email_modal_phone');
@@ -156,7 +156,7 @@
                );
       }
    });
-   /*find pwd*/
+   find pwd
    $('#find_pwd_modal_findBtn').on('click',function(){
       var email = $('#find_pwd_modal_email');
       var name = $('#find_pwd_modal_name');
@@ -190,7 +190,7 @@
          },'text'
          );
       }
-   });
+   });*/
    /* 1:1문의 */
    $('#mypage_inquiryBtn').on('click',function(){
 	   location.href='/MultiShop/mypage/inquiryPage.do'

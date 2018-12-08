@@ -397,7 +397,7 @@ $(document).ready(function(){
                );
       }
    });
-   /*find pwd*/
+   /*find pwd
    $('#find_pwd_modal_findBtn').on('click',function(){
       var email = $('#find_pwd_modal_email');
       var name = $('#find_pwd_modal_name');
@@ -431,7 +431,7 @@ $(document).ready(function(){
          },'text'
          );
       }
-   });
+   });*/
    
    
    
