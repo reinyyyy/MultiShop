@@ -27,6 +27,7 @@ import member.bean.MemberDTO;
 import member.dao.MemberDAO;
 import mypage.bean.OrderDTO;
 import notice.bean.NoticeDTO;
+import notice.bean.QnaDTO;
 
 @Controller
 @RequestMapping("/manage")
@@ -366,6 +367,26 @@ public class ManageController {
 	@RequestMapping(value="noticeInsert", method=RequestMethod.POST)
 	public @ResponseBody int noticeInsert(@RequestParam Map<String,String> map) {
 		return manageDAO.noticeInsert(map);
+	}
+	//faq페이지
+	@RequestMapping(value="faqPage", method=RequestMethod.GET)
+	public ModelAndView faqPage(@ModelAttribute ModelAndView mav) {
+		mav.addObject("display", "/manage/faqManagePage.jsp");
+		mav.setViewName("/main/adminIndex");
+		return mav;
+	}
+	
+	//faq json 받기
+	@RequestMapping(value="faqList", method=RequestMethod.POST)
+	public ModelAndView faqList() {
+		List<QnaDTO> list = manageDAO.faqList();
+		ModelAndView mav = new ModelAndView("jsonView","data",list);
+		return mav;
+	}
+	//faq 쓰기
+	@RequestMapping(value="faqInsert", method=RequestMethod.POST)
+	public @ResponseBody int faqInsert(@RequestParam Map<String,String> map) {
+		return manageDAO.faqInsert(map);
 	}
 	
 	//고객관리페이지

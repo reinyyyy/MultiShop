@@ -1,116 +1,125 @@
- /* mypage */
-   $('#mypageBtn').on('click',function(){
-      location.href="../mypage/mypage.do";      
-   });
-   /* member modify */
-   
-   $('#mypage_member_modifyBtn').on('click',function(){
-	   location.href="../mypage/membermodifyconfirmForm.do";
-   });
-   
-   $('#member_modify_confirm_Btn').on('click',function(){
-      var pwd = $('#member_modify_pwd');
-      if(pwd.val()==''){
-         $('#member_modify_statusDiv').text('비밀번호를 입력해주세요').css('color','red');
-      }else{
-         $.post('/MultiShop/mypage/membermodifyconfirm.do',
-               $('#member_modify_confirm_form').serialize(),
-               function(data){
-                  if(data=='true'){
-                     location.href='/MultiShop/mypage/memberModifyForm.do'
-                  }else{
-                     $('#member_modify_statusDiv').text('비밀번호가 맞지않습니다').css('color','red');
-                  }
-         },'text');
-      }
-   });
-   
-   $('#member_modify_pwd').blur(function(){
-      if($('#member_modify_pwd').val()==""){
-         $('#member_modify_statusDiv').text('비밀번호를 입력하세요.').css('color','red');
-         $('#member_modify_pwd').css({'border':'1px solid red'});
-      }else if(!Mw_regPwd.test($('#member_modify_pwd').val())){
-         $('#member_modify_statusDiv').text("비밀번호는 6자리 이상입니다").css('color','red');
-         $('#member_modify_pwd').css({'border':'1px solid red'});
-      }else{
-         $('#member_modify_statusDiv').text('');
-         $('#member_modify_pwd').css({'border':''});
-      }
-   });
-   
-   $('#member_modify_repwd').blur(function(){
-      if($('#member_modify_repwd').val()==''){
-         $('#member_modify_statusDiv').text("비밀번호 다시 입력하세요").css('color','red');
-         $('#member_modify_repwd').css({'border':'1px solid red'});
-      }else if(!Mw_regPwd.test($('#member_modify_repwd').val())){
-         $('#member_modify_statusDiv').text("비밀번호는 6자리 이상입니다").css('color','red');
-         $('#member_modify_repwd').css({'border':'1px solid red'});
-      }else if($('#member_modify_pwd').val()!= $('#member_modify_repwd').val()){
-         $('#member_modify_statusDiv').text("비밀번호가 일치하지 않습니다").css('color','red');
-         $('#member_modify_repwd').css({'border':'1px solid red'});
-      }else{
-         $('#member_modify_statusDiv').text('');
-         $('#member_modify_repwd').css({'border':''});
-      }
-   });
-   
-   $('#member_modify_name').blur(function(){
-      if($('#member_modify_name').val()==""){
-         $('#member_modify_statusDiv').text('이름을 입력해주세요.').css('color','red');
-         $('#member_modify_name').css({'border':'1px solid red'});
-      }else if(!Mw_regName.test($('#member_modify_name').val())){
-         $('#member_modify_statusDiv').text('이름은 한글만 가능합니다').css('color','red');
-         $('#member_modify_name').css({'border':'1px solid red'});
-      }else{
-         $('#member_modify_statusDiv').text('');
-         $('#member_modify_name').css({'border':''});
-      }
-   });
-   
-   $('#member_modify_phone').blur(function(){
-      if($('#member_modify_phone').val()==""){
-         $('#member_modify_statusDiv').text('전화번호를 입력해주세요.').css('color','red');
-         $('#member_modify_phone').css({'border':'1px solid red'});
-      }else if(!Mw_regPhone.test($('#member_modify_phone').val())){
-         $('#member_modify_statusDiv').text("전화번호 형식이 맞지 않습니다").css('color','red');
-         $('#member_modify_phone').css({'border':'1px solid red'});
-      }else{
-         $('#member_modify_statusDiv').text('');
-         $('#member_modify_phone').css({'border':''});
-      }
-   });
-   
-   
-   $('#member_modifyBtn').on('click',function(){
-      if(Mw_regName.test($('#member_modify_name').val()) && Mw_regPwd.test($('#member_modify_pwd').val())
-            && ($('#member_modify_repwd').val()== $('#member_modify_pwd').val()) && Mw_regEmail.test($('#member_modify_email').val()) 
-            && Mw_regPhone.test($('#member_modify_phone').val())){
-         if($('#member_modify_roadAddress').val()==""){
-            $('#member_modify_statusDiv').text('우편번호찾기를 해주세요.').css('color','red');
-            $('#member_modify_postcode').css({'border':'1px solid red'});
-         }else{
-            $(this).find('input').css({'border':''});
-            $.post('/MultiShop/mypage/memberModify.do',
-                  $('#member_modify_form').serialize(),
-                  function(data){
-                     if(data=='true'){
-                        $('#member_modify_complete_modal').modal({backdrop: 'static', keyboard: false});
-                     }
-                  },'text'
-               );
-         }
-      }
-   });
-   $('#member_modify_complete_modalBtn').on('click',function(){
-      $.post('/MultiShop/member/logout.do',
-            function(data){
-               $('#member_modify_complete_modal').modal('hide');
-               location.href='/MultiShop/main/index.do';
-            }
-      );
-   });
-   
-   /* member modify */
+$(document).ready(function(){
+		var Mw_regName = /^[가-힣]+$/;   //한글만 가능 
+		var Mw_regId = /^[a-z0-9_]{5,12}$/; //5~12자 영문소문자, 숫자, 특수문자 _ 사용가능
+		//var Mw_regPwd = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-]|.*[0-9]).{6,24}$/;   //6-24자리 영문대소문자or숫자or특수기호
+		var Mw_regPwd =  /^[a-z0-9_]{6,24}$/;
+		var Mw_regPhone =  /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;   //휴대폰 번호 양식
+		var Mw_regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/; //이메일 양식
+	
+	
+	/* mypage */
+	$('#mypageBtn').on('click',function(){
+		location.href="../mypage/mypage.do";      
+	});
+	/* member modify */
+	
+	$('#mypage_member_modifyBtn').on('click',function(){
+		location.href="../mypage/membermodifyconfirmForm.do";
+	});
+	
+	$('#member_modify_confirm_Btn').on('click',function(){
+		var pwd = $('#member_modify_pwd');
+		if(pwd.val()==''){
+			$('#member_modify_statusDiv').text('비밀번호를 입력해주세요').css('color','red');
+		}else{
+			$.post('/MultiShop/mypage/membermodifyconfirm.do',
+					$('#member_modify_confirm_form').serialize(),
+					function(data){
+				if(data=='true'){
+					location.href='/MultiShop/mypage/memberModifyForm.do'
+				}else{
+					$('#member_modify_statusDiv').text('비밀번호가 맞지않습니다').css('color','red');
+				}
+			},'text');
+		}
+	});
+	
+	$('#member_modify_pwd').blur(function(){
+		if($('#member_modify_pwd').val()==""){
+			$('#member_modify_statusDiv').text('비밀번호를 입력하세요.').css('color','red');
+			$('#member_modify_pwd').css({'border':'1px solid red'});
+		}else if(!Mw_regPwd.test($('#member_modify_pwd').val())){
+			$('#member_modify_statusDiv').text("비밀번호는 6자리 이상입니다").css('color','red');
+			$('#member_modify_pwd').css({'border':'1px solid red'});
+		}else{
+			$('#member_modify_statusDiv').text('');
+			$('#member_modify_pwd').css({'border':''});
+		}
+	});
+	
+	$('#member_modify_repwd').blur(function(){
+		if($('#member_modify_repwd').val()==''){
+			$('#member_modify_statusDiv').text("비밀번호 다시 입력하세요").css('color','red');
+			$('#member_modify_repwd').css({'border':'1px solid red'});
+		}else if(!Mw_regPwd.test($('#member_modify_repwd').val())){
+			$('#member_modify_statusDiv').text("비밀번호는 6자리 이상입니다").css('color','red');
+			$('#member_modify_repwd').css({'border':'1px solid red'});
+		}else if($('#member_modify_pwd').val()!= $('#member_modify_repwd').val()){
+			$('#member_modify_statusDiv').text("비밀번호가 일치하지 않습니다").css('color','red');
+			$('#member_modify_repwd').css({'border':'1px solid red'});
+		}else{
+			$('#member_modify_statusDiv').text('');
+			$('#member_modify_repwd').css({'border':''});
+		}
+	});
+	
+	$('#member_modify_name').blur(function(){
+		if($('#member_modify_name').val()==""){
+			$('#member_modify_statusDiv').text('이름을 입력해주세요.').css('color','red');
+			$('#member_modify_name').css({'border':'1px solid red'});
+		}else if(!Mw_regName.test($('#member_modify_name').val())){
+			$('#member_modify_statusDiv').text('이름은 한글만 가능합니다').css('color','red');
+			$('#member_modify_name').css({'border':'1px solid red'});
+		}else{
+			$('#member_modify_statusDiv').text('');
+			$('#member_modify_name').css({'border':''});
+		}
+	});
+	
+	$('#member_modify_phone').blur(function(){
+		if($('#member_modify_phone').val()==""){
+			$('#member_modify_statusDiv').text('전화번호를 입력해주세요.').css('color','red');
+			$('#member_modify_phone').css({'border':'1px solid red'});
+		}else if(!Mw_regPhone.test($('#member_modify_phone').val())){
+			$('#member_modify_statusDiv').text("전화번호 형식이 맞지 않습니다").css('color','red');
+			$('#member_modify_phone').css({'border':'1px solid red'});
+		}else{
+			$('#member_modify_statusDiv').text('');
+			$('#member_modify_phone').css({'border':''});
+		}
+	});
+	
+	
+	$('#member_modifyBtn').on('click',function(){
+		if(Mw_regName.test($('#member_modify_name').val()) && Mw_regPwd.test($('#member_modify_pwd').val())
+				&& ($('#member_modify_repwd').val()== $('#member_modify_pwd').val()) && Mw_regEmail.test($('#member_modify_email').val()) 
+				&& Mw_regPhone.test($('#member_modify_phone').val())){
+			if($('#member_modify_roadAddress').val()==""){
+				$('#member_modify_statusDiv').text('우편번호찾기를 해주세요.').css('color','red');
+				$('#member_modify_postcode').css({'border':'1px solid red'});
+			}else{
+				$(this).find('input').css({'border':''});
+				$.post('/MultiShop/mypage/memberModify.do',
+						$('#member_modify_form').serialize(),
+						function(data){
+					if(data=='true'){
+						$('#member_modify_complete_modal').modal({backdrop: 'static', keyboard: false});
+					}
+				},'text'
+				);
+			}
+		}
+	});
+	$('#member_modify_complete_modalBtn').on('click',function(){
+		$.post('/MultiShop/member/logout.do',
+				function(data){
+			$('#member_modify_complete_modal').modal('hide');
+			location.href='/MultiShop/main/index.do';
+		}
+		);
+	});
+	
+	/*  member modify 
    $('#member_modifyBtn').on('click',function(){
       $.post('/MultiShop/member/membermodify.do',
          $('#member_modify_form').serialize(),
@@ -121,18 +130,18 @@
                alert("수정실패");
          },'text'
       );
-   });
-   
-   /*delivery page*/
-   $('#mypage_deleveryBtn').on('click',function(){
-	   location.href='/MultiShop/mypage/deliveryPage.do'
-   });
-   
-   
-   
-   
-   
-   /*find email
+   });*/
+	
+	/*delivery page*/
+	$('#mypage_deleveryBtn').on('click',function(){
+		location.href='/MultiShop/mypage/deliveryPage.do'
+	});
+	
+	
+	
+	
+	
+	/*find email
    $('#find_email_modal_findBtn').on('click',function(){
       var name = $('#find_email_modal_name');
       var phone = $('#find_email_modal_phone');
@@ -191,3 +200,5 @@
          );
       }
    });*/
+	
+}); 
