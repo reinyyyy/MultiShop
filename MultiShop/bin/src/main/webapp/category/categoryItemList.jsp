@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>¸®½ºÆ®</title>
+<title>ë¦¬ìŠ¤íŠ¸</title>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script> -->
-<!-- À§¿¡ src´Â bootstrap.min.js:6 Uncaught Error: Bootstrap dropdown require Popper.js ¿¡·¯Àâ¾ÆÁÜ  -->
+<!-- ìœ„ì— srcëŠ” bootstrap.min.js:6 Uncaught Error: Bootstrap dropdown require Popper.js ì—ëŸ¬ì¡ì•„ì¤Œ  -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href = "../css/categoryItemList.css" rel = "stylesheet">
@@ -72,28 +72,53 @@
 .wish {
 	background: url(../image/btn_goods_wish.png) no-repeat 50% 50%;
 }
+.card-header {
+	background-color: #f3f3f3;
+}
+.card-body {
+	background-color: #ffffff;
+}
+.card-body p{
+	cursor : pointer;
+}
+
+.card-body p:hover{
+	color : red;
+}
+
+.mb-0 a:hover{
+	color : fuchsia;
+}
+
+.card-body h4{
+	overflow: hidden;
+	width : 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 </style>
 </head>
 <body style="width: 100%">
-<!-- ÆË¾÷ -->
+<!-- íŒì—… -->
 <input type = hidden id = "cateNum" value = "${cateNum}"/>
 <input type = hidden id = "pg" value = "${pg}"/>
 
 
 
 	<!-- The Modal -->
-	<div class="modal fade" id="myModal" data-backdrop="false">
+	<div class="modal fade" id="quick_view" data-backdrop="false">
 		<div class="modal-dialog"  style="max-width: 80%; width: auto;">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">Modal Heading</h4>
-					<button type="button" class="close" data-dismiss="modal">¡¿</button>
+					<h4 class="modal-title">Quick View</h4>
+					<button type="button" class="close" data-dismiss="modal">Ã—</button>
 				</div>
 
 				<!-- Modal body -->
-				<div class="modal-body quickViewBody" style = "margin-left : 50px; overflow : hidden;">	<!--  ajax È£Ãâ  -->
+				<div class="modal-body quickViewBody" style = "margin-left : 50px; overflow : hidden;">	<!--  ajax í˜¸ì¶œ  -->
 					
 				</div>
 
@@ -109,10 +134,10 @@
 
 	<div id="jb-container">
 		
-		<!-- ÁÂÃø »çÀÌµå ¸Ş´º¹Ù -->
+		<!-- ì¢Œì¸¡ ì‚¬ì´ë“œ ë©”ë‰´ë°” -->
 		<div id="jb-sidebar">
 			<div id="accordion" role="tablist">
-				<div class="card_">
+				<div class="card_ 3">
 					<div class="card-header" role="tab" id="headingOne"
 						data-toggle="collapse" href="#collapseOne" aria-expanded="true"
 						aria-controls="collapseOne">
@@ -124,21 +149,21 @@
 					<div id="collapseOne" class="collapse show" role="tabpanel"
 						aria-labelledby="headingOne" data-parent="#accordion">
 						<div class="card-body">
-							<a>All</a>
-							<a>Outer</a>
-							<a>Top</p>
-							<a>Bottom</p>
-							<a>Shoes</p>
-							<a>Inner</p>
+							<p>All</p>
+							<p>Outer</p>
+							<p>Top</p>
+							<p>Bottom</p>
+							<p>Shoes</p>
+							<p>Inner</p>
 						</div>
 					</div>
 				</div>
-				<div class="card_">
+				<div class="card_ 2">
 					<div class="card-header collapsed" role="tab" id="headingTwo"
 						data-toggle="collapse" href="#collapseTwo" aria-expanded="false"
 						aria-controls="collapseTwo">
 						<h5 class="mb-0">
-							<a> Tech++ </a>
+							<a style = "cursor: pointer"> Tech++ </a>
 						</h5>
 					</div>
 					<div id="collapseTwo" class="collapse" role="tabpanel"
@@ -154,12 +179,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="card_">
+				<div class="card_ 1">
 					<div class="card-header collapsed" role="tab" id="headingThree"
 						data-toggle="collapse" href="#collapseThree" aria-expanded="false"
 						aria-controls="collapseThree">
 						<h5 class="mb-0">
-							<a> Food </a>
+							<a style = "cursor: pointer"> Food </a>
 							
 						</h5>
 					</div>
@@ -170,105 +195,112 @@
 							<p>Carbohydrate</p>
 							<p>Protein</p>
 							<p>Fat</p>
-							<p>Vitamin</p>
+							<p>Fruit</p>
 							<p>Spice</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- ¼¾ÅÍ ³»¿ë ¿µ¿ª -->
+		<!-- ì„¼í„° ë‚´ìš© ì˜ì—­ -->
 		<div id="jb-content">
-		<!-- »ó´Ü È÷½ºÅä¸® ¹Ù -->
-			<nav aria-label="breadcrumb" role="navigation">
+		<!-- ìƒë‹¨ íˆìŠ¤í† ë¦¬ ë°” -->
+		<%-- 	<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb">
-					<!-- »ç¿ëÀÚ Å¬¸¯È÷½ºÅä¸®·Î µ¿Àû Ã³¸®ÇÊ¿ä -->
+					<!-- ì‚¬ìš©ì í´ë¦­íˆìŠ¤í† ë¦¬ë¡œ ë™ì  ì²˜ë¦¬í•„ìš” -->
 					<li class="breadcrumb-item"><a href="../main/index.do">HOME</a></li>
 					<li class="breadcrumb-item"><a onclick="goPage('${cateNum}')" href = "javascript:void(0)">${pageName }</a></li>
-					<li class="breadcrumb-item active" aria-current="page">µ¥ÀÌÅÍ</li>
+					<li class="breadcrumb-item active" aria-current="page">ë°ì´í„°</li>
 				</ol>
-			</nav>
+			</nav> --%>
 		
 			<div class="array" style="width: 100%;">
 				<div class="arrayList">
 					<ul>
-						<li class="active" onclick="fn_sort('6');"><a href="#link">ÀÎ±â¼ø</a></li>
-						<li><a href="#link" onclick="fn_sort('1');">½Å»óÇ°¼ø</a></li>
-						<li><a href="#link" onclick="javascript:fn_sort('3');">³·Àº°¡°İ¼ø</a></li>
-						<li><a href="#link" onclick="javascript:fn_sort('4');">³ôÀº°¡°İ¼ø</a></li>
-						<li><a href="../detail_page/detailPage.do" onclick="">»ó¼¼Á¤º¸</a></li>
+						<li class="active" onclick="fn_sort(2);"><a href="#link"><i class="fas fa-star">&emsp;</i>ì¸ê¸°ìˆœ</a></li>
+						<li><a href="#link" onclick="fn_sort(1);"><i class="fas fa-plus-square"></i>&emsp;ì‹ ìƒí’ˆìˆœ</a></li>
+						<li><a href="#link" onclick="fn_sort(3);"><i class="fas fa-arrow-down"></i>&emsp;ë‚®ì€ê°€ê²©ìˆœ</a></li>
+						<li><a href="#link" onclick="fn_sort(4);"><i class="fas fa-arrow-up"></i>&emsp;ë†’ì€ê°€ê²©ìˆœ</a></li>
 					</ul>
 				</div>
-				<!--  ¸î°³¾¿ º¸¿©ÁÙ °ÍÀÎÁö -->
+				<!--  ëª‡ê°œì”© ë³´ì—¬ì¤„ ê²ƒì¸ì§€ -->
 				<div class="select">
-					<span>DISPLAY</span> <span class="selectRecordCount"> <a
-						href="#link" val="10">10</a> <a href="#link" val="20">20</a> <a
-						href="#link" val="100">ALL</a>
+					<span>DISPLAY</span> <span class="selectRecordCount"> 
+						<a href = "#" onclick = "$('#pageSize').val(8)">8</a> 
+						<a href = "#" onclick = "$('#pageSize').val(12)">12</a> 
+						<a href = "#" onclick = "$('#pageSize').val(16)">16</a>
 					</span>
 				</div>
 			</div>
 
 
 			<div id="card_contents" style="width: 100%;">
-				<!-- ajax·Î json ¿©±â·Î ºÎ¸£¸éµÊ -->
-				<!-- Ä«µå ÇÏ³ª´ç ÇÏ³ªÀÇ Á¦Ç°ÀÌ µé¾î¿È -->
+				<!-- ajaxë¡œ json ì—¬ê¸°ë¡œ ë¶€ë¥´ë©´ë¨ -->
+				<!-- ì¹´ë“œ í•˜ë‚˜ë‹¹ í•˜ë‚˜ì˜ ì œí’ˆì´ ë“¤ì–´ì˜´ -->
 				
 			</div>
 			
-			<!-- ÆäÀÌÂ¡ Ã³¸® ¿µ¿ª -->
+			<!-- í˜ì´ì§• ì²˜ë¦¬ ì˜ì—­ -->
 			<div id="jb-footer">
 				<div align="center" id = "categoryPaging">
 					<!-- <button type="button" class="btn btn-secondary" onclick="alert();">1</button>
 					<button type="button" class="btn btn-secondary">2</button>
 					<button type="button" class="btn btn-secondary">3</button>
-					<button type="button" class="btn btn-secondary">´ÙÀ½</button> -->
+					<button type="button" class="btn btn-secondary">ë‹¤ìŒ</button> -->
+					<nav aria-label="...">
+						<ul class="pagination justify-content-center">
+							
+						</ul>
+					</nav>
 				</div>
-				
 
-				<!-- <div class="input-group">	¿©±â¿¡¼­ °Ë»ö¸¸µé²¨¸é ÀÌ°Å¾²¸éµÊ
+				<!-- <div class="input-group">	ì—¬ê¸°ì—ì„œ ê²€ìƒ‰ë§Œë“¤êº¼ë©´ ì´ê±°ì“°ë©´ë¨
 						<span class="input-group-addon" id="btnGroupAddon2">@</span> 
-						<input type="text" class="form-control" placeholder="³ÖÀ» ¼öµµ »¬¼öµµ ÀÖ½À´Ï´Ù"
-						aria-label="ÀÔ·Â±×·ì ¿¹Á¦" aria-describedby="btnGroupAddon2">
+						<input type="text" class="form-control" placeholder="ë„£ì„ ìˆ˜ë„ ëº„ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤"
+						aria-label="ì…ë ¥ê·¸ë£¹ ì˜ˆì œ" aria-describedby="btnGroupAddon2">
 					</div> -->
+					<div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- jb-contents ³¡ -->
-
+	<!-- jb-contents ë -->
+<jsp:include page="../detail_Modal/detail_Modal.jsp"/>
+   <jsp:include page="../detail_Modal/detail_nonLogin.jsp"/>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="../js/categoryItemList.js"></script>
+	
 	<script type="text/javascript" src="../js/detailPage.js"></script>
 	<script>
-	//Ä«Å×°í¸® °ªÀ¸·Î ¹Ş¾Æ¿È	
+	//ì¹´í…Œê³ ë¦¬ ê°’ìœ¼ë¡œ ë°›ì•„ì˜´	
 		$(document).ready(function(){
 			var p_code;
 			
 			$(document).on('click', '.quick', function(){
 				p_code = $(this).prev().val();
-				$('#myModal').modal();
+				$('#quick_view').modal();
 			});
 			
 			
 
-			//¸ğ´Ş Å¬¸¯ÀÌº¥Æ® QUICK VIEW Å¬¸¯ ÀÌº¥Æ®
+			//ëª¨ë‹¬ í´ë¦­ì´ë²¤íŠ¸ QUICK VIEW í´ë¦­ ì´ë²¤íŠ¸
 			$("#myBtn").click(function() {
-				$("#myModal").modal();
+				$("#quick_view").modal();
 			});
 			
-			//QUICK VIEW ¸ğ´Ş ·Îµù¿Ï·á ÀÌº¥Æ®
-			$('#myModal').on('shown.bs.modal', function(){
+			//QUICK VIEW ëª¨ë‹¬ ë¡œë”©ì™„ë£Œ ì´ë²¤íŠ¸
+			$('#quick_view').on('shown.bs.modal', function(){
 				$.ajax({
 					type : "POST",
 					url : "quickView.do",
-					data : {'p_code' : p_code, 'cateNum' : $("#cateNum").val()},												//DB¸¸µé¸é data¿¡ »óÇ° ´ëÇ¥ÇÏ´Â °ª Áı¾î³Ö¾îÁà¾ßÇÔ $('#p_code').val()
+					data : {'p_code' : p_code, 'cateNum' : $("#cateNum").val()},												//DBë§Œë“¤ë©´ dataì— ìƒí’ˆ ëŒ€í‘œí•˜ëŠ” ê°’ ì§‘ì–´ë„£ì–´ì¤˜ì•¼í•¨ $('#p_code').val()
 					dataType : 'html',
 					success : function(data){
 						
 						$('.quickViewBody').html(data);						
 					},
 					error : function(){
-						alert("¿¡·¯");	
+						alert("ì—ëŸ¬");	
 					}
 				});
 			});
@@ -284,53 +316,36 @@
 			});
 
 			//1 : food , 2 : tech, 3 : clothes
-			//¸ñ·Ï Å¬¸¯Æ®¸®°Å
+			//ëª©ë¡ í´ë¦­íŠ¸ë¦¬ê±°
 			if ('${cateNum}' == 2) {
 				$('#headingTwo').trigger('click');
 			} else if ('${cateNum}' == 1) {
 				$('#headingThree').trigger('click');
 			}
 			
-			//¸ğ´Ş ´İÈûÀÌº¥Æ®
-			$('#myModal').on('hide.bs.modal', function(e){
+			//ëª¨ë‹¬ ë‹«í˜ì´ë²¤íŠ¸
+			$('#quick_view').on('hide.bs.modal', function(e){
 				$('.quickViewBody').empty();
 			});
 			
-
-			//±Û¸ñ·Ï ºÒ·¯¿È
-			$.ajax({
-				type : 'POST',
-				url : '../category/getList.do',
-				data : {
-					'cateNum' :  $("#cateNum").val(),
-					'pg' : $("#pg").val()
-				}, //µû¿ÈÇ¥Ä¡¸é ¹®ÀÚ¿­, ¾ÈÄ¡¸é ¼ıÀÚ 
-				dataType : 'json',
-				success : function(data) { //data¿¡´Â ¸®½ºÆ®µé
-					//alert(JSON.stringify(data));
-					var card_contents = '';
-					$.each(data.list, function(index, items) {
-						card_contents += card(items);
-					});
-					$('#card_contents').html(card_contents);
-					$('#categoryPaging').html(data.categoryPaging.pagingHTML);
-
-				}
-			});
-			/* $.postJSON('../category/getList.do', '${cateNum}', function(data){
-				alert(data);
-			}); */
+			//ë„¤ë¹„ë°” ì†ê°€ë½ ë§ˆí‚¹
+			if("${p_midCate}" == '' ){
+				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("All")')).before('<i class="fas fa-hand-point-down"></i>').css('font-weight', 'bold');
+			}else{
+				$('#accordion').find($('.'+"${cateNum}")).find('a').parent().parent().next().find($('p:contains("${p_midCate}")')).before('<i class="fas fa-hand-point-down"></i>').css('font-weight', 'bold');
+			}
+			
+			
 		});
 	
-		
-		//Á¦Ç° ³»¿ë¹° »ı¼º
-		function card(items) { //DBÄÃ·³¸íÀ» °¡Á®´Ù ½á¾ßÇÔ banana.jpg			//¹Ş¾Æ¿À´Â°Å DTO ¿¡¼­ boardLIST ·Î º¯°æÇØ¾ß´ï
-			var result = items.p_main_img.replace('/', '');
-			var src = '../upload/' + result;
-			console.log(result);
+		//ì œí’ˆ ë‚´ìš©ë¬¼ ìƒì„±
+		function card(items) { //DBì»¬ëŸ¼ëª…ì„ ê°€ì ¸ë‹¤ ì¨ì•¼í•¨ banana.jpg			//ë°›ì•„ì˜¤ëŠ”ê±° DTO ì—ì„œ boardLIST ë¡œ ë³€ê²½í•´ì•¼ëŒ
+			var result = items.p_main_img.split('/');
+			var src = '../upload/' + result[1];
+			console.log(result[1]);
 			var name = items.p_name;
-			var content = items.p_contents;
-			var price = items.p_COST;		//Á¦Ç°Å×ÀÌºí¿¡¼­ ¹Ş¾Æ¿ÍÇÔ.
+			/* var content = items.p_contents; */
+			var price = items.p_COST;		//ì œí’ˆí…Œì´ë¸”ì—ì„œ ë°›ì•„ì™€í•¨.
 			var p_code = items.p_code;
 			
 			var card_html = 
@@ -338,31 +353,43 @@
 					+ '<div style="position : relative;">'
 					+ '<img class="card-img-top" src="' + src + '" alt="Card image cap" style = "cursor : pointer;">'
 					+ '<div class="quick_menu" style="background : rgba(0,0,0,0.8)">'
-					+ '<a href="/product/view.asp?productNo=42046" class="btnl link" target="_blank" float="left"/>'
+					/* + '<a  class="btnl link" target="_blank" float="left"/>' */
 					+ '<input type = "hidden" name = "p_code" value = ' + p_code + '>'
 					+ '<a href="#;" class="quick" style="color : white;">QUICK VIEW</a>'
-					+ '<a href="javascript:loginChk();void(0);" class="btnl wish" float="right"/>'
+					+ '<span id = "product_email" style="color:white; cursor:pointer;"><i style="padding: 8px" class="fas fa-envelope fa-2x"  data-backdrop="static" data-toggle="modal" data-target="#send_email" aria-label="Left Align"></i></span>'
+					/* + '<a href="javascript:loginChk();void(0);" class="btnl wish" float="right"/>' */
 					+ '</div>' + '</div>' + '<div class="card-event">'
-					+ '<li class="list-group-item">' + addComma(price) + ' £Ü </li>'
+					+ '<li class="list-group-item">'+ 'ï¿¦ '+ addComma(price)+'</li>'
 					+ '</div>' + '<div class="card-body">'
 					+ '<h4 class="card-title">' + name + '</h4>'
-					+ '<p class="card-text">' + content + '</p>' + '</div>'
+					+ '<p class="card-text">' +''+ '</p>' + '</div>' /* + content + */ 
 					+ '</div>';
 			return card_html;
 		}
-		
-		//»ó¼¼ ÆäÀÌÁö ÀÌµ¿ ÀÌº¥Æ®
-		$(document).on('click','.card-img-top', function(){
-			var p_code = $(this).next().find('input').val();
-			location.href = "../detail_page/detailPage.do?p_code="+p_code;
+		//ìƒí’ˆ ë¬¸ì˜ ëª¨ë‹¬ì°½ 
+		$(document).on('click', '#product_email', function(){
+			var product_name = $(this).parents().next().next().find('.card-title').html();
+			$('#inputTitle').val(product_name);
 		});
 		
-		//3ÀÚ¸®¼ö ÄŞ¸¶ Á¦ÀÛ ÇÔ¼ö
+		//ìƒì„¸ í˜ì´ì§€ ì´ë™ ì´ë²¤íŠ¸
+		$(document).on('click','.card-img-top', function(){
+			var p_code = $(this).next().find('input').val();
+			var cateNum = $('#cateNum').val();
+			location.href = "../detail_page/detailPage.do?p_code="+p_code+"&cateNum="+cateNum+'&p_name='+$('#p_name').val();
+		});
+		
+		//3ìë¦¬ìˆ˜ ì½¤ë§ˆ ì œì‘ í•¨ìˆ˜
 		function addComma(num) {
 			  var regexp = /\B(?=(\d{3})+(?!\d))/g;
 			  return num.toString().replace(regexp, ',');
 		}
+		
+		
+		
+		
 	</script>
+	<script src="../js/categoryItemList.js"></script>
 </body>
 </html>
 

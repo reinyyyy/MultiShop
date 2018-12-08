@@ -123,6 +123,7 @@ div.cover {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,
 #productPopup .popupSlide .mask div {width:548px;height:498px;}
 #productPopup .popupSlide .mask img{width:548px;height:498px;}
 #productPopup .popupSlide .pagerWrap {margin-top:10px;position:relative;}
+#productPopup .popupSlide .pagerWrap a:hover {text-decoration: none;}
 #productPopup .popupSlide .pagerWrap .btnPrev {position:absolute;top:50%;margin-top:-12px;left:0;}
 #productPopup .popupSlide .pagerWrap .btnNext {position:absolute;top:50%;margin-top:-12px;right:0;}
 #productPopup .popupSlide .pager {text-align:center;}

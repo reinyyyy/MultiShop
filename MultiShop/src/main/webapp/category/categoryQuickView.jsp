@@ -171,6 +171,7 @@
             <form id ="detail_form" method="post" action="../detail_page/orderPage.do">
             <!--파라미터-->
             <input type = "hidden" name = "productCode" id = "p_code" value = "${productDTO.p_code}">
+            <input type = "hidden" name = "p_code" id = "p_code" value = "${productDTO.p_code}">
    			<input type = "hidden" name = "p_status" id = "p_status" value = "">
             <div class="popRight">
                <span class="viewTitle">${productDTO.p_name}</span>
@@ -673,6 +674,7 @@
 				amount_op = Number("${amount_list[0]}");
 				$('#amount_input').attr('max', amount_op);
 				$('#amount_input').removeAttr('disabled');
+				$('#amount_input').val(1);
 			}
 			//품절체크
 			if(no_option_index == 1 && p_status[0] == 'N'){

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -366,6 +366,7 @@
 					+ '</div>';
 			return card_html;
 		}
+		
 		//상품 문의 모달창 
 		$(document).on('click', '#product_email', function(){
 			var product_name = $(this).parents().next().next().find('.card-title').html();

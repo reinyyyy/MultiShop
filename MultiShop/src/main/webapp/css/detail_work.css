@@ -91,3 +91,13 @@ table th{
 }
 #detail_QnAReplyView{
    height : 80px;
+}
+td.details-control {
+    background: url('../image/on.png') no-repeat center center;
+    cursor: pointer;
+    background-size: 30px;
+}
+tr.shown td.details-control {
+    background: url('../image/off.png') no-repeat center center;
+    background-size: 30px;
+}
