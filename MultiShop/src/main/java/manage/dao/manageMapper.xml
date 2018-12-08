@@ -147,6 +147,14 @@
 <!--    <delete id="productDeleteJson" parameterType="Map">
       delete product where p_code = #{p_code}
    </delete> -->
+    <select id="faqList" resultType="qnaDTO">
+	 	select * from qnatable order by 1 desc
+	 </select>
+	 
+	 <insert id="faqInsert" parameterType="Map">
+ 		insert into qnatable values(qnatable_SEQ.nextval,#{q_subject},#{q_content},sysdate)
+	 </insert>
+   
 </mapper>  
 
 

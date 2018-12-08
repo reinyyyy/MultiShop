@@ -89,6 +89,9 @@
                 <a href="../manage/noticePage.do"  id="noticeManageBtn">공지관리</a>
             </li>
         	<li>
+                <a href="../manage/faqPage.do"  id="faqManageBtn">FAQ관리</a>
+            </li>
+        	<li>
                 <a href="../main/index.do"  id="noticeManageBtn">나가기</a>
             </li>
         </ul>
