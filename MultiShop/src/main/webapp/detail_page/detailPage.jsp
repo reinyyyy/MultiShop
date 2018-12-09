@@ -23,7 +23,6 @@
 </head>
 <body>
 	<input type = "hidden" id="session_email" value="${session_email}">
-	<input type = "hidden" id="p_code" value="${p_code}">
 	<input type = "hidden" name = "p_status" id = "p_status" value = "">
    <header>
       <div class="container">
@@ -166,7 +165,7 @@
                         </div>
                      </div>
                      <div class="btnWrap" style="text-align: right;">
-                       	<a href="#none" id="basketBtn" class="btnBasket cart_add" data-toggle="modal" href="#basketModal">
+                       	<a href="#none" id="basketBtn" class="btnBasket cart_add">
                            <i class="fas fa-shopping-cart"></i>&emsp;장바구니 담기
                         </a>
                         <a href="#none" id="buyNowBtn" class="btnBuyNow order_now" itemsts="1" unitea="">
@@ -363,123 +362,13 @@
 } */
 
 
-/* function categoryChange(){
-	
-	var black = ["S","M","L","XL"];
-	var begie = ["M","L","XL"];
-	var green = ["S","M"];
-	var white = ["L","XL","XXL"];
-	
-	var selectColor = $("#detail_colorSelect option:selected").val();
-	alert(selectColor);
-	
-	var changeItem;
-	
-	if(selectColor=="black"){
-		changeItem = black;
-	}else if(selectColor="begie"){
-		changeItem = begie;
-	}else if(selectColor="green"){
-		changeItem = green;
-	}else if(selectColor="white"){
-		changeItem = white;
-		alert(changeItem);
-	}
-	
-	$('#detail_sizeSelect').empty();
-	
-	for(var i=0; i<changeItem.length; i++){
-		alert(changeItem[i]);
-		var newOption = $("<option>"+changeItem[i]+"</option>");
-		$('#detail_sizeSelect').append(newOption);
-	}
-	
-	
-	
-	/* for (x in choose) {
-	    var opt = document.createElement("option");
-	    opt.value = choose[x];
-	    opt.innerHTML = choose[x];
-	    target.appendChild(opt);
-	}  
-	
-} */
 
 $(document).ready(function(){
-	/* //이미지 확대 기능
-	$(".xzoom").xzoom();
-	
-	//이미지 변경
-	$('#detailSub1_image').click(function(){
-	   $('#detailMain_image').attr('xoriginal', '../image/coat1.jpg');
-	   $('#detailMain_image').attr('src', '../image/coat1.jpg');
-	});
-
-	$('#detailSub2_image').click(function(){
-	   $('#detailMain_image').attr('xoriginal', '../image/coat2.jpg');
-	   $('#detailMain_image').attr('src', '../image/coat2.jpg');
-	});
-
-	$('#detailSub3_image').click(function(){
-	   $('#detailMain_image').attr('xoriginal', '../image/coat3.jpg');
-	   $('#detailMain_image').attr('src', '../image/coat3.jpg');
-	});
-
-	$('#detailSub4_image').click(function(){
-	   $('#detailMain_image').attr('xoriginal', '../image/coat4.jpg');
-	   $('#detailMain_image').attr('src', '../image/coat4.jpg');
-	}); */
-	
-	
-	
-	/* 재우 상세페이지 값 불러오는 ajax
-	var option_arr =[];
-	//상세페이지 값너어주기
-	var k = 0;
-	var j = 0;
-	$.ajax({
-		type : 'POST',
-		url : '/MultiShop/detail_page/getDetailPage.do',
-		data : {'p_code':'${p_code}'},
-		dataType : 'json',
-		success : function(data){
-			//alert(JSON.stringify(data));
-			alert(data.product_boardDTO.p_COST);
-			
-			alert(data.product_boardDTO.p_name + data.product_boardDTO.p_contents);
-			$('#product_price').text(data.product_boardDTO.p_COST+"원");
-				
-			$.each(data.detail_list, function(index, items){
-				//alert("index : " + index +"items : " + items);			//index 변수명, items 값
-				//alert(items.p_midCate);
-				$.each(items, function(i, t){
-					option_arr[k] = t;
-					k++;
-				});
-			});
-			//alert(option_arr);
-			/* 
-			alert(JSON.stringify(data));
-			var detail_list = data.detail_list;
-			alert(detail_list[0]);
-			var jbSplit = jbString.split('/');
-			alert(jbSplit); */
-			/*
-			for(var i in JwSplit){
-				console(JwSplit[i]);
-			} 
-		},error : function(data){
-			alert("에러발생!@!@");	
-		}
-		
-	}); */
-	
+	var total_price = Number("${productDTO.p_cost}");
 	var p_status = new Array();	//판매상태
 	
 	var img_param = "${productDTO.p_image}";
 	var result = img_param.split('/');
-	//alert(result[1]);
-	//var img_tag = '<img class="xzoom" src ="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'" xoriginal="../upload/'+result[1]+'">'; 
 	$('.mask').children().attr('src',  '../upload/'+result[1]).attr('xoriginal', '../upload/'+result[1]);
 	//$('.mask').html(img_tag);
 	var img_length = result.length-1;	//이미지 개수
@@ -493,16 +382,6 @@ $(document).ready(function(){
 	
 	
 	
-	/*
-				EL로 받아오면 모두 string 타입으로 데려오기때문에 [ 지워줘야함 ]
-	*/			
-	
-	
-	// 1. select 레이아웃 생성
-	// 2. option_DTO 생성
-	// 3. 상위 select 하나만 중복제거해서 보여주고, 그 아래 하위들은 동적으로 생성되게 만들기
-	
-	
 	
 	
 	var amount = [];//수량
@@ -514,7 +393,6 @@ $(document).ready(function(){
 	var option_result = '';			
 	var option_DTO = [];
 	var amount_index;
-	//alert("${option_result_list}");		[[색상, 블랙, 블랙, 레드, 레드], [사이즈, 미디움, 라지, 미디움, 스몰]]  Type = String
 	var total_size = 1;
 	
 	//옵션 없는경우 disabled 해제
@@ -538,7 +416,6 @@ $(document).ready(function(){
 		
 		var option_list = "${item1}";
 		//alert(option_list);		//index 0 : [색상, 블랙, 블랙, 레드, 레드], index 1 : [사이즈, 미디움, 라지, 미디움, 스몰]	Type = String //9:23
-		
 		
 		var split_result = option_list.replace('[', '').replace(']', '').split(/[\s,]+/);		
 		//inedx 0 : 색상,블랙,블랙,레드,레드	index 1 : 사이즈,미디움,라지,미디움,스몰	Type = 배열
@@ -589,6 +466,14 @@ $(document).ready(function(){
 		total_size += 1;	//그룹 전체 수량 판단
 		amount["${amount_index.count}"] = "${amount}"; 
 	</c:forEach>
+	
+	cost_list = new Array;
+	<c:forEach items = "${cost_list}" var = "cost_list" varStatus = "cost_index">
+		cost_list["${cost_index.count}"] = "${cost_list}"; 
+	</c:forEach>
+	cost_list.splice(0, 1);
+	//alert(cost_list);
+	
 	//alert(amount);
 	
 	option_DTO[amount_index] = amount; 
@@ -596,15 +481,6 @@ $(document).ready(function(){
 		//alert('완성본 option_DTO['+index+'] : ' + option_DTO[index]);		////9:23
 	});
 	
-	//[amount_index] 재고 인덱스
-	//{색상, 블랙, 블랙, 레드, 레드},
-	//{사이즈, 미디움, 라지, 미디움, 스몰},
-	//{사이즈, 11, 22, 33 , 42}
-	
-	// {블랙, 미디움, 11},
-	// {블랙, 미디움, 11},
-	// {블랙, 미디움, 11},
-	// {블랙, 미디움, 11},
 	
 	//첫 옵션제외 두번째 옵션부터 들어옴
 	//alert(total_size);		//3	//9:23
@@ -631,6 +507,7 @@ $(document).ready(function(){
 	//option_list_maker(result_DTO);
 	 
 	//하위 옵션 판단함수
+	var sel_price = "";
 	var user_selected = new Array();
 	var i = 0;
 	var amount_op;
@@ -683,6 +560,10 @@ $(document).ready(function(){
 						$('#amount_input').attr('max', amount_op);
 						$('#amount_input').removeAttr('disabled');
 						$('#p_code').val(result_DTO[index][result_DTO[index].length-1]);	//p_code 선택된거 넘겨줌
+						total_price = cost_list[index];
+						$('#totalPrice').html('￦ ' + Number(cost_list[index]).toLocaleString('en'));
+						$('#cost').html('￦ ' + Number(cost_list[index]).toLocaleString('en'));
+						$('#product_price').val(cost_list[index]);
 						//alert(index);
 						//alert(p_status[index]);
 						if(p_status[index] == 'Y'){
@@ -691,8 +572,6 @@ $(document).ready(function(){
 							$('#product_code').html($('#p_code').val() + ' (품절)').css('color', 'red');
 							$('#amount_input').prop('disabled', true);
 							$('#amount_input').val('0');
-							
-							
 						}
 						
 					}
@@ -709,7 +588,6 @@ $(document).ready(function(){
 		
 	}
 	
-
 	
 	//선택한값 삭제 함수
 	function arr_clear(start_num){
@@ -734,6 +612,9 @@ $(document).ready(function(){
 		//{블랙, 미디움, 11}
 		reset($(this).prev().val());	
 		option_list_maker($(this).val(), $(this).prev().val()); 
+		/* if($(this).attr('id') == 'option_select'+option_length){
+			alert($(this).attr('id'));
+		} */
 		
 	});
 		
@@ -763,7 +644,7 @@ $(document).ready(function(){
 			'</dl>'+
 		'</li>';
 	
-	var total_price = Number("${productDTO.p_cost}");
+	//var total_price = Number("${productDTO.p_cost}");	//수정필여
 		
 	
 	
@@ -838,6 +719,62 @@ $(document).ready(function(){
 	}
 	
 	//alert(option_length);
+	//장바구니 버튼
+	$('#basketBtn').on('click',function(){
+		var no_order = 0;
+		for(var i = 1; i < option_length+1; i++){
+			var temp = 'option_select'+i;
+			if($('#'+temp).val() == '옵션선택'){
+				no_order++;
+			}
+		}
+		
+    	if(no_order != 0 ){
+			alert("옵션을 선택해주세요");						
+		}else if($('#amount_input').val() == '' || $('#amount_input').val() < 0){
+			alert("수량을 선택해주세요");
+		}else if($('#amount_input').val() == '0'){
+			alert("품절된 상품입니다");
+		}else{
+			$('#basketModal').modal({backdrop: 'static', keyboard: false});
+			var session_email = $('#session_email').val();
+			var option_select1 = $('#option_select1').val();
+			var option_select2 = $('#option_select2').val();
+		    var p_amount = $('#amount_input').val();
+		    var p_code = $('#p_code').val();
+		    //alert(p_code);
+		    
+		    
+		    $('#goBasket').click(function(){
+		    	if(session_email.length<=0){
+		    		$('#basketModal').modal({backdrop: 'static', keyboard: false});
+		        	$('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
+		    	    	  
+		        	//장바구니 비 로그인시
+		        	$('#detail_loginBtn').click(function(){
+		        		$('#basketModal_xBtn').trigger('click');
+		        		$('#non_loginCloseBtn').trigger('click');
+		        		$('#login_modal').modal({backdrop: 'static', keyboard: false});
+		    		});
+		        }else if(session_email.length>0){
+					alert("p_code : " + $('#p_code').val() + "성공");
+					$.ajax({
+		        		type : 'POST',
+		                url : '/MultiShop/cart/insert.do',
+		                data : {'p_code': p_code
+		                      ,'p_amount':p_amount},
+		                success : function(data){
+		                	//alert(JSON.stringify(data));
+		                	location.href="../cart/cart.do";
+		                },error : function(data){
+		                	alert("에러발생!!");
+		                }
+		        	});
+				}
+			});
+		}
+   });
+	
 	//구배버튼
 	$('#buyNowBtn').click(function(){
 			var session_email = $('#session_email').val();
@@ -868,7 +805,7 @@ $(document).ready(function(){
 				}else if($('#amount_input').val() == '0'){
 					alert("품절된 상품입니다");
 				}else{
-					//alert("p_code : " + $('#p_code').val() + "성공");
+					alert("p_code : " + $('#p_code').val() + "성공");
 					$('#detail_form').submit();
 				}
 		    }

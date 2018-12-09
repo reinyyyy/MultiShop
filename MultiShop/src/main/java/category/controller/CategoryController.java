@@ -178,11 +178,6 @@ public class CategoryController {
 		
 		//String[] option1_arr = new String[group_list.size()];
 		
-		for(ProductDTO prdDTO : group_list) {
-			if(prdDTO.getP_status().equals("N")) {
-				System.out.println("판매중지");
-			}
-		}
 		/*
 			같은 그룹의 옵션 이름은 모두 같기때문에 대표상품의 option의 길이만큼 for 돌게만들자
 			
@@ -216,14 +211,18 @@ public class CategoryController {
 		
 		System.out.println("그룹들사이즈 : " + group_list.size());
 		int[] amount_list = new int[group_list.size()];
+		int[] cost_list = new int[group_list.size()];
 		for(int i = 0; i < group_list.size(); i++) {
 			amount_list[i] = group_list.get(i).getP_amount();
+			cost_list[i] = group_list.get(i).getP_cost();
 		}
 		System.out.println("amount_list : " + amount_list);
+		
+		
 		model.addAttribute("amount_list", amount_list);
 		model.addAttribute("productDTO", productDTO);
 		model.addAttribute("group_list", group_list);
-		
+		model.addAttribute("cost_list", cost_list);
 		
 		System.out.println(map.get("p_code"));
 		return "/category/categoryQuickView";

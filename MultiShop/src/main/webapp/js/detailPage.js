@@ -33,45 +33,7 @@ $(document).ready(function(){
    
    
    //장바구니 버튼(a태그)
-   $('#basketBtn').on('click',function(){
-      var session_email = $('#session_email').val();
-      var option_select1 = $('#option_select1').val();
-      var option_select2 = $('#option_select2').val();
-      var p_amount = $('#amount_input').val();
-      var p_code = $('#p_code').val();
-      //alert(p_code);
-      $('#basketModal').modal({backdrop: 'static', keyboard: false});
-      
-      $('#goBasket').click(function(){
-    	  if(session_email.length<=0){
-    		  
-        	  $('#detail_nonLoginModal').modal({backdrop: 'static', keyboard: false});
-    	    	  
-        	  //장바구니 비 로그인시
-        	  $('#detail_loginBtn').click(function(){
-        		  $('#basketModal_xBtn').trigger('click');
-        		  $('#non_loginCloseBtn').trigger('click');
-        		  $('#login_modal').modal({backdrop: 'static', keyboard: false});
-    		  });
-          }else if(session_email.length>0){
-        	  $.ajax({
-        		  type : 'POST',
-                  url : '/MultiShop/cart/insert.do',
-                  data : {'p_code': p_code
-                        ,'p_amount':p_amount},
-                  success : function(data){
-                  	//alert(JSON.stringify(data));
-                	  location.href="../cart/cart.do";
-                  },error : function(data){
-                	  alert("에러발생!!");
-                  }
-               
-        	  });
-          }
-    	  
-      });
-      
-   });
+   
    
    //바로구매 버튼(a태그)
    /*

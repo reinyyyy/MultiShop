@@ -135,7 +135,7 @@
 	<div id="jb-container">
 		
 		<!-- 좌측 사이드 메뉴바 -->
-		<div id="jb-sidebar">
+		<div id="jb-sidebar" class = "jb-absolute">
 			<div id="accordion" role="tablist">
 				<div class="card_ 3">
 					<div class="card-header" role="tab" id="headingOne"
@@ -304,15 +304,51 @@
 					}
 				});
 			});
-
-			var jbOffset = $('#jb-sidebar').offset();
-
+//195 
+			var sidebar_top = $('#jb-sidebar').offset().top;
+			
 			$(window).scroll(function() {
-				if ($(document).scrollTop() > jbOffset.top) {
-					$('#jb-sidebar').attr('id', 'jb-fixed');
-				} else {
-					$('#jb-fixed').attr('id', 'jb-sidebar');
+				test = $('#jb-sidebar').height() + $('#jb-sidebar').offset().top;
+				
+				if($(document).scrollTop() > sidebar_top){
+					if($('#jb-sidebar').offset().top - $(document).scrollTop() >= 195){
+						$('#jb-sidebar').removeClass('jb-bottom').addClass('jb-fixed');
+						return;
+					}
+					if(test >= $('#jb-content').height()){
+						$('#jb-sidebar').removeClass('jb-fixed').addClass('jb-bottom');
+						return;
+					}
+					$('#jb-sidebar').addClass('jb-fixed').removeClass('jb-absolute');
+				}else{
+					$('#jb-sidebar').addClass('jb-absolute').removeClass('jb-fixed');
 				}
+				
+				
+				
+				
+				
+				/* 
+				if ($(document).scrollTop() > jbOffset.top) {
+					test = $('#jb-sidebar').height() + $('#jb-sidebar').offset().top;
+					
+					alert($('#jb-sidebar').attr('class'));
+					
+					if($('#jb-sidebar').attr('class') == 'jb-bottom'){
+						$('#jb-sidebar').addClass('jb-fixed').removeClass('jb-bottom');
+					}
+					
+					if(test >= $('#jb-content').height()){
+						$('#jb-sidebar').removeClass('jb-fixed').addClass('jb-bottom');
+					}
+					//$('#jb-sidebar').attr('id', 'jb-fixed');
+				}  else {
+					//$('#jb-fixed').attr('id', 'jb-sidebar');
+					alert("요기들어옴");
+					$('#jb-sidebar').addClass('jb-absolute').removeClass('jb-fixed');
+				} */
+				
+				
 			});
 
 			//1 : food , 2 : tech, 3 : clothes
