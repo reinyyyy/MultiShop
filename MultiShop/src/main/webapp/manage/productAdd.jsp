@@ -159,7 +159,7 @@
     
     
     <!-- ======================= 가격 시작 ======================= -->
-    <div class="sect-hd">
+    <%-- <div class="sect-hd">
         <h3>가격</h3>
         <a href="#" class="btn-arrow">닫기</a>
     </div><!-- .sect-hd -->
@@ -185,7 +185,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> --%>
     <!-- ======================= 가격 종료 ======================= -->
     
     
@@ -289,18 +289,37 @@
 					<tbody>
 					<tr>
 						<th>옵션 선택</th>
-						<td><label><input type="radio"  class = "option_check" name = "option_check"value="Y" checked="checked" ><span>사용함</span></label>
+						<td>
+							<label><input type="radio"  class = "option_check" name = "option_check"value="Y" checked="checked" ><span>사용함</span></label>
 							<label><input type="radio" class = "option_check" name = "option_check"value="N"><span>사용안함</span></label>
-							</td>
+						</td>
 					</tr>
 					<tr id = "option_no_tr">
-					 	<th>재고<span class="fc-red">*</span></th>
+					 	<!-- <th>재고<span class="fc-red">*</span></th>
 					 	<td>
 							<input class = "need_check_input only_number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" type="text" id = "no_p_amount" name="p_amount[]" placeholder="재고 " value="" maxlength = "7">
 							<div id = "no_p_amount_div"></div>
 						</td>
+						<th>가격<span class="fc-red">*</span></th>
+						<td>	가격
+							<input class = "need_check_input num_only" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" type="text" id = "p_cost_list" name="p_cost[]_list" placeholder="가격 " value="" maxlength = "7">
+							<div id = "ok_p_cost_div"></div>
+						</td> -->
+						<th>
+							재고<span class="fc-red">*</span>
+						</th>
 						<td>
+							<input class = "need_check_input only_number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" type="text" id = "no_p_amount" name="p_amount[]" placeholder="재고 " value="" maxlength = "7">
+							<div id = "no_p_amount_div"></div>
 						</td>
+						<th>
+							가격<span class="fc-red">*</span>
+						</th>
+						<td>	<!-- 가격 -->
+							<input class = "need_check_input num_only" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" type="text" id = "no_p_cost_list" name="p_cost" placeholder="가격 " value="" maxlength = "7">
+							<div id = "no_p_cost_div"></div>
+						</td>
+									
                    </tr>
 					<tr id = "option_ok_tr" class="opt-select js-optResetTrue bg-yellow is-pc-row" is-opt="false" style="display: table-row;">
 						<td colspan="2">
@@ -308,9 +327,10 @@
 								<!-- 옵션 설정 테이블 시작 -->
 								<table id="add_mix_option">
 								<colgroup>
+									<col style = "width : 35%">
+									<col style = "width : 35%">
 									<col><!-- 없으면 테이블 레이아웃깨짐 -->
 									<col><!-- 없으면 테이블 레이아웃깨짐 -->
-									<col style="width: 100px"><!-- 없으면 테이블 레이아웃깨짐 -->
 								</colgroup>
 								<thead>
 								<tr>
@@ -322,6 +342,9 @@
 									</th>
 									<th>
 										재고<span class="fc-red">*</span>
+									</th>
+									<th>
+										가격<span class="fc-red">*</span>
 									</th>
 									<th style="width: 10%">
 										<a href="javascript:void(0)" class="btn-add-opt">
@@ -344,6 +367,10 @@
 									<td>
 										<input class = "need_check_input num_only" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" type="text" id = "p_amount" name="p_amount[]_list" placeholder="재고 " value="" maxlength = "7">
 										<div id = "ok_p_amount_div"></div>
+									</td>
+									<td>	<!-- 가격 -->
+										<input class = "need_check_input num_only" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(^0+)/, '');" type="text" id = "p_cost_list" name="p_cost[]_list" placeholder="가격 " value="" maxlength = "7">
+										<div id = "ok_p_cost_div"></div>
 									</td>
 									<td style="width : 10%">
 										<a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a>
@@ -600,6 +627,7 @@ $(document).ready(function(){
 		'<td><input type = "text" name = "p_option1[]" placeholder = "옵션명을 입력하세요. (예시: 색상/사이즈)"></td>' +
 		'<td><input type = "text" name = "p_option2[]" placeholder = "옵션값을 입력하세요. (예시: red/m)"></td>' +
 		'<td><input type = "text" name = "p_amount[]_list" placeholder = "재고 " value = ""></td>' + 
+		'<td><input class = "need_check_input num_only" oninput="this.value = this.value.replace(/[^0-9.]/g, \'\').replace(/(\\..*)\./g, \'$1\').replace(/(^0+)/, \'\');" type="text" id = "p_cost_list" name="p_cost[]_list" placeholder="가격 " value="" maxlength = "7"></td>'+
 		'<td style = "width : 10%"><a href="javascript:void(0)" class="btn-del-opt"><img src="//image.makeshop.co.kr/mysoho/assets/admin/images/btn/h43_delete.png" alt="삭제" style="width:30px"></a></td>' +
 		'</tr>'
 		;
@@ -656,7 +684,7 @@ $(document).ready(function(){
 	});
 
 		//키입력이벤트		상품명, 제조사, 원산지
-		$('.need_check_input').keydown(function(){
+		$(document).on('keydown keyup', '.need_check_input', function(){
 	        if ($(this).val().length > $(this).attr('maxlength')) {
 				 $(this).val($(this).val().substr(0, $(this).attr('maxlength')));
 			}
@@ -725,7 +753,7 @@ $(document).ready(function(){
 			$('#p_smallCate').html("<option value = '0'>-- 3차 선택 --</option>");
 			var select = "<option value='0'>-- 2차 선택 --</option>";
 			if($(this).val() == 1){
-				select += optionMaker(['Carbohydrate', 'Protein', 'Fat', 'Vitamin', 'Spice']);
+				select += optionMaker(['Carbohydrate', 'Protein', 'Fat', 'Fruit', 'Spice']);
 				$('#p_midCate').html(select);
 			}else if($(this).val() == 2){
 				select += optionMaker(['Auido/Video', 'Game', 'Smart Watch', 'Drone', 'TV', 'Laptop/Computer HardWare']);
@@ -754,8 +782,9 @@ $(document).ready(function(){
 				}else if ($(this).val() == 'Fat'){
 					select += optionMaker(['유류', '견과류', '인스턴트']);
 					$('#p_smallCate').html(select);
-				}else if ($(this).val() == 'Vitamin'){
-					select += optionMaker(['종합 비타민', '남성용', '여성용', '과일']);
+				}else if ($(this).val() == 'Fruit'){
+//					select += optionMaker(['종합 비타민', '남성용', '여성용', '과일']);
+					select += optionMaker(['과일']);
 					$('#p_smallCate').html(select);
 				}else if ($(this).val() == 'Spice'){
 					select += optionMaker(['화학 조미료', '천연 조미료', '기타 향신료']);
@@ -811,12 +840,14 @@ $(document).ready(function(){
     	$('#p_name_div').empty();
     	$('#p_maker_div').empty();
     	$('#p_origin_div').empty();
-    	$('#p_cost_div').empty();
+    	//$('#p_cost_div').empty();
     	$('#img_div').empty();
     	$('#p_option1_div').empty();
     	$('#p_option2_div').empty();
     	$('#ok_p_amount_div').empty();
     	$('#no_p_amount_div').empty();
+    	$('#no_p_cost_div').empty();
+    	$('#img_detail_div').empty();
     	
     	
     	
@@ -842,9 +873,9 @@ $(document).ready(function(){
 			$('#p_maker_div').text('제조사를 입력하세요').css('color', 'red').css('font-size', '9pt');
 		}else if($('#p_origin').val() == ''){
 			$('#p_origin_div').text('원산지를 입력하세요').css('color', 'red').css('font-size', '9pt');
-		}else if($('#p_cost').val() == 0 || $('p_cost').val() < 0){
+		}/* else if($('#p_cost').val() == 0 || $('p_cost').val() < 0){
 			$('#p_cost_div').text('판매가격을 입력하세요').css('color', 'red').css('font-size', '9pt');
-		}else if($('.main_img_cnt').text() == 0){															//맨앞 하나만 체크해줌
+		}*/else if($('.main_img_cnt').text() == 0){															//맨앞 하나만 체크해줌
 			$('#img_div').text('대표이미지 선택하세요').css('color', 'red').css('font-size', '9pt');
 		}else if($('#p_option1').val() == '' && $('input:radio[name=option_check]:checked').val() == 'Y'){
 			$('#p_option1_div').text('옵션명을 입력하세요').css('color', 'red').css('font-size', '9pt');
@@ -854,10 +885,15 @@ $(document).ready(function(){
 			$('#ok_p_amount_div').text('재고를 입력하세요').css('color', 'red').css('font-size', '9pt');	
 		}else if($('#no_p_amount').val() == '' && $('input:radio[name=option_check]:checked').val() == 'N'){
 			$('#no_p_amount_div').text('재고를 입력하세요').css('color', 'red').css('font-size', '9pt');
+		}else if($('#no_p_cost_list').val() == '' && $('input:radio[name=option_check]:checked').val() == 'N'){
+			$('#no_p_cost_div').text('가격을 입력하세요').css('color', 'red').css('font-size', '9pt');
 		}else if($('.detail_img_cnt').text() == 0){															//맨앞 하나만 체크해줌
 			$('#img_detail_div').text('상세이미지를 선택하세요').css('color', 'red').css('font-size', '9pt');
 		}else{
-    		$('#product_form').submit();
+			var upload = confirm("상품을 등록하시겠습니까?");
+			if(upload){
+	    		$('#product_form').submit();
+			}
 		}
     });
     

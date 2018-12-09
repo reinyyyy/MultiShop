@@ -346,7 +346,7 @@
 		<h6>CarboHydrate(탄수화물)</h6>
 		<h6>&emsp;Protein(단백질)</h6>
 		<h6>&emsp;&emsp;Fat(지방)</h6>
-		<h6>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Vitamin(비타민)</h6>
+		<h6>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Fruit(과일)</h6>
 		<h6>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Spice(향신료)</h6>
 		<h5>으로 나뉘어 고객 입장에서 분류 및 구입하기 쉽게 분류 했습니다</h5>
     </div>
@@ -371,7 +371,7 @@
 						<p class="card-text">Price : $20</p>
 					</div>
 					<div class="card-footer">
-						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Vitamin" class="btn btn-success">Fruit 이동</a>
+						<a href="http://localhost:8080/MultiShop/category/categoryItemList.do?cateNum=1&p_midCate=Fruit" class="btn btn-success">Fruit 이동</a>
 					</div>
 				</div>
 			</div>
