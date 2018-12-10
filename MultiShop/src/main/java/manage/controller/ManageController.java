@@ -33,8 +33,8 @@ import notice.bean.QnaDTO;
 @RequestMapping("/manage")
 public class ManageController {
 	
-	private static final String UPLOAD_PATH = "C:\\Users\\Jonghun\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
-	//private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	//private static final String UPLOAD_PATH = "C:\\Users\\Jonghun\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	//private static final String UPLOAD_PATH = "C:\\Users\\jaewoo\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	//private static final String UPLOAD_PATH = "D:\\Spring\\workspace\\1\\MultiShop\\src\\main\\webapp\\upload";
 	
@@ -146,13 +146,16 @@ public class ManageController {
 	 @RequestMapping(value = "add", method=RequestMethod.POST)
 	   public ModelAndView add(@RequestParam("img[]") List<MultipartFile> list,
 	                     @RequestParam("img_detail[]") List<MultipartFile> detail_list,
-	                     //@ModelAttribute ProductDTO productDTO,
-	                     @RequestParam Map<String, String> map,
+	                     @RequestParam Map<String, String> map,	//가격, 이름
 	                     @RequestParam(value="p_option1[]") String[] p_option1_list,
 	                     @RequestParam(value="p_option2[]", required=false) String[] p_option2_list,
 	                     @RequestParam(value="p_amount[]", required=false) String p_amount,      //재고  옵션선택 x
 	                     @RequestParam(value="p_amount[]_list", required=false) String[] p_amount_list,    //재고 옵션선택 o 
+	                     @RequestParam(value="p_cost[]_list", required=false) Integer[] p_cost_list,
 	                     @RequestParam(value="p_contents") String p_contents){                  //jsp의 name 속성이름과 Product_DTO , Product_boardDTO 의 이름이 동일해야함..
+		 for(Integer data : p_cost_list) { 
+			 System.out.println("가격리스트 : " + data);
+		 }
 	      System.out.println("옵션 x " + p_amount);
 	      System.out.println("옵션 o " + p_amount_list);
 	      
@@ -210,13 +213,15 @@ public class ManageController {
 	        	 productDTO.setP_option1("");
 	        	 productDTO.setP_option2("");
 	        	 productDTO.setP_amount(Integer.parseInt(p_amount));
+	        	 productDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
 	         }else {                              //option 선택한경우
 	        	 productDTO.setP_option1(p_option1_list[i]);
 	        	 productDTO.setP_option2(p_option2_list[i]);
 	        	 productDTO.setP_amount(Integer.parseInt(p_amount_list[i]));
+	        	 productDTO.setP_cost(p_cost_list[i]);
 	         }
 	         
-	         productDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
+	         //productDTO.setP_cost(Integer.parseInt(map.get("p_cost")));
 	         productDTO.setP_status(map.get("p_status"));
 	         productDTO.setP_maker(map.get("p_maker"));
 	         productDTO.setP_origin(map.get("p_origin"));
@@ -278,7 +283,14 @@ public class ManageController {
 	      product_boardDTO.setP_code(seq); //dao묶음 풀기
 	      product_boardDTO.setP_contents(p_contents);
 	      product_boardDTO.setP_name(map.get("p_name"));
-	      product_boardDTO.setP_COST(Integer.parseInt(map.get("p_cost")));
+	      if(p_option1_list.length == 0 || p_option2_list.length == 0) {
+	    	  System.out.println("옵션선택안함 가격 : " + map.get("p_cost"));
+	    	  product_boardDTO.setP_COST(Integer.parseInt(map.get("p_cost")));
+	      }else {
+	    	  System.out.println("옵션선택함 가격 : " + p_cost_list[0]);
+	    	  product_boardDTO.setP_COST(p_cost_list[0]);
+	      }
+	      
 	      product_boardDTO.setP_image(p_image);
 	      //sysdate
 	      

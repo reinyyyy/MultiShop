@@ -33,7 +33,6 @@ $(document).ready(function(){
 				card_contents += card(items);
 			});
 			$('#card_contents').html(card_contents);
-			content_bottom = 100 + $('.jb-content').height;
 			$('.pagination').html(data.categoryPaging.pagingHTML);
 		}
 	});

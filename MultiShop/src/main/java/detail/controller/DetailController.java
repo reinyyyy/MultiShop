@@ -134,9 +134,12 @@ public class DetailController {
       
       //System.out.println("그룹들사이즈 : " + group_list.size());
       int[] amount_list = new int[group_list.size()];
-      for(int i = 0; i < group_list.size(); i++) {
-         amount_list[i] = group_list.get(i).getP_amount();
-      }
+		int[] cost_list = new int[group_list.size()];
+		for(int i = 0; i < group_list.size(); i++) {
+			amount_list[i] = group_list.get(i).getP_amount();
+			System.out.println("cost : " + group_list.get(i).getP_cost());
+			cost_list[i] = group_list.get(i).getP_cost();
+		}
       //System.out.println("amount_list : " + amount_list);
       System.out.println("p_code="+p_code);
       
@@ -145,6 +148,7 @@ public class DetailController {
       model.addAttribute("cateNum", cateNum);
       //model.addAttribute("product_boardDTO", product_boardDTO);
       model.addAttribute("amount_list", amount_list);
+      model.addAttribute("cost_list", cost_list);
       model.addAttribute("productDTO", productDTO);
       model.addAttribute("group_list", group_list);
 	  model.addAttribute("detailDTO", detailDTO);
