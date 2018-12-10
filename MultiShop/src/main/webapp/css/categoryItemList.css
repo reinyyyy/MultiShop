@@ -27,7 +27,10 @@
 	border: 1px solid #bcbcbc;
 	overflow: hidden;
 }
-
+#jb-content.m_jb-content {
+    width: calc(95% - 230px);
+    margin-left: 5%;
+}
 #jb-sidebar {
 	margin-bottom: 20px;
 	float: left;
@@ -172,27 +175,43 @@ a:visited {
 #card_contents {
 	margin: 0px 50px 0px 50px;
 }
-
+	
 @media ( max-width : 570px ) {
-	#jb-container {padding 0px;
-		width: auto;
-	}
-	#jb-content {
-		margin-left: 0px;
-		float: left;
-		width: auto;
-	}
-	#jb-sidebar, #jb-fixed, #jb-sidebar > * {
-		display: none; /* 모바일 크기에서 사이드바 사라지게함 영역까지 지움 */
-	}
-	.card {
-		padding: 1px;
-		margin: 10px;
-		float: none;
-		width: auto;
-		height: auto;
-	}
-	/* 카드의 board 는 상,하만 바꿔주면됨 */
-	#card_contents {
-		margin: 0px;
-	}
+   #jb-container {padding 0px;
+      width: auto;
+   }
+   #jb-content {
+      margin-left: 0px;
+      float: left;
+      width: auto;
+   }
+   #jb-content.m_jb-content {
+   	width: 100%;
+    margin: 0 auto;
+   }
+   
+   #jb-sidebar, #jb-fixed, #jb-sidebar > * {
+      display: none; /* 모바일 크기에서 사이드바 사라지게함 영역까지 지움 */
+   }
+   #jb-sidebar.m_jb-sidebar {
+      display:block !important;
+      position: relative;
+      width: 100%;
+   }
+   #jb-sidebar.m_jb-sidebar > * {
+      display:block !important;
+      position: relative;
+      width: 100%;
+   }
+   .card {
+      padding: 1px;
+      margin: 10px;
+      float: none;
+      width: auto;
+      height: auto;
+   }
+   /* 카드의 board 는 상,하만 바꿔주면됨 */
+   #card_contents {
+      margin: 0px;
+   }
+	

@@ -711,7 +711,7 @@ $(document).ready(function(){
 		$('#p_cateNum').on('change', function(){
 			var select = "<option value='0'>-- 2차 선택 --</option>";
 			if($(this).val() == 1){
-				select += optionMaker(['Carbohydrate', 'Protein', 'Fat', 'Vitamin', 'Spice']);
+				select += optionMaker(['Carbohydrate', 'Protein', 'Fat', 'Fruit', 'Spice']);
 				$('#p_midCate').html(select);
 			}else if($(this).val() == 2){
 				select += optionMaker(['Auido/Video', 'Game', 'Smart Watch', 'Drone', 'TV', 'Laptop/Computer HardWare']);
@@ -740,8 +740,8 @@ $(document).ready(function(){
 				}else if ($(this).val() == 'Fat'){
 					select += optionMaker(['유류', '견과류', '인스턴트']);
 					$('#p_smallCate').html(select);
-				}else if ($(this).val() == 'Vitamin'){
-					select += optionMaker(['종합 비타민', '남성용', '여성용', '과일']);
+				}else if ($(this).val() == 'Fruit'){
+					select += optionMaker(['과일']);
 					$('#p_smallCate').html(select);
 				}else if ($(this).val() == 'Spice'){
 					select += optionMaker(['화학 조미료', '천연 조미료', '기타 향신료']);

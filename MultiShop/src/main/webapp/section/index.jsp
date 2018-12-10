@@ -420,6 +420,10 @@
 <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	// 메인 사진 움직이게
+	$('.carousel').carousel({
+        interval: 3000
+   })
    //30% 할인 이벤트 팝업
    if(!checkPoupCookie("popname")){
       window.open("http://localhost:8080/MultiShop/main/eventPopup.html","30% Discount!","width=410, height=540, resizable=no, scrollbar=no, status=no, menubar=no, toolbar=no, location=no"); 

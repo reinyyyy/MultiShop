@@ -33,8 +33,8 @@ import notice.bean.QnaDTO;
 @RequestMapping("/manage")
 public class ManageController {
 	
-	//private static final String UPLOAD_PATH = "C:\\Users\\Jonghun\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
-	private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	private static final String UPLOAD_PATH = "C:\\Users\\Jonghun\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
+	//private static final String UPLOAD_PATH = "C:\\Users\\minggul\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	//private static final String UPLOAD_PATH = "C:\\Users\\jaewoo\\git\\MultiShop\\MultiShop\\src\\main\\webapp\\upload";
 	//private static final String UPLOAD_PATH = "D:\\Spring\\workspace\\1\\MultiShop\\src\\main\\webapp\\upload";
 	
@@ -470,6 +470,14 @@ public class ManageController {
    @RequestMapping(value="productDeleteJson", method=RequestMethod.POST)
    public @ResponseBody void productDeleteJson(@RequestParam Map<String, String> map) {
       manageDAO.productDeleteJson(map);
+   }
+   @RequestMapping(value="noticeDelete", method=RequestMethod.POST)
+   public @ResponseBody int noticeDelete(@RequestParam int seq) {
+     return manageDAO.noticeDelete(seq);
+   }
+   @RequestMapping(value="faqDelete", method=RequestMethod.POST)
+   public @ResponseBody int faqDelete(@RequestParam int seq) {
+      return manageDAO.faqDelete(seq);
    }
   
    

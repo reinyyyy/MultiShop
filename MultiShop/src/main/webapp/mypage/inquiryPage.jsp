@@ -87,7 +87,7 @@ a.cursor:hover {
 	<div class="row" style="min-height: 200px; margin: 0 0 30px 0; padding: 0 10px; position: relative;">
 			
 		<!-- 좌측 사이드 메뉴바 -->
-		<div id="jb-sidebar">
+		<div id="jb-sidebar" class="m_jb-sidebar">
 			<div id="accordion" role="tablist">
 				<div class="card_">
 					<div class="card-header" role="tab" id="headingOne" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -100,13 +100,14 @@ a.cursor:hover {
 							<a class="cursor" id="mypage_member_modifyBtn">회원정보수정</a></br>
 							<a class="cursor" id="mypage_deleveryBtn">주문배송조회</a></br>
 							<a class="cursor" id="mypage_inquiryBtn">나의 1:1 문의</a></br>
+							<a class="cursor" id="mypage_withdrawalBtn">회원탈퇴</a></br>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 센터 내용 영역 -->
-		<div id="jb-content" class="border-0">
+		<div id="jb-content" class="border-0 m_jb-content">
 			<!-- 컨텐츠 내용 영역 -->
 			<div style="text-align:center;">
             	<i class="fas fa-user-clock fa-3x"></i>

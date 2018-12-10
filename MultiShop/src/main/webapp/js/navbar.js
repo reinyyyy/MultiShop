@@ -251,7 +251,37 @@ $(document).ready(function(){
    $('#mypage_member_modifyBtn').on('click',function(){
 		location.href="../mypage/membermodifyconfirmForm.do";
 	});
-   
+   $('#mypage_withdrawalBtn').on('click',function(){
+	      location.href="../mypage/withdrawalPage.do";
+	   });
+	   $('#member_withdrawal_confirm_Btn').on('click',function(){
+	         var pwd = $('#member_modify_pwd');
+	         if(pwd.val()==''){
+	            $('#member_modify_statusDiv').text('비밀번호를 입력해주세요').css('color','red');
+	         }else{
+	            $.post('/MultiShop/mypage/membermodifyconfirm.do',
+	                  $('#member_modify_confirm_form').serialize(),
+	                  function(data){
+	                     if(data=='true'){
+	                        if(confirm("정말로 탈퇴하시겠습니까?")){
+	                          $.post('/MultiShop/mypage/withdrawal.do',
+	                                function(data){
+	                                      if(data=='1'){
+	                                         alert('탈퇴되었습니다.');
+	                                             $.post('/MultiShop/member/logout.do',
+	                                                   function(data){
+	                                                location.href='/MultiShop/main/index.do';
+	                                             })
+	                                      }
+	                                   }
+	                          );
+	                       }
+	                     }else{
+	                        $('#member_modify_statusDiv').text('비밀번호가 맞지않습니다').css('color','red');
+	                     }
+	            },'text');
+	         }
+	      });
    /* member modify */
    
    $('#member_modify_confirm_Btn').on('click',function(){

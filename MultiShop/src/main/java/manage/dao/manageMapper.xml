@@ -154,6 +154,12 @@
 	 <insert id="faqInsert" parameterType="Map">
  		insert into qnatable values(qnatable_SEQ.nextval,#{q_subject},#{q_content},sysdate)
 	 </insert>
+	 <delete id="noticeDelete" parameterType="int">
+       delete notice where n_number = #{seq}
+    </delete>
+    <delete id="faqDelete" parameterType="int">
+       delete qnatable where q_number = #{seq}
+    </delete>
    
 </mapper>  
 

@@ -757,7 +757,6 @@ $(document).ready(function(){
 		        		$('#login_modal').modal({backdrop: 'static', keyboard: false});
 		    		});
 		        }else if(session_email.length>0){
-					alert("p_code : " + $('#p_code').val() + "성공");
 					$.ajax({
 		        		type : 'POST',
 		                url : '/MultiShop/cart/insert.do',

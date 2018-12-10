@@ -80,5 +80,12 @@ public class MemberDAOMybatis implements MemberDAO{
 		
 		return sqlSession.selectList("memberSQL.selectCoupon",m_email);
 	}
+	
+	@Override
+	   public int memberWithdrawl(String m_email) {
+	      sqlSession.delete("memberSQL.inquiryDelete", m_email);
+	      sqlSession.delete("memberSQL.orderDelete", m_email);
+	      return sqlSession.delete("memberSQL.memberWithdrawl", m_email);
+	   }
 
 }

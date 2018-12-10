@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <table id="faq_list_table" style="width: 100%;">
-	<thead>
-		<tr>
-			<th>faq번호</th>
-			<th>제목</th>
-			<th>내용</th>
-			<th>등록일</th>
-		</tr>
-	</thead>
+   <thead>
+      <tr>
+         <th>faq번호</th>
+         <th>제목</th>
+         <th>내용</th>
+         <th>등록일</th>
+         <th>삭제</th>
+      </tr>
+   </thead>
 </table>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
@@ -22,7 +23,16 @@ $(document).ready(function() {
              {"data": "q_number"},
              {"data": "q_subject"},
              {"data": "q_content"},
-             {"data": "q_date"}
+             {"data": "q_date"},
+             {"data": "q_number"}
+         ],
+         "columnDefs": [
+             {
+                "render": function(data){
+                   return '<button class="faq_delete">삭제</button>';
+                },
+                "targets": 4
+             }
          ],
          responsive: true,
          "ordering": false,
@@ -44,5 +54,19 @@ $(document).ready(function() {
              }
          }
     }); 
+   $('#faq_list_table').on('click','.faq_delete',function(){
+      var faq_number = $(this).parent().prev().prev().prev().prev().text();
+      if(confirm('선택하신 내용을 삭제하시겠습니까?')){
+            $.post('/MultiShop/manage/faqDelete.do',
+                  {"seq":faq_number},
+                  function(data){
+                     if(data=='1'){
+                        alert('삭제되었습니다.');
+                        location.reload();
+                     }
+                  });
+         
+      }
+   });
 });
 </script>

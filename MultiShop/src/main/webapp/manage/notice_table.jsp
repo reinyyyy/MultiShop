@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <table id="notice_list_table" style="width: 100%;">
-	<thead>
-		<tr>
-			<th>공지번호</th>
-			<th>제목</th>
-			<th>내용</th>
-			<th>등록일</th>
-		</tr>
-	</thead>
+   <thead>
+      <tr>
+         <th>공지번호</th>
+         <th>제목</th>
+         <th>내용</th>
+         <th>등록일</th>
+         <th>삭제</th>
+      </tr>
+   </thead>
 </table>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
@@ -22,7 +23,16 @@ $(document).ready(function() {
              {"data": "n_number"},
              {"data": "n_subject"},
              {"data": "n_content"},
-             {"data": "n_date"}
+             {"data": "n_date"},
+             {"data": "n_number"}
+         ],
+         "columnDefs": [
+             {
+                "render": function(data){
+                   return '<button class="notice_delete">삭제</button>';
+                },
+                "targets": 4
+             }
          ],
          responsive: true,
          "ordering": false,
@@ -44,5 +54,20 @@ $(document).ready(function() {
              }
          }
     }); 
+   
+   $('#notice_list_table').on('click','.notice_delete',function(){
+      var notice_number = $(this).parent().prev().prev().prev().prev().text();
+      if(confirm('선택하신 내용을 삭제하시겠습니까?')){
+            $.post('/MultiShop/manage/noticeDelete.do',
+                  {"seq":notice_number},
+                  function(data){
+                     if(data=='1'){
+                        alert('삭제되었습니다.');
+                        location.reload();
+                     }
+                  });
+         
+      }
+   });
 });
 </script>

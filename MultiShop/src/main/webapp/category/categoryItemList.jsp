@@ -205,6 +205,35 @@
 		<!-- 센터 내용 영역 -->
 		<div id="jb-content">
 		<!-- 상단 히스토리 바 -->
+		<div id="carouselExampleIndicators" class="carousel slide"
+            data-ride="carousel">
+            <ol class="carousel-indicators">
+               <li data-target="#carouselExampleIndicators" data-slide-to="0"
+                  class="active"></li>
+               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+                  <img class="d-block w-100" src="../image/timberland.jpg" alt="First slide">
+               </div>
+               <div class="carousel-item">
+                  <img class="d-block w-100" src="../image/techcategory.jpg" alt="Second slide">
+               </div>
+               <div class="carousel-item">
+                  <img class="d-block w-100" src="../image/foodcategory.png" alt="Third slide">
+               </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators"
+               role="button" data-slide="prev"> <span
+               class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+               class="sr-only">Previous</span>
+            </a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+               role="button" data-slide="next"> <span
+               class="carousel-control-next-icon" aria-hidden="true"></span> <span
+               class="sr-only">Next</span>
+            </a>
+         </div>
 		<%-- 	<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb">
 					<!-- 사용자 클릭히스토리로 동적 처리필요 -->

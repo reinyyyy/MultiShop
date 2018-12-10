@@ -167,4 +167,13 @@ public class ManageMybatis implements ManageDAO {
 	public int faqInsert(Map<String, String> map) {
 		return sqlSession.insert("manageSQL.faqInsert",map);
 	}
+	@Override
+   public int noticeDelete(int seq) {
+      return sqlSession.delete("manageSQL.noticeDelete",seq);
+   }
+
+   @Override
+   public int faqDelete(int seq) {
+      return sqlSession.delete("manageSQL.faqDelete",seq);
+   }
 }

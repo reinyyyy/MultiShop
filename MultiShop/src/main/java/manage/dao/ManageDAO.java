@@ -85,4 +85,6 @@ public interface ManageDAO {
 	//faq입력
 	public int faqInsert(Map<String,String> map);
 	
+	public int noticeDelete(int seq);
+	   public int faqDelete(int seq);
 }

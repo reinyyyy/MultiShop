@@ -220,7 +220,7 @@
 		                           <a class="dropdown-item" href="#">Carbohydrate</a>
 		                           <a class="dropdown-item" href="#">Protein</a>
 		                           <a class="dropdown-item" href="#">Fat</a>
-		                           <a class="dropdown-item" href="#">Vitamin</a>
+		                           <a class="dropdown-item" href="#">Fruit</a>
 		                           <a class="dropdown-item" href="#">Spice</a>
 		                        </ul></li>	                     
 		                  </ul>                	                    

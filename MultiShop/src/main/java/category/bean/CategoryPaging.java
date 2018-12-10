@@ -29,24 +29,24 @@ public class CategoryPaging {
 		
 		if(startPage > pageBlock) {
 			//pagingHTML.append("[<a id='paging' onclick='categoryList("+(startPage-1)+")'>이전</a>]");
-			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+(startPage-1)+")' tabindex=\"-1\">이전</a></li>");
+			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList_go("+(startPage-1)+",  "+pageSize+")' tabindex=\"-1\">이전</a></li>");
 		}else {
-			pagingHTML.append("<li class=\"page-item disabled\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+(startPage-1)+")' tabindex=\"-1\">이전</a></li>");
+			pagingHTML.append("<li class=\"page-item disabled\"><a class=\"page-link\" href=\"#\" onclick='categoryList_go("+(startPage-1)+",  "+pageSize+")' tabindex=\"-1\">이전</a></li>");
 		}
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
 				//pagingHTML.append("[<a id='currentPaging' onclick='categoryList("+i+")'>"+i+"</a>]");
-				pagingHTML.append("<li class=\"page-item active\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+i+")'>"+i+ 
+				pagingHTML.append("<li class=\"page-item active\"><a class=\"page-link\" href=\"#\" onclick='categoryList_go("+i+", "+pageSize+")'>"+i+ 
 						"									<span class=\"sr-only\">(current)</span>\n" + 
 						"							</a></li>");
 			else
 //				pagingHTML.append("[<a id='paging' onclick='categoryList("+i+")'>"+i+"</a>]");
-				pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+i+")'>"+i+"</a></li>");
+				pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList_go("+i+", "+pageSize+")'>"+i+"</a></li>");
 		}
 		
 		if(endPage < totalP)
 			//pagingHTML.append("[<a id='paging' onclick=categoryList("+(endPage+1)+"'>다음</a>]");
-			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\"onclick='categoryList("+(endPage+1)+")'>다음</a></li>");
+			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\"onclick='categoryList_go("+(endPage+1)+", "+pageSize+")'>다음</a></li>");
 	}
 
 	public void makeSearchPagingHTML() {
@@ -60,21 +60,21 @@ public class CategoryPaging {
 		if(endPage > totalP) endPage = totalP;
 		
 		if(startPage > pageBlock) {
-			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+(startPage-1)+", \""+p_name+"\")' tabindex=\"-1\">이전</a></li>");
+			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+(startPage-1)+", \""+p_name+"\", "+pageSize+")' tabindex=\"-1\">이전</a></li>");
 		}else {
-			pagingHTML.append("<li class=\"page-item disabled\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+(startPage-1)+", \""+p_name+"\")' tabindex=\"-1\">이전</a></li>");
+			pagingHTML.append("<li class=\"page-item disabled\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+(startPage-1)+", \""+p_name+"\", "+pageSize+")' tabindex=\"-1\">이전</a></li>");
 		}
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("<li class=\"page-item active\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+i+",\""+p_name+"\")'>"+i+ 
+				pagingHTML.append("<li class=\"page-item active\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+i+",\""+p_name+"\", "+pageSize+")'>"+i+ 
 						"									<span class=\"sr-only\">(current)</span>\n" + 
 						"							</a></li>");
 			else
-				pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+i+",\""+p_name+"\")'>"+i+"</a></li>");
+				pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick='categoryList("+i+",\""+p_name+"\", "+pageSize+")'>"+i+"</a></li>");
 		}
 		
 		if(endPage < totalP)
-			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\"onclick='categoryList("+(endPage+1)+",\""+p_name+"\")'>다음</a></li>");
+			pagingHTML.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\"onclick='categoryList("+(endPage+1)+",\""+p_name+"\", "+pageSize+")'>다음</a></li>");
 		
 	}
 }

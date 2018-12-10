@@ -35,9 +35,16 @@ public class MypageController {
    @Autowired
    private InquiryDTO inquiryDTO;
    
+   
+   
    @RequestMapping(value="/mypage/mypage.do", method=RequestMethod.GET)
-      public ModelAndView mypage(@ModelAttribute ModelAndView mav) {
-         mav.addObject("section","/mypage/mypage.jsp");
+      public ModelAndView mypage(@ModelAttribute ModelAndView mav, HttpSession session) {
+         
+		  String email = (String) session.getAttribute("session_email");
+	      memberDTO = memberDAO.getZipcode(email);
+	      mav.addObject("m_point",memberDTO.getM_point());
+	   
+	   	 mav.addObject("section","/mypage/mypage.jsp");
          mav.setViewName("/main/main");
          return mav;
       }
@@ -121,4 +128,16 @@ public class MypageController {
 			return "false";
 		}
 	}
+	
+	@RequestMapping(value="/mypage/withdrawalPage.do",method=RequestMethod.GET)
+	   public ModelAndView withdrawalPage(@ModelAttribute ModelAndView mav, HttpSession session) {
+	      mav.addObject("section","/mypage/withdrawal.jsp");
+	      mav.setViewName("/main/main");
+	      return mav;
+	   }
+	   @RequestMapping(value="/mypage/withdrawal.do",method=RequestMethod.POST)
+	   public @ResponseBody int withdrawal(HttpSession session) {
+	      String m_email = (String) session.getAttribute("session_email");
+	      return memberDAO.memberWithdrawl(m_email);
+	   }
 }

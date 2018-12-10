@@ -35,5 +35,5 @@ public interface MemberDAO {
 
 	public List<MemberDTO> selectCoupon(String m_email);
 
-	
+	public int memberWithdrawl (String m_email);
 }

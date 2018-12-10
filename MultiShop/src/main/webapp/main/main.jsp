@@ -66,6 +66,9 @@ select.search_optionClass {
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 5px;
 }
+.search_layout_area input[type=text].search_inputLayout {
+   width: calc( 100% - 132px ) !important;
+}
 </style>
 </head>
 <body>
@@ -171,7 +174,7 @@ select.search_optionClass {
 		</div>
 	
 	      <div class="top_mobile_nav">
-	         <nav class="navbar navbar-expand-lg navbar-dark navbar_bg">
+	         <nav class="navbar navbar-expand-lg navbar-expand-md navbar-dark navbar_bg">
 	            <div class="container">
 		            <div class="container">
 		            <div class="collapse navbar-collapse row"
@@ -181,17 +184,18 @@ select.search_optionClass {
 		                   <li class="nav-item dropdown hidden_nav_menu">
                                 <a class="dropdown-toggle text-secondary" data-toggle="dropdown" href="#" aria-expanded="false"> User </a>
                               <ul class="dropdown-menu" id="boardMenu" role="menu">
-                      			 <c:if test = "${m_email != null }">
-                                 	<a class="dropdown-item" id="login_navbar2">Login</a>
+                                <c:if test="${session_email == null}">
+                                    <a style="cursor:pointer;"class="dropdown-item" id="login_navbar2">Login</a>
+                                    <a style="cursor:pointer;"class="dropdown-item" data-backdrop="static" data-toggle="modal" data-target="#cart_nonmember">Shopping Basket</a>                      
+                                 </c:if>                                
+                                 <c:if test = "${session_email != null }">
+                                    <a style="cursor:pointer;"class="dropdown-item" id = "logout_navbar2">Logout</a>
+                                    <a style="cursor:pointer;"class="dropdown-item" id="member_modify_navbar2" href="http://localhost:8080/MultiShop/mypage/mypage.do">Profile</a>
+                                    <a style="cursor:pointer;"class="dropdown-item" id="basket_navbar2_member" href="http://localhost:8080/MultiShop/cart/cart.do">Shopping Basket</a>                                                         
                                  </c:if>
-                                 <c:if test = "${m_email == null }">
-                                	 <a class="dropdown-item" id = "logout_navbar2" href="#">Logout</a>
-                                 </c:if>
-                                 <a class="dropdown-item" href="#">Basket</a>
-                                 <a class="dropdown-item" href="#">WishList</a>
-                                 <a class="dropdown-item" href="#">SendMail</a>
-                                 <a class="dropdown-item" href="#">FAQ</a>
-                              </ul>
+                                 <a style="cursor:pointer; "class="dropdown-item" data-backdrop="static" data-toggle="modal" data-target="#send_email">SendMail</a>
+                                 <a style="cursor:pointer;" class="dropdown-item" href="http://localhost:8080/MultiShop/qna/qna.do">FAQ</a>
+                              </ul> 
                            </li>
 
 		                  <li class="nav-item dropdown">
@@ -233,19 +237,19 @@ select.search_optionClass {
 		                  </ul>                	                    
 			            </div>					
 			               <div class="search_area col-md-5" id="navbarResponsive">
-								<form class="form-inline float_right" action="#">
+								<form class="form-inline float_right search_layout_area" action="#">
 									<select name = "search_option" class="search_optionClass" id = "search_option">
 										<option value = "3"> Clothes </option>
 										<option value = "2"> Tech++ </option>
 										<option value = "1"> Food </option>
 									</select>
 									
-									<input class="form-control" name = "search_value" id = "search_value" type="text" value="${p_name}" placeholder="검색어 입력">
+									<input class="form-control search_inputLayout" name = "search_value" id = "search_value" type="text" value="${p_name}" placeholder="검색어 입력">
 									<input type = "text"  style="display:none">	<!--  엔터키 입력 방지 --> 
 									<button type="button" id = "search_btn" class="btn btn-primary" aria-label="left Align">
 										<i class="fa fa-search fa"></i>
 									</button>
-								</form>					
+								</form>		
 			               </div>			               
 		               </div>	
 		            </div>

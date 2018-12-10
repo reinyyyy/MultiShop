@@ -78,9 +78,7 @@ $(document).ready(function(){
          var detail_hoogiStar =  $('input[name="detail_hoogiStar"]:checked').val();
          var detail_hoogiModalContent = $('#detail_hoogiModalContent').val();
          var id = $('#session_email').val();
-         alert(id);
-         /*var p_code = $('#p_code').val();*/
-         var p_code = 1;
+         var p_code = $('#p_code').val();
          $.ajax({
             type : 'POST',
             url : '/MultiShop/detail_page/detail_hoogi.do',
@@ -121,8 +119,7 @@ $(document).ready(function(){
       }
       else{
          var id = $('#session_email').val();
-    	  /*var p_code = $('#p_code').val();*/
-    	  var p_code = 1;
+    	  var p_code = $('#p_code').val();
          var condition = $('input[name="detail_QnACondition"]:checked').val();
          var detail_QnASubject = $('#detail_QnASubject').val();
          var detail_QnAContent = $('#detail_QnAContent').val();
