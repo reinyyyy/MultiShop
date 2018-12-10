@@ -67,7 +67,7 @@
 						<td data-th="Quantity">
 								<div class="row">	
 								<div class="amount_change">
-									<input type="number" name="p_amount" id="p_amount" class="form-control text-center" value="${row.p_amount}" min="1">
+									<input type="number" name="p_amount" id="p_amount" class="form-control text-center" value="${row.p_amount}" min="1" >
 									<input type="hidden" name="p_code" value="${row.p_code}"/>
 							<!-- 	<div style="display: inline-block; width: 50%;">
 									<button type="button" id="up"class="btn btn-success" style="margin-left: 5px;"><i class="fas fa-caret-up"></i></button>

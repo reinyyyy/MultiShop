@@ -81,12 +81,18 @@ $(document).ready(function(){
 
 
 //페이지 이동
-function categoryList(pg, p_name){
+
+
+function categoryList_go(pg, pageSize){
+	//alert('페이지이동  : ' + $("#sortType").val());
+	location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+"&pageSize="+pageSize;
+}
+function categoryList(pg, p_name, pageSize){
 	//alert('페이지이동  : ' + $("#sortType").val());
 	if(p_name == undefined){
-		location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val();
+		location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val()+'&cateNum='+$('#cateNum').val()+"&pageSize="+pageSize;
 	}else{
-		location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val()+'&p_name='+p_name+'&cateNum='+$('#cateNum').val();
+		location.href='categoryItemList.do?pg='+pg+'&sortType='+$('#sortType').val()+'&p_name='+p_name+'&cateNum='+$('#cateNum').val()+"&pageSize="+pageSize;
 	}
 }
 
